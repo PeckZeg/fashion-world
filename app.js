@@ -32,7 +32,7 @@ app.use('/weixin', proxy('http://59.57.240.50:8090/', {
 }));
 
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('../public/index');
 });
 
 // glob.sync('*/', { cwd: './api' }).forEach(api => {

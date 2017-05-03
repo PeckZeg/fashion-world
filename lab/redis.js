@@ -1,18 +1,22 @@
 const redis = require('redis');
+const bluebird = require('bluebird');
+const createApiKey = require('../utils/api-key');
+const createSecretKey = require('../utils/secret-key');
+
+bluebird.promisifyAll(redis.RedisClient.prototype);
+bluebird.promisifyAll(redis.Multi.prototype);
+
+const NAME = 'PeckZeg';
+const PASSWORD = 'peckzeg65536:?{OX}';
+
+let apiKey = createApiKey(NAME, PASSWORD);
+let secretKey = createSecretKey(apiKey);
+
 const client = redis.createClient();
 
-client.on('error', err => {
-  console.error('Error', err);
-});
-
-client.set('string key', 'string val');
-client.hset("hash key", "hashtest 1", "some value", redis.print);
-client.hset(["hash key", "hashtest 2", "some other value"], redis.print);
-
-client.hkeys('hash key', (err, replies) => {
-  console.log(replies.length, 'replies:');
-  replies.forEach((reply, idx) => {
-    console.log('\t', `${idx}:`, reply);
-  })
+client.setAsync('foo', 123).then(res => {
+  return client.getAsync('foo');
+}).then(value => {
+  console.log(value);
   client.quit();
-})
+});
