@@ -1,0 +1,25 @@
+{
+  "name": "caa-mes-mock-server",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.16.0",
+    "consolidate": "^0.14.5",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.0",
+    "express": "~4.14.1",
+    "express-http-proxy": "^1.0.2",
+    "glob": "^7.1.1",
+    "lodash": "^4.17.4",
+    "mockjs": "^1.0.1-beta3",
+    "morgan": "~1.7.0",
+    "pug": "~2.0.0-beta10",
+    "redis": "^2.7.1",
+    "serve-favicon": "~2.3.2",
+    "swig": "^1.4.2",
+    "uuid": "^3.0.1"
+  }
+}
