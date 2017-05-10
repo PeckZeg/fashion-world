@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/weixin', proxy('http://59.57.240.50:8090/', {
   proxyReqPathResolver: req => {
     return `/weixin/${url.parse(req.url).path}`;
-  }
+  },
 }));
 
 app.get('/', (req, res) => {
