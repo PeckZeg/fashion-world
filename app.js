@@ -6,8 +6,9 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cons = require('consolidate');
 const glob = require('glob');
-const proxy = require('express-http-proxy');
+// const proxy = require('express-http-proxy');
 const url = require('url');
+const globalMixins = require('./utils/global-mixins');
 
 var app = express();
 
@@ -25,20 +26,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/weixin', proxy('http://59.57.240.50:8090/', {
-  proxyReqPathResolver: req => {
-    return `/weixin/${url.parse(req.url).path}`;
-  },
-}));
+// app.use('/weixin', proxy('http://59.57.240.50:8090/', {
+//   proxyReqPathResolver: req => {
+//     return `/weixin/${url.parse(req.url).path}`;
+//   },
+// }));
 
 app.get('/', (req, res) => {
   res.render('../public/index');
 });
 
-// glob.sync('*/', { cwd: './api' }).forEach(api => {
-//   api = api.match(/([^/]+)\/$/)[1];
-//   app.use(`/api/${api}`, require(`./api/${api}`));
-// });
+glob.sync('*/', { cwd: './api/admin' }).forEach(api => {
+  api = api.substring(0, api.length - 1);
+  app.use(`/api/admin/${api}`, require(`./api/admin/${api}`));
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

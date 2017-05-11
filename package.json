@@ -6,7 +6,9 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "app-root-path": "^2.0.1",
     "body-parser": "~1.16.0",
+    "colors": "^1.1.2",
     "consolidate": "^0.14.5",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.0",
@@ -15,11 +17,17 @@
     "glob": "^7.1.1",
     "lodash": "^4.17.4",
     "mockjs": "^1.0.1-beta3",
+    "moment": "^2.18.1",
+    "mongoose": "^4.9.8",
     "morgan": "~1.7.0",
     "pug": "~2.0.0-beta10",
     "redis": "^2.7.1",
+    "req-yaml": "^0.2.1",
     "serve-favicon": "~2.3.2",
     "swig": "^1.4.2",
     "uuid": "^3.0.1"
+  },
+  "devDependencies": {
+    "colors": "^1.1.2"
   }
 }
