@@ -26,9 +26,11 @@ field       | type     | example                                         | note
 `secretKey` | `string` | `pNDwncIirSD5T+7IZ+2jOEry/UKX5ab8HwLhjcYtGSk="` | 用户 secretKey
 `userId`    | `string` | `591961f92924bf503e10c948`                      | 用户编号
 `expiresIn` | `number` | `1494922184252`                                 | `apiKey` 和 `secretKey` 过期时间
-`user`      | `object` | `-`                                             | 用户信息，参见 [User Model](../models/user.md)
+`user`      | `object` | `-`                                             | 用户信息，参见 [User Model](../../models/user.md)
 
 ## Error Codes
+
+请求返回结果说明，可访问 [该处](../../response-format.md) 查看相应文档。
 
 code  | note
 :---- | :----------------------
