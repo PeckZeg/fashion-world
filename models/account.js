@@ -8,7 +8,7 @@ const { Schema, Types } = mongoose;
 const transform = toJSON();
 
 var schema = new Schema({
-  name: { type: String, required: true, unique: true, minlength: 3, maxLength: 15 },
+  name: { type: String, required: true, unique: true, minlength: 3, maxLength: 16 },
   password: { type: String, required: true },
   avatar: String,
   isActive: { type: Boolean, default: false },

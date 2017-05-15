@@ -36,10 +36,20 @@ app.get('/', (req, res) => {
   res.render('../public/index');
 });
 
-glob.sync('*/', { cwd: './api/admin' }).forEach(api => {
-  api = api.substring(0, api.length - 1);
-  app.use(`/api/admin/${api}`, require(`./api/admin/${api}`));
+glob.sync('*/', { cwd: './api' }).forEach(type => {
+  type = type.substring(0, type.length - 1);
+  glob.sync('*/', { cwd: `./api/${type}` }).forEach(name => {
+    name = name.substring(0, name.length - 1);
+    let api = type === 'client' ? `/api/${name}` : `/api/${type}/${name}`;
+
+    app.use(api, require(`./api/${type}/${name}`));
+  });
 });
+
+// glob.sync('*/', { cwd: './api/admin' }).forEach(api => {
+//   api = api.substring(0, api.length - 1);
+//   app.use(`/api/admin/${api}`, require(`./api/admin/${api}`));
+// });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
