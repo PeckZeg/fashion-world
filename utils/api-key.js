@@ -4,9 +4,9 @@ const uuid = require('uuid/v4');
 
 const SECRET = 'peckzeg-api-key';
 
-module.exports = (name, password) => {
+module.exports = (account) => {
   let algorithm = querystring.stringify({
-    name, password,
+    account: JSON.stringify(account),
     timestamp: new Date().toString(),
     uuid: uuid()
   });
