@@ -1,6 +1,6 @@
 const auth = require('../../../utils/access-keys/account/auth');
-const redis = reqlib('./redis/client');
-const cacheKey = reqlib('./utils/access-keys/account/cache-key');
+const client = reqlib('./redis/client');
+const cacheKey = reqlib('./utils/cacheKey')('account.login');
 
 const ACTION = config.apiActions['account.delete.logout'];
 
@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
 
   auth(authorization, ACTION)
     .then(keys => {
-      return redis.multi()
+      return client.multi()
         .del(cacheKey(keys.accountId))
         .del(cacheKey(keys.apiKey))
         .execAsync()

@@ -14,7 +14,6 @@ module.exports = (req, res, next) => {
     .then(params => User.findOne(params).exec())
     .then(user => new Promise((resolve, reject) => {
       if (!user) return reject(CaaError(400, 'name or password is invalid'));
-
       resolve(user);
     }))
     .then(account => createAccessKeys(account))

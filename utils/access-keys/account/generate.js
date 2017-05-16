@@ -1,7 +1,7 @@
 const createApiKey = require('../../api-key');
 const createSecretKey = require('../../secret-key');
 const client = require('../../../redis/client');
-const cacheKey = require('./cache-key');
+const cacheKey = reqlib('./utils/cacheKey')('account.login');
 
 const CACHE_DURATION = moment.duration(1, 'days');
 
