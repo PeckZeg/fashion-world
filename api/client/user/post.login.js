@@ -1,6 +1,6 @@
 const moment = require('moment');
 
-const User = reqlib('./models/user');
+const User = reqlib('./models/User');
 const validate = reqlib('./validate-models/client/user/login-params');
 const client = reqlib('./redis/client');
 const createAccessKeys = reqlib('./utils/access-keys/user/generate');

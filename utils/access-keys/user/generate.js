@@ -35,7 +35,7 @@ module.exports = user => new Promise((resolve, reject) => {
         .set(API_KEY_CACHE_KEY, keysJSON)
         .expire(API_KEY_CACHE_KEY, expireSeconds)
         .execAsync()
-        .then(() => Promise.resolve(Object.assign(keys, { user })))
+        .then(() => Promise.resolve(Object.assign(keys, { user })));
     })
     .then(keys => resolve(keys))
     .catch(err => reject(err));

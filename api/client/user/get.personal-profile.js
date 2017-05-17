@@ -1,5 +1,5 @@
 const auth = reqlib('./utils/access-keys/user/auth');
-const User = reqlib('./models/user');
+const User = reqlib('./models/User');
 const CaaError = reqlib('./utils/CaaError');
 
 const ACTION = config.apiActions['user.get.personal-profile'];
