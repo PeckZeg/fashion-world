@@ -1,17 +1,37 @@
+const path = require('path');
 const Client = require('ftp');
+const fs = require('fs');
 const client = new Client();
 
-client.on('ready', () => {
-  client.list('./FTV', (err, list) => {
-    if (err) throw err;
+const VIDEO_FOLDER = 'FTV';
 
-    console.dir(list);
-    client.end();
+let promise = new Promise((resolve, reject) => {
+  client.on('ready', resolve);
+  client.on('error', reject);
+  client.connect({
+    host: '172.16.0.11',
+    user: 'ftpuser',
+    password: 'abc.123'
   });
 });
 
-client.connect({
-  host: '172.16.0.11',
-  user: 'ftpuser',
-  password: 'abc.123'
-});
+promise
+  .then(() => new Promise((resolve, reject) => {
+    client.list(VIDEO_FOLDER, (err, list) => {
+      if (err) return reject(err);
+      resolve(list);
+    });
+  }))
+  .then(list => new Promise((resolve, reject) => {
+    const filename = list[1].name;
+    const src = path.join(VIDEO_FOLDER, filename);
+    const dest = path.join('/tmp', filename);
+
+    client.get(src, (err, stream) => {
+      if (err) return reject(err);
+
+      stream.once('close', () => client.end());
+      stream.pipe(fs.createWriteStream(dest));
+    });
+  }))
+  .catch(err => console.error(err));
