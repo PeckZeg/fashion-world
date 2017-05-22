@@ -7,4 +7,6 @@
   * [`POST` 登录（手机号、密码）](./api/user/post.login.md)
   * [`POST` 发送验证码](./api/user/post.create-verify-code.md)
   * [`POST` 创建用户](./api/user/post.create-user.md)
+  * [`POST` 发送重置密码验证码](./api/user/post.create-reset-password-verify-code.md)
+  * [`PUT` 重置用户密码](./api/user/put.reset-password.md)
   * [`DELETE` 用户登出](./api/user/delete.logout.md)
