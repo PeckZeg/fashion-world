@@ -5,6 +5,7 @@ name              | type     | required | limit                       | note
 `name`            | `string` | √        | 长度: `3~16`                | 昵称
 `gender`          | `number` | √        | 未知: `0`, 男: `1`, 女: `2` | 性别
 `mobile`          | `string` |          | 11 位数值                   | 数值
+`password`        | `string` |          |                             | **测试环境中暴露给接口** 密码
 `createAt`        | `date`   |          |                             | 创建时间
 `registerAt`      | `date`   |          |                             | 注册时间
 `source`          | `object` |          |                             | 源信息

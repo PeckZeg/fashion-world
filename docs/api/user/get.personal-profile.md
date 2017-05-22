@@ -14,7 +14,7 @@ key             | value                 | note
 
 ### Signature Authorization
 
-* Action: `user:logout`
+* Action: `user:personal-profile`
 
 关于算法请参见 [签名验证算法](../../signature-authorization.md)
 
