@@ -10,5 +10,25 @@ module.exports = {
       maxCountPerHour: 5,
       perMsgLiveCycle: 60 * 10000
     }
+  },
+
+  mongodb: {
+    host: 'localhost',
+    port: 27017,
+    database: 'fwdb_dev'
+  },
+
+  redis: {
+    database: 0
   }
 };
+
+if (process.env.NODE_DATABASE == 'test') {
+  module.exports.mongodb = {
+    host: 'localhost',
+    port: 27017,
+    database: 'fwdb_dev',
+    user: 'fwadmin',
+    pass: 'xmzc.123',
+  };
+}

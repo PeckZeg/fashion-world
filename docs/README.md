@@ -6,9 +6,4 @@
 
 ## 接口列表
 
-### 客户端
-
-* 用户 user
-  * [`GET` 获取个人资料](./api/user/get.personal-profile.md)
-  * [`POST` 登录（手机号、密码）](./api/user/post.login.md)
-  * [`DELETE` 登出](./api/user/delete.logout.md)
+[戳此进入](./api-list.md)

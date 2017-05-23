@@ -15,6 +15,4 @@ DB         | User      | Password
 
 ## Redis
 
-Password
-:----
-`xmzc.123`
+Password: `xmzc.123`
