@@ -7,7 +7,9 @@ const { Schema } = mongoose;
 let schema = new Schema({
   sha1: String,
   alias: String,
-  definition:{ type: String, enum: ['256p', '360p', '480p', '720p'] },
+  // definition:{ type: String, enum: ['256p', '360p', '480p', '720p'] },
+  width: Number,
+  height: Number,
   duration: Number,
   cover: String
 });

@@ -10,3 +10,8 @@
   * [`POST` 发送重置密码验证码](./api/user/post.create-reset-password-verify-code.md)
   * [`PUT` 重置用户密码](./api/user/put.reset-password.md)
   * [`DELETE` 用户登出](./api/user/delete.logout.md)
+* 视频
+  * [`GET` 获取频道分类列表](./api/video/get.get-channel-category-list.md)
+  * [`GET` 获取频道分类详情](./api/video/get.get-channel-category-profile.md)
+  * [`GET` 获取频道列表](./api/video/get.get-channel-list.md)
+  * [`GET` 获取频道详情](./api/video/get.get-channel-profile.md)

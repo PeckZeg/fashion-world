@@ -19,7 +19,8 @@ module.exports = {
   },
 
   redis: {
-    database: 0
+    database: 0,
+    password: 'xmzc.123'
   }
 };
 

@@ -6,7 +6,7 @@ const validateObjectId = reqlib('./utils/validate-objectid');
 
 module.exports = (req, res, next) => {
   const { channelId } = req.params;
-  
+
   Promise.resolve(channelId)
 
     // Validate `channelId`
@@ -24,7 +24,9 @@ module.exports = (req, res, next) => {
 
     // Query Channel Category
     .then(channel => new Promise((resolve, reject) => {
-      VideoChannelCategory.find({ channelId: channel._id })
+      VideoChannelCategory
+        .find({ channelId: channel._id })
+        .sort({ priority: -1 })
         .then(categories => {
           resolve(Object.assign(channel.toJSON(), { categories }));
         })
