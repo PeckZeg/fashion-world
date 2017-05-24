@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "forever start -c \"babel-node\" ./bin/www",
     "dev": "nodemon ./bin/www --exec babel-node"
   },
   "dependencies": {
@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
-    "colors": "^1.1.2"
+    "colors": "^1.1.2",
+    "forever": "^0.15.3"
   }
 }
