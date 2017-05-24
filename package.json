@@ -17,7 +17,7 @@
     "express": "~4.14.1",
     "express-http-proxy": "^1.0.2",
     "fluent-ffmpeg": "^2.1.2",
-    "ftp": "file:ftp",
+    "ftp": "^0.3.10",
     "glob": "^7.1.1",
     "lodash": "^4.17.4",
     "mockjs": "^1.0.1-beta3",

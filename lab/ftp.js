@@ -27,6 +27,8 @@ promise
     const src = path.join(VIDEO_FOLDER, filename);
     const dest = path.join('/tmp', filename);
 
+    console.log(filename);
+
     client.get(src, (err, stream) => {
       if (err) return reject(err);
 
