@@ -87,10 +87,12 @@ module.exports = ({ ftpClient, file, debug }) => new Promise((resolve, reject) =
     let { sha1, size, width, height, duration, uploadAt } = metadata;
     let filepath = `/${config.ftpServer.folder}/${filename}`;
     let query = { sha1 };
-    let doc = { $set: {
-      filename, filepath, sha1, size, width, height, duration,
-      uploadAt: moment(uploadAt).toDate()
-    } };
+    let doc  = {
+      $setOnInsert: {
+        filename, filepath, sha1, size, width, height, duration,
+        uploadAt: moment(uploadAt).toDate()
+      }
+    };
     let opts = { new: true, upsert: true, setDefaultsOnInsert: true };
 
     return SourceVideo.findOneAndUpdate(query, doc, opts);
