@@ -56,7 +56,7 @@ Promise.resolve({ ftpClient })
   }))
 
   .then(({ ftpClient, files }) => {
-    console.log(files);
+    debug(`完成！一共同步了 ${files.length} 个视频文件`);
     process.exit(0);
   })
 
