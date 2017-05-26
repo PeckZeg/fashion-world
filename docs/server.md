@@ -16,3 +16,9 @@ DB         | User      | Password
 ## Redis
 
 Password: `xmzc.123`
+
+## FTP 服务器
+
+FTP | User | Password | Http Path
+:---- | :---- | :----
+`172.16.0.11` | `ftpuser` | `abc.123` | <ul><li><code>http://172.16.0.11/download</code></li><li><code>http://video.ftvcn.com/download</code></li></ul>

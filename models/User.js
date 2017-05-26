@@ -9,7 +9,7 @@ var schema = new Schema({
   name: { type: String, minlength: 3, maxLength: 16 },
   password: { type: String, required: true },
   gender: { type: String, enum: ['unknown', 'secret', 'male', 'female'], default: 'secret' },
-  mobile: { type: String, unique: true, validate: { validator: v => /^\d{11}$/.test(v) } },
+  mobile: { type: String, unique: true, match: /^\d{11}$/i },
   createAt: { type: Date, default: Date.now },
   registerAt: { type: Date, default: Date.now },
   source: {

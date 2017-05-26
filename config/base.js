@@ -19,5 +19,9 @@ module.exports = {
     },
 
     folder: 'FTV'
+  },
+
+  sourceVideo: {
+    host: 'http://video.ftvcn.com/download'
   }
 };
