@@ -72,7 +72,7 @@ module.exports = ({ ftpClient, file, debug }) => new Promise((resolve, reject) =
   // Remove Tmp File
   .then(({ ftpClient, file, debug, metadata }) => new Promise((resolve, reject) => {
     debug(`\t正在删除文件 "${file.name}"`);
-    exec(`rm -rf ${path.join('/tmp', file.name).replace(/([\(\)])/gm, '\\$1')}`, err => {
+    exec(`rm -rf $(printf "%q" "${path.join('/tmp', file.name)}")`, err => {
       if (err) return reject(err);
       debug(`\t完成删除文件 "${file.name}"`);
       debug(`完成处理 "${file.name}"`);
