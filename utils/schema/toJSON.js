@@ -1,7 +1,7 @@
 const _ = require('lodash');
 
 const transform = ret => _.reduce(ret, (ret, value, key) => {
-  if (key === '__v') return ret;
+  if (['__v', 'id'].indexOf(key) > -1) return ret;
 
   if (_.isDate(value)) {
     value = +value;
