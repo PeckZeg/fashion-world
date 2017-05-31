@@ -1,4 +1,5 @@
 const Video = reqlib('./models/Video');
+const SourceVideo = reqlib('./models/SourceVideo');
 const VideoChannel = reqlib('./models/VideoChannel');
 const VideoChannelCategory = reqlib('./models/VideoChannelCategory');
 const catchMongooseError = reqlib('./utils/catchMongooseError');
@@ -21,6 +22,13 @@ module.exports = (req, res, next) => {
           resolve(video.toJSON({ virtuals: true }));
         })
         .catch(err => reject(catchMongooseError(err)))
+    }))
+
+    // Query Source
+    .then(video => new Promise((resolve, reject) => {
+      SourceVideo.findById(video.sourceId)
+        .then(source => resolve({ ...video, source: source.toJSON({ virtuals: true }) }))
+        .catch(err => reject(catchMongooseError(err)));
     }))
 
     // Query Channel

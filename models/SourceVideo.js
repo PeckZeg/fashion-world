@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const url = require('url');
+const path = require('path');
 const connection = reqlib('./utils/mongodb-connection');
 const transform = reqlib('./utils/schema/toJSON')();
 
@@ -21,7 +22,10 @@ let schema = new Schema({
 });
 
 schema.virtual('url').get(function() {
-  return url.resolve(config.sourceVideo.host, this.filepath);
+  return url.resolve(
+    config.sourceVideo.hostname,
+    path.join(config.sourceVideo.basePathname, this.filepath)
+  );
 });
 
 schema.options.toJSON = { transform };

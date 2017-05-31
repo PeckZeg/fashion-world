@@ -22,6 +22,7 @@ module.exports = {
   },
 
   sourceVideo: {
-    host: 'http://video.ftvcn.com/download'
+    hostname: 'http://video.ftvcn.com',
+    basePathname: 'download'
   }
 };

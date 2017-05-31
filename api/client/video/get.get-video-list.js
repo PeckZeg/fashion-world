@@ -1,4 +1,5 @@
 const Video = reqlib('./models/Video');
+const SourceVideo = reqlib('./models/SourceVideo');
 const VideoChannel = reqlib('./models/VideoChannel');
 const VideoChannelCategory = reqlib('./models/VideoChannelCategory');
 const validateParams = reqlib('./validate-models/client/video/list-query-params');
@@ -90,42 +91,51 @@ module.exports = (req, res, next) => {
     .then(videos => ({
       videos,
       channelIds: mapObjectIds(videos, 'channelId'),
-      categoryIds: mapObjectIds(videos, 'categoryId')
+      categoryIds: mapObjectIds(videos, 'categoryId'),
+      sourceIds: mapObjectIds(videos, 'sourceId')
     }))
 
     // Query Channels
-    .then(({ videos, channelIds, categoryIds }) => new Promise((resolve, reject) => {
+    .then(({ videos, channelIds, categoryIds, sourceIds }) => new Promise((resolve, reject) => {
       VideoChannel.find({ _id: { $in: channelIds } })
-        .then(channels => resolve({ videos, channels, categoryIds }))
+        .then(channels => resolve({ videos, channels, categoryIds, sourceIds }))
         .catch(err => reject(catchMongooseError(err)));
     }))
 
     // Query Categories
-    .then(({ videos, channels, categoryIds }) => new Promise((resolve, reject) => {
+    .then(({ videos, channels, categoryIds, sourceIds }) => new Promise((resolve, reject) => {
       VideoChannelCategory.find({ _id: { $in: categoryIds } })
-        .then(categories => resolve({ videos, channels, categories }))
+        .then(categories => resolve({ videos, channels, categories, sourceIds }))
+        .catch(err => reject(catchMongooseError(err)));
+    }))
+
+    // Query Sources
+    .then(({ videos, channels, categories, sourceIds }) => new Promise((resolve, reject) => {
+      SourceVideo.find({ _id: { $in: sourceIds } })
+        .then(sources => resolve({ videos, channels, categories, sources }))
         .catch(err => reject(catchMongooseError(err)));
     }))
 
     // Transform Channels & Categories
-    .then(({ videos, channels, categories }) => ({
+    .then(({ videos, channels, categories, sources }) => ({
       videos,
       channels: _.keyBy(channels, '_id'),
-      categories: _.keyBy(categories, '_id')
+      categories: _.keyBy(categories, '_id'),
+      sources: _.keyBy(sources, '_id')
     }))
 
     // Inject Channel & Category To Videos
-    .then(({ videos, channels, categories }) => {
-      videos = videos.map(video => Object.assign(
-        video.toJSON({ virtuals: true }),
-        {
-          channel: channels[video.channelId],
-          category: categories[video.categoryId]
-        }
-      ));
+    .then(({ videos, channels, categories, sources }) => videos.map(video => {
+      let channel = channels[video.channelId];
+      let category = categories[video.categoryId];
+      let source = sources[video.sourceId];
 
-      return videos;
-    })
+      return Object.assign(video.toJSON({ virtuals: true }), {
+        channel: channel ? channel.toJSON() : null,
+        category: category ? category.toJSON() : null,
+        source: source ? source.toJSON({ virtuals: true }) : null
+      });
+    }))
 
     .then(videos => res.send({ videos }))
     .catch(err => res.status(err.status || 500).send({ message: err.message }));
