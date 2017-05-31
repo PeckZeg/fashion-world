@@ -21,6 +21,11 @@ module.exports = {
   redis: {
     database: 0,
     password: 'xmzc.123'
+  },
+
+  resource: {
+    protocol: 'http:',
+    host: 'localhost:3003'
   }
 };
 

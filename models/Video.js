@@ -1,17 +1,20 @@
 const mongoose = require('mongoose');
-const connection = reqlib('./utils/mongodb-connection');
-const transform = reqlib('./utils/schema/toJSON')();
+const url = require('url');
 
-const { Schema, Types } = mongoose;
-const { ObjectId } = Types;
+const connection = reqlib('./utils/mongodb-connection');
+const transform = reqlib('./utils/schema/toJSON');
+
+const { Schema } = mongoose;
+const { ObjectId } = Schema;
 
 let schema = new Schema({
-  sourceVideoId: ObjectId,
-  channel: String,
-  category: String,
+  sourceId: { type: ObjectId, required: true },
+  channelId: { type: ObjectId, required: true },
+  categoryId: { type: ObjectId, required: true },
   tags: [String],
-  name: String,
-  summary: String,
+  name: { type: String, minlength: 1, maxLength: 64 },
+  abstract: { type: String, minlength: 1, maxLength: 128 },
+  summary: { type: String, minlength: 1, maxLength: 65535 },
   cover: String,
   isActive: { type: Boolean, default: true },
   isRecommend: { type: Boolean, default: false },
@@ -21,6 +24,11 @@ let schema = new Schema({
   removeAt: Date
 });
 
-schema.options.toJSON = { transform };
+schema.virtual('coverUrl').get(function() {
+  return url.format({ ...config.resource, pathname: this.cover });
+});
+
+
+schema.options.toJSON = { transform: transform(ret => _.omit(ret, 'cover')) };
 
 module.exports = connection.model('Video', schema);

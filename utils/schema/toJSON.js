@@ -20,7 +20,7 @@ module.exports = filter => (doc, ret, cb) => {
   ret = transform(ret);
 
   if (typeof filter === 'function') {
-    filter(ret);
+    ret = filter(ret);
   }
 
   return ret;

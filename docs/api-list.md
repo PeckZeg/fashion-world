@@ -21,3 +21,5 @@
   * [`GET` 获取频道分类详情](./api/video/get.get-channel-category-profile.md)
   * [`GET` 获取频道列表](./api/video/get.get-channel-list.md)
   * [`GET` 获取频道详情](./api/video/get.get-channel-profile.md)
+  * [`GET` 获取视频列表](./api/video/get.get-video-list.md)
+  * [`GET` 获取视频详情](./api/video/get.get-video-profile.md)

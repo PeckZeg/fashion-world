@@ -1,5 +1,18 @@
 # 更新日志
 
+## `1.0.2`
+
+> 更新于 `2017-05-31`
+
+* 新增 `视频 - 获取视频列表` 接口
+* 新增 `视频 - 获取视频详情` 接口
+* 新增文档：
+  * Model
+    * [Video](./docs/models/video.md)
+  * API
+    * [`GET` 获取视频列表](./docs/api/video/get.get-video-list.md)
+    * [`GET` 获取视频详情](./docs/api/video/get.get-video-profile.md)
+
 ## `1.0.1`
 
 > 更新于 `2017-05-16`

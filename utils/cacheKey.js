@@ -15,6 +15,12 @@ module.exports = flag => {
     case 'register.mobile.sent':
       return mobile => `sms:mobile:${mobile}:sent`;
 
+    case 'available-channels':
+      return () => 'cache:available-video-channels';
+
+    case 'available-video-channel-categories':
+      return () => 'cache:available-video-channel-categories';
+
     default:
       return key => key;
   }
