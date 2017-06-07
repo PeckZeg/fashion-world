@@ -2,7 +2,7 @@ const auth = require('../../../utils/access-keys/account/auth');
 const client = reqlib('./redis/client');
 const cacheKey = reqlib('./utils/cacheKey')('account.login');
 
-const ACTION = config.apiActions['account.delete.logout'];
+const ACTION = config.apiActions['admin:account:delete:logout'];
 
 module.exports = (req, res, next) => {
   let authorization = req.header('authorization');

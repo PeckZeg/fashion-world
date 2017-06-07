@@ -3,7 +3,10 @@ module.exports = {
     'user.get.personal-profile': 'user:personal-profile',
     'user.delete.logout': 'user:logout',
 
-    'account.delete.logout': 'account:logout',
+    'admin:account:get:list': 'admin:account:get-list',
+    'admin:account:put:update-account': 'admin:account:update-account',
+    'admin:account:delete:destroy-account': 'admin:account:destroy-account',
+    'admin:account:delete:logout': 'admin:account:logout',
   },
 
   regexgs: {

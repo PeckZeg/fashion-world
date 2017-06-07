@@ -1,6 +1,7 @@
 const client = reqlib('./redis/client');
 const CaaError = reqlib('./utils/CaaError');
 const crypto = require('crypto');
+const debug = require('debug')('auth');
 
 const AUTHORIZATION_REGEXP = config.regexgs.authorization;
 const KEYS_REGEXP = config.regexgs.accessKeys;
@@ -11,7 +12,7 @@ module.exports = (authorization, action, optional = true, cacheKey) => new Promi
     .then(authorization => new Promise((resolve, reject) => {
       let auth = AUTHORIZATION_REGEXP.exec(authorization);
 
-      console.log(authorization);
+      debug({ authorization });
 
       if (!auth) return reject(CaaError(400, 'invalid authorization'));
 
@@ -35,7 +36,7 @@ module.exports = (authorization, action, optional = true, cacheKey) => new Promi
       let endTime = now.clone().add(5, 'm')
       let ts = moment(timestamp);
 
-      console.log({ apiKey, signature, timestamp });
+      debug({ apiKey, signature, timestamp });
 
       if (ts.isBetween(startTime, endTime)) {
         resolve({ apiKey, signature, timestamp });
@@ -48,6 +49,9 @@ module.exports = (authorization, action, optional = true, cacheKey) => new Promi
 
     // 验证 api-key
     .then(({ apiKey, signature, timestamp }) => new Promise((resolve, reject) => {
+
+      debug(cacheKey(apiKey))
+
       client.getAsync(cacheKey(apiKey))
         .then(keys => {
           if (!keys) return reject(CaaError(404, 'apiKey not found'));
@@ -74,7 +78,10 @@ module.exports = (authorization, action, optional = true, cacheKey) => new Promi
     }))
 
     // 传送 keys
-    .then(keys => resolve(keys))
+    .then(keys => {
+      debug({ keys });
+      resolve(keys);
+    })
 
     .catch(err => {
       if (err.message === 'invalid authorization' && optional) {

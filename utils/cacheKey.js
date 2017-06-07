@@ -4,6 +4,7 @@ module.exports = flag => {
       return key => `user:${key}:key`;
 
     case 'account.login':
+    case 'account:api-key':
       return key => `account:${key}:key`;
 
     case 'register.mobile.max-per-day':
