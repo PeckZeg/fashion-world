@@ -4,9 +4,15 @@ module.exports = {
     'user.delete.logout': 'user:logout',
 
     'admin:account:get:list': 'admin:account:get-list',
+    'admin:account:post:create-account': 'admin:account:create-account',
     'admin:account:put:update-account': 'admin:account:update-account',
     'admin:account:delete:destroy-account': 'admin:account:destroy-account',
     'admin:account:delete:logout': 'admin:account:logout',
+
+    'admin:video:get:fetch-list': 'admin:video:fetch-list',
+    'admin:video:get:fetch-profile': 'admin:video:fetch-profile',
+    'admin:video:put:update-video': 'admin:video:update-video',
+    'admin:video:delete:destroy-video': 'admin:video:destroy-video'
   },
 
   regexgs: {

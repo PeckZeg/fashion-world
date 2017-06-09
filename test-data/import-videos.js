@@ -12,7 +12,7 @@ const VideoChannel = require('../models/VideoChannel');
 SourceVideo.count()
 
   //  SourceVideo Count
-  .then(count => SourceVideo.aggregate().sample(Math.floor(count / 2)))
+  .then(count => SourceVideo.aggregate().sample(Math.floor(count * 2 / 3)))
 
   // Generate Video Models
   .then(sourceVideos => sourceVideos.map(sourceVideo => {

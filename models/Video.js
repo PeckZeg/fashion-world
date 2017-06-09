@@ -16,7 +16,9 @@ let schema = new Schema({
   abstract: { type: String, minlength: 1, maxLength: 128 },
   summary: { type: String, minlength: 1, maxLength: 65535 },
   cover: String,
-  isActive: { type: Boolean, default: true },
+  views: { type: Number, default: 0 },
+  collections: { type: Number, default: 0 },
+  isPublished: { type: Boolean, default: true },
   isRecommend: { type: Boolean, default: false },
   isRemoved: { type: Boolean, default: false },
   publishAt: Date,
@@ -28,7 +30,6 @@ schema.virtual('coverUrl').get(function() {
   return url.format({ ...config.resource, pathname: this.cover });
 });
 
-
-schema.options.toJSON = { transform: transform(ret => _.omit(ret, 'cover')) };
+schema.options.toJSON = { transform: transform() };
 
 module.exports = connection.model('Video', schema);

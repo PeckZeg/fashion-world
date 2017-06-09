@@ -3,7 +3,6 @@ const connection = require('../utils/mongodb-connection');
 const toJSON = require('../utils/schema/toJSON');
 
 const { Schema, Types } = mongoose;
-// const { ObjectId } = Types;
 
 const transform = toJSON();
 
