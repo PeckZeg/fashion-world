@@ -10,14 +10,15 @@ let schema = new Schema({
   sha1: { type: String, unique: true, index: true },
   // alias: String,
   // definition:{ type: String, enum: ['256p', '360p', '480p', '720p'] },
-  filename: String,
-  filepath: String,
-  width: Number,
-  height: Number,
-  size: Number,
-  duration: Number,
-  cover: String,
-  uploadAt: Date,
+  filename: { type: String, default: '' },
+  filepath: { type: String, default: '' },
+  width: { type: Number, default: 0 },
+  height: { type: Number, default: 0 },
+  size: { type: Number, default: 0 },
+  duration: { type: Number, default: 0 },
+  cover: { type: String, default: '' },
+  uploadAt: { type: Date, default: null },
+  screenshots: [String],
   createAt: { type: Date, default: Date.now }
 });
 

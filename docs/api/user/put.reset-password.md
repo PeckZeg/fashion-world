@@ -2,7 +2,7 @@
 
 ## Base
 
-* Method: `POST`
+* Method: `PUT`
 * URI: `/api/user/reset-password`
 
 ## Headers
