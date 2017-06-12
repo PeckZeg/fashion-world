@@ -23,7 +23,9 @@ module.exports = (req, res, next) => {
         $set: {
           isPublished: false,
           isRemoved: true,
+          isRecommend: false,
           publishAt: null,
+          recommendAt: null,
           removeAt: new Date()
         }
       },

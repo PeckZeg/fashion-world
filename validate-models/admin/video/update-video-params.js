@@ -18,7 +18,10 @@ let schema = new Schema({
   collections: Number,
   isPublished: Boolean,
   isRecommend: Boolean,
+  isRemoved: Boolean,
   publishAt: Date,
+  removeAt: Date,
+  recommendAt: Date,
 }, { _id: false });
 
 let Params = mongoose.model('AdminUpdateVideoParams', schema);

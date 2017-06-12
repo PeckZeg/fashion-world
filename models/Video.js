@@ -15,15 +15,16 @@ let schema = new Schema({
   name: { type: String, minlength: 1, maxLength: 64 },
   abstract: { type: String, minlength: 1, maxLength: 128 },
   summary: { type: String, minlength: 1, maxLength: 65535 },
-  cover: String,
+  cover: { type: String, default: null },
   views: { type: Number, default: 0 },
   collections: { type: Number, default: 0 },
   isPublished: { type: Boolean, default: true },
   isRecommend: { type: Boolean, default: false },
   isRemoved: { type: Boolean, default: false },
-  publishAt: Date,
+  publishAt: { type: Date, default: null },
+  recommendAt: { type: Date, default: null },
   createAt: { type: Date, default: Date.now },
-  removeAt: Date
+  removeAt: { type: Date, default: null }
 });
 
 schema.virtual('coverUrl').get(function() {
