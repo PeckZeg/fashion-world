@@ -9,6 +9,7 @@ const globalMixins = require('../../utils/global-mixins');
 const { exec } = require('child_process');
 const SourceVideo = require('../../models/SourceVideo');
 const config = require('../../config');
+const handleSingleFileScreenshots = require('./handle-single-file-screenshots');
 
 module.exports = ({ ftpClient, file, debug }) => new Promise((resolve, reject) => {
   let src = path.join(config.ftpServer.folder, file.name);
@@ -68,6 +69,9 @@ module.exports = ({ ftpClient, file, debug }) => new Promise((resolve, reject) =
       resolve({ ftpClient, file, debug, metadata });
     });
   }))
+
+  // Generate Screenshots
+  .then(handleSingleFileScreenshots)
 
   // Remove Tmp File
   .then(({ ftpClient, file, debug, metadata }) => new Promise((resolve, reject) => {

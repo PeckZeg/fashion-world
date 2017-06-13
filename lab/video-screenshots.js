@@ -20,3 +20,6 @@ ffmpeg(SRC)
     console.error(err);
     process.exit(1);
   })
+  .on('start', (commandLine) => {
+    console.log('start:', commandLine);
+  })

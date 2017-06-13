@@ -3,7 +3,7 @@
 ## Base
 
 * Method: `GET`
-* URI: `/api/user/personal-profile`
+* URI: `/api/user/personal`
 
 ## Headers
 
