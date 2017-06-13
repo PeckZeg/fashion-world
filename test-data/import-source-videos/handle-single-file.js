@@ -74,7 +74,7 @@ module.exports = ({ ftpClient, file, debug }) => new Promise((resolve, reject) =
   .then(handleSingleFileScreenshots)
 
   // Remove Tmp File
-  .then(({ ftpClient, file, debug, metadata }) => new Promise((resolve, reject) => {
+  .then(({ ftpClient, file, debug, metadata, screenshots }) => new Promise((resolve, reject) => {
     debug(`\t正在删除文件 "${file.name}"`);
     exec(`rm -rf $(printf "%q" "${path.join('/tmp', file.name)}")`, err => {
       if (err) return reject(err);
@@ -82,18 +82,27 @@ module.exports = ({ ftpClient, file, debug }) => new Promise((resolve, reject) =
       debug(`完成处理 "${file.name}"`);
       resolve({
         filename: file.name,
-        metadata
+        metadata,
+        screenshots
       });
     });
   }))
 
-  .then(({ filename, metadata }) => {
+  .then(({ filename, metadata, screenshots }) => ({
+    filename,
+    metadata,
+    screenshots: screenshots.map(screenshot => (
+      screenshot.replace(`${path.sep}data`, '')
+    ))
+  }))
+
+  .then(({ filename, metadata, screenshots }) => {
     let { sha1, size, width, height, duration, uploadAt } = metadata;
     let filepath = `/${config.ftpServer.folder}/${filename}`;
     let query = { sha1 };
     let doc  = {
       $setOnInsert: {
-        filename, filepath, sha1, size, width, height, duration,
+        filename, filepath, sha1, size, width, height, duration, screenshots,
         uploadAt: moment(uploadAt).toDate()
       }
     };

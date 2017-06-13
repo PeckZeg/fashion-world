@@ -17,13 +17,13 @@ SourceVideo.count()
   // Generate Video Models
   .then(sourceVideos => sourceVideos.map(sourceVideo => {
     let model = Mock.mock({
-      'tags|1-8': ['@cword(2, 8)'],
+      'tags|1-6': ['@cword(2, 8)'],
       abstract: '@csentence(2, 32)',
       summary: '@cparagraph(1, 4)',
-      cover: '/static/images/video/2e8cae4b2e177d502b94282ad2be79f8ab8e3ce6.png'
     });
 
     return Object.assign(model, {
+      cover: _.sample(sourceVideo.screenshots),
       sourceId: sourceVideo._id,
       name: path.basename(sourceVideo.filename, path.extname(sourceVideo.filename)),
       publishAt: moment().toDate()

@@ -1,6 +1,7 @@
 const ffmpeg = require('fluent-ffmpeg');
 const path = require('path');
 const mkdirp = require('mkdirp');
+const fs = require('fs');
 const _ = require('lodash');
 const crypto = require('crypto');
 const mapLimit = require('async/mapLimit');
@@ -33,12 +34,9 @@ module.exports = ({ ftpClient, file, debug, metadata }) => new Promise((resolve,
   }))
 
   .then(({ ftpClient, file, debug, metadata, screenshots: originalScreenshots }) => new Promise((resolve, reject) => {
-    console.log({originalScreenshots});
     mapLimit(originalScreenshots, 5, (screenshot, cb) => {
       const basename = path.basename(screenshot, path.extname(screenshot));
       const outname = path.join(path.dirname(screenshot), `${basename}.jpg`);
-
-      console.log(`convert -resize "800>" ${screenshot} ${outname}`);
 
       exec(`convert -resize "800>" ${screenshot} ${outname}`, err => {
         cb(err, outname);
@@ -57,15 +55,44 @@ module.exports = ({ ftpClient, file, debug, metadata }) => new Promise((resolve,
   }))
 
   .then(({ ftpClient, file, debug, metadata, screenshots }) => new Promise((resolve, reject) => {
-    mkdirp('/data/static/images/video', err => {
+    const destFolder = '/data/static/images/video';
+
+    mkdirp(destFolder, err => {
       if (err) return reject(err);
 
       mapLimit(screenshots, 5, (screenshot, cb) => {
-        new Promise((resolve, reject) => {
-          const extname = path.extname(screenshot);
-        });
+        Promise.resolve(screenshot)
+          .then(screenshot => new Promise((resolve, reject) => {
+            const hash = crypto.createHash('sha1');
+            const rs = fs.createReadStream(screenshot);
+
+            rs.on('readable', () => {
+              const data = rs.read();
+              if (data) hash.update(data);
+            });
+
+            rs.on('end', () => {
+              resolve({ screenshot, sha1: hash.digest('hex') });
+            });
+
+            rs.on('error', reject);
+          }))
+
+          // rename file
+          .then(({ screenshot, sha1 }) => new Promise((resolve, reject) => {
+            const extname = path.extname(screenshot);
+            const dest = path.join(destFolder, `${sha1}${extname}`);
+            exec(`mv ${screenshot} ${dest}`, err => {
+              if (err) return reject(err);
+              resolve(dest);
+            });
+          }))
+
+          .then(screenshot => cb(null, screenshot))
+          .catch(cb);
       }, (err, screenshots) => {
         if (err) return reject(err);
+        debug(`\t完成生成文件 ${file.name} 预览图`);
         resolve({ ftpClient, file, debug, metadata, screenshots });
       });
     });
