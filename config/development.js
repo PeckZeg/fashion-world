@@ -40,6 +40,6 @@ if (process.env.NODE_DATABASE == 'test') {
 
   module.exports.resource = {
     protocol: 'http:',
-    host: '59.57.240.50:3003'
+    host: '59.57.240.50:5005'
   };
 }
