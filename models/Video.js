@@ -28,7 +28,7 @@ let schema = new Schema({
 });
 
 schema.virtual('coverUrl').get(function() {
-  return url.format({ ...config.resource, pathname: this.cover });
+  return this.cover ? url.format({ ...config.resource, pathname: this.cover }) : null;
 });
 
 schema.options.toJSON = { transform: transform() };
