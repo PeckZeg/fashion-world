@@ -42,10 +42,17 @@ Promise.resolve({ ftpClient })
 
   // Handle Each File
   .then(({ ftpClient, files }) => new Promise((resolve, reject) => {
-    let count = Number(_.last(process.argv));
-        count = Number.isNaN(count) ? files.length : count;
+    let args = process.argv.slice(2);
+    let start = Number.parseInt(args[0]);
+    let end = Number.parseInt(args[1]);
 
-    mapLimit(files.slice(0, count), 1, (file, cb) => {
+    start = Number.isNaN(start) ? 0 : start;
+    end = Number.isNaN(end) ? files.length : end;
+
+    // let count = Number(_.last(process.argv));
+    //     count = Number.isNaN(count) ? files.length : count;
+
+    mapLimit(files.slice(start, end), 1, (file, cb) => {
       handleSingleFile({ ftpClient, file, debug })
         .then(file => cb(null, file.toJSON({ virtuals: true })))
         .catch(cb);

@@ -26,7 +26,7 @@ module.exports = ({ ftpClient, file, debug, metadata }) => new Promise((resolve,
       .screenshots({
         timestamps: ['0%', '25%', '50%', '75%', '99%'],
         folder: screenshotFolder,
-        filename: '%b-%r-%s.png'
+        filename: '%r-%s.png'
       })
       .on('filenames', names => screenshots = names.map(name => path.join(screenshotFolder, name)))
       .on('end', () => resolve({ ftpClient, file, debug, metadata, screenshots }))
@@ -36,7 +36,9 @@ module.exports = ({ ftpClient, file, debug, metadata }) => new Promise((resolve,
   // pick exist screenshots
   .then(({ ftpClient, file, debug, metadata, screenshots }) => new Promise((resolve, reject) => {
     mapLimit(screenshots, 5, (screenshot, cb) => {
-      fs.access(screenshot, err => cb(null, err ? null : screenshot));
+      fs.access(screenshot, err => {
+        cb(null, err ? null : screenshot)
+      });
     }, (err, screenshots) => {
       if (err) return reject(err);
       resolve({
