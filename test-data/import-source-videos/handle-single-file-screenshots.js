@@ -33,6 +33,19 @@ module.exports = ({ ftpClient, file, debug, metadata }) => new Promise((resolve,
       .on('error', reject);
   }))
 
+  // pick exist screenshots
+  .then(({ ftpClient, file, debug, metadata, screenshots }) => new Promise((resolve, reject) => {
+    mapLimit(screenshots, 5, (screenshot, cb) => {
+      fs.access(screenshot, err => cb(null, err ? null : screenshot));
+    }, (err, screenshots) => {
+      if (err) return reject(err);
+      resolve({
+        ftpClient, file, debug, metadata,
+        screenshots: _.compact(screenshots)
+      });
+    });
+  }))
+
   .then(({ ftpClient, file, debug, metadata, screenshots: originalScreenshots }) => new Promise((resolve, reject) => {
     mapLimit(originalScreenshots, 5, (screenshot, cb) => {
       const basename = path.basename(screenshot, path.extname(screenshot));

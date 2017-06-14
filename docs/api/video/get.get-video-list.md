@@ -17,7 +17,10 @@ field         | type       | required | default |validate                | note
 :------------ | :--------- | :------- | :------ |:---------------------- | :-------
 `offset`      | `number`   |          | `0`     | Range: `0 ~ +Infinity` | 页面偏移量
 `limit`       | `number`   |          | `20`    | Range: `1 ~ +Infinity` | 每页限制
-`tags`        | `string[]` |          |         |                      | 标签过滤，为 `OR` 查询，转换为查询字符串时应使用 `,` 隔开
+`isRecommend` | `boolean`  |          |         |                        | 过滤出推荐视频，**新增@1.0.4**
+`channelId`   | `objectid` |          |         |                        | 频道编号，**新增@1.0.4**
+`categoryId`  | `objectid` |          |         |                        | 分类编号，**新增@1.0.4**
+`tags`        | `string[]` |          |         |                        | 标签过滤，为 `OR` 查询，转换为查询字符串时应使用 `,` 隔开
 
 ## Response Body Schema
 

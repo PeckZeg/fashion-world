@@ -9,6 +9,8 @@ const handleSingleFile = require('./handle-single-file');
 
 const CACHE_KEY = 'test-data:source-videos';
 
+console.log(process.argv.slice(2));
+
 Promise.resolve({ ftpClient })
   // Connect Ftp Server
   .then(({ ftpClient }) => new Promise((resolve, reject) => {

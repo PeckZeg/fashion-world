@@ -3,6 +3,7 @@
 ## `1.0.4`
 
 * 修改 `Video` 模型
+* 新增 `视频 - 获取视频列表` 接口查询参数：`isRecommend`, `channelId`, `categoryId`
 
 ## `1.0.3`
 

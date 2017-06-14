@@ -56,6 +56,7 @@ module.exports = (req, res, next) => {
     // Query Videos
     .then(({ query, channelIds, categoryIds }) => {
       let { limit, offset, isRecommend, channelId, categoryId, sourceId, tags } = query;
+      let sortOpts = { publishAt: -1 };
       let queryOpts = {
         channelId: { $in: channelIds },
         categoryId: { $in: categoryIds },
@@ -66,6 +67,17 @@ module.exports = (req, res, next) => {
         }
       };
 
+      if (isRecommend) {
+        queryOpts = {
+          ...queryOpts,
+          recommendAt: { $not: { $eq: null } }
+        };
+        sortOpts = {
+          recommendAt: -1,
+          ...sortOpts
+        };
+      }
+
       if (tags.length) {
         queryOpts.$or = queryOpts.$or || [];
         queryOpts.$or.push(...tags.map(tags => ({ tags })));
@@ -75,7 +87,7 @@ module.exports = (req, res, next) => {
         queryOpts.sourceId = { $in: sourceId };
       }
 
-      _.each({ channelId, isRecommend, categoryId }, ((value, prop) => {
+      _.each({ channelId, categoryId }, ((value, prop) => {
         if (typeof value !== 'undefined') {
           Object.assign(queryOpts, { [prop]: value });
         }
@@ -85,7 +97,7 @@ module.exports = (req, res, next) => {
         .find(queryOpts)
         .skip(offset * limit)
         .limit(limit)
-        .sort({ publishAt: -1 })
+        .sort(sortOpts)
         .exec()
     })
 
