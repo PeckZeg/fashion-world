@@ -17,7 +17,6 @@ field         | type       | required | default |validate                | note
 :------------ | :--------- | :------- | :------ |:---------------------- | :-------
 `offset`      | `number`   |          | `0`     | Range: `0 ~ +Infinity` | 页面偏移量
 `limit`       | `number`   |          | `20`    | Range: `1 ~ +Infinity` | 每页限制
-`isRecommend` | `boolean`  |          |         |                      | 是否推荐，转换成查询字符串时应只为 `true`, `false` 字符串
 `tags`        | `string[]` |          |         |                      | 标签过滤，为 `OR` 查询，转换为查询字符串时应使用 `,` 隔开
 
 ## Response Body Schema

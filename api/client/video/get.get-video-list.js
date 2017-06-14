@@ -57,11 +57,13 @@ module.exports = (req, res, next) => {
     .then(({ query, channelIds, categoryIds }) => {
       let { limit, offset, isRecommend, channelId, categoryId, sourceId, tags } = query;
       let queryOpts = {
-        isRemoved: false,
-        isActive: true,
-        publishAt: { $lte: new Date() },
         channelId: { $in: channelIds },
-        categoryId: { $in: categoryIds }
+        categoryId: { $in: categoryIds },
+        removeAt: { $eq: null },
+        publishAt: {
+          $not: { $eq: null },
+          $lte: new Date()
+        }
       };
 
       if (tags.length) {

@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
 
     // transform query params
     .then(() => transformQuery(req.query, {
-      isActive: Boolean,
+      isPublished: Boolean,
       isRecommend: Boolean
     }))
 
@@ -24,9 +24,16 @@ module.exports = (req, res, next) => {
     // fetch video docs
     .then(query => new Promise((resolve, reject) => {
       const { offset, limit } = query;
-      const cond = ['isRecommend', 'isActive'].reduce((cond, key) => {
+
+      const cond = _.reduce({
+        isRecommend: 'recommendAt',
+        isPublished: 'publishAt'
+      }, (cond, transKey, key) => {
         if (query[key] !== void 0) {
-          cond = { ...cond, [key]: query[key] };
+          cond = {
+            ...cond,
+            [transKey]: query[key] ? { $not: { $eq: null } } : { $eq: null }
+          };
         }
 
         return cond;

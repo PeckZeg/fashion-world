@@ -22,6 +22,12 @@ SourceVideo.count()
       summary: '@cparagraph(1, 4)',
     });
 
+    if (Math.random() > 0.5) {
+      let recommendAt = moment(_.random(+moment().add(-1, 'd'), +moment())).toDate();
+
+      model = { ...model, recommendAt };
+    }
+
     return Object.assign(model, {
       cover: _.sample(sourceVideo.screenshots),
       sourceId: sourceVideo._id,
