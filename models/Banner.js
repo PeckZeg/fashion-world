@@ -5,21 +5,10 @@ const connection = reqlib('./utils/mongodb-connection');
 const transform = reqlib('./utils/schema/toJSON')();
 
 const { Schema } = mongoose;
-const { Mixed } = Schema.Types;
+const { Mixed, ObjectId } = Schema.Types;
 
 let schema = new Schema({
-  // sha1: { type: String, unique: true, index: true },
-  // alias: String,
-  // definition:{ type: String, enum: ['256p', '360p', '480p', '720p'] },
-  // filename: { type: String, default: '' },
-  // filepath: { type: String, default: '' },
-  // width: { type: Number, default: 0 },
-  // height: { type: Number, default: 0 },
-  // size: { type: Number, default: 0 },
-  // duration: { type: Number, default: 0 },
-  // cover: { type: String, default: '' },
-  // uploadAt: { type: Date, default: null },
-  // screenshots: [String],
+  channelId: { type: ObjectId, default: null }
   title: { type: String, required: true, default: '' },
   type: { type: String, required: true, default: 'url' },
   value: { type: Mixed, required: true, default: '' },
