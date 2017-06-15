@@ -6,9 +6,12 @@
 
 * 修改 `Video` 模型
 * 新增 `视频 - 获取视频列表` 接口查询参数：`isRecommend`, `channelId`, `categoryId`
+* 新增 [`GET` 获取横幅列表](./docs/api/banner/get.fetch-banner-list.md) 接口
 * 新增 [`POST` 用户 - 验证短信验证码](./docs/api/user/post.validate-code.md) 接口
 * 新增 [`POST` 验证重置密码验证码](./docs/api/user/post.validate-reset-password-code.md) 接口
 * 现在将频道 `Fashion TV`, `Fashion One` 固定
+* 现在发送验证码均可以发送到手机了
+* 现在在 **测试环境** 下单个手机可以重复注册了
 
 ## `1.0.3`
 

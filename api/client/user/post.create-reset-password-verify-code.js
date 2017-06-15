@@ -11,8 +11,9 @@ const {
   maxCountPerHour: MAX_COUNT_PER_HOUR,
   signName: SIGN_NAME,
   templateCode: TEMPLATE_CODE,
-  perMsgLiveCycle: MESSAGE_LIVE_CYCLE
-} = config.alidayu.smsNumSend;
+  perMsgLiveCycle: MESSAGE_LIVE_CYCLE,
+  product: PRODUCT
+} = config.alidayu.smsNumSend.resetPassword;
 
 const CODE_RANGE = [100000, 999999];
 
@@ -85,22 +86,22 @@ module.exports = (req, res, next) => {
     }))
 
     // 发送短信
-    // .then(({ mobile, code }) => new Promise((resolve, reject) => {
-    //   topClient.execute('alibaba.aliqin.fc.sms.num.send', {
-    //     'extend': '',
-    //     'sms_type': 'normal',
-    //     'sms_free_sign_name': SIGN_NAME,
-    //     'sms_param': JSON.stringify({ code: `${code}` }),
-    //     'rec_num': mobile ,
-    //     'sms_template_code': TEMPLATE_CODE
-    //   }, (err, res) => {
-    //     if (err) {
-    //       return reject(CaaError(500, err.message));
-    //     }
-    //
-    //     resolve({ mobile, code });
-    //   });
-    // }))
+    .then(({ mobile, code }) => new Promise((resolve, reject) => {
+      topClient.execute('alibaba.aliqin.fc.sms.num.send', {
+        'extend': '',
+        'sms_type': 'normal',
+        'sms_free_sign_name': SIGN_NAME,
+        'sms_param': JSON.stringify({ code: `${code}`, product: PRODUCT }),
+        'rec_num': mobile ,
+        'sms_template_code': TEMPLATE_CODE
+      }, (err, res) => {
+        if (err) {
+          return reject(CaaError(500, err.message));
+        }
+
+        resolve({ mobile, code });
+      });
+    }))
 
     // 记录发送信息
     .then(({ mobile, code }) => new Promise((resolve, reject) => {
