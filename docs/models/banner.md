@@ -1,6 +1,6 @@
 # Banner Model
 
-> add at `1.0.4`
+> 版本 `1.0.4` 新增
 
 name        | type            | virtual  | required | default | limit          | note
 :---------- | :-------------- | :------: | :------: | :------ | :------------- | :-------
