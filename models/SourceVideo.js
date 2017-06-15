@@ -29,6 +29,13 @@ schema.virtual('url').get(function() {
   );
 });
 
+schema.virtual('screenshotUrls').get(function() {
+  return this.screenshots.map(screenshot => url.format({
+    ...config.resource,
+    pathname: screenshot
+  }));
+});
+
 schema.options.toJSON = { transform };
 
 module.exports = connection.model('SourceVideo', schema);

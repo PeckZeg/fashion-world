@@ -9,18 +9,19 @@ const { Mixed, ObjectId } = Schema.Types;
 
 let schema = new Schema({
   channelId: { type: ObjectId, default: null }
-  title: { type: String, required: true, default: '' },
-  type: { type: String, required: true, default: 'url' },
+  title: { type: String, required: true, minlength: 2, maxlength: 32, default: '' },
+  type: { type: String, required: true, minlength: 2, maxlength: 64, default: 'url' },
   value: { type: Mixed, required: true, default: '' },
   cover: { type: String, default: '' },
+  priority: { type: Number, default: 0 },
   createAt: { type: Date, default: Date.now }
 });
 
-schema.virtual('url').get(function() {
-  return url.resolve(
-    config.sourceVideo.hostname,
-    path.join(config.sourceVideo.basePathname, this.filepath)
-  );
+schema.virtual('coverUrl').get(function() {
+  return this.cover ? url.format({
+    ...config.resource,
+    pathname: this.cover
+  }) : null;
 });
 
 schema.options.toJSON = { transform };

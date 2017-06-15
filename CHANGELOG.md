@@ -2,10 +2,13 @@
 
 ## `1.0.4`
 
+> 更新于 `2017-06-16`
+
 * 修改 `Video` 模型
 * 新增 `视频 - 获取视频列表` 接口查询参数：`isRecommend`, `channelId`, `categoryId`
 * 新增 [`POST` 用户 - 验证短信验证码](./docs/api/user/post.validate-code.md) 接口
 * 新增 [`POST` 验证重置密码验证码](./docs/api/user/post.validate-reset-password-code.md) 接口
+* 现在将频道 `Fashion TV`, `Fashion One` 固定
 
 ## `1.0.3`
 

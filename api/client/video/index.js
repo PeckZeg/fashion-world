@@ -1,7 +1,6 @@
 let router = module.exports = require('express').Router();
 
 router.get('/', require('./get.get-video-list'));
-// router.get('/recommend', require('./get.fetch-recommend-video-list'));
 router.get('/channel', require('./get.get-channel-list'));
 router.get('/:videoId', require('./get.get-video-profile'));
 router.get('/channel/:channelId', require('./get.get-channel-profile'));

@@ -5,14 +5,16 @@ const VideoChannel = reqlib('./models/VideoChannel');
 const VideoChannelCategory = reqlib('./models/VideoChannelCategory');
 const CHANNELS = require('./channels.json');
 
+const { ObjectId } = require('mongoose').Types;
 const opts = { new: true, upsert: true, setDefaultsOnInsert: true };
 
 Promise.resolve(CHANNELS)
   .then(channels => new Promise((resolve, reject) => {
     let channelPromises = channels.map((channel, idx) => {
       const { name, categories } = channel;
+      const _id = ObjectId(channel._id);
       const query = { name };
-      const doc = { $set: { name, priority: channels.length - idx } };
+      const doc = { $set: { _id, name, priority: channels.length - idx } };
 
       return {
         categories,
