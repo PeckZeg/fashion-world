@@ -7,7 +7,7 @@ name        | type            | virtual  | required | default | limit          |
 `channelId` | `objectid`      |          |          | `null`  |                | 频道编号
 `title`     | `string`        |          | √        | `""`    | Length: `2~64` | 标题
 `type`      | `string`        |          | √        | `""`    | Length: `2~64` | 类型
-`value`     | `string|object` |          | √        | `""`    |                | 值
+`value`     | `string,object` |          | √        | `""`    |                | 值
 `cover`     | `string`        |          |          | `null`  |                | 封面相对路径
 `coverUrl`  | `string`        | √        |          | `null`  |                | 封面地址
 `priority`  | `priority`      |          |          | `0`     |                | 排序值
