@@ -9,7 +9,7 @@ module.exports = {
         templateCode: 'SMS_71260267',
         maxCountPerDay: 10,
         maxCountPerHour: 5,
-        perMsgLiveCycle: 60 * 10000,
+        perMsgLiveCycle: 60 * 1000,
         product: 'Fashion World'
       },
 
@@ -18,7 +18,7 @@ module.exports = {
         templateCode: 'SMS_71260265',
         maxCountPerDay: 10,
         maxCountPerHour: 5,
-        perMsgLiveCycle: 60 * 10000,
+        perMsgLiveCycle: 60 * 1000,
         product: 'Fashion World'
       },
     }
