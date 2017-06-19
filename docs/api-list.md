@@ -27,6 +27,7 @@
 * [`GET` 获取频道列表](./api/video/get.get-channel-list.md)
 * [`GET` 获取频道详情](./api/video/get.get-channel-profile.md)
 * [`GET` 获取视频列表](./api/video/get.get-video-list.md)
+* [`GET` 随机获取推荐视频列表](./api/video/get.fetch-recommend-video-list.md)
 * [`GET` 获取视频详情](./api/video/get.get-video-profile.md)
 
 ### 横幅 Banner
