@@ -38,7 +38,9 @@ module.exports = {
   resource: {
     protocol: 'http:',
     host: 'localhost:3003'
-  }
+  },
+
+  localStaticPath: '/data/static'
 };
 
 if (process.env.NODE_DATABASE == 'test') {
@@ -51,6 +53,7 @@ if (process.env.NODE_DATABASE == 'test') {
   };
 
   module.exports.resource = {
+    ...module.exports.resource,
     protocol: 'http:',
     host: '59.57.240.50:5005'
   };
