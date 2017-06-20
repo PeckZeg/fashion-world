@@ -9,6 +9,7 @@
   "dependencies": {
     "app-root-path": "^2.0.1",
     "async": "^2.4.0",
+    "axios": "^0.16.2",
     "body-parser": "~1.16.0",
     "colors": "^1.1.2",
     "consolidate": "^0.14.5",
@@ -38,6 +39,7 @@
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "cheerio": "^1.0.0-rc.1",
     "colors": "^1.1.2",
     "forever": "^0.15.3"
   }

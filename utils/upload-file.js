@@ -51,14 +51,15 @@ module.exports = (upload, opts = {}) => new Promise((resolve, reject) => {
     const extension = mime.extension(mimetype) ? `.${mime.extension(mimetype)}` : '';
     const filename = `${sha1}${extension}`;
     const destPath = `${destFolder}/${filename}`;
+    const pathname = path.join('/static', destination, filename);
 
     exec(`mv -f ${srcPath} ${destPath}`, err => {
       if (err) return reject(err);
       resolve({
-        path: destPath,
+        path: pathname,
         urlPath: url.format({
           ...config.resource,
-          pathname: path.join('/static', destination, filename)
+          pathname
         })
       });
     });

@@ -11,6 +11,7 @@ module.exports = {
 
     'admin:video:get:fetch-list': 'admin:video:fetch-list',
     'admin:video:get:fetch-profile': 'admin:video:fetch-profile',
+    'admin:video:post:upload-cover': 'admin:video:upload-cover',
     'admin:video:put:update-video': 'admin:video:update-video',
     'admin:video:delete:destroy-video': 'admin:video:destroy-video'
   },
