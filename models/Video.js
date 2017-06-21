@@ -12,6 +12,7 @@ let schema = new Schema({
   channelId: { type: ObjectId, required: true },
   categoryId: { type: ObjectId, required: true },
   tags: [String],
+  keywords: [String],
   name: { type: String, minlength: 1, maxLength: 64 },
   abstract: { type: String, minlength: 1, maxLength: 128 },
   summary: { type: String, minlength: 1, maxLength: 65535 },
