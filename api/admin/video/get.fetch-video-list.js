@@ -14,8 +14,9 @@ module.exports = (req, res, next) => {
 
     // transform query params
     .then(() => transformQuery(req.query, {
-      isPublished: Boolean,
-      isRecommend: Boolean
+      isPublish: Boolean,
+      isRecommend: Boolean,
+      isRemoved: Boolean
     }))
 
     // validate query params
@@ -27,12 +28,13 @@ module.exports = (req, res, next) => {
 
       const cond = _.reduce({
         isRecommend: 'recommendAt',
-        isPublished: 'publishAt'
+        isPublished: 'publishAt',
+        isRemoved: 'removeAt'
       }, (cond, transKey, key) => {
         if (query[key] !== void 0) {
           cond = {
             ...cond,
-            [transKey]: query[key] ? { $not: { $eq: null } } : { $eq: null }
+            [transKey]: query[key] ? { $ne: null } : { $eq: null }
           };
         }
 
