@@ -2,7 +2,7 @@ var utils = require('utils');
 var fs = require('fs');
 var casper = require('casper').create({
   clientScripts: [
-    'https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js'
+    'http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js'
   ],
   verbose: true,
   logLevel: "debug"
@@ -10,8 +10,11 @@ var casper = require('casper').create({
 
 var commits = null;
 
+var type = casper.cli.args[0];
+var name = casper.cli.args[1];
+
 casper
-  .start('http://172.16.0.52/caa/node/fashion-world/commits/master')
+  .start('http://172.16.0.52/caa/' + type + '/' + name + '/commits/master?limit=512')
 
   .then(function() {
       this.evaluate(function() {
@@ -23,7 +26,7 @@ casper
 
   .then(function() {
     commits = this.evaluate(function() {
-      return $('#project_11 .commits-row .commit-list .commit').map(function() {
+      return $('div[id*="project_"] .commits-row .commit-list .commit').map(function() {
         var commit = $('.commit-actions .commit-short-id.btn.btn-transparent', this).text();
         var datetime = $('.commit-content .commiter time', this).attr('datetime');
         var author = $('.commit-author-link', this).text();
@@ -33,17 +36,19 @@ casper
           commit: commit,
           datetime: +new Date(datetime),
           author: author,
-          link: 'http://172.16.0.52' + link
+          link: 'http://172.16.0.52' + link + '?w=1'
         };
       }).toArray();
     });
 
-    commits.forEach(function(commit) {
+    this.each(commits, function(self, commit) {
       this.thenOpen(commit.link, function() {
         var info = this.evaluate(function() {
-          var info = {};
+          var info = { };
 
-          $('.commit-stat-summary strong').each(function() {
+          __utils__.echo($('.files-changed .commit-stat-summary strong').text());
+
+          $('.files-changed .commit-stat-summary strong').each(function() {
             var txt = $(this).text();
             var changedFiles = /^(\d+)\s+changed files$/.exec(txt);
             var additions = /^(\d+)\s+additions$/.exec(txt);
@@ -65,14 +70,20 @@ casper
           return JSON.stringify(info);
         });
 
-        utils.mergeObjects(commit, JSON.parse(info));
+        this.echo(info)
+
+        if (info) {
+          utils.mergeObjects(commit, JSON.parse(info));
+        }
+
+        utils.mergeObjects(commit, { project: type + '-' + name });
         // this.echo(typeof Object.assign)
       });
-    }.bind(this));
+    });
 
     this.then(function() {
       this.echo(JSON.stringify(commits, null, 2));
-      fs.write('./data.json', JSON.stringify(commits));
+      fs.write('/tmp/commints-data/' + type + '-' + name + '.json', JSON.stringify(commits));
     });
   })
 
