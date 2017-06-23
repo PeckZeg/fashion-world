@@ -40,5 +40,5 @@ module.exports = (req, res, next) => {
     .then(video => video[0])
 
     .then(video => res.send({ video }))
-    .catch(err => res.status(err.status || 500).send({ message: err.message }));
+    .catch(err => handleError(res, err));
 };

@@ -49,7 +49,6 @@ module.exports = (authorization, action, optional = true, cacheKey) => new Promi
 
     // 验证 api-key
     .then(({ apiKey, signature, timestamp }) => new Promise((resolve, reject) => {
-
       debug(cacheKey(apiKey))
 
       client.getAsync(cacheKey(apiKey))
@@ -57,7 +56,7 @@ module.exports = (authorization, action, optional = true, cacheKey) => new Promi
           if (!keys) return reject(CaaError(404, 'apiKey not found'));
           resolve({ apiKey, signature, timestamp, keys: JSON.parse(keys) });
         })
-        .catch(err => reject(err));
+        .catch(reject);
     }))
 
     // 验证 signature
@@ -73,7 +72,7 @@ module.exports = (authorization, action, optional = true, cacheKey) => new Promi
       }
 
       else {
-        reject(CaaError(400, 'invalid signature'))
+        reject(CaaError(400, 'invalid signature'));
       }
     }))
 

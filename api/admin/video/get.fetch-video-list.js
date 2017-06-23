@@ -61,5 +61,5 @@ module.exports = (req, res, next) => {
     ))
 
     .then(result => res.send(result))
-    .catch(err => handleError(err));
+    .catch(err => handleError(res, err));
 };

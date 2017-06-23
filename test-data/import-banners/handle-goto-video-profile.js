@@ -34,6 +34,6 @@ module.exports = () => new Promise((resolve, reject) => {
     value: {
       videoId: video._id
     },
-    cover: _.sample(IMAGE_LIST),
+    cover: _.sample(IMAGE_LIST).replace('/data', ''),
     priority: Mock.mock('@integer(0, 64)')
   })))

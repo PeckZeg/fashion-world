@@ -9,6 +9,7 @@ let schema = new Schema({
   priority: { type: Number, default: 0 },
   isActive: { type: Boolean, default: true },
   createAt: { type: Date, default: Date.now },
+  removeAt: Date,
 });
 
 schema.options.toJSON = { transform };
