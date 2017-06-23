@@ -1,23 +1,24 @@
 const VideoChannel = reqlib('./models/VideoChannel');
 const mapObjectIds = reqlib('./utils/map-objectids');
-const handleError = reqlib('./utils/catchMongooseError');
 
-module.exports = videos => Promise.resolve(
-  Array.isArray(videos) ? videos : [videos]
-)
+module.exports = videos => Promise.resolve(videos)
+
+  // init videos
+  .then(videos => Array.isArray(videos) ? videos : [videos])
 
   // map channelId list
-  .then(videos => ({ videos, channelIds: mapObjectIds(videos, 'channelId') }))
-
-  // fetch channel docs
-  .then(({ videos, channelIds }) => new Promise((resolve, reject) => {
-    VideoChannel.find({ _id: channelIds })
-      .then(channels => resolve({ videos, channels }))
-      .catch(err => reject(handleError(err)));
+  .then(videos => ({
+    videos,
+    _id: mapObjectIds(videos, 'channelId')
   }))
 
-  // group by channel id
-  .then(({ videos, channels }) => ({ videos, channels: _.keyBy(channels, '_id') }))
+  // fetch channel docs
+  .then(({ videos, _id }) => (
+    VideoChannel.find({ _id }).then(channels => ({
+      videos,
+      channels: _.keyBy(channels, '_id')
+    }))
+  ))
 
   // inject `channel` to videos
   .then(({ videos, channels }) => videos.map(video => {

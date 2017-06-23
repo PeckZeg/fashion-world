@@ -30,22 +30,22 @@ module.exports = (authorization, action, optional = true, cacheKey) => new Promi
     }))
 
     // 验证 timestamp
-    .then(({ apiKey, signature, timestamp }) => new Promise((resolve, reject) => {
-      let now = moment();
-      let startTime = now.clone().add(-5, 'm');
-      let endTime = now.clone().add(5, 'm')
-      let ts = moment(timestamp);
-
-      debug({ apiKey, signature, timestamp });
-
-      if (ts.isBetween(startTime, endTime)) {
-        resolve({ apiKey, signature, timestamp });
-      }
-
-      else {
-        reject(CaaError(400, 'invalid timestamp'));
-      }
-    }))
+    // .then(({ apiKey, signature, timestamp }) => new Promise((resolve, reject) => {
+    //   let now = moment();
+    //   let startTime = now.clone().add(-5, 'm');
+    //   let endTime = now.clone().add(5, 'm')
+    //   let ts = moment(timestamp);
+    //
+    //   debug({ apiKey, signature, timestamp });
+    //
+    //   if (ts.isBetween(startTime, endTime)) {
+    //     resolve({ apiKey, signature, timestamp });
+    //   }
+    //
+    //   else {
+    //     reject(CaaError(400, 'invalid timestamp'));
+    //   }
+    // }))
 
     // 验证 api-key
     .then(({ apiKey, signature, timestamp }) => new Promise((resolve, reject) => {

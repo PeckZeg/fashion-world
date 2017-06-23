@@ -1,25 +1,30 @@
 const SourceVideo = reqlib('./models/SourceVideo');
 const mapObjectIds = reqlib('./utils/map-objectids');
-const handleError = reqlib('./utils/catchMongooseError');
 
-module.exports = videos => Promise.resolve(Array.isArray(videos) ? videos : [videos])
+module.exports = videos => Promise.resolve(videos)
+
+  // init
+  .then(videos => Array.isArray(videos) ? videos : [videos])
 
   // map sourceId list
-  .then(videos => ({ videos, sourceIds: mapObjectIds(videos, 'sourceId') }))
-
-  // fetch source docs
-  .then(({ videos, sourceIds }) => new Promise((resolve, reject) => {
-    SourceVideo.find({ _id: sourceIds })
-      .then(sources => resolve({ sources, videos }))
-      .catch(err => reject(handleError(err)));
+  .then(videos => ({
+    videos,
+    _id: mapObjectIds(videos, 'sourceId')
   }))
 
-  // group by sourceId
-  .then(({ videos, sources }) => ({ videos, sources: _.keyBy(sources, '_id') }))
+  // fetch source docs
+  .then(({ videos, _id }) => (
+    SourceVideo.find({ _id }).then(sources => ({
+      videos,
+      sources: _.keyBy(sources, '_id')
+    }))
+  ))
 
-  // inject video.source
+  // inject source
   .then(({ videos, sources }) => videos.map(video => {
-    const source = sources[video.sourceId];
+    const { sourceId: id } = video;
+    const model = sources[id];
+    const source = model ? model.toJSON({ virtuals: true }) : null;
 
-    return { ...video, source: source ? source.toJSON({ virtuals: true }) : null }
+    return { ...video, source };
   }));

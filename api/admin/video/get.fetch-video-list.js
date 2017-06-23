@@ -2,12 +2,15 @@ const auth = reqlib('./utils/access-keys/account/auth');
 const Video = reqlib('./models/Video');
 const transformQuery = reqlib('./utils/transform-query');
 const validateParams = reqlib('./validate-models/admin/video/fetch-list-params');
-const mapSources = reqlib('./utils/models/video/map-sources');
-const mapChannels = reqlib('./utils/models/video/map-channels');
-const mapCategories = reqlib('./utils/models/video/map-categories');
-const handleError = reqlib('./utils/catchMongooseError');
+const injectVideos = reqlib('./utils/models/inject/videos');
+const handleError = reqlib('./utils/response/handle-error');
 
 const ACTION = config.apiActions['admin:video:get:fetch-list'];
+const MODEL_QUERY_COND = {
+  isRecommend: 'recommendAt',
+  isPublish: 'publishAt',
+  isRemoved: 'removeAt'
+};
 
 module.exports = (req, res, next) => {
   auth(req.header('authorization'), ACTION, false)
@@ -22,15 +25,11 @@ module.exports = (req, res, next) => {
     // validate query params
     .then(validateParams)
 
-    // fetch video docs
-    .then(query => new Promise((resolve, reject) => {
+    // generate query options
+    .then(query => {
       const { offset, limit } = query;
-
-      const cond = _.reduce({
-        isRecommend: 'recommendAt',
-        isPublished: 'publishAt',
-        isRemoved: 'removeAt'
-      }, (cond, transKey, key) => {
+      const skip = offset * limit;
+      const cond = _.reduce(MODEL_QUERY_COND, (cond, transKey, key) => {
         if (query[key] !== void 0) {
           cond = {
             ...cond,
@@ -40,34 +39,27 @@ module.exports = (req, res, next) => {
 
         return cond;
       }, {});
+      const sort = { createAt: -1 };
 
-      return Video.find(cond)
-        .skip(offset * limit)
-        .limit(limit)
-        .sort({ createAt: -1 })
-        .then(videos => resolve(videos))
-        .catch(err => reject(handleError(err)));
-    }))
+      return { cond, skip, limit, sort };
+    })
+
+    // query video docs
+    .then(({ cond, skip, limit, sort }) => (
+      Video.find(cond).skip(skip).limit(limit).sort(sort)
+            .then(videos => ({ cond, videos }))
+    ))
+
+    // count video docs
+    .then(({ cond, videos }) => (
+      Video.count(cond).then(total => ({ total, videos }))
+    ))
 
     // transform video docs
-    .then(videos => videos.map(video => video.toJSON({ virtuals: true })))
-
-    // inject `source`
-    .then(videos => mapSources(videos))
-
-    // inject `channel`
-    .then(videos => mapChannels(videos))
-
-    // inject `category`
-    .then(videos => mapCategories(videos))
-
-    // fetch video count
-    .then(videos => new Promise((resolve, reject) => {
-      Video.count()
-        .then(total => resolve({ total, videos }))
-        .catch(err => reject(handleError(err)));
-    }))
+    .then(({ total, videos }) => (
+      injectVideos(videos).then(videos => ({ total, videos }))
+    ))
 
     .then(result => res.send(result))
-    .catch(err => res.status(err.status || 500).send({ message: err.message }));
+    .catch(err => handleError(err));
 };

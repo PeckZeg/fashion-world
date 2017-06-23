@@ -1,4 +1,5 @@
 var utils = require('utils');
+var fs = require('fs');
 var casper = require('casper').create({
   clientScripts: [
     'https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js'
@@ -70,7 +71,8 @@ casper
     }.bind(this));
 
     this.then(function() {
-      this.echo(JSON.stringify(commits, null, 2))
+      this.echo(JSON.stringify(commits, null, 2));
+      fs.write('./data.json', JSON.stringify(commits));
     });
   })
 
