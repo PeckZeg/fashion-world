@@ -8,7 +8,7 @@ const { Schema } = mongoose;
 const { ObjectId } = Schema;
 
 let schema = new Schema({
-  sourceIds: [ObjectId],
+  sourceId: ObjectId,
   tags: [{ type: String, maxlength: 6 }],
   keywords: [{ type: String, minlength: 1 , maxlength: 6 }],
   name: { type: String, minlength: 1, maxLength: 64, default: '' },
@@ -16,10 +16,9 @@ let schema = new Schema({
   summary: { type: String, minlength: 1, maxLength: 65535, default: '' },
   cover: { type: String, default: null },
   views: { type: Number, default: 0 },
-  priority: { type: Number, default: 0 },
-  collections: { type: Number, default: 0 },
   publishAt: { type: Date, default: null },
-  recommendAt: { type: Date, default: null },
+  recommendBeginAt: { type: Date, default: null },
+  recommendEndAt: { type: Date, default: null },
   createAt: { type: Date, default: Date.now },
   removeAt: { type: Date, default: null }
 });

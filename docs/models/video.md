@@ -6,6 +6,7 @@ nam               | type           | required | validate          | note
 `channelId`       | `objectid`     | √        |                   | 频道编号
 `categoryId`      | `objectid`     | √        |                   | 频道分类编号
 `tags`            | `string[]`     |          |                   | 标签组
+`keywords`        | `string[]`     |          |                   | 关键词，新增于 `@1.0.5`
 `name`            | `string`       |          | 长度: `1 ~ 64`    | 名称
 `abstract`        | `string`       |          | 长度: `1 ~ 128`   | 摘要
 `summary`         | `string`       |          | 长度: `1 ~ 65535` | 简介

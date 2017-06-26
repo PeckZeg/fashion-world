@@ -12,21 +12,53 @@ module.exports = (req, res, next) => {
 
     // generate query options
     .then(query => {
-      const { offset, limit } = query;
-      const skip = offset * limit;
-      const cond = {
+      const { limit } = query;
+      const match = {
+        $or: [
+          { recommendBeginAt: { $ne: null, $lte: new Date() } },
+          { recommendEndAt: { $ne: null, $gte: new Date() } }
+        ],
         publishAt: { $ne: null, $lte: new Date() },
         removeAt: { $eq: null }
       };
-      const sort = { priority: -1, createAt: -1 };
 
-      return { cond, skip, limit, sort };
+      return { match, limit };
+    })
+
+    // query recommend live video docs
+    .then(({ match, limit, sort }) => (
+      LiveVideo.aggregate().match(match).limit(limit).exec()
+        .then(liveVideos => ({
+          liveVideos: liveVideos.map(liveVideo => new LiveVideo(liveVideo)),
+          limit
+        }))
+    ))
+
+    // generate query live video params
+    .then(({ liveVideos, limit: globalLimit }) => {
+      const limit = globalLimit - liveVideos.length;
+      const match = {
+        sourceId: { $nin: _.map(liveVideos, 'sourceId') },
+        recommendBeginAt: { $eq: null },
+        recommendEndAt: { $eq: null },
+        publishAt: { $ne: null, $lte: new Date() },
+        removeAt: { $eq: null }
+      };
+
+      return { liveVideos, match, limit };
     })
 
     // query live video docs
-    .then(({ cond, skip, limit, sort }) => (
-      LiveVideo.find(cond).skip(skip).limit(limit).sort()
+    .then(({ liveVideos, match, limit }) => (
+      LiveVideo.aggregate().match(match).limit(limit).exec()
+        .then(concatLiveVideos => [
+          ...liveVideos,
+          ...concatLiveVideos.map(liveVideo => new LiveVideo(liveVideo))
+        ])
     ))
+
+    // shuffle video docs
+    .then(liveVideos => _.shuffle(liveVideos))
 
     // inject live video docs
     .then(injectLiveVideos)
