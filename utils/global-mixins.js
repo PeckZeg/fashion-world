@@ -7,6 +7,7 @@ const moment = require('moment');
 const redis = require('redis');
 const _ = require('lodash');
 const config = require('../config');
+const ResponseError = require('./ResponseError');
 
 mongoose.Promise = global.Promise;
 
@@ -17,6 +18,7 @@ Object.assign(global, module.exports = {
   reqlib: appRootPath.require,
   resolve: appRootPath.resolve,
   appRootPath: appRootPath,
+  ResponseError,
   moment,
   reqYaml,
   colors,

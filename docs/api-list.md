@@ -30,6 +30,10 @@
 * [`GET` 随机获取推荐视频列表](./api/video/get.fetch-recommend-video-list.md)
 * [`GET` 获取视频详情](./api/video/get.get-video-profile.md)
 
+### Live 视频 live video
+
+* [`GET` 获取 Live 视频列表](./api/live-video/get.fetch-live-video-list.md)
+
 ### 横幅 Banner
 
 * [`GET` 获取横幅列表](./api/banner/get.fetch-banner-list.md)

@@ -83,7 +83,7 @@ casper
 
     this.then(function() {
       this.echo(JSON.stringify(commits, null, 2));
-      fs.write('/tmp/commints-data/' + type + '-' + name + '.json', JSON.stringify(commits));
+      fs.write('/tmp/commits-data/' + type + '-' + name + '.json', JSON.stringify(commits));
     });
   })
 
