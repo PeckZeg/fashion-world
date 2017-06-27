@@ -1,6 +1,6 @@
 # Video Model
 
-nam               | type           | required | validate          | note
+name              | type           | required | validate          | note
 :---------------- | :------------- | :------: | :---------------- | :-------------------
 `sourceId`        | `objectid`     | √        |                   | 视频源编号
 `channelId`       | `objectid`     | √        |                   | 频道编号
@@ -14,6 +14,7 @@ nam               | type           | required | validate          | note
 `coverUrl`        | `string`       |          |                   | 封面地址，仅在接口输出中使用
 `views`           | `number`       |          | 默认: `0`         | 浏览数，`1.0.3` 新增
 `collections`     | `number`       |          | 默认: `0`         | 收藏数，`1.0.3` 新增
+`favourites`      | `number`       |          | 默认：`0`         | 点赞数（从缓存获取），**新增@1.0.6**
 ~~`isPublished`~~ | ~~`boolean`~~  |          |                   | ~~是否发布~~ **移除 @1.0.4**
 ~~`isRecommend`~~ | ~~`boolean`~~  |          |                   | ~~是否推荐~~ **移除 @1.0.4**
 ~~`isRemoved`~~   | ~~`boolean`~~  |          |                   | ~~是否已移除~~  **移除 @1.0.4**

@@ -1,4 +1,4 @@
 const redis = require('redis');
-const client = redis.createClient(config.redis);
+const createClient = require('./create-client');
 
-module.exports = client;
+module.exports = createClient();

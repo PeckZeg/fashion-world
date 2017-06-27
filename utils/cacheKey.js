@@ -22,6 +22,12 @@ module.exports = flag => {
     case 'available-video-channel-categories':
       return () => 'cache:available-video-channel-categories';
 
+    case 'video:favourite-users':
+      return videoId => `video:${videoId}:favourite-users`;
+
+    case 'user:favourite-videos':
+      return userId => `user:${userId}:favourite-videos`;
+
     default:
       return key => key;
   }

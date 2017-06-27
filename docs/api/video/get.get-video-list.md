@@ -30,11 +30,12 @@ field    | type       | example     | note
 
 ### Extra Video Fields
 
-field      | type     | example   | note
-:--------- | :------- | :-------- | :-------------------------------------------------
-`channel`  | `object` | `{ ... }` | [视频频道](../../models/video-channel.md)
-`category` | `object` | `{ ... }` | [频道分类](../../models/video-channel-category.md)
-`source`   | `object` | `{ ... }` | [视频源](../../models/video-source.md)
+field        | type     | example   | note
+:----------- | :------- | :-------- | :-------------------------------------------------
+`channel`    | `object` | `{ ... }` | [视频频道](../../models/video-channel.md)
+`category`   | `object` | `{ ... }` | [频道分类](../../models/video-channel-category.md)
+`source`     | `object` | `{ ... }` | [视频源](../../models/video-source.md)
+`isFavoured` | `boolean` | `true` | 是否已点赞， **新增@1.0.6**
 
 ## Error Codes
 

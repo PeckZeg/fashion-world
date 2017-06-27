@@ -16,6 +16,7 @@ module.exports = (query, data, strict = false) => {
           }
           break;
 
+        case Array:
         case 'StringArray':
           if (typeof value === 'string') {
             query[key] = value.split(',').map(s => s.trim());

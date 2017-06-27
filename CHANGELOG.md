@@ -7,6 +7,7 @@
 * 新增 `GET` CMS - 获取视频频道列表接口
 * 新增 `GET` CMS - 获取视频分类列表
 * 新增 [`GET` 获取 Live 视频列表](./docs/api/live-video/get.fetch-live-video-list.md)
+* 修正 [`GET` 获取视频列表](./docs/api/video/get.get-video-list.md) 接口中继续显示已经下架的频道、分类的问题
 
 ## `1.0.5`
 

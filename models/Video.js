@@ -19,6 +19,7 @@ let schema = new Schema({
   cover: { type: String, default: null },
   views: { type: Number, default: 0 },
   collections: { type: Number, default: 0 },
+  // favorites: { type: Number, default: 0 },
   // isPublished: { type: Boolean, default: true },
   // isRecommend: { type: Boolean, default: false },
   // isRemoved: { type: Boolean, default: false },
