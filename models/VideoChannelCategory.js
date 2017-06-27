@@ -9,7 +9,8 @@ let schema = new Schema({
   name: { type: String, required: true, minlength: 1, maxLength: 64 },
   channelId: { type: ObjectId, required: true },
   priority: { type: Number, default: 0 },
-  isActive: { type: Boolean, default: true },
+  // isActive: { type: Boolean, default: true },
+  publishAt: { type: Date, default: null },
   createAt: { type: Date, default: Date.now },
 });
 

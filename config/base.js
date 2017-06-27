@@ -16,6 +16,8 @@ module.exports = {
     'admin:video:delete:destroy-video': 'admin:video:destroy-video',
 
     'admin:video-channel:get:fetch-list': 'admin:video-channel:fetch-list',
+
+    'admin:video-category:get:fetch-list': 'admin:video-category:fetch-list'
   },
 
   regexgs: {

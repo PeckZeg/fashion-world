@@ -1,8 +1,16 @@
 # 更新日志
 
+## `1.0.6`
+
+> 更新于 `2017-06-30`
+
+* 新增 `GET` CMS - 获取视频频道列表接口
+* 新增 `GET` CMS - 获取视频分类列表
+* 新增 [`GET` 获取 Live 视频列表](./docs/api/live-video/get.fetch-live-video-list.md)
+
 ## `1.0.5`
 
-> 更新于 `2017-07-23`
+> 更新于 `2017-06-23`
 
 * 新增 [`GET` 随机获取推荐视频列表](./docs/api/video/get.fetch-recommend-video-list.md) 接口
 

@@ -3,8 +3,10 @@ const catchError = err => {
 
   let key = _.chain(err.errors).keys().first().value();
   let error = key ? err.errors[key] : null;
+  let message = (error ? error.message : err.message) || 'Internal Server Error';
+  let status = (error ? error.status : err.status) || 500;
 
-  return new ResponseError(500, error ? error.message : err.message);
+  return new ResponseError(status, message);
 };
 
 module.exports = (res, err) => {

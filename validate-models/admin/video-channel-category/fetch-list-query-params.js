@@ -10,6 +10,6 @@ let schema = new mongoose.Schema({
   isPublished: Boolean
 }, { _id: false });
 
-let Params = mongoose.model('AdminVideoChannelListQueryParams', schema);
+let Params = mongoose.model('AdminVideoChannelCategoryListQueryParams', schema);
 
 module.exports = validate(Params);

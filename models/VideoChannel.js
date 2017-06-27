@@ -7,7 +7,7 @@ const { Schema, Types } = mongoose;
 let schema = new Schema({
   name: { type: String, required: true, minlength: 1, maxLength: 64 },
   priority: { type: Number, default: 0 },
-  isActive: { type: Boolean, default: true },
+  publishAt: { type: Date, default: null },
   createAt: { type: Date, default: Date.now },
   removeAt: Date,
 });
