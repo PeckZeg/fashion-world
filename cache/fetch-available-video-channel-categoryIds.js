@@ -28,14 +28,27 @@ module.exports = () => Promise.resolve(createClient())
 
     return VideoChannelCategory.find(cond, '_id')
       .then(categoryIds => _.map(categoryIds, '_id'))
-      .then(categoryIds => (
-        client
-          .multi()
-          .sadd(CACHE_KEY, ...categoryIds)
-          .expire(CACHE_KEY, CACHE_EXPIRE)
+      .then(categoryIds => {
+        if (!categoryIds.length) {
+          return { client, categoryIds };
+        }
+
+        const multi = client.multi();
+
+        categoryIds.forEach(categoryId => multi.sadd(CACHE_KEY, categoryId));
+
+        return multi.expire(CACHE_KEY, CACHE_EXPIRE)
           .execAsync()
-          .then(() => ({ client, categoryIds }))
-      ))
+          .then(() => ({ client, categoryIds }));
+      })
+      // .then(categoryIds => (
+      //   client
+      //     .multi()
+      //     .sadd(CACHE_KEY, ...categoryIds)
+      //     .expire(CACHE_KEY, CACHE_EXPIRE)
+      //     .execAsync()
+      //     .then(() => ({ client, categoryIds }))
+      // ))
   })
 
   // close redis client

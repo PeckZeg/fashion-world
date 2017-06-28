@@ -2,6 +2,7 @@ let router = module.exports = require('express').Router();
 
 router.get('/', require('./get.fetch-video-list'));
 router.get('/recommendations', require('./get.fetch-recommend-video-list'));
+router.get('/favourite-users', require('./get.fetch-favourite-user-list'));
 router.get('/channel', require('./get.get-channel-list'));
 router.get('/channel/category/:categoryId', require('./get.get-channel-category-profile'));
 router.get('/channel/:channelId', require('./get.get-channel-profile'));

@@ -122,3 +122,4 @@ Postman-Token: 915bf993-54aa-5e04-e062-ed8067427db6
 [source-video-model]: ../../models/video-source.md
 [video-model]: ../../models/video.md
 [response-format]: ../../response-format.md
+[signature-actions]: ../../actions.md
