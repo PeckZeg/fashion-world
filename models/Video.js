@@ -18,7 +18,7 @@ let schema = new Schema({
   summary: { type: String, minlength: 1, maxLength: 65535 },
   cover: { type: String, default: null },
   views: { type: Number, default: 0 },
-  collections: { type: Number, default: 0 },
+  // collections: { type: Number, default: 0 },
   // favorites: { type: Number, default: 0 },
   // isPublished: { type: Boolean, default: true },
   // isRecommend: { type: Boolean, default: false },

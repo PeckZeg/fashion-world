@@ -144,6 +144,6 @@ Postman-Token: a2579ca6-353b-cd7d-0749-948618bd8c0b
 [signature-authorization]: ../../signature-authorization.md
 [video-channel-model]: ../../models/video-channel.md
 [video-channel-category-model]: ../../models/video-channel-category.md
-[source-video-model]: ../../models/video-source.md
+[source-video-model]: ../../models/source-video.md
 [video-model]: ../../models/video.md
 [response-format]: ../../response-format.md

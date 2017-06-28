@@ -121,7 +121,7 @@ Postman-Token: 915bf993-54aa-5e04-e062-ed8067427db6
 
 [video-channel-model]: ../../models/video-channel.md
 [video-channel-category-model]: ../../models/video-channel-category.md
-[source-video-model]: ../../models/video-source.md
+[source-video-model]: ../../models/source-video.md
 [video-model]: ../../models/video.md
 [signature-authorization]: ../../signature-authorization.md
 [signature-actions]: ../../actions.md

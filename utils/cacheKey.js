@@ -28,6 +28,12 @@ module.exports = flag => {
     case 'user:favourite-videos':
       return userId => `user:${userId}:favourite-videos`;
 
+    case 'video:collected-users':
+      return videoId => `video:${videoId}:collected-users`;
+
+    case 'user:collected-videos':
+      return userId => `video:${userId}:collected-videos`;
+
     default:
       return key => key;
   }
