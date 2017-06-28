@@ -1,18 +1,15 @@
-const Video = reqlib('./models/Video');
-const auth = reqlib('./utils/access-keys/user/auth');
+const validateParams = reqlib('./validate-models/client/video/fetch-list-query-params');
+const handleError = reqlib('./utils/response/handle-error');
 const injectVideos = reqlib('./utils/models/inject/videos');
 const transformQuery = reqlib('./utils/transform-query');
-const validateParams = reqlib('./validate-models/client/video/fetch-list-query-params');
-const cacheKey = reqlib('./utils/cacheKey');
-const handleError = reqlib('./utils/response/handle-error');
+const auth = reqlib('./utils/access-keys/user/auth');
 
-const fetchAvialableChannelIds = reqlib('./cache/fetch-available-channelIds');
+const Video = reqlib('./models/Video');
+
 const fetchAvialableCategoryIds = reqlib('./cache/fetch-available-video-channel-categoryIds');
+const fetchAvialableChannelIds = reqlib('./cache/fetch-available-channelIds');
 
 const ACTION = config.apiActions['video:get:fetch-video-list'];
-const createVideoFavouriteUsersCacheKey = cacheKey('video:favourite-users');
-const createUserFavouriteVideosCacheKey = cacheKey('user:favourite-videos');
-
 const TRANSFORM_QUERY_PARAMS = {
   isRecommend: Boolean,
   tags: Array,

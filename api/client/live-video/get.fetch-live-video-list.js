@@ -1,7 +1,7 @@
 const LiveVideo = reqlib('./models/LiveVideo');
 
 const injectLiveVideos = reqlib('./utils/models/inject/liveVideos');
-const validateParams = reqlib('./validate-models/client/live-video/fetchListqueryParams');
+const validateParams = reqlib('./validate-models/client/live-video/fetch-list-query-params');
 const handleError = reqlib('./utils/response/handle-error');
 
 module.exports = (req, res, next) => {
@@ -27,7 +27,7 @@ module.exports = (req, res, next) => {
 
     // query recommend live video docs
     .then(({ match, limit, sort }) => (
-      LiveVideo.aggregate().match(match).limit(limit).exec()
+      LiveVideo.aggregate().match(match).sample(limit).exec()
         .then(liveVideos => ({
           liveVideos: liveVideos.map(liveVideo => new LiveVideo(liveVideo)),
           limit
@@ -50,7 +50,7 @@ module.exports = (req, res, next) => {
 
     // query live video docs
     .then(({ liveVideos, match, limit }) => (
-      LiveVideo.aggregate().match(match).limit(limit).exec()
+      LiveVideo.aggregate().match(match).sample(limit).exec()
         .then(concatLiveVideos => [
           ...liveVideos,
           ...concatLiveVideos.map(liveVideo => new LiveVideo(liveVideo))

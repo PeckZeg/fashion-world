@@ -2,47 +2,52 @@
 
 > 新增@1.0.5
 
-## Base
+## 基本
 
-* Method: `GET`
-* URI: `/api/video/recommendations`
+* 方法: `GET`
+* 地址: `/api/video/recommendations`
 
-## Headers
+## 请求头
 
-key             | value                 | note
-:-------------- | :-------------------- | :----------
-`Content-Type`  | `application/json`    |
+键              | 值                    | 必须     | 备注
+:-------------- | :-------------------- | :------: | :----------------------------------
+`Content-Type`  | `application/json`    | √        | 指定内容传输类型为 JSON 格式
+`Authorization` | `Caa ${Base64String}` |          | [用户签名][signature-authorization]
 
-## Request Query Schema
+签名动作参见 [Signature Actions][signature-actions]
 
-field         | type       | required | default |validate                | note
-:------------ | :--------- | :------- | :------ |:---------------------- | :-------
-`limit`       | `number`   |          | `20`    | Range: `1 ~ +Infinity` | 每页限制
-`channelId`   | `objectid` |          |         |                        | 频道编号
-`categoryId`  | `objectid` |          |         |                        | 分类编号
+## 请求查询参数
 
-## Response Body Schema
+字段          | 类型       | 必须     | 默认值  | 验证              | 说明
+:------------ | :--------- | :------: | :------ | :---------------- | :-------
+`limit`       | `number`   |          | `20`    | Range: `1 ~ 2048` | 每页限制
+`channelId`   | `objectid` |          |         |                   | 频道编号
+`categoryId`  | `objectid` |          |         |                   | 分类编号
 
-field    | type       | example     | note
-:------- | :--------- | :---------- | :----------------------------------------------------------------
-`videos` | `object[]` | `[{ ... }]` | 视频列表，视频模型请参见 [Video](../../models/video.md)
+## 响应内容格式
+
+字段     | 类型       | 示例        | 说明
+:------- | :--------- | :---------- | :------------------------------
+`videos` | `object[]` | `[{ ... }]` | [视频][video-model] 列表
 
 ### Extra Video Fields
 
-field      | type     | example   | note
-:--------- | :------- | :-------- | :-------------------------------------------------
-`channel`  | `object` | `{ ... }` | [视频频道](../../models/video-channel.md)
-`category` | `object` | `{ ... }` | [频道分类](../../models/video-channel-category.md)
-`source`   | `object` | `{ ... }` | [视频源](../../models/video-source.md)
+字段         | 类型      | 示例      | 说明
+:----------- | :-------- | :-------- | :--------------------------------------------------------
+`channel`    | `object`  | `{ ... }` | [视频频道][video-channel-model]
+`category`   | `object`  | `{ ... }` | [频道分类][video-channel-category-model]
+`source`     | `object`  | `{ ... }` | [视频源][source-video-model]
+`isFavoured` | `boolean` | `true`    | **新增@1.0.6** 是否已点赞（在传入 `Authorization` 时显示）
 
 ## Error Codes
 
-请求返回结果说明，可访问 [该处](../../response-format.md) 查看相应文档。
+[请求返回结果][response-format] 说明。
 
-code  | note
-:---- | :----------------------
-`400` | 参数错误、手机/密码错误
-`500` | 服务器错误
+状态码 | message            | 说明
+:----: | :----------------- |:----------------------
+`400`  |                    | 参数错误、手机/密码错误
+`404`  | `apiKey not found` | 用户未登录
+`500`  |                    | 服务器错误
 
 ## Example
 
@@ -110,3 +115,10 @@ Postman-Token: 915bf993-54aa-5e04-e062-ed8067427db6
   ]
 }
 ```
+
+[signature-authorization]: ../../signature-authorization.md
+[video-channel-model]: ../../models/video-channel.md
+[video-channel-category-model]: ../../models/video-channel-category.md
+[source-video-model]: ../../models/video-source.md
+[video-model]: ../../models/video.md
+[response-format]: ../../response-format.md

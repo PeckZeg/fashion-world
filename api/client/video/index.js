@@ -9,3 +9,5 @@ router.get('/channel/:channelId/categories', require('./get.get-channel-category
 router.get('/:videoId', require('./get.get-video-profile'));
 
 router.put('/:videoId/favour', require('./put.favour-video'));
+
+router.delete('/:videoId/favour', require('./del.destroy-favourite-video'));

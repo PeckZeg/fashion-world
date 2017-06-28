@@ -1,29 +1,27 @@
 const validateParams = reqlib('./validate-models/client/video/fetch-recommend-video-list');
 const injectVideos = reqlib('./utils/models/inject/videos');
 const handleError = reqlib('./utils/response/handle-error');
-const transformQuery = reqlib('./utils/transform-query');
 const auth = reqlib('./utils/access-keys/user/auth');
-const cacheKey = reqlib('./utils/cacheKey');
 
 const Video = reqlib('./models/Video');
 
 const fetchAvialableCategoryIds = reqlib('./cache/fetch-available-video-channel-categoryIds');
 const fetchAvialableChannelIds = reqlib('./cache/fetch-available-channelIds');
 
-const createVideoFavouriteUsersCacheKey = cacheKey('video:favourite-users');
-const createUserFavouriteVideosCacheKey = cacheKey('user:favourite-videos');
-
-const ACTION = config.apiActions['video:get:fetch-video-list'];
+const ACTION = config.apiActions['video:get:fetch-recommend-video-list'];
 
 module.exports = (req, res, next) => {
-  Promise.resolve(req.query)
+  auth(req.header('authorization'), ACTION)
 
     // validate query params
-    .then(validateParams)
+    .then(keys => validateParams(req.query).then(query => ({
+      userId: keys ? keys.userId : null,
+      query
+    })))
 
     // fetch available channels
-    .then(query => (
-      fetchAvialableChannelIds().then(channelIds => ({ channelIds, query }))
+    .then(args => (
+      fetchAvialableChannelIds().then(channelIds => ({ channelIds, ...args }))
     ))
 
     // fetch available categoryIds
@@ -32,7 +30,7 @@ module.exports = (req, res, next) => {
     ))
 
     // generate aggregate params
-    .then(({ query, channelIds, categoryIds }) => {
+    .then(({ userId, query, channelIds, categoryIds }) => {
       const { limit, channelId, categoryId } = query;
       let match = {
         recommendAt: { $ne: null, $lte: new Date() },
@@ -45,18 +43,24 @@ module.exports = (req, res, next) => {
         }
       });
 
-      return { match, limit };
+      return { userId, match, limit };
     })
 
     // sample recommend video docs
-    .then(({ match, limit }) => Video.aggregate().match(match).sample(limit))
+    .then(({ userId, match, limit }) => (
+      Video.aggregate().match(match).sample(limit)
+        .then(videos => ({ userId, videos }))
+    ))
 
     // transform original docs to video docs
-    .then(videos => videos.map(video => new Video(video)))
+    .then(({ userId, videos }) => ({
+      userId,
+      videos: videos.map(video => new Video(video))
+    }))
 
     // inject videos
-    .then(injectVideos)
+    .then(({ userId, videos }) => injectVideos(videos, userId))
 
-    .then(result => res.send(result))
+    .then(videos => res.send({ videos }))
     .catch(err => res.status(err.status || 500).send({ message: err.message }));
 };

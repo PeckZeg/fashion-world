@@ -1,5 +1,7 @@
 # 视频 - 获取视频列表
 
+> 更新于 `@1.0.6`
+
 ## Base
 
 * Method: `GET`
@@ -7,44 +9,48 @@
 
 ## Headers
 
-key             | value                 | note
-:-------------- | :-------------------- | :----------
-`Content-Type`  | `application/json`    |
+键              | 值                    | 必须     | 备注
+:-------------- | :-------------------- | :------: | :----------------------------------
+`Content-Type`  | `application/json`    | √        | 指定内容传输类型为 JSON 格式
+`Authorization` | `Caa ${Base64String}` |          | [用户签名][signature-authorization]
+
+签名动作参见 [Signature Actions][signature-actions]
 
 ## Request Query Schema
 
-field         | type       | required | default |validate                | note
-:------------ | :--------- | :------- | :------ |:---------------------- | :-------
-`offset`      | `number`   |          | `0`     | Range: `0 ~ +Infinity` | 页面偏移量
-`limit`       | `number`   |          | `20`    | Range: `1 ~ +Infinity` | 每页限制
-`isRecommend` | `boolean`  |          |         |                        | 过滤出推荐视频，**新增@1.0.4**
-`channelId`   | `objectid` |          |         |                        | 频道编号，**新增@1.0.4**
-`categoryId`  | `objectid` |          |         |                        | 分类编号，**新增@1.0.4**
-`tags`        | `string[]` |          |         |                        | 标签过滤，为 `OR` 查询，转换为查询字符串时应使用 `,` 隔开
+字段          | 类型       | 必须     | 默认值  | 验证             | 说明
+:------------ | :--------- | :------: | :------ | :--------------- | :-------
+`offset`      | `number`   |          | `0`     | 值域: `0 ~ 2048` | 页面偏移量
+`limit`       | `number`   |          | `20`    | 值域: `1 ~ 128`  | 每页限制
+`isRecommend` | `boolean`  |          |         |                  | **新增@1.0.4** 过滤出推荐视频
+`channelId`   | `objectid` |          |         |                  | **新增@1.0.4** 频道编号
+`categoryId`  | `objectid` |          |         |                  | **新增@1.0.4** 分类编号
+`tags`        | `string`   |          |         |                  | 标签过滤，为 `OR` 查询，使用 `,` 隔开
 
 ## Response Body Schema
 
 field    | type       | example     | note
-:------- | :--------- | :---------- | :----------------------------------------------------------------
-`videos` | `object[]` | `[{ ... }]` | 视频列表，视频模型请参见 [Video](../../models/video.md)
+:------- | :--------- | :---------- | :--------------------------------------------
+`videos` | `object[]` | `[{ ... }]` | 视频列表，视频模型请参见 [Video][video-model]
 
-### Extra Video Fields
+### 注入 `video` 的额外字段
 
-field        | type     | example   | note
-:----------- | :------- | :-------- | :-------------------------------------------------
-`channel`    | `object` | `{ ... }` | [视频频道](../../models/video-channel.md)
-`category`   | `object` | `{ ... }` | [频道分类](../../models/video-channel-category.md)
-`source`     | `object` | `{ ... }` | [视频源](../../models/video-source.md)
-`isFavoured` | `boolean` | `true` | 是否已点赞， **新增@1.0.6**
+字段         | 类型      | 示例      | 说明
+:----------- | :-------- | :-------- | :--------------------------------------------------------
+`channel`    | `object`  | `{ ... }` | [视频频道][video-channel-model]
+`category`   | `object`  | `{ ... }` | [频道分类][video-channel-category-model]
+`source`     | `object`  | `{ ... }` | [视频源][source-video-model]
+`isFavoured` | `boolean` | `true`    | **新增@1.0.6** 是否已点赞（在传入 `Authorization` 时显示）
 
 ## Error Codes
 
 请求返回结果说明，可访问 [该处](../../response-format.md) 查看相应文档。
 
-code  | note
-:---- | :----------------------
-`400` | 参数错误、手机/密码错误
-`500` | 服务器错误
+status | message            | note
+:----: | :----------------- |:----------------------
+`400`  |                    | 参数错误、手机/密码错误
+`404`  | `apiKey not found` | 用户未登录
+`500`  |                    | 服务器错误
 
 ## Example
 
@@ -112,3 +118,10 @@ Postman-Token: 915bf993-54aa-5e04-e062-ed8067427db6
   ]
 }
 ```
+
+[video-channel-model]: ../../models/video-channel.md
+[video-channel-category-model]: ../../models/video-channel-category.md
+[source-video-model]: ../../models/video-source.md
+[video-model]: ../../models/video.md
+[signature-authorization]: ../../signature-authorization.md
+[signature-actions]: ../../actions.md

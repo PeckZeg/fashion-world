@@ -5,8 +5,8 @@ const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
 let schema = new Schema({
-  offset: { type: Number, min: 0, default: 0 },
-  limit: { type: Number, min: 0, default: 20 },
+  // offset: { type: Number, min: 0, default: 0 },
+  limit: { type: Number, default: 20 },
   // channelId: ObjectId,
   // type: String
 }, { _id: false });

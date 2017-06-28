@@ -2,9 +2,10 @@
 
 ## Server Address
 
-环境     | 地址
-:------- | :------------------------
-测试环境 | `http://172.16.0.70:3003`
+环境             | 地址
+:--------------- | :------------------------
+测试环境         | `http://172.16.0.70:3003`
+测试环境（外网） | `http://59.57.240.50:5005`
 
 ## Client
 
@@ -29,6 +30,8 @@
 * [`GET` 获取视频列表](./api/video/get.get-video-list.md)
 * [`GET` 随机获取推荐视频列表](./api/video/get.fetch-recommend-video-list.md)
 * [`GET` 获取视频详情](./api/video/get.get-video-profile.md)
+* [`PUT` 点赞视频](./api/video/put.favour-video.md)
+* [`DELETE` 取消视频点赞](./api/video/del.del.destroy-favourite-video.md)
 
 ### Live 视频 live video
 
