@@ -26,14 +26,20 @@ module.exports = () => Promise.resolve(createClient())
 
     return VideoChannel.find(cond, '_id')
       .then(channels => _.map(channels, '_id'))
-      .then(channelIds => (
-        client
-          .multi()
-          .sadd(CACHE_KEY, ...channelIds)
+      .then(channelIds => {
+        if (!channelIds.length) {
+          return { client, channelIds };
+        }
+
+        const multi = client.multi();
+
+        channelIds.forEach(channelId => multi.sadd(CACHE_KEY, channelId));
+
+        return multi
           .expire(CACHE_KEY, CACHE_EXPIRE)
           .execAsync()
-          .then(() => ({ client, channelIds }))
-      ))
+          .then(() => ({ client, channelIds }));
+      })
   })
 
   // close reids client
