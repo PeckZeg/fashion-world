@@ -15,6 +15,7 @@ Version      | API                                                          | Ac
 :----------: | :----------------------------------------------------------- | :--------------------------------
              | [`GET` 获取视频列表][get.get-video-list]                     | `video:fetch-video-list`
              | [`GET` 随机获取推荐视频列表][get.fetch-recommend-video-list] | `video:fetch-recommend-video-list`
+`添加@1.0.6` | [`GET` 获取视频详情][get.get-video-profile]                  | `video:fetch-video-profile`
              | [`PUT` 点赞视频][put.favour-video]                           | `video:favour-video`
 `添加@1.0.6` | [`PUT` 收藏视频][put.add-collection]                         | `video:add-collection`
              | [`DELETE` 取消视频点赞][del.del.destroy-favourite-video]     | `video:destroy-favour-video`
@@ -25,6 +26,7 @@ Version      | API                                                          | Ac
 
 [get.get-video-list]: ./api/video/get.get-video-list.md
 [get.fetch-recommend-video-list]: ./api/video/get.fetch-recommend-video-list.md
+[get.get-video-profile]: ./api/video/get.get-video-profile.md
 [put.favour-video]: ./api/video/put.favour-video.md
 [put.add-collection]: ./api/video/put.add-collection.md
 [del.del.destroy-favourite-video]: ./api/video/del.del.destroy-favourite-video.md

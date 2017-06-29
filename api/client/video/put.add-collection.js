@@ -77,6 +77,6 @@ module.exports = (req, res, next) => {
       injectVideos(video, userId).then(videos => videos[0])
     ))
 
-    .then(result => res.send(result))
+    .then(video => res.send({ video }))
     .catch(err => handleError(res, err));
 };

@@ -6,7 +6,7 @@ router.get('/channel', require('./get.get-channel-list'));
 router.get('/channel/category/:categoryId', require('./get.get-channel-category-profile'));
 router.get('/channel/:channelId', require('./get.get-channel-profile'));
 router.get('/channel/:channelId/categories', require('./get.get-channel-category-list'));
-router.get('/:videoId', require('./get.get-video-profile'));
+router.get('/:videoId', require('./get.fetch-video-profile'));
 router.get('/:videoId/favourite-users', require('./get.fetch-favourite-user-list'));
 
 router.put('/:videoId/favour', require('./put.favour-video'));
