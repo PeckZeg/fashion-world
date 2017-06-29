@@ -33,11 +33,12 @@
 ### Extra Video Fields
 
 字段         | 类型      | 示例      | 说明
-:----------- | :-------- | :-------- | :--------------------------------------------------------
+:----------- | :-------- | :-------- | :------------------------------------------------------
 `channel`    | `object`  | `{ ... }` | [视频频道][video-channel-model]
 `category`   | `object`  | `{ ... }` | [频道分类][video-channel-category-model]
 `source`     | `object`  | `{ ... }` | [视频源][source-video-model]
-`isFavoured` | `boolean` | `true`    | **新增@1.0.6** 是否已点赞（在传入 `Authorization` 时显示）
+`isFavoured` | `boolean` | `true`    | **新增@1.0.6** 是否已点赞（传入 `Authorization` 时显示）
+`isCollected` | `boolean` | `false`   | **新增@1.0.6** 是否已收藏（传入 `Authorization` 时显示）
 
 ## Error Codes
 

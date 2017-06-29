@@ -31,7 +31,9 @@
 * [`GET` 随机获取推荐视频列表](./api/video/get.fetch-recommend-video-list.md)
 * [`GET` 获取视频详情](./api/video/get.get-video-profile.md)
 * [`PUT` 点赞视频](./api/video/put.favour-video.md)
+* [`PUT` 收藏视频](./api/video/put.add-collection.md)
 * [`DELETE` 取消视频点赞](./api/video/del.del.destroy-favourite-video.md)
+* [`DELETE` 取消视频收藏](./api/video/del.destroy-collected-video.md)
 
 ### Live 视频 live video
 

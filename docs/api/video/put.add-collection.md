@@ -1,11 +1,11 @@
-# 视频 - 取消视频点赞
+# 视频 - 收藏视频
 
 > @1.0.6 新增
 
 ## 基本
 
-* 方法: `DELETE`
-* 地址: `/api/video/:video-id/favour`
+* 方法: `PUT`
+* 地址: `/api/video/:video-id/collect`
 
 ### 地址参数
 
@@ -58,12 +58,12 @@
 **请求**
 
 ```
-DELETE /api/video/59409f140ed43e1103d60a96/favour HTTP/1.1
+PUT /api/video/59409f140ed43e1103d60a96/collect HTTP/1.1
 Host: localhost:3003
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
-Authorization: Caa T3dib25rTExFRWd0Z2ZCVmYxcGkwTGFyZW9WT1pGcFd5dXdJS3VVNTVrTT06eENIZ0F3Z3hRUHJqQ3pJL0psMnFxcUV6MTBZPSAxNDk4NjE3NDk0MDMy
+Authorization: Caa TGsvQnpYS2NXdFpJbzJRVWwzZ2xhUTJFdGo1alVLb1RCVml5UkNsWHpaQT06SGEyVy9NYnpDa3k4Ri9jdm1XQ2lxNHRxS25FPSAxNDk4NzE5NjQzODg2
 Cache-Control: no-cache
-Postman-Token: eae69b93-99a4-67a3-a7d4-92d49360fbfe
+Postman-Token: bcf41415-a178-473c-47c4-56b3dfae6075
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 ```
@@ -74,6 +74,7 @@ Postman-Token: eae69b93-99a4-67a3-a7d4-92d49360fbfe
 {
     "_id": "59409f140ed43e1103d60a96",
     "sourceId": "593faa100ed43e1103d6037f",
+    "collections": 1,
     "categoryId": "5923d5b8afa4194436827761",
     "channelId": "5923d5a2afa4194436827737",
     "name": "伦敦时装周秋冬W17-18-CharlotteOlympia预告片",
@@ -83,7 +84,6 @@ Postman-Token: eae69b93-99a4-67a3-a7d4-92d49360fbfe
     "createAt": 1497407252463,
     "recommendAt": 1497853317906,
     "publishAt": 1497432536875,
-    "collections": 0,
     "views": 0,
     "cover": "/static/images/video/1ef1eba26777d9cb5a1b12b298f68cf6ea6c5e2c.jpg",
     "keywords": [],
@@ -136,7 +136,8 @@ Postman-Token: eae69b93-99a4-67a3-a7d4-92d49360fbfe
         "priority": 2
     },
     "favourites": 0,
-    "isFavoured": false
+    "isFavoured": false,
+    "isCollected": true
 }
 ```
 
