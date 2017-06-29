@@ -1,16 +1,15 @@
-const validateObjectId = reqlib('./utils/validate-objectid');
-const handleError = reqlib('./utils/response/handle-error');
-const injectVideos = reqlib('./utils/models/inject/videos');
-const createClient = reqlib('./redis/create-client');
-const auth = reqlib('./utils/access-keys/user/auth');
-const cacheKey = reqlib('./utils/cacheKey');
-
 const Video = reqlib('./models/Video');
+const auth = reqlib('./utils/access-keys/user/auth');
+const validateObjectId = reqlib('./utils/validate-objectid');
+const createClient = reqlib('./redis/create-client');
+const injectVideos = reqlib('./utils/models/inject/videos');
+const cacheKey = reqlib('./utils/cacheKey');
+const handleError = reqlib('./utils/response/handle-error');
 
-const createVideoFavouriteUsersCacheKey = cacheKey('video:favourite-users');
-const createUserFavouriteVideosCacheKey = cacheKey('user:favourite-videos');
+const ACTION = config.apiActions['video:delete:destroy-collection'];
 
-const ACTION = config.apiActions['video:delete:destroy-favour-video'];
+const createVideoCollectedUsersCacheKey = cacheKey('video:collected-users');
+const createUserCollectedVideosCacheKey = cacheKey('user:collected-videos');
 
 module.exports = (req, res, next) => {
   const { videoId } = req.params;
@@ -41,25 +40,25 @@ module.exports = (req, res, next) => {
       const client = createClient();
       const multi = client.multi();
 
-      return { client, multi, ...args };
+      return { ...args, client, multi };
     })
 
-    // remove user from video favourite users
+    // remove user from video collected users
     .then(args => {
       const { userId, videoId, multi } = args;
-      const cacheKey = createVideoFavouriteUsersCacheKey(videoId);
+      const key = createVideoCollectedUsersCacheKey(videoId);
 
-      multi.srem(cacheKey, userId);
+      multi.hdel(key, userId.toString());
 
       return args;
     })
 
-    // remove video from user favourite videos
+    // remove video from user collected videos
     .then(args => {
       const { userId, videoId, multi } = args;
-      const cacheKey = createUserFavouriteVideosCacheKey(userId);
+      const key = createUserCollectedVideosCacheKey(userId);
 
-      multi.srem(cacheKey, videoId);
+      multi.hdel(key, videoId);
 
       return args;
     })

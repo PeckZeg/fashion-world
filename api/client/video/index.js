@@ -13,3 +13,4 @@ router.put('/:videoId/favour', require('./put.favour-video'));
 router.put('/:videoId/collect', require('./put.add-collection'));
 
 router.delete('/:videoId/favour', require('./del.destroy-favourite-video'));
+router.delete('/:videoId/collect', require('./del.destroy-collected-video'));

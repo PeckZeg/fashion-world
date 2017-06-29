@@ -4,6 +4,7 @@ const injectCategories = reqlib('./utils/models/video/map-categories');
 const injectFavourites = reqlib('./utils/models/video/inject-favourites');
 const injectFavouriteMarks = reqlib('./utils/models/video/inject-favourite-marks');
 const injectCollections = reqlib('./utils/models/video/inject-collections');
+const injectCollectedMarks = reqlib('./utils/models/video/inject-collected-marks');
 
 /**
  *  返回一个注入各种值的列表
@@ -34,4 +35,7 @@ module.exports = (videos, userId) => Promise.resolve(videos)
   .then(videos => injectFavouriteMarks(videos, userId))
 
   // inject `collections`
-  .then(videos => injectCollections(videos, userId));
+  .then(videos => injectCollections(videos, userId))
+
+  // inject `isCollected`
+  .then(videos => injectCollectedMarks(videos, userId));

@@ -46,19 +46,18 @@ module.exports = (req, res, next) => {
       const { userId, videoId, multi } = args;
       const cacheKey = createVideoCollectedUsersCacheKey(videoId);
       const collectedAt = +new Date();
-      const cacheVal = JSON.stringify({ collectedAt });
 
-      multi.hset(cacheKey, userId, cacheVal);
+      multi.hset(cacheKey, userId.toString(), collectedAt);
 
-      return { ...args, cacheVal };
+      return { ...args, collectedAt };
     })
 
     // add video to collected users
     .then(args => {
-      const { userId, videoId, multi, cacheVal } = args;
+      const { userId, videoId, multi, collectedAt } = args;
       const cacheKey = createUserCollectedVideosCacheKey(userId);
 
-      multi.hset(cacheKey, videoId, cacheVal);
+      multi.hset(cacheKey, videoId.toString(), collectedAt);
 
       return args;
     })
