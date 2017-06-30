@@ -1,3 +1,8 @@
+/**
+ *  该方法已废弃，请使用如下方法替代:
+ *    const transform = reqlib('./utils/schema/transform');
+ */
+
 const _ = require('lodash');
 
 const transform = ret => _.reduce(ret, (ret, value, key) => {

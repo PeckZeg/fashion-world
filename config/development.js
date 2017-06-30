@@ -31,8 +31,7 @@ module.exports = {
   },
 
   redis: {
-    database: 0,
-    password: 'xmzc.123'
+    database: 0
   },
 
   resource: {
@@ -43,13 +42,18 @@ module.exports = {
   localStaticPath: '/data/static'
 };
 
-if (process.env.NODE_DATABASE == 'test') {
+if (process.env.NODE_RUNTIME == 'test') {
   module.exports.mongodb = {
     host: 'localhost',
     port: 27017,
     database: 'fwdb_dev',
     user: 'fwadmin',
     pass: 'xmzc.123',
+  };
+
+  module.exports.redis = {
+    ...module.exports.redis,
+    password: 'xmzc.123'
   };
 
   module.exports.resource = {

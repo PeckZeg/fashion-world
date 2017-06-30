@@ -28,6 +28,12 @@ module.exports = {
     'admin:video-category:get:fetch-list': 'admin:video-category:fetch-list'
   },
 
+  // keys sha256 秘钥
+  keysCryptoSecrets: {
+    apiKey: 'peckzeg-api-key',
+    secretKey: 'peckzeg-secret-key'
+  },
+
   regexgs: {
     authorization: /Caa\s+((?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$)/,
     accessKeys: /((?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?):((?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?)\s+(\d{13})/

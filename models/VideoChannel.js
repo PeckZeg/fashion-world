@@ -1,3 +1,8 @@
+/**
+ *  该模型已作废，使用以下模型替换
+ *    const Channel = reqlib('./models/Channel');
+ */
+
 const mongoose = require('mongoose');
 const connection = require('../utils/mongodb-connection');
 const transform = reqlib('./utils/schema/toJSON')();

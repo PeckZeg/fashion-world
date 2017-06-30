@@ -1,22 +1,20 @@
 # User Model
 
-name              | type     | required | limit                       | note
-:---------------- | :------- | :------: | :-------------------------- | :-------
-`name`            | `string` | √        | 长度: `3~16`                | 昵称
-`gender`          | `number` | √        |                             | 性别
-`mobile`          | `string` |          | 11 位数值                   | 数值
-`password`        | `string` |          |                             | **测试环境中暴露给接口** 密码
-`createAt`        | `date`   |          |                             | 创建时间
-`registerAt`      | `date`   |          |                             | 注册时间
-`source`          | `object` |          |                             | 源信息
-`source.platform` | `string` |          |                             | 平台
-`source.deviceId` | `string` |          |                             | 设备编号
+字段         | 类型     | 必须  | 默认值   | Client 接口 | Admin 接口 | 限制条件             | 说明
+:----------- | :------- | :---: | :------- | :---------: | :--------: | :------------------- | :----
+`name`       | `String` | √     |          | √           | √          | 长度: `3 ~ 16`       | 昵称
+`gender`     | `String` | √     | `secret` | √           | √          | 取值范围参见后面表格 | 性别
+`mobile`     | `String` |       |          | √           | √          | `/^\d{11}$/i`        | 手机号码
+`avatar`     | `String` | √     |          |             | √          |                      | 头像
+`createAt`   | `Date`   |       |          | √           | √          |                      | 创建时间
+`registerAt` | `Date`   |       |          | √           | √          |                      | 创建时间
+
 
 ## `gender` 取值
 
-value     | note
-:-------- | :----
-`unknown` | 未知
-`secret`  | 保密
-`male`    | 男
-`female`  | 女
+默认值 | 值        | 说明
+:----: | :-------- | :----
+       | `unknown` | 未知
+√      | `secret`  | 保密
+       | `male`    | 男
+       | `female`  | 女

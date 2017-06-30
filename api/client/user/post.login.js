@@ -1,24 +1,30 @@
-const moment = require('moment');
+const validateParams = reqlib('./validate-models/client/user/login-params');
+const createKeys = reqlib('./utils/keys/user/create-keys');
+const handleError = reqlib('./utils/response/handle-error');
 
 const User = reqlib('./models/User');
-const validate = reqlib('./validate-models/client/user/login-params');
-const client = reqlib('./redis/client');
-const createAccessKeys = reqlib('./utils/access-keys/user/generate');
-const CaaError = reqlib('./utils/CaaError');
-
-const CACHE_DURATION = moment.duration(1, 'days');
 
 module.exports = (req, res, next) => {
   Promise.resolve(req.body)
-    .then(body => validate(body))
-    .then(params => User.findOne(params).exec())
-    .then(user => new Promise((resolve, reject) => {
-      if (!user) return reject(CaaError(400, 'name or password is invalid'));
-      resolve(user);
-    }))
-    .then(account => createAccessKeys(account))
-    .then(account => res.send(account))
-    .catch(err => {
-      res.status(err.status || 500).send({ message: err.message });
-    });
+
+    // validate body params
+    .then(validateParams)
+
+    // query user doc
+    .then(cond => User.findOne(cond).exec())
+
+    // check user exists
+    .then(user => {
+      if (!user) {
+        return Promise.reject(new ResponseError(404, 'user not found'));
+      }
+
+      return user;
+    })
+
+    // create access keys
+    .then(createKeys)
+
+    .then(keys => res.send(keys))
+    .catch(err => handleError(res, err));
 };
