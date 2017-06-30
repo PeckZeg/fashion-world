@@ -1,45 +1,50 @@
 # 用户 - 登录（手机号、密码）
 
-## Base
+> 更新@1.1.0
 
-* Method: `POST`
-* URI: `/api/user/login`
+## 基本信息
+
+* 方法: `POST`
+* 地址: `/api/user/login`
 
 ## Headers
 
-key            | value              | note
-:------------- | :----------------- | :----
-`Content-Type` | `application/json` |
+键              | 值                    | 必须     | 备注
+:-------------- | :-------------------- | :------: | :---------------------------
+`Content-Type`  | `application/json`    | √        | 指定内容传输类型为 JSON 格式
 
-## Request Body Schema
+## 请求 Body
 
-field      | type     | required | validate            | note
-:--------- | :------- | :------- | :------------------ | :-------
-`mobile`   | `string` | √        | `/\d{11}/`          | 手机号码
-`password` | `string` | √        | `/^[a-f0-9]{32}$/i` | 密码，使用 MD5 加密
+字段       | 类型     | 必须     | 默认值  | 验证                | 说明
+:--------- | :------- | :------: | :------ | :------------------ | :------------------
+`mobile`   | `String` | √        |         | `/\d{11}/`          | 手机号码
+`password` | `String` | √        |         | `/^[a-f0-9]{32}$/i` | 密码，使用 MD5 加密
 
-## Response Body Schema
+## 请求响应 Body
 
-field       | type     | example                                         | note
-:---------- | :------- | :---------------------------------------------- | :----
-`apiKey`    | `string` | `X09Tl6HCKUf/scMLu6vy8kv9w+ppUaxJMyiaQn2kW2Q=`  | 用户 apiKey
-`secretKey` | `string` | `pNDwncIirSD5T+7IZ+2jOEry/UKX5ab8HwLhjcYtGSk="` | 用户 secretKey
-`userId`    | `string` | `591961f92924bf503e10c948`                      | 用户编号
-`expiresIn` | `number` | `1494922184252`                                 | `apiKey` 和 `secretKey` 过期时间
-`user`      | `object` | `{ ... }`                                       | 用户信息，参见 [User Model](../../models/user.md)
+字段        | 类型     | 示例                                            | 说明
+:---------- | :------- | :---------------------------------------------- | :-------------------------------
+`apiKey`    | `String` | `X09Tl6HCKUf/scMLu6vy8kv9w+ppUaxJMyiaQn2kW2Q=`  | 用户 apiKey
+`secretKey` | `String` | `pNDwncIirSD5T+7IZ+2jOEry/UKX5ab8HwLhjcYtGSk="` | 用户 secretKey
+`userId`    | `String` | `591961f92924bf503e10c948`                      | 用户编号
+`expiresIn` | `Date`   | `1494922184252`                                 | `apiKey` 和 `secretKey` 过期时间
+`user`      | `Object` | `{ ... }`                                       | 登录的 [用户][user-model]
 
-## Error Codes
+## 错误状态码
 
-请求返回结果说明，可访问 [该处](../../response-format.md) 查看相应文档。
+[请求返回结果][response-format] 说明。
 
-code  | note
-:---- | :----------------------
-`400` | 参数错误、手机/密码错误
-`500` | 服务器错误
+状态码 | message                 | 说明
+:----: | :---------------------- |:----------------------
+`400`  |                         | 参数错误、手机/密码错误
+`400`  | `invalid authorization` | 错误的 authorization
+`404`  | `apiKey not found`      | 用户未登录
+`404`  | `video not found`       | 视频未找到
+`500`  |                         | 服务器错误
 
-## Example
+## 示例
 
-**request**
+**请求**
 
 ```
 POST /api/user/login HTTP/1.1
@@ -54,7 +59,7 @@ Postman-Token: f0de7c34-015f-6614-6124-b6d13d58da84
 }
 ```
 
-**response**
+**响应**
 
 ```json
 {
@@ -73,3 +78,6 @@ Postman-Token: f0de7c34-015f-6614-6124-b6d13d58da84
     }
 }
 ```
+
+[user-model]: ../../models/user.md
+[response-format]: ../../response-format.md
