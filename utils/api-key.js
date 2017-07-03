@@ -1,3 +1,8 @@
+/***
+ *  该方法已弃用，请使用以下方法替换
+ *    const apiKey = reqlib('./utils/keys/api-key');
+ */
+
 const crypto = require('crypto');
 const querystring = require('querystring');
 const uuid = require('uuid/v4');

@@ -12,5 +12,7 @@ const catchError = err => {
 module.exports = (res, err) => {
   const { status, message } = catchError(err);
 
+  console.error(err);
+
   res.status(status || 500).send({ message });
 };

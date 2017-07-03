@@ -1,58 +1,72 @@
 # 用户 - 验证验证码
 
-> 添加于 `@1.0.4`
+> 添加于@1.0.4
+> 最后更新@1.1.0
 
-## Base
+## 基本信息
 
-* Method: `POST`
-* URI: `/api/user/validate-code`
+* 方法: `POST`
+* 地址: `/api/user/validate-code`
 
 ## Headers
 
-key            | value              | note
-:------------- | :----------------- | :----
-`Content-Type` | `application/json` |
+键              | 值                    | 必须     | 备注
+:-------------- | :-------------------- | :------: | :---------------------------
+`Content-Type`  | `application/json`    | √        | 指定内容传输类型为 JSON 格式
 
-## Request Body Schema
+## 请求 Body
 
-field      | type     | required | validate            | note
-:--------- | :------- | :------- | :------------------ | :-------
-`mobile`   | `string` | √        | `/^\d{11}/$`        | 手机号码
-`code`     | `string` | √        | `/^\d{6}/$`         | 验证码
+字段     | 类型     | 必须     | 默认值  | 验证         | 说明
+:------- | :------- | :------: | :------ | :----------- | :-------
+`mobile` | `String` | √        |         | `/^\d{11}$/` | 手机号码
+`code`   | `String` | √        |         | `/^\d{6}$/`  | 验证码
 
-## Response Body Schema
+## 请求响应 Body
 
-**验证成功不会返回任何信息，仅 HTTP Status Code 为 `200`**
+字段      | 类型     | 示例          | 说明
+:-------- | :------- | :------------ | :----------------------------
+`message` | `String` | `ok` 				 | 验证成功时该字段始终返回 `ok`
+`mobile`  | `String` | `13055818112` | ***(仅测试)*** 手机号码
+`code`    | `String` | `837491`      | ***(仅测试)*** 验证码
 
-## Error Codes
+## 错误状态码
 
-请求返回结果说明，可访问 [该处](../../response-format.md) 查看相应文档。
+[请求返回结果][response-format] 说明。
 
-code  | note
-:---- | :----------------------
-`400` | 参数错误
-`403` | 服务器已经理解请求，但是拒绝执行它。例：验证码错误
-`500` | 服务器错误。
+状态码 | message                      | 说明
+:----: | :--------------------------- |:------------------
+`400`  |                              | 参数错误
+`403`  | `invalid code`               | 错误的验证码
+`404`  | `code is not sent to mobile` | 验证码未发送给手机
+`500`  |                              | 服务器错误
 
-## Example
+## 示例
 
-**request**
+**请求**
 
 ```
 POST /api/user/validate-code HTTP/1.1
 Host: localhost:3003
 Content-Type: application/json
 Cache-Control: no-cache
-Postman-Token: ac2ade48-5efa-a017-f40f-1be2d7a7398d
+Postman-Token: b27c61c8-01e3-0243-4849-f16e39061c6c
 
 {
 	"mobile": "13055818112",
-	"code": "123212"
+	"code": "833526"
 }
 ```
 
-**response**
+**响应**
 
 ```json
-{ }
+{
+    "message": "ok",
+    "mobile": "13055818112",
+    "code": "833526"
+}
 ```
+
+[signature-authorization]: ../../signature-authorization.md
+[signature-actions]: ../../actions.md
+[response-format]: ../../response-format.md

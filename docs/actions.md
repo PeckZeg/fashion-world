@@ -4,10 +4,11 @@
 
 ## 用户
 
-API                                        | Action
-:----------------------------------------- | :----------------------
-[`GET` 获取用户资料][get.personal-profile] | `user:personal-profile`
-[`DELETE` 用户登出][delete.logout]         | `user:logout`
+Version      | API                                        | Action
+:----------- | :----------------------------------------- | :----------------------
+             | [`GET` 获取用户资料][get.personal-profile] | `user:personal-profile`
+`添加@1.1.0` | [`POST` 刷新验证 keys][post.refresh-keys]  | `user:refresh-keys`
+             | [`DELETE` 用户登出][delete.logout]         | `user:logout`
 
 ## 视频
 
@@ -22,6 +23,7 @@ Version      | API                                                          | Ac
 `添加@1.0.6` | [`DELETE` 取消视频收藏][del.destroy-collected-video]         | `video:destroy-collection`
 
 [get.personal-profile]: ./api/user/get.personal-profile.md
+[post.refresh-keys]: ./api/user/post.refresh-keys.md
 [delete.logout]: ./api/user/delete.logout.md
 
 [get.get-video-list]: ./api/video/get.get-video-list.md

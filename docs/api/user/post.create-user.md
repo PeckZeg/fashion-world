@@ -1,50 +1,54 @@
 # 用户 - 创建用户
 
-## Base
+> 更新@1.1.0
 
-* Method: `POST`
-* URI: `/api/user`
+## 基本信息
+
+* 方法: `POST`
+* 地址: `/api/user`
 
 ## Headers
 
-key            | value              | note
-:------------- | :----------------- | :----
-`Content-Type` | `application/json` |
+键              | 值                 | 必须     | 备注
+:-------------- | :----------------- | :------: | :---------------------------
+`Content-Type`  | `application/json` | √        | 指定内容传输类型为 JSON 格式
 
-## Request Body Schema
+## 请求 Body
 
-field      | type     | required | validate            | note
-:--------- | :------- | :------- | :------------------ | :-------
-`mobile`   | `string` | √        | `/^\d{11}/$`        | 手机号码
-`password` | `string` | √        | MD5                 | 密码
-`code`     | `string` | √        | `/^\d{6}/$`         | 验证码
+字段       | 类型     | 必须     | 默认值  | 验证               | 说明
+:--------- | :------- | :------: | :------ | :----------------- | :-------
+`mobile`   | `string` | √        |         | `/^\d{11}/$`       | 手机号码
+`password` | `string` | √        |         | `/^[a-f0-9]{32}$/` | 密码
+`code`     | `string` | √        |         | `/^\d{6}/$`        | 验证码
 
-## Response Body Schema
+## 请求响应 Body
 
-field  | type     | example | note
-:----- | :------- | :------ | :-------------------------------
-`user` | `object` | `-`     | 用户对象，参见 [User Model](../models/user.md)
+字段   | 类型     | 示例      | 说明
+:----- | :------- | :-------- | :-----------------
+`user` | `Object` | `{ ... }` | [用户][user-model]
 
-## Error Codes
+## 错误状态码
 
-请求返回结果说明，可访问 [该处](../../response-format.md) 查看相应文档。
+[请求返回结果][response-format] 说明。
 
-code  | note
-:---- | :----------------------
-`400` | 参数错误
-`403` | 服务器已经理解请求，但是拒绝执行它。例：用户已存在
-`500` | 服务器错误。
+状态码 | message                      | 说明
+:----: | :--------------------------- |:----------------------
+`400`  |                              | 参数错误、手机/密码错误
+`403`  | `user is exists`             | 用户已存在
+`403`  | `invalid code`               | 错误的验证码
+`404`  | `code is not sent to mobile` | 验证码未发送
+`500`  |                              | 服务器错误
 
-## Example
+## 示例
 
-**request**
+**请求**
 
 ```
 POST /api/user HTTP/1.1
 Host: localhost:3003
 Content-Type: application/json
 Cache-Control: no-cache
-Postman-Token: 7a4cc18e-ef5c-bf6b-f08d-bfc0b0febc40
+Postman-Token: 4664e418-a6c6-14d7-1983-01eebed76ccd
 
 {
 	"mobile": "13055818112",
@@ -53,17 +57,24 @@ Postman-Token: 7a4cc18e-ef5c-bf6b-f08d-bfc0b0febc40
 }
 ```
 
-**response**
+**响应**
 
 ```json
 {
-  "user": {
-    "mobile": "13055818112",
-    "password": "fe7d5d79226524b5b3f035ead02cf5dc",
-    "_id": "59224230bb63f03c92d4e107",
-    "registerAt": 1495417392023,
-    "createAt": 1495417392023,
-    "gender": "secret"
-  }
+    "user": {
+        "mobile": "13055818112",
+        "_id": "59573bdf4832cb0ed0d22ede",
+        "registerAt": 1498889183365,
+        "createAt": 1498889183365,
+        "gender": "secret",
+        "name": "用户8112",
+        "avatarUrl": null
+    }
 }
 ```
+
+[signature-authorization]: ../../signature-authorization.md
+[signature-actions]: ../../actions.md
+[response-format]: ../../response-format.md
+
+[user-model]: ../../models/user.md

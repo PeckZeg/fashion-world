@@ -1,92 +1,107 @@
 const validateParams = reqlib('./validate-models/client/user/create-verify-code-params');
-const cacheKey = reqlib('./utils/cacheKey');
-const client = reqlib('./redis/client');
-const CaaError = reqlib('./utils/CaaError');
+const handleError = reqlib('./utils/response/handle-error');
+const createClient = reqlib('./redis/create-client');
 const topClient = reqlib('./utils/topClient');
+const genCode = reqlib('./utils/gen-code');
+const cacheKeys = reqlib('./redis/keys');
+
 const User = reqlib('./models/User');
-const catchMongooseError = reqlib('./utils/catchMongooseError');
 
 const {
   maxCountPerDay: MAX_COUNT_PER_DAY,
   maxCountPerHour: MAX_COUNT_PER_HOUR,
+  perMsgLiveCycle: MESSAGE_LIVE_CYCLE
+} = config.alidayu;
+
+const {
   signName: SIGN_NAME,
   templateCode: TEMPLATE_CODE,
-  perMsgLiveCycle: MESSAGE_LIVE_CYCLE,
   product: PRODUCT
-} = config.alidayu.smsNumSend.register;
-
-const CODE_RANGE = [100000, 999999];
+} = config.alidayu.smsNumSend.user.register;
 
 module.exports = (req, res, next) => {
   Promise.resolve(req.body)
-    // 验证参数
+
+    // validate body params
     .then(validateParams)
 
-    //  检查用户是否已经存在
-    .then(({ mobile }) => new Promise((resolve, reject) => {
-      User.count({ mobile }).then(count => {
-        if (process.env.NODE_ENV !== 'development' && count) {
-          return reject(CaaError(403, `mobile ${mobile} is exists`));
+    // create redis client
+    .then(body => ({ ...body, client: createClient() }))
+
+    // check mobile sms has been sent
+    .then(args => {
+      const { mobile, client } = args;
+      const key = cacheKeys('sms:mobile:sent')(mobile);
+
+      return client.existsAsync(key).then(exists => {
+        if (exists) {
+          return Promise.reject(new ResponseError(403, 'code has been sent'));
         }
 
-        resolve({ mobile });
-      }).catch(err => {
-        err = catchMongooseError(err);
-        return err ? reject(err) : resolve({ mobile });
-      })
-    }))
+        return args;
+      });
+    })
 
-    // 检查是否达到每日上限
-    .then(({ mobile }) => new Promise((resolve, reject) => {
-      const key = cacheKey('register.mobile.max-per-day')(mobile);
+    // check `mobile` sent this hour
+    .then(args => {
+      const { mobile, client } = args;
+      const key = cacheKeys('sms:mobile:max-per-hour')(mobile);
 
-      client.getAsync(key).then(count => {
+      return client.getAsync(key).then(count => {
         count = count || 0;
-
-        if (count >= MAX_COUNT_PER_DAY) {
-          return reject(CaaError(403, `mobile ${mobile} has reached the max number per day`));
-        }
-
-        resolve({ mobile });
-      }).catch(reject);
-    }))
-
-    // 检查是否达到每小时上限
-    .then(({ mobile }) => new Promise((resolve, reject) => {
-      const key = cacheKey('register.mobile.max-per-hour')(mobile);
-
-      client.getAsync(key).then(count => {
-        count = count || 0;
+        count = Number.isNaN(+count) ? 0 : +count;
 
         if (count >= MAX_COUNT_PER_HOUR) {
-          return reject(CaaError(403, `mobile ${mobile} has reached the max number per hour`));
+          return Promise.reject(
+            new ResponseError(403, `mobile ${mobile} has reached the max times`)
+          );
         }
 
-        resolve({ mobile });
-      }).catch(reject);
-    }))
+        return args;
+      });
+    })
 
-    //  检查是否短信已经发送
-    .then(({ mobile }) => new Promise((resolve, reject) => {
-      const key = cacheKey('register.mobile.sent')(mobile);
+    // check `mobile` sent this day
+    .then(args => {
+      const { mobile, client } = args;
+      const key = cacheKeys('sms:mobile:max-per-day')(mobile);
 
-      client.existsAsync(key).then(exists => {
-        if (exists) {
-          return reject(CaaError(403, 'code has been sent'));
+      return client.getAsync(key).then(count => {
+        count = count || 0;
+        count = Number.isNaN(+count) ? 0 : +count;
+
+        if (count >= MAX_COUNT_PER_DAY) {
+          return Promise.reject(
+            new ResponseError(403, `mobile ${mobile} has reached the max times`)
+          );
         }
 
-        resolve({ mobile });
-      }).catch(reject);
-    }))
+        return args;
+      });
+    })
 
-    // 生成 code
-    .then(({ mobile }) => Promise.resolve({
-      mobile,
-      code: _.random(...CODE_RANGE) + ''
-    }))
+    // check user is exists
+    .then(args => {
+      const { mobile } = args;
 
-    // 发送短信
-    .then(({ mobile, code }) => new Promise((resolve, reject) => {
+      return User.count({ mobile }).then(count => {
+        if (process.env.NODE_ENV == 'production' && count) {
+          return Promise.reject(
+            new ResponseError(403, `mobile ${mobile} is exists`)
+          );
+        }
+
+        return args;
+      });
+    })
+
+    // generate code
+    .then(args => ({ ...args, code: genCode() }))
+
+    // send sms
+    .then(args => new Promise((resolve, reject) => {
+      const { mobile, code } = args;
+
       topClient.execute('alibaba.aliqin.fc.sms.num.send', {
         'extend': '',
         'sms_type': 'normal',
@@ -94,62 +109,79 @@ module.exports = (req, res, next) => {
         'sms_param': JSON.stringify({ code: `${code}`, product: PRODUCT }),
         'rec_num': mobile ,
         'sms_template_code': TEMPLATE_CODE
-      }, (err, res) => {
+      }, (err, result) => {
         if (err) {
-          return reject(CaaError(500, err.message));
+          return reject(new ResponseError(500, err.message));
         }
 
-        resolve({ mobile, code });
+        resolve(args);
       });
     }))
 
-    // 记录发送信息
-    .then(({ mobile, code }) => new Promise((resolve, reject) => {
-      const key = cacheKey('register.mobile.sent')(mobile);
-      const expireIn = moment.duration(MESSAGE_LIVE_CYCLE);
+    // write `mobile` and `code`
+    .then(args => {
+      const { mobile, code, client } = args;
+      const multi = client.multi();
+      const key = cacheKeys('sms:mobile:sent')(mobile);
+      const expire = moment.duration(MESSAGE_LIVE_CYCLE);
+      const expireIn = +moment().add(+expire);
 
-      client.multi()
-        .set(key, code)
-        .expire(key, expireIn.asSeconds())
-        .execAsync()
-        .then(count => resolve({ mobile, code, expireIn: +moment().add(+expireIn) }))
-        .catch(err => reject(CaaError(500, err.message)));
-    }))
+      multi.set(key, code).expire(key, expire.asSeconds())
 
-    // 增加记录本小时数
-    .then(({ mobile, code, expireIn }) => new Promise((resolve, reject) => {
-      const key = cacheKey('register.mobile.max-per-hour')(mobile);
-      const keyExpireIn = moment.duration(1, 'h').asSeconds();
+      return multi.execAsync().then(() => ({ ...args, expireIn }));
+    })
 
-      client.existsAsync(key)
-        .then(exists => {
-          if (exists) return client.incrAsync(key);
-          return client.multi().incr(key).expire(key, keyExpireIn).execAsync();
-        })
-        .then(() => resolve({ mobile, code, expireIn }))
-        .catch(err => reject(CaaError(500, err.message)));
-    }))
+    // increment sms sent this hour
+    .then(args => {
+      const { mobile, client } = args;
+      const key = cacheKeys('sms:mobile:max-per-hour')(mobile);
 
-    // 增加记录本日数
-    .then(({ mobile, code, expireIn }) => new Promise((resolve, reject) => {
-      const key = cacheKey('register.mobile.max-per-day')(mobile);
-      const keyExpireIn = moment.duration(1, 'd').asSeconds();
-      let result = { expireIn };
+      return client.existsAsync(key).then(exists => {
+        const multi = client.multi();
 
-      if (process.env.NODE_ENV !== 'production') {
-        Object.assign(result, { code });
+        multi.incr(key);
+
+        if (!exists) {
+          multi.expire(key, moment.duration(1, 'h').asSeconds());
+        }
+
+        return multi.execAsync().then(() => args);
+      });
+    })
+
+    // increment sms sent this day
+    .then(args => {
+      const { mobile, client } = args;
+      const key = cacheKeys('sms:mobile:max-per-day')(mobile);
+
+      return client.existsAsync(key).then(exists => {
+        const multi = client.multi();
+
+        multi.incr(key);
+
+        if (!exists) {
+          multi.expire(key, moment.duration(1, 'd').asSeconds());
+        }
+
+        return multi.execAsync().then(() => args);
+      });
+    })
+
+    // close redis client
+    .then(({ mobile, code, expireIn, client }) => (
+      client.quitAsync().then(() => ({ mobile, code, expireIn }))
+    ))
+
+    // send result
+    .then(({ mobile, code, expireIn }) => {
+      let result = { message: 'ok', expireIn };
+
+      if (process.env.NODE_ENV == 'development') {
+        result = { ...result, code };
       }
 
-      client.existsAsync(key)
-        .then(exists => {
-          if (exists) return client.incrAsync(key);
-          return client.multi().incr(key).expire(key, keyExpireIn).execAsync();
-        })
-        .then(() => resolve(result))
-        .catch(err => reject(CaaError(500, err.message)));
-    }))
+      res.send(result);
+    })
 
-    .then(result => res.send(result))
-
-    .catch(err => res.status(err.status || 500).send({ message: err.message }));
+    .catch(err => handleError(res, err));
 };

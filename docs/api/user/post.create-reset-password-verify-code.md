@@ -1,42 +1,44 @@
 # 用户 - 发送重置密码验证码
+> 更新@1.1.0
 
-## Base
+## 基本信息
 
-* Method: `POST`
-* URI: `/api/user/reset-code`
-
+* 方法: `POST`
+* 地址: `/api/user/reset-code`
 ## Headers
 
-key            | value              | note
-:------------- | :----------------- | :----
-`Content-Type` | `application/json` |
+键              | 值                 | 必须     | 备注
+:-------------- | :----------------- | :------: | :---------------------------
+`Content-Type`  | `application/json` | √        | 指定内容传输类型为 JSON 格式
 
-## Request Body Schema
+## 请求 Body
 
-field      | type     | required | validate            | note
-:--------- | :------- | :------- | :------------------ | :-------
-`mobile`   | `string` | √        | `/^\d{11}/$`        | 手机号码
+字段     | 类型     | 必须     | 默认值  | 验证         | 说明
+:------- | :------- | :------: | :------ | :----------- | :-------
+`mobile` | `String` | √        |         | `/^\d{11}/$` | 手机号码
 
-## Response Body Schema
+## 请求响应 Body
 
-field      | type     | example         | note
+字段       | 类型     | 示例            | 说明
 :--------- | :------- | :-------------- | :-------------------------------
-`expireIn` | `number` | `1495417243356` | 失效时间，在此日期之前验证码有效
-`code`     | `string` | `710502`        | **仅在测试环境存在** 验证码
+`message`  | `String` | `ok`            | 创建成功时该字段始终返回 `ok`
+`expireIn` | `Date`   | `1495417243356` | 失效时间，在此日期之前验证码有效
+`code`     | `String` | `710502`        | ***(仅测试)*** 验证码
 
-## Error Codes
+## 错误状态码
 
-请求返回结果说明，可访问 [该处](../../response-format.md) 查看相应文档。
+[请求返回结果][response-format] 说明。
 
-code  | note
-:---- | :----------------------
-`400` | 参数错误
-`403` | 服务器已经理解请求，但是拒绝执行它。例：短信发送次数已达上限
-`500` | 服务器错误。
+状态码 | message                                      | 说明
+:----: | :------------------------------------------- |:----------------------
+`400`  |                                              | 参数错误、手机/密码错误
+`403`  | `code has been sent`                         | 验证码已发送
+`403`  | `mobile ${mobile} has reached the max times` | 手机 `mobile` 已达到最大发送次数
+`500`  |                                              | 服务器错误
 
-## Example
+## 示例
 
-**request**
+**请求**
 
 ```
 POST /api/user/reset-code HTTP/1.1
@@ -50,7 +52,7 @@ Postman-Token: cbec3e09-cd2e-ea88-5d61-4a285b2c62aa
 }
 ```
 
-**response**
+**响应**
 
 ```json
 {
@@ -58,3 +60,7 @@ Postman-Token: cbec3e09-cd2e-ea88-5d61-4a285b2c62aa
   "code": "710502"
 }
 ```
+
+[signature-authorization]: ../../signature-authorization.md
+[signature-actions]: ../../actions.md
+[response-format]: ../../response-format.md

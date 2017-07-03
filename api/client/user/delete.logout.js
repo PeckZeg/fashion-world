@@ -1,17 +1,40 @@
-const auth = reqlib('./utils/access-keys/user/auth');
-const client = reqlib('./redis/client');
-const cacheKey = reqlib('./utils/cacheKey')('user.login');
+const handleError = reqlib('./utils/response/handle-error');
+const cacheKey = reqlib('./redis/keys')('client:user:key');
+const authToken = reqlib('./utils/keys/user/auth-token');
+const createClient = reqlib('./redis/create-client');
+
+const User = reqlib('./models/User');
 
 const ACTION = config.apiActions['user.delete.logout'];
 
 module.exports = (req, res, next) => {
-  auth(req.header('authorization'), ACTION)
-    .then(keys => (
-      client.multi()
-        .del(cacheKey(keys.userId))
-        .del(cacheKey(keys.apiKey))
-        .execAsync()
+  authToken(ACTION, req.header('authorization'), true)
+
+    // create redis client & multi
+    .then(keys => {
+      const client = createClient();
+      const multi = client.multi();
+
+      return { ...keys, client, multi  };
+    })
+
+    // remove keys from cache
+    .then(args => {
+      const { apiKey, userId, multi } = args;
+
+      multi.del(cacheKey(apiKey)).del(cacheKey(userId));
+
+      return args;
+    })
+
+    // exec redis multi command
+    .then(({ client, multi }) => (
+      multi.execAsync().then(() => client)
     ))
-    .then(() => res.send({ result: 'ok' }))
-    .catch(err => res.status(err.status || 500).send({ message: err.message }));
+
+    // close redis client
+    .then(client => client.quitAsync().then(() => 'ok'))
+
+    .then(message => res.send({ message }))
+    .catch(err => handleError(res, err));
 };

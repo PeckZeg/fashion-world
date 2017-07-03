@@ -1,5 +1,6 @@
 module.exports = {
   apiActions: {
+    'client:user:post:refresh-keys': 'user:refresh-keys',
     'user.get.personal-profile': 'user:personal-profile',
     'user.delete.logout': 'user:logout',
 

@@ -9,7 +9,8 @@ const { Schema, Types } = mongoose;
 const { NODE_ENV } = process.env;
 
 const TRANSFORM_TO_JSON_PROP_BLACK_LIST = [
-  'avatar'
+  'avatar',
+  'password'
 ];
 
 var schema = new Schema({
@@ -26,10 +27,7 @@ var schema = new Schema({
 
     transform: (doc, ret, options) => {
       ret = transform(doc, ret, options);
-      ret = unsetProps(ret, [
-        ...TRANSFORM_TO_JSON_PROP_BLACK_LIST,
-        ...NODE_ENV === 'production' ? ['password'] : []
-      ]);
+      ret = unsetProps(ret, TRANSFORM_TO_JSON_PROP_BLACK_LIST);
 
       return ret;
     }

@@ -1,10 +1,7 @@
-const redisClient = reqlib('./redis/client');
-const cacheKey = reqlib('./utils/cacheKey');
 const validateParams = reqlib('./validate-models/client/user/validate-code-params');
-const handleError = reqlib('./utils/catchMongooseError');
-const caaError = reqlib('./utils/CaaError');
-
-const User = reqlib('./models/User');
+const handleError = reqlib('./utils/response/handle-error');
+const createClient = reqlib('./redis/create-client');
+const keys = reqlib('./redis/keys');
 
 module.exports = (req, res, next) => {
   Promise.resolve(req.body)
@@ -12,24 +9,44 @@ module.exports = (req, res, next) => {
     // validate body params
     .then(validateParams)
 
-    // validate code
-    .then(({ mobile, code }) => new Promise((resolve, reject) => {
-      const key = cacheKey('register.mobile.sent')(mobile);
+    // create redis client
+    .then(body => ({ ...body, client: createClient() }))
 
-      redisClient.getAsync(key)
-        .then(cacheCode => {
-          if (!cacheCode) {
-            return reject(caaError(404, `code is not sent to mobile ${mobile}`));
-          }
+    // match code
+    .then(args => {
+      const { mobile, code, client } = args;
+      const key = keys('sms:mobile:sent')(mobile);
 
-          if (cacheCode != code) {
-            return reject(caaError(403, 'invalid verify code'));
-          }
+      return client.getAsync(key).then(cacheCode => {
+        if (!cacheCode) {
+          return Promise.reject(
+            new ResponseError(404, `code is not sent to mobile`)
+          );
+        }
 
-          resolve();
-        })
-    }))
+        if (cacheCode !== code) {
+          return Promise.reject(new ResponseError(403, 'invalid code'));
+        }
 
-    .then(result => res.send(result))
-    .catch(err => res.status(err.status || 500).send({ message: err.message }));
+        return args;
+      });
+    })
+
+    // close redis client
+    .then(({ mobile, code, client }) => (
+      client.quitAsync().then(() => ({ mobile, code })
+    )))
+
+    // send result
+    .then(({ mobile, code }) => {
+      let result = { message: 'ok' };
+
+      if (process.env.NODE_ENV == 'development') {
+        result = { ...result, mobile, code };
+      }
+
+      res.send(result);
+    })
+
+    .catch(err => handleError(res, err));
 };

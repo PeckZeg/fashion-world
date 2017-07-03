@@ -1,61 +1,64 @@
 # 用户 - 登出
 
-## Base
+> 更新@1.1.0
 
-* Method: `DELETE`
-* URI: `/api/user/logout`
+## 基本信息
+
+* 方法: `DELETE`
+* 地址: `/api/user/logout`
 
 ## Headers
 
-key             | value                 | note
-:-------------- | :-------------------- | :----------
-`Content-Type`  | `application/json`    |
-`Authorization` | `Caa {Base64 String}` | Base64 验证
+键              | 值                    | 必须     | 备注
+:-------------- | :-------------------- | :------: | :---------------------------
+`Content-Type`  | `application/json`    | √        | 指定内容传输类型为 JSON 格式
+`Authorization` | `Caa ${Base64String}` | √        | [用户签名][signature-authorization]
 
-### Signature Authorization
+签名动作参见 [Signature Actions][signature-actions]
 
-* Action: `user:logout`
+## 请求 Body
 
-关于算法请参见 [签名验证算法](../../signature-authorization.md)
+无
 
-## Request Body Schema
+## 请求响应 Body
 
-None
+字段      | 类型     | 示例 | 说明
+:-------- | :------- | :--- | :----------------------------
+`message` | `String` | `ok` | 登出成功后该字段固定返回 `ok`
 
-## Response Body Schema
+## 错误状态码
 
-field    | type     | example   | note
-:------- | :------- | :-------- | :---
-`result` | `string` | `ok`      | 结果
+[请求返回结果][response-format] 说明。
 
-## Error Codes
+状态码 | message                 | 说明
+:----: | :---------------------- |:----------------------
+`400`  |                         | 参数错误、手机/密码错误
+`400`  | `invalid authorization` | 错误的 authorization
+`404`  | `apiKey not found`      | 用户未登录
+`500`  |                         | 服务器错误
 
-请求返回结果说明，可访问 [该处](../../response-format.md) 查看相应文档。
+## 示例
 
-code  | note
-:---- | :----------------------
-`400` | 参数错误、手机/密码错误
-`500` | 服务器错误
-
-## Example
-
-**request**
+**请求**
 
 ```
 DELETE /api/user/logout HTTP/1.1
 Host: localhost:3003
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
-Authorization: Caa bUNVQTN0R2h5VDdJdThvV2kvbWhNT3JhOXlGR0hRRW4zeDZNQWg1S0E0ND06WFNaQWxnclNPWXpuVmlpN3M2S0s0OS9OR2RzPSAxNDk0OTA1MTIxNTU2
+Authorization: Caa dW5kZWZpbmVkOkNkdHFpVTVOa1JJSnNSbDkxVU5PczJETFBFaz0gMTQ5ODg3NjA3Mzg1Ng==
 Cache-Control: no-cache
-Postman-Token: 043fa436-cd69-d6e6-3622-aee61c243e67
+Postman-Token: 0ddcbc85-075f-8409-4021-0097d36a3bb7
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 ```
 
-**response**
+**响应**
 
 ```json
 {
-  "result": "ok"
+    "message": "ok"
 }
 ```
+
+[user-model]: ../../models/user.md
+[response-format]: ../../response-format.md

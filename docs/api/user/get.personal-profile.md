@@ -1,67 +1,74 @@
 # 用户 - 个人资料
 
-## Base
+> 更新@1.1.0
 
-* Method: `GET`
-* URI: `/api/user/personal`
+## 基本信息
+
+* 方法: `GET`
+* 地址: `/api/user/personal`
 
 ## Headers
 
-key             | value                 | note
-:-------------- | :-------------------- | :----------
-`Content-Type`  | `application/json`    |
-`Authorization` | `Caa {Base64 String}` | Base64 验证
+键              | 值                    | 必须     | 备注
+:-------------- | :-------------------- | :------: | :---------------------------
+`Content-Type`  | `application/json`    | √        | 指定内容传输类型为 JSON 格式
+`Authorization` | `Caa ${Base64String}` | √        | [用户签名][signature-authorization]
 
-### Signature Authorization
+签名动作参见 [Signature Actions][signature-actions]
 
-* Action: `user:personal-profile`
+## 请求 Body
 
-关于算法请参见 [签名验证算法](../../signature-authorization.md)
+无
 
-## Request Body Schema
+## 请求响应 Body
 
-None
+字段   | 类型     | 示例      | 说明
+:----- | :------- | :-------- | :---------------------------------
+`user` | `Object` | `{ ... }` | 当前登录的 [用户][user-model] 信息
 
-## Response Body Schema
+## 错误状态码
 
-field  | type     | example   | note
-:----- | :------- | :-------- | :------------------------------------------------
-`user` | `object` | `{ ... }` | 用户信息，参见 [User Model](../../models/user.md)
+[请求返回结果][response-format] 说明。
 
-## Error Codes
+状态码 | message                 | 说明
+:----: | :---------------------- |:----------------------
+`400`  |                         | 参数错误、手机/密码错误
+`400`  | `invalid authorization` | 错误的 authorization
+`404`  | `apiKey not found`      | 用户未登录
+`404`  | `user not found`        | 用户未找到
+`500`  |                         | 服务器错误
 
-请求返回结果说明，可访问 [该处](../../response-format.md) 查看相应文档。
+## 示例
 
-code  | note
-:---- | :----------------------
-`400` | 参数错误
-`500` | 服务器错误
-
-## Example
-
-**request**
+**请求**
 
 ```
 GET /api/user/personal HTTP/1.1
 Host: localhost:3003
 Content-Type: application/json
-Authorization: Caa U3pnZ1U4ZGoyeGNlZ1hmWlZ4MXVjbS9oS2dyZThESWNrSFBveGtrbituMD06K1lReHhYYi9PVm5tblNURDhMUVJDWVUrZ29RPSAxNDk0OTA2MDQ3NjY4
+Authorization: Caa UWo1WHUxam9IaS9LeFd1TFkvemVvTU1NQzlVeks0a0V0UCtDWWlRZWVvcz06Vi9NTzczQ2FBbWQveXpXK1h3TzRraGQ2MlRJPSAxNDk4ODc2NjUwODUx
 Cache-Control: no-cache
-Postman-Token: c4fc1d0c-312a-19e1-3d70-1ed53afbd100
+Postman-Token: 14fde30a-8adf-4109-a412-868e03e7cbae
 ```
 
-**response**
+**响应**
 
 ```json
 {
-  "user": {
-    "_id": "591961f92924bf503e10c948",
-    "name": "PeckZeg",
-    "password": "fe7d5d79226524b5b3f035ead02cf5dc",
-    "gender": 1,
-    "mobile": "13055818112",
-    "registerAt": 1494835705990,
-    "createAt": 1494835705990
-  }
+    "user": {
+        "_id": "5955aa485c2960da1aa81b9a",
+        "mobile": "13055818112",
+        "registerAt": 1498786376126,
+        "createAt": 1498786376126,
+        "gender": "male",
+        "name": "PeckZeg",
+        "avatarUrl": null
+    }
 }
 ```
+
+[signature-authorization]: ../../signature-authorization.md
+[signature-actions]: ../../actions.md
+[response-format]: ../../response-format.md
+
+[user-model]: ../../models/user.md

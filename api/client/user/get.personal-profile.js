@@ -1,16 +1,28 @@
-const auth = reqlib('./utils/access-keys/user/auth');
+const handleError = reqlib('./utils/response/handle-error');
+const authToken = reqlib('./utils/keys/user/auth-token');
+
 const User = reqlib('./models/User');
-const CaaError = reqlib('./utils/CaaError');
 
 const ACTION = config.apiActions['user.get.personal-profile'];
 
 module.exports = (req, res, next) => {
-  auth(req.header('authorization'), ACTION, false)
-    .then(keys => User.findById(keys.userId))
-    .then(user => {
-      if (!user) return reject(CaaError(404, 'user not found'));
+  authToken(ACTION, req.header('authorization'), true)
 
-      res.send({ user });
+    // query user doc
+    .then(({ userId }) => User.findById(userId).exec())
+
+    // check user exists
+    .then(user => {
+      if (!user) {
+        return Promise.reject(new ResponseError(404, 'user not found'));
+      }
+
+      return user;
     })
-    .catch(err => res.status(err.status || 500).send({ message: err.message }));
+
+    // transform user to json
+    .then(user => user.toJSON())
+
+    .then(user => res.send({ user }))
+    .catch(err => handleError(res, err));
 };

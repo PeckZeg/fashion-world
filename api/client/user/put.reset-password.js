@@ -1,70 +1,62 @@
 const validateParams = reqlib('./validate-models/client/user/reset-password-params');
-const cacheKey = reqlib('./utils/cacheKey');
-const redisClient = reqlib('./redis/client');
-const CaaError = reqlib('./utils/CaaError');
-const topClient = reqlib('./utils/topClient');
-const User = reqlib('./models/User');
-const catchMongooseError = reqlib('./utils/catchMongooseError');
+const handleError = reqlib('./utils/response/handle-error');
+const cacheKey = reqlib('./redis/keys')('sms:mobile:sent');
+const createClient = reqlib('./redis/create-client');
 
-const CODE_RANGE = [100000, 999999];
+const User = reqlib('./models/User');
 
 module.exports = (req, res, next) => {
   Promise.resolve(req.body)
 
-    // 验证参数
+    // validate body params
     .then(validateParams)
 
-    // 验证验证码
-    .then(({ mobile, password, code }) => new Promise((resolve, reject) => {
-      const key = cacheKey('register.mobile.sent')(mobile);
+    // create redis client
+    .then(body => ({ ...body, client: createClient() }))
 
-      redisClient.getAsync(key)
-        .then(cacheCode => {
-          if (!cacheCode) {
-            return reject(CaaError(403, `code is not sent to mobile ${mobile}`));
-          }
+    // validate code
+    .then(({ mobile, password, code, client }) => {
+      const key = cacheKey(mobile);
 
-          if (cacheCode != code) {
-            return reject(CaaError(403, 'invalid verify code'));
-          }
+      return client.getAsync(key).then(cacheCode => {
+        if (!cacheCode) {
+          return Promise.reject(
+            new ResponseError(404, `code is not sent to mobile`)
+          );
+        }
 
-          resolve({ mobile, password });
-        })
-        .catch(err => reject(CaaError(500, err.message)));
-    }))
+        if (cacheCode !== code) {
+          return Promise.reject(new ResponseError(403, 'invalid code'));
+        }
 
-    //  查找用户
-    .then(({ mobile, password }) => new Promise((resolve, reject) => {
-      User.findOne({ mobile })
-        .then(user => {
-          if (!user) {
-            return reject(CaaError(404, 'user is not exists'));
-          }
+        return { mobile, password, client };
+      });
+    })
 
-          resolve({ user, password });
-        })
-        .catch(err => reject(catchMongooseError(err)));
-    }))
+    // quit redis client
+    .then(({ mobile, password, client }) => (
+      client.quitAsync().then(() => ({ mobile, password }))
+    ))
 
-    // 更新密码
-    .then(({ user, password }) => new Promise((resolve, reject) => {
-      user.update({ $set: { password } })
-        .then(result => {
-          resolve(user);
-        })
-        .catch(err => reject(catchMongooseError(err)));
-    }))
+    // fetch user from db
+    .then(({ mobile, password }) => (
+      User.findOne({ mobile }).then(user => {
+        if (!user) {
+          return Promise.reject(new ResponseError(404, 'user not found'));
+        }
 
-    // 移除验证码缓存
-    .then(user => new Promise((resolve, reject) => {
-      const key = cacheKey('register.mobile.sent')(user.mobile);
+        return { user, password };
+      })
+    ))
 
-      redisClient.delAsync(key)
-        .then(state => resolve(user))
-        .catch(err => reject(CaaError(500, err.message)));
-    }))
+    // update password
+    .then(({ user, password }) => (
+      user.update({ $set: { password } }).then(() => user)
+    ))
 
-    .then(user => res.send({  }))
+    // transform user
+    .then(user => user.toJSON())
 
-    .catch(err => res.status(err.status || 500).send({ message: err.message }));
+    .then(user => res.send({ user }))
+    .catch(err => handleError(res, err));
 };

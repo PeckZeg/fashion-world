@@ -14,6 +14,7 @@ const projects = [
   'front-end/app-download',
 
   'ios/fashion-world',
+  'ios/fashion-tv',
   'ios/buddha',
 
   'android/buddha-redesign',

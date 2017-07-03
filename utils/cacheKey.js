@@ -1,3 +1,8 @@
+/**
+ *  该方法已启用，可使用如下代码替换
+ *    const cacheKeys = reqlib('./redis/keys');
+ */
+
 module.exports = flag => {
   switch (flag) {
     case 'user.login':

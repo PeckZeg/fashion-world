@@ -1,15 +1,15 @@
 const crypto = require('crypto');
 
 const createClient = reqlib('./redis/create-client');
-const debug = require('debug');
+const debug = require('debug')('auth');
 
 const {
   authorization: AUTHORIZATION_REGEXP,
   accessKeys: KEYS_REGEXP
 } = config.regexgs;
 
-module.exports = (action, authorization, options) = {
-  const { required, cacheKey } = options;
+module.exports = (action, authorization, options) => {
+  const { required, cacheKey, transformKeys } = options;
 
   if (!required && !authorization) {
     return Promise.resolve(null);
@@ -22,6 +22,7 @@ module.exports = (action, authorization, options) = {
       const auth = AUTHORIZATION_REGEXP.exec(authorization);
 
       debug({ authorization });
+
 
       if (!auth) {
         return Promise.reject(new ResponseError(400, 'invalid authorization'));
@@ -49,18 +50,18 @@ module.exports = (action, authorization, options) = {
     })
 
     // validate timestamp
-    .then(({ apiKey, signature, timestamp }) => {
-      const now = moment();
-      const begin = now.clone().add(-10, 'minutes');
-      const end = now.clone().add(10, 'minutes');
-      const ts = moment(timestamp);
-
-      if (!moment(timestamp).isBetween(begin, end)) {
-        return Promise.reject(new ResponseError(400, 'invalid timestamp'));
-      }
-
-      return { apiKey, signature, timestamp };
-    })
+    // .then(({ apiKey, signature, timestamp }) => {
+    //   const now = moment();
+    //   const begin = now.clone().add(-10, 'minutes');
+    //   const end = now.clone().add(10, 'minutes');
+    //   const ts = moment(timestamp);
+    //
+    //   if (!moment(timestamp).isBetween(begin, end)) {
+    //     return Promise.reject(new ResponseError(400, 'invalid timestamp'));
+    //   }
+    //
+    //   return { apiKey, signature, timestamp };
+    // })
 
     // validate apiKey
     .then(({ apiKey, signature, timestamp }) => {
@@ -77,10 +78,15 @@ module.exports = (action, authorization, options) = {
 
           keys = JSON.parse(keys);
 
+          if (typeof transformKeys == 'function') {
+            keys = transformKeys(keys);
+          }
+
           debug({ keys });
 
           return { apiKey, signature, timestamp, keys };
-        });
+        })
+        .then(args => client.quitAsync().then(() => args));
     })
 
     // validate signature
