@@ -13,6 +13,7 @@ const TRANSFORM_TO_JSON_PROP_BLACK_LIST = [
 ];
 
 const schema = new Schema({
+  channelId: { type: ObjectId, required: true },
   name: { type: String, required: true, minlength: 1, maxLength: 64 },
   priority: { type: Number, default: 0 },
   publishAt: { type: Date, default: null },
@@ -36,4 +37,4 @@ const schema = new Schema({
   }
 });
 
-module.exports = connection.model('Channel', schema);
+module.exports = connection.model('Category', schema);
