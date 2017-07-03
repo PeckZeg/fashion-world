@@ -1,15 +1,17 @@
 const mongoose = require('mongoose');
-const CaaError = reqlib('./utils/CaaError');
-
 const validate = reqlib('./validate-models/validate');
 
-let schema = new mongoose.Schema({
+const { Schema } = mongoose;
+const { ObjectId } = Schema.Types;
+
+const schema = new Schema({
   offset: { type: Number, min: 0, default: 0 },
   limit: { type: Number, min: 0, default: 20 },
+  channelId: ObjectId,
   isRemoved: Boolean,
   isPublished: Boolean
 }, { _id: false });
 
-let Params = mongoose.model('AdminVideoChannelCategoryListQueryParams', schema);
-
-module.exports = validate(Params);
+module.exports = validate(
+  mongoose.model('AdminVideoChannelCategoryListQueryParams', schema)
+);

@@ -25,7 +25,7 @@ module.exports = (query, data, strict = false) => {
           else {
             delete query[key];
           }
-
+          break;
         default:
           //  ...
       }
