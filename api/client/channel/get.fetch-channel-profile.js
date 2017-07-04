@@ -38,6 +38,29 @@ module.exports = (req, res, next) => {
       return { query, channel };
     })
 
+    // inject categories
+    .then(({ query, channel }) => {
+      const { injectCategories } = query;
+
+      channel = channel.toJSON();
+
+      if (!injectCategories) {
+        return channel;
+      }
+
+      const cond = {
+        channelId: channel._id,
+        publishAt: { $lte: new Date() },
+        removeAt: null
+      };
+      const sort = { priority: -1, publishAt: -1, createAt: -1 };
+
+      return Category.find(cond).sort(sort).then(categories => ({
+        ...channel,
+        categories: categories.map(category => category.toJSON())
+      }));
+    })
+
     .then(channel => res.send({ channel }))
     .catch(err => handleError(res, err));
 };
