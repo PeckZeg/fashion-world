@@ -1,9 +1,8 @@
 const { ObjectId } = require('mongoose').Types;
-const CaaError = reqlib('./utils/CaaError');
 
-module.exports = id => new Promise((resolve, reject) => {
+module.exports = (id, idName = 'objectId') => new Promise((resolve, reject) => {
   if (!ObjectId.isValid(id)) {
-    return reject(CaaError(400, 'invalid channelId'));
+    return reject(new ResponseError(400, `invalid ${idName}`));
   }
 
   resolve(ObjectId(id));
