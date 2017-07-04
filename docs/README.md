@@ -1,4 +1,4 @@
-# 文档中心
+# 文档
 
 ## 说明
 
@@ -6,7 +6,11 @@
 
 ## 接口列表
 
-[戳此进入](./api-list.md)
+### Channel
+
+* [`GET` 获取频道列表][channel-get-fetch-channel-list]
+* [`GET` 获取频道详情][channel-get-fetch-channel-profile]
+* [`GET` 获取频道分类列表][channel-get-fetch-channel-category-list]
 
 ## 模型列表
 
@@ -16,6 +20,11 @@
 ## 引用
 
 * [How to Install FFmpeg on CentOS](https://www.vultr.com/docs/how-to-install-ffmpeg-on-centos)
+
+
+[channel-get-fetch-channel-list]: ./api/channel/get.fetch-channel-list.md
+[channel-get-fetch-channel-profile]: ./api/channel/get.fetch-channel-profile.md
+[channel-get-fetch-channel-category-list]: ./api/channel/get.fetch-channel-category-list.md
 
 [channel-model]: ./models/channel.md
 [category-model]: ./models/category.md
