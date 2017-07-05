@@ -2,32 +2,34 @@ const mongoose = require('mongoose');
 const url = require('url');
 
 const connection = reqlib('./utils/mongodb-connection');
-const transform = reqlib('./utils/schema/toJSON');
+const unsetProps = reqlib('./utils/schema/unset-props');
+const transform = reqlib('./utils/schema/transform');
+const toUrl = reqlib('./utils/toUrl');
 
 const { Schema } = mongoose;
-const { ObjectId } = Schema;
+const { ObjectId } = Schema.Types;
 
-let schema = new Schema({
+const TRANSFORM_TO_JSON_PROP_BLACK_LIST = [ ];
+
+const schema = new Schema({
   sourceId: { type: ObjectId, required: true },
-  channelId: { type: ObjectId, required: true },
-  categoryId: { type: ObjectId, required: true },
-  tags: [String],
-  keywords: [String],
-  name: { type: String, minlength: 1, maxLength: 64 },
-  abstract: { type: String, minlength: 1, maxLength: 128 },
-  summary: { type: String, minlength: 1, maxLength: 65535 },
   cover: { type: String, default: null },
-  views: { type: Number, default: 0 },
-  publishAt: { type: Date, default: null },
-  recommendAt: { type: Date, default: null },
-  createAt: { type: Date, default: Date.now },
-  removeAt: { type: Date, default: null }
+}, {
+  toJSON: {
+    virtuals: true,
+    transform(doc, ret, options) {
+      ret = transform(doc, ret, options);
+      ret = unsetProps(ret, TRANSFORM_TO_JSON_PROP_BLACK_LIST);
+
+      return ret;
+    }
+  },
+
+  toObject: { virtuals: true, transform }
 });
 
 schema.virtual('coverUrl').get(function() {
-  return this.cover ? url.format({ ...config.resource, pathname: this.cover }) : null;
+  return toUrl(this.cover);
 });
-
-schema.options.toJSON = { transform: transform() };
 
 module.exports = connection.model('Video', schema);
