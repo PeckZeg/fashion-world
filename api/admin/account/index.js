@@ -7,5 +7,5 @@ router.post('/login', require('./post.login'));
 
 router.put('/:accountId', require('./put.update-account'));
 
-router.delete('/:accountId', require('./delete.destroy-account'));
 router.delete('/logout', require('./delete.logout'));
+router.delete('/:accountId', require('./delete.destroy-account'));

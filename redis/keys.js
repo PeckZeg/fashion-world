@@ -1,7 +1,10 @@
 module.exports = flag => {
   switch (flag) {
+    case 'admin:account:key':
+      return key => `admin:account:${key}:key`;
+
     case 'client:user:key':
-      return key => `user:${key}:key`;
+      return key => `client:user:${key}:key`;
 
     case 'sms:mobile:max-per-day':
       return mobile => `sms:mobile:${mobile}:sent-per-day`;

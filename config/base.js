@@ -24,6 +24,8 @@ module.exports = {
     'admin:video:put:update-video': 'admin:video:update-video',
     'admin:video:delete:destroy-video': 'admin:video:destroy-video',
 
+    'admin:channel:get:fetch-channel-list': 'admin:channel:fetch-channel-list',
+
     'admin:video-channel:get:fetch-list': 'admin:video-channel:fetch-list',
 
     'admin:video-category:get:fetch-list': 'admin:video-category:fetch-list'

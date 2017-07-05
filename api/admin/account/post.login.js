@@ -1,31 +1,30 @@
-const moment = require('moment');
+const validateParams = reqlib('./validate-models/admin/account/login-params');
+const createKeys = reqlib('./utils/keys/account/create-keys');
+const handleError = reqlib('./utils/response/handle-error');
 
 const Account = reqlib('./models/Account');
-const validate = reqlib('./validate-models/admin/account/login-params');
-const client = reqlib('./redis/client');
-const createAccessKeys = reqlib('./utils/access-keys/account/generate');
-
-const CACHE_DURATION = moment.duration(1, 'days');
 
 module.exports = (req, res, next) => {
   Promise.resolve(req.body)
-    .then(body => validate(body))
-    .then(params => {
-      params = Object.assign(params, { isActive: true });
-      return Account.findOne(params).exec()
-    })
-    .then(account => {
-      return new Promise((resolve, reject) => {
-        if (account) return resolve(account);
 
-        let error = new Error('name or password is invalid');
-        error.status = 400;
-        reject(error);
-      });
+    // validate body params
+    .then(validateParams)
+
+    // query account doc
+    .then(({ name, password }) => Account.findOne({ name, password }))
+
+    // check account exists
+    .then(account => {
+      if (!account) {
+        return Promise.reject(new ResponseError(400, 'name or password is invalid'));
+      }
+
+      return account;
     })
-    .then(account => createAccessKeys(account))
-    .then(account => res.send(account))
-    .catch(err => {
-      res.status(err.status || 500).send({ message: err.message });
-    });
+
+    // create keys
+    .then(createKeys)
+
+    .then(keys => res.send(keys))
+    .catch(err => handleError(res, err));
 };

@@ -1,17 +1,19 @@
 const validateParams = reqlib('./validate-models/admin/channel/fetch-channel-list-query-params');
 const handleError = reqlib('./utils/response/handle-error');
+const authToken = reqlib('./utils/keys/account/auth-token');
 const transformQuery = reqlib('./utils/transform-query');
 
 const Channel = reqlib('./models/Channel');
 
+const ACTION = config.apiActions['admin:channel:get:fetch-channel-list'];
 const TRANSFORM_QUERY_PARAMS = { isPublished: Boolean, isRemoved: Boolean };
 const QUERY_TO_COND_PARAMS = { isPublished: 'publishAt', isRemoved: 'removeAt' };
 
 module.exports = (req, res, next) => {
-  Promise.resolve(req.query)
+  authToken(ACTION, req.header('authorization'))
 
     // transform query params
-    .then(query => transformQuery(query, TRANSFORM_QUERY_PARAMS))
+    .then(() => transformQuery(req.query, TRANSFORM_QUERY_PARAMS))
 
     // validate query params
     .then(validateParams)

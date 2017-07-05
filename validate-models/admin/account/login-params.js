@@ -1,33 +1,13 @@
 const mongoose = require('mongoose');
-// const { Schema, Types } = mongoose;
+const validate = reqlib('./validate-models/validate');
 
-let schema = new mongoose.Schema({
+const { Schema } = mongoose;
+
+const schema = new Schema({
   name: { type: String, required: true, minlength: 3, maxLength: 15 },
-  password: { type: String, required: true }
+  password: { type: String, required: true, match: /^[a-f0-9]{32}$/i }
 }, { _id: false });
 
-let Params = mongoose.model('AccountLoginParams', schema);
-
-module.exports = body => new Promise((resolve, reject) => {
-  let params = new Params(body);
-
-  params.validate(err => {
-    if (err) {
-      let key = _.chain(err.errors).keys().first().value();
-      let error = err.errors[key];
-
-      if (error) {
-        error.status = 400;
-        reject(error);
-      }
-
-      else {
-        reject(err);
-      }
-    }
-
-    else {
-      resolve(params);
-    }
-  });
-});
+module.exports = validate(
+  mongoose.model('AdminAccountLoginParams', schema)
+);
