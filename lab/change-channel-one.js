@@ -22,9 +22,12 @@ Video.count()
   .then(videos => new Promise((resolve, reject) => {
     debug(`将要修改 ${videos.length} 个视频频道`);
     mapLimit(videos, 1, (video, cb) => {
-      video.channelId = ObjectId('5923d5a2afa4194436827736');
-      video.save()
-        .then(() => cb(null, video))
+      const channelId = ObjectId('5923d5a2afa4194436827736');
+      const update = { $set: { channelId } };
+      const opts = { new: true };
+
+      Video.findByIdAndUpdate(video._id, update, opts)
+        .then(video => cb(null, video))
         .catch(cb);
     }, (err, videos) => {
       if (err) return reject(err);
