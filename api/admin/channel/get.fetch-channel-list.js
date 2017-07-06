@@ -8,6 +8,7 @@ const Channel = reqlib('./models/Channel');
 const ACTION = config.apiActions['admin:channel:get:fetch-channel-list'];
 const TRANSFORM_QUERY_PARAMS = { isPublished: Boolean, isRemoved: Boolean };
 const QUERY_TO_COND_PARAMS = { isPublished: 'publishAt', isRemoved: 'removeAt' };
+const SORT_PROPS = ['priority', 'publishAt', 'removeAt'];
 
 module.exports = (req, res, next) => {
   authToken(ACTION, req.header('authorization'))
@@ -33,12 +34,13 @@ module.exports = (req, res, next) => {
         }
       });
 
-      ['priority'].forEach(attr => {
+      _.forEach(SORT_PROPS, attr => {
         const queryAttr = _.camelCase(`sort ${attr}`);
         const value = query[queryAttr];
 
         if (value !== void 0) {
           sort = { [attr]: value > 0 ? 1: -1, ...sort };
+          return false;
         }
       });
 
