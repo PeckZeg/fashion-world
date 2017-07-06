@@ -23,7 +23,7 @@ module.exports = (req, res, next) => {
       const { offset, limit } = query;
       const cond = {};
       const skip = offset * limit;
-      const sort = { createAt: -1 };
+      let sort = { createAt: -1 };
 
       _.each(QUERY_TO_COND_PARAMS, (transKey, key) => {
         if (query[key] !== void 0) {
@@ -33,17 +33,38 @@ module.exports = (req, res, next) => {
         }
       });
 
+      ['priority'].forEach(attr => {
+        const queryAttr = _.camelCase(`sort ${attr}`);
+        const value = query[queryAttr];
+
+        if (value !== void 0) {
+          sort = { [attr]: value > 0 ? 1: -1, ...sort };
+        }
+      });
+
       return { cond, skip, limit, sort };
     })
 
     // query channel doc
     .then(({ cond, skip, limit, sort }) => (
       Channel.find(cond).skip(skip).limit(limit).sort(sort)
+        .then(channels => ({ cond, channels }))
     ))
 
-    // transform channels
-    .then(channels => channels.map(channel => channel.toObject()))
+    // count query docs
+    .then(({ cond, channels }) => (
+      Channel.count(cond).then(total => ({ total, channels }))
+    ))
 
-    .then(channels => res.send({ channels }))
+    // send result
+    .then(({ total, channels }) => {
+      channels = channels.map(channel => channel.toObject());
+
+      res.send({ total, channels });
+    })
+
+    // .then(channels => channels.map(channel => channel.toObject()))
+
+    // .then(result => res.send(result))
     .catch(err => handleError(res, err));
 };

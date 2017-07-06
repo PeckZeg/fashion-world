@@ -6,6 +6,7 @@ const { Schema } = mongoose;
 const schema = new Schema({
   offset: { type: Number, min: 0, default: 0 },
   limit: { type: Number, min: 0, default: 20 },
+  sortPriority: Number,
   isPublished: Boolean,
   isRemoved: Boolean
 }, { _id: false });
