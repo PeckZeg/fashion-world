@@ -2,6 +2,8 @@ const validateParams = reqlib('./validate-models/admin/channel/fetch-channel-lis
 const handleError = reqlib('./utils/response/handle-error');
 const authToken = reqlib('./utils/keys/account/auth-token');
 const transformQuery = reqlib('./utils/transform-query');
+const setSort = reqlib('./utils/api-model/sort');
+const setSearchCond = reqlib('./utils/api-model/search-cond');
 
 const Channel = reqlib('./models/Channel');
 
@@ -9,6 +11,7 @@ const ACTION = config.apiActions['admin:channel:get:fetch-channel-list'];
 const TRANSFORM_QUERY_PARAMS = { isPublished: Boolean, isRemoved: Boolean };
 const QUERY_TO_COND_PARAMS = { isPublished: 'publishAt', isRemoved: 'removeAt' };
 const SORT_PROPS = ['priority', 'publishAt', 'removeAt'];
+const SEARCH_PROPS = ['name'];
 
 module.exports = (req, res, next) => {
   authToken(ACTION, req.header('authorization'))
@@ -22,8 +25,8 @@ module.exports = (req, res, next) => {
     // generate query params
     .then(query => {
       const { offset, limit } = query;
-      const cond = {};
       const skip = offset * limit;
+      let cond = {};
       let sort = { createAt: -1 };
 
       _.each(QUERY_TO_COND_PARAMS, (transKey, key) => {
@@ -34,15 +37,8 @@ module.exports = (req, res, next) => {
         }
       });
 
-      _.forEach(SORT_PROPS, attr => {
-        const queryAttr = _.camelCase(`sort ${attr}`);
-        const value = query[queryAttr];
-
-        if (value !== void 0) {
-          sort = { [attr]: value > 0 ? 1: -1, ...sort };
-          return false;
-        }
-      });
+      sort = setSort(query, sort, SORT_PROPS);
+      cond = setSearchCond(query, cond, SEARCH_PROPS);
 
       return { cond, skip, limit, sort };
     })

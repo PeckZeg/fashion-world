@@ -10,10 +10,10 @@ const ACTION = config.apiActions['admin:category:post:enable-category'];
 const OPTS = { new: true };
 
 module.exports = (req, res, next) => {
-  Promise.resolve(req.params.categoryId)
+  authToken(ACTION, req.header('authorization'))
 
     // validate `categoryId`
-    .then(validateObjectId)
+    .then(keys => validateObjectId(req.params.categoryId))
 
     // update category doc
     .then(categoryId => (
