@@ -19,7 +19,7 @@ const schema = new Schema({
   publishAt: { type: Date, default: null },
   createAt: { type: Date, default: Date.now },
   removeAt: { type: Date, default: null },
-  removeBy: { type: ObjectId, default: null }
+  // removeBy: { type: ObjectId, default: null }
 }, {
   toJSON: {
     virtuals: true,

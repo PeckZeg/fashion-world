@@ -25,7 +25,14 @@ module.exports = {
     'admin:video:delete:destroy-video': 'admin:video:destroy-video',
 
     'admin:channel:get:fetch-channel-list': 'admin:channel:fetch-channel-list',
+    'admin:channel:get:fetch-channel-profile': 'admin:channel:fetch-channel-profile',
     'admin:channel:put:update-channel': 'admin:channel:update-channel',
+
+    'admin:category:get:fetch-category-list': 'admin:category:fetch-category-list',
+    'admin:category:get:fetch-category-profile': 'admin:category:fetch-category-profile',
+    'admin:category:post:enable-category': 'admin:category:enable-category',
+    'admin:category:put:update-category': 'admin:category:update-category',
+    'admin:category:del:destroy-category': 'admin:category:destroy-category',
 
     'admin:video-channel:get:fetch-list': 'admin:video-channel:fetch-list',
 
