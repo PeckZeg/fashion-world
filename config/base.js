@@ -30,6 +30,7 @@ module.exports = {
 
     'admin:category:get:fetch-category-list': 'admin:category:fetch-category-list',
     'admin:category:get:fetch-category-profile': 'admin:category:fetch-category-profile',
+    'admin:category:post:create-category': 'admin:category:create-category',
     'admin:category:post:enable-category': 'admin:category:enable-category',
     'admin:category:put:update-category': 'admin:category:update-category',
     'admin:category:del:destroy-category': 'admin:category:destroy-category',

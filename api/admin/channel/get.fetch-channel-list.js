@@ -25,6 +25,7 @@ module.exports = (req, res, next) => {
     // generate query params
     .then(query => {
       const { offset, limit } = query;
+      const { channelId: _id } = query;
       const skip = offset * limit;
       let cond = {};
       let sort = { createAt: -1 };
@@ -34,6 +35,12 @@ module.exports = (req, res, next) => {
           Object.assign(cond, {
             [transKey]: query[key] ? { $ne: null } : null
           });
+        }
+      });
+
+      _.forEach({ _id }, (value, key) => {
+        if (value !== void 0) {
+          Object.assign(cond, { [key]: value });
         }
       });
 
