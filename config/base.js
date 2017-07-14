@@ -58,7 +58,11 @@ module.exports = {
       password: 'abc.123'
     },
 
-    folder: 'FTV'
+    folder: 'FTV',
+
+    folders: {
+      ftv: 'FTV'
+    }
   },
 
   sourceVideo: {
