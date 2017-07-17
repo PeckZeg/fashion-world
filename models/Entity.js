@@ -18,6 +18,7 @@ const schema = new Schema({
   categoryId: { type: ObjectId, required: true },
   title: { type: String, minlength: 1, maxLength: 64 },
   abstract: { type: String, minlength: 1, maxLength: 128 },
+  summary: { type: String, minlength: 1, maxLength: 65536 },
   views: { type: Number, default: 0 },
   tags: [String],
   keywords: [String],
