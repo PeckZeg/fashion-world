@@ -62,6 +62,30 @@ module.exports = {
 
     folders: {
       ftv: 'FTV'
+    },
+
+    fashionWorld: {
+      host: '172.16.0.12',
+      user: 'wlctest',
+      password: 'wlctest'
+    },
+
+    resource: {
+      host: '172.16.0.80',
+      user: 'ftpadmin',
+      password: 'xMzc.123',
+      folders: {
+        images: 'images',
+        videos: 'videos'
+      }
+    }
+  },
+
+  ftpToHttp: {
+    resource: {
+      protocol: 'http:',
+      host: '59.57.240.50:5052',
+      basePathname: 'static'
     }
   },
 

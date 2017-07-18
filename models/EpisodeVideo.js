@@ -14,8 +14,6 @@ const TRANSFORM_TO_JSON_PROP_BLACK_LIST = [
 const schema = new Schema({
   id: String,
   originalTitle: String,
-  title: String,
-  subtitle: String,
   season: Number,
   episode: Number,
   part: Number,
@@ -41,4 +39,4 @@ const schema = new Schema({
   toObject: { virtuals: true, transform }
 });
 
-module.exports = connection.model('Entity', schema);
+module.exports = connection.model('EpisodeVideo', schema);
