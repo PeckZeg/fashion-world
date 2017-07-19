@@ -1,19 +1,44 @@
 const mongoose = require('mongoose');
-const url = require('url');
 
-const connection = reqlib('./utils/mongodb-connection');
+const connection = require('../utils/mongodb-connection');
 const unsetProps = reqlib('./utils/schema/unset-props');
 const transform = reqlib('./utils/schema/transform');
-const toUrl = reqlib('./utils/toUrl');
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-const TRANSFORM_TO_JSON_PROP_BLACK_LIST = [ ];
+const TRANSFORM_TO_JSON_PROP_BLACK_LIST = [
+  'id',
+  'originalTitle',
+  'removeAt'
+];
 
 const schema = new Schema({
-  sourceId: { type: ObjectId, required: true },
-  cover: { type: String, default: null },
+  channelId: { type: ObjectId, required: true },
+  categoryId: { type: ObjectId, required: true },
+  title: { type: String, minlength: 1, maxLength: 65535 },
+  subtitle: { type: String, maxLength: 65535 },
+  abstract: { type: String, minlength: 1, maxLength: 128 },
+  summary: { type: String, minlength: 1, maxLength: 65536 },
+  id: String,
+  originalTitle: String,
+  season: Number,
+  episode: Number,
+  part: Number,
+  castings: [String],
+  year: Number,
+  rightsOwner: String,
+  productionCountry: String,
+  originalLanguage: String,
+  views: { type: Number, default: 0 },
+  tags: [String],
+  keywords: [String],
+  publishBeginAt: { type: Date, default: null },
+  publishEndAt: { type: Date, default: null },
+  recommendBeginAt: { type: Date, default: null },
+  recommendEndAt: { type: Date, default: null },
+  createAt: { type: Date, default: Date.now },
+  removeAt: { type: Date, default: null }
 }, {
   toJSON: {
     virtuals: true,
@@ -26,10 +51,6 @@ const schema = new Schema({
   },
 
   toObject: { virtuals: true, transform }
-});
-
-schema.virtual('coverUrl').get(function() {
-  return toUrl(this.cover);
 });
 
 module.exports = connection.model('Video', schema);

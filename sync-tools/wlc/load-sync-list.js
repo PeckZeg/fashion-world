@@ -1,11 +1,12 @@
 const transform = require('stream-transform');
+const debug = require('debug')('sync');
 const parse = require('csv-parse');
 const path = require('path');
 const fs = require('fs');
 
 const cacheToRedis = require('./cache-to-redis');
 
-module.exports = csvpath => Promise.resolve(path.join(__dirname, csvpath))
+module.exports = csvpath => Promise.resolve(csvpath)
 
   // read csv data
   .then(csvpath => new Promise((resolve, reject) => {
@@ -13,6 +14,8 @@ module.exports = csvpath => Promise.resolve(path.join(__dirname, csvpath))
     const parser = parse({ delimiter: ',' });
     const transformer = transform(data => data);
     const output = [];
+
+    debug('正在读取同步列表');
 
     transformer.on('error', reject);
 

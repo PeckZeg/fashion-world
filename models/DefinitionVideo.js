@@ -23,10 +23,8 @@ const schema = new Schema({
   height: { type: Number, default: 0 },
   size: { type: Number, default: 0 },
   duration: { type: Number, default: 0 },
+  definition: String,
   bitRate: Number,
-  screenshots: [String],
-  definitions: [ObjectId],
-  uploadAt: { type: Date, default: null },
   createAt: { type: Date, default: Date.now },
 }, {
   toJSON: {
@@ -53,4 +51,4 @@ schema.virtual('screenshotUrls').get(function() {
   return this.screenshots.map(screenshot => toUrl(screenshot));
 });
 
-module.exports = connection.model('SourceVideo', schema);
+module.exports = connection.model('DefinitionVideo', schema);

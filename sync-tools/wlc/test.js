@@ -1,41 +1,57 @@
+const mapLimit = require('async/mapLimit');
+const path = require('path');
+
 const globalMixins = require('../../utils/global-mixins');
-const createRedisClient = reqlib('./redis/create-client');
 
-const readSyncList = require('./load-sync-list');
-const cacheToRedis = require('./cache-to-redis');
+const FTP_FOLDER = '/WineLife_Channel_1080P/2017_07_17';
+const FTP_FOLDER_HASH_FILE = path.join(FTP_FOLDER, 'hash_list.txt');
+const CSV_FILE = path.join(__dirname, 'csv/20170717.csv');
 
-const CSV_FILE = './csv/20170717.csv';
-const { SYNC_FLAG_CACHE_KEY } = require('./config');
+const loadFtpVideoList = require('./load-ftp-video-list');
+const loadFtpHashVideoList = require('./load-ftp-video-hash-list');
+const loadSyncList = require('./load-sync-list');
+const handleSingleVideoId = require('./test-handle-single-videoId');
 
-Promise.resolve(createRedisClient())
-
-  .then(client => (
-    client.existsAsync(SYNC_FLAG_CACHE_KEY).then(exists => ({ exists, client }))
+loadFtpVideoList(FTP_FOLDER)
+  .then(ftpVideos => (
+    loadFtpHashVideoList(FTP_FOLDER_HASH_FILE)
+      .then(ftpHashVideos => ({ ftpVideos, ftpHashVideos }))
   ))
 
-  .then(({ exists, client }) => {
-    if (exists) return client;
+  .then(({ ftpVideos, ftpHashVideos }) => {
+    ftpHashVideos = _.keyBy(ftpHashVideos, 'filename');
 
-    return client.setAsync(SYNC_FLAG_CACHE_KEY, 'true')
-      .then(() => readSyncList(CSV_FILE))
-      .then(videoIds => client.delAsync(SYNC_FLAG_CACHE_KEY))
-      .then(() => client)
+    ftpVideos = ftpVideos.map(video => {
+      const { sha1 } = ftpHashVideos[video.name] || {};
+      return { ...video, sha1 };
+    });
+
+    return ftpVideos;
   })
 
-  .then(client => client.quitAsync())
+  .then(ftpVideos => (
+    loadSyncList(CSV_FILE).then(videoIds => ({ ftpVideos, videoIds }))
+  ))
+
+  .then(({ ftpVideos, videoIds }) => new Promise((resolve, reject) => {
+    videoIds = ['WLC000001'];
+
+    mapLimit(videoIds, 1, (videoId, cb) => {
+      handleSingleVideoId(videoId, ftpVideos)
+        .then(video => cb(null, video))
+        .catch(cb);
+    }, (err, videos) => {
+      if (err) return reject(err);
+      resolve(videos);
+    });
+  }))
 
   .then(result => {
-    console.log(result);
+    console.log(JSON.stringify(result, null, 2));
     process.exit(0);
   })
 
   .catch(err => {
     console.error(err);
-
-    const client = createRedisClient();
-
-    client.delAsync(SYNC_FLAG_CACHE_KEY)
-      .then(() => client.quitAsync())
-      .then(() => process.exit(1))
-      .catch(err => process.exit(1));
+    process.exit(1);
   });

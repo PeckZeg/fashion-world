@@ -1210,7 +1210,7 @@ forever-agent@~0.6.1:
   version "0.6.1"
   resolved "http://registry.npm.taobao.org/forever-agent/download/forever-agent-0.6.1.tgz#fbc71f0c41adeb37f96c577ad1ed42d8fdacca91"
 
-forever-monitor@~1.7.0:
+forever-monitor@^1.7.1, forever-monitor@~1.7.0:
   version "1.7.1"
   resolved "http://registry.npm.taobao.org/forever-monitor/download/forever-monitor-1.7.1.tgz#5d820f4a3a78db2d81ae2671f158b9e86a091bb8"
   dependencies:

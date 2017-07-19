@@ -29,7 +29,7 @@ syncUtils.ftp.create()
     const { protocol, host, basePathname } = config.ftpToHttp.resource;
     const pathname = path.join('/', basePathname, imagepath);
 
-    return url.format({ protocol, host, pathname });
+    // return url.format({ protocol, host, pathname });
     return pathname;
   })
 
