@@ -1,3 +1,5 @@
+const mapLimit = require('async/mapLimit');
+
 const debug = require('debug')('sync');
 const path = require('path');
 

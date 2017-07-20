@@ -1,91 +1,34 @@
-const validateParams = reqlib('./validate-models/client/video/fetch-list-query-params');
-const handleError = reqlib('./utils/response/handle-error');
-const injectVideos = reqlib('./utils/models/inject/videos');
+const validateParams = reqlib('./validate-models/client/video/fetch-video-list-query-params');
 const transformQuery = reqlib('./utils/transform-query');
-const auth = reqlib('./utils/access-keys/user/auth');
+const handleError = reqlib('./utils/response/handle-error');
+const authToken = reqlib('./utils/keys/account/auth-token');
 
-const Video = reqlib('./models/Video');
+const fetchAvailableCategories = reqlib('./cache/models/available-categories');
+const fetchAvailableChannels = reqlib('./cache/models/available-channels');
 
-const fetchAvialableCategoryIds = reqlib('./cache/fetch-available-video-channel-categoryIds');
-const fetchAvialableChannelIds = reqlib('./cache/fetch-available-channelIds');
-
-const ACTION = config.apiActions['video:get:fetch-video-list'];
-const TRANSFORM_QUERY_PARAMS = {
-  isRecommend: Boolean,
-  tags: Array,
-  sourceId: Array,
-};
+const TRANSFORM_QUERY_PARAMS = { isRecommend: Boolean };
+const QUERY_TO_COND_PARAMS = { isRecommend: 'recommendAt' };
 
 module.exports = (req, res, next) => {
-  auth(req.header('authorization'), ACTION)
+  Promise.resolve(req.query)
 
-    //  transform query params
-    .then(keys => ({
-      userId: keys ? keys.userId : null,
-      query: transformQuery(req.query, TRANSFORM_QUERY_PARAMS)
-    }))
+    // transform query params
+    .then(() => transformQuery(req.query, TRANSFORM_QUERY_PARAMS))
 
     // validate query params
-    .then(({ userId, query }) => (
-      validateParams(query).then(query => ({ userId, query }))
-    ))
+    .then(validateParams)
 
     // fetch available channels
+    .then(query => (
+      fetchAvailableChannels()
+        .then(availableChannels => ({ query, availableChannels }))
+    ))
+
+    // fetch available categories
     .then(args => (
-      fetchAvialableChannelIds().then(channelIds => ({ channelIds, ...args }))
+      fetchAvailableCategories()
+        .then(availableCategories => ({ ...args, availableCategories }))
     ))
-
-    // fetch available categoryIds
-    .then(args => (
-      fetchAvialableCategoryIds().then(categoryIds => ({ categoryIds, ...args }))
-    ))
-
-    // generate query condition
-    .then(({ userId, query, categoryIds, channelIds }) => {
-      const { offset, limit } = query;
-      const { isRecommend } = query;
-      const { channelId, categoryId, sourceId } = query;
-      const { tags } = query;
-      const skip = offset * limit;
-      let sort = { publishAt: -1 };
-      let cond = {
-        channelId: { $in: channelIds },
-        categoryId: { $in: categoryIds },
-        removeAt: { $eq: null },
-        publishAt: { $ne: null, $lte: new Date() }
-      };
-
-      if (isRecommend) {
-        cond = { ...cond, recommendAt: { $ne: null } };
-        sort = { recommendAt: -1, ...sort };
-      }
-
-      if (tags.length) {
-        cond.$or = cond.$or || [];
-        cond.$or.push(...tags.map(tags => ({ tags })));
-      }
-
-      if (sourceId.length) {
-        cond = { ...cond, sourceId: { $in: sourceId } };
-      }
-
-      _.each({ channelId, categoryId }, (value, prop) => {
-        if (value !== void 0) {
-          cond = { ...cond, [prop]: value };
-        }
-      });
-
-      return { userId, cond, skip, limit, sort };
-    })
-
-    // query video docs
-    .then(({ userId, cond, skip, limit, sort }) => (
-      Video.find(cond).skip(skip).limit(limit).sort(sort).exec()
-        .then(videos => ({ userId, videos }))
-    ))
-
-    // inject videos
-    .then(({ userId, videos }) => injectVideos(videos, userId))
 
     .then(videos => res.send({ videos }))
     .catch(err => handleError(res, err));

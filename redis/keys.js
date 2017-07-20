@@ -15,6 +15,12 @@ module.exports = flag => {
     case 'sms:mobile:sent':
       return mobile => `sms:mobile:${mobile}`;
 
+    case 'cache:available:channels':
+      return () => 'cache:available:channels';
+
+      case 'cache:available:categories':
+        return () => 'cache:available:categories';
+
     default:
       return key => key;
   }
