@@ -4,8 +4,8 @@
 
 环境             | 地址
 :--------------- | :------------------------
-测试环境         | `http://172.16.0.70:3003`
-测试环境（外网） | `http://59.57.240.50:5005`
+测试环境         | `http://172.16.0.72:3003`
+测试环境（外网） | `http://59.57.240.50:5053`
 
 ## Client
 
@@ -22,9 +22,15 @@
 * [`PUT` 重置用户密码](./api/user/put.reset-password.md)
 * [`DELETE` 用户登出](./api/user/delete.logout.md)
 
-### 视频 video
+### 频道 channel
 
-* [`GET` 获取频道分类列表](./api/video/get.get-channel-category-list.md)
+* [`GET` 获取频道列表](./api/channel/get.fetch-channel-list.md)
+* [`GET` 获取频道详情](./api/channel/get.fetch-channel-profile.md)
+* [`GET` 获取频道分类列表](./api/channel/get.fetch-channel-category-list.md)
+
+<!-- ### 视频 video -->
+
+<!-- * [`GET` 获取频道分类列表](./api/video/get.get-channel-category-list.md)
 * [`GET` 获取频道分类详情](./api/video/get.get-channel-category-profile.md)
 * [`GET` 获取频道列表](./api/video/get.get-channel-list.md)
 * [`GET` 获取频道详情](./api/video/get.get-channel-profile.md)
@@ -35,11 +41,11 @@
 * [`PUT` 点赞视频](./api/video/put.favour-video.md)
 * [`PUT` 收藏视频](./api/video/put.add-collection.md)
 * [`DELETE` 取消视频点赞](./api/video/del.del.destroy-favourite-video.md)
-* [`DELETE` 取消视频收藏](./api/video/del.destroy-collected-video.md)
+* [`DELETE` 取消视频收藏](./api/video/del.destroy-collected-video.md) -->
 
-### Live 视频 live video
+<!-- ### Live 视频 live video -->
 
-* [`GET` 获取 Live 视频列表](./api/live-video/get.fetch-live-video-list.md)
+<!-- * [`GET` 获取 Live 视频列表](./api/live-video/get.fetch-live-video-list.md) -->
 
 ### 横幅 Banner
 
