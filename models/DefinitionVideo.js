@@ -16,6 +16,7 @@ const TRANSFORM_TO_JSON_PROP_BLACK_LIST = [
 ];
 
 const schema = new Schema({
+  sourceId: { type: ObjectId, required: true },
   sha1: { type: String, unique: true, index: true },
   filename: { type: String, default: '' },
   filepath: { type: String, default: '' },
@@ -23,8 +24,8 @@ const schema = new Schema({
   height: { type: Number, default: 0 },
   size: { type: Number, default: 0 },
   duration: { type: Number, default: 0 },
-  definition: String,
-  bitRate: Number,
+  definition: { type: String, default: null },
+  bitRate: { type: Number, default: null },
   createAt: { type: Date, default: Date.now },
 }, {
   toJSON: {

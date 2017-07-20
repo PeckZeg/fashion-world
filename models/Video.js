@@ -33,10 +33,8 @@ const schema = new Schema({
   views: { type: Number, default: 0 },
   tags: [String],
   keywords: [String],
-  publishBeginAt: { type: Date, default: null },
-  publishEndAt: { type: Date, default: null },
-  recommendBeginAt: { type: Date, default: null },
-  recommendEndAt: { type: Date, default: null },
+  publishAt: { type: Date, default: null },
+  recommendAt: { type: Date, default: null },
   createAt: { type: Date, default: Date.now },
   removeAt: { type: Date, default: null }
 }, {

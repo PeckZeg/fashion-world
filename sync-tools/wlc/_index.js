@@ -1,27 +1,26 @@
 const mapLimit = require('async/mapLimit');
-const debug = require('debug')('sync');
 const path = require('path');
 
 const globalMixins = require('../../utils/global-mixins');
 
-const FOLDER = '/WineLife_Channel_1080P/2017_07_17';
-const HASH_FILE = 'hash_list.txt';
+const FTP_FOLDER = '/WineLife_Channel_1080P/2017_07_17';
+const FTP_FOLDER_HASH_FILE = path.join(FTP_FOLDER, 'hash_list.txt');
+const CSV_FILE = path.join(__dirname, 'csv/20170717.csv');
 
 const loadFtpVideoList = require('./load-ftp-video-list');
 const loadFtpHashVideoList = require('./load-ftp-video-hash-list');
-const handleSingleVideo = require('./handle-single-video');
+const loadSyncList = require('./load-sync-list');
+const handleSingleVideoId = require('./handle-single-videoId');
 
-debug(`>>> 同步 WLC 视频: ${FOLDER}`);
-
-loadFtpVideoList(FOLDER)
-
+loadFtpVideoList(FTP_FOLDER)
   .then(ftpVideos => (
-    loadFtpHashVideoList(path.join(FOLDER, HASH_FILE))
+    loadFtpHashVideoList(FTP_FOLDER_HASH_FILE)
       .then(ftpHashVideos => ({ ftpVideos, ftpHashVideos }))
   ))
 
   .then(({ ftpVideos, ftpHashVideos }) => {
     ftpHashVideos = _.keyBy(ftpHashVideos, 'filename');
+
     ftpVideos = ftpVideos.map(video => {
       const { sha1 } = ftpHashVideos[video.name] || {};
       return { ...video, sha1 };
@@ -30,10 +29,15 @@ loadFtpVideoList(FOLDER)
     return ftpVideos;
   })
 
-  .then(ftpVideos => new Promise((resolve, reject) => {
-    debug(`即将同步视频列表，共计 ${ftpVideos.length} 个视频`);
-    mapLimit(ftpVideos, 1, (ftpVideo, cb) => {
-      handleSingleVideo(ftpVideo)
+  .then(ftpVideos => (
+    loadSyncList(CSV_FILE).then(videoIds => ({ ftpVideos, videoIds }))
+  ))
+
+  .then(({ ftpVideos, videoIds }) => new Promise((resolve, reject) => {
+    videoIds = videoIds.slice(0, 1);
+
+    mapLimit(videoIds, 1, (videoId, cb) => {
+      handleSingleVideoId(videoId, ftpVideos)
         .then(video => cb(null, video))
         .catch(cb);
     }, (err, videos) => {
@@ -50,4 +54,4 @@ loadFtpVideoList(FOLDER)
   .catch(err => {
     console.error(err);
     process.exit(1);
-  })
+  });

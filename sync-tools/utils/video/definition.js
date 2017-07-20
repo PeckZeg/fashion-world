@@ -45,7 +45,7 @@ module.exports = (filepath, definition = '360p', destFolder = '/tmp') => new Pro
     .videoBitrate(videoBitrate)
     .size(size).autopad()
     .on('progress', progress => {
-      debug(`[${definition}] 转换进度: ${progress.percent.toFixed(2)}% 完成 - ${path.basename(filepath)}`);
+      debug(`[${definition}] 转换进度: ${progress.percent.toFixed(2)}% - ${path.basename(filepath)}`);
     })
     .on('error', reject)
     .on('end', () => resolve(outputPath))

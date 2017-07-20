@@ -30,43 +30,43 @@ module.exports = (videoId, ftpVideos) => Promise.resolve({ videoId, ftpVideos })
   .then(({ videoId, ftpVideo, client }) => {
     if (!ftpVideo) return { video: null, client };
 
-    // return client.hgetAsync(CACHE_KEY, videoId).then(videoInfo => {
-    //   if (!videoInfo) return { video: null, client };
-    //
-    //   const { sha1 } = ftpVideo;
-    //
-    //   return SourceVideo.findOne({ sha1 }).then(video => {
-    //     if (video) return { video, client };
-    //
-    //     return Promise.resolve(require(SOURCE_INFO_PATH))
-    //       .then(sourceInfo => {});
-    //   });
-    // });
+    return client.hgetAsync(CACHE_KEY, videoId).then(videoInfo => {
+      if (!videoInfo) return { video: null, client };
 
-    const { sha1 } = ftpVideo;
+      const { sha1 } = ftpVideo;
 
-    return SourceVideo.findOne({ sha1 })
-
-      .then(video => {
+      return SourceVideo.findOne({ sha1 }).then(video => {
         if (video) return { video, client };
 
-        return Promise.resolve(FILE_PATH)
+        return Promise.resolve(require(SOURCE_INFO_PATH))
+          .then(sourceInfo => { video: sourceInfo, client });
+      });
+    });
 
-          // generate definitions & screenshots
-          .then(filepath => handleSingleVideo(filepath))
-
-          // upload screenshots
-          .then(video => new Promise((resolve, reject) => {
-            fs.writeFile(
-              '/tmp/d67c440c527e81a0089545dcfe3b8902d4cfc83a.json',
-              JSON.stringify(video, null, 2),
-              err => {
-                if (err) return reject(err);
-                resolve({ video, client });
-              }
-            );
-          }))
-      })
+    // const { sha1 } = ftpVideo;
+    //
+    // return SourceVideo.findOne({ sha1 })
+    //
+    //   .then(video => {
+    //     if (video) return { video, client };
+    //
+    //     return Promise.resolve(FILE_PATH)
+    //
+    //       // generate definitions & screenshots
+    //       .then(filepath => handleSingleVideo(filepath))
+    //
+    //       // upload screenshots
+    //       .then(video => new Promise((resolve, reject) => {
+    //         fs.writeFile(
+    //           '/tmp/d67c440c527e81a0089545dcfe3b8902d4cfc83a.json',
+    //           JSON.stringify(video, null, 2),
+    //           err => {
+    //             if (err) return reject(err);
+    //             resolve({ video, client });
+    //           }
+    //         );
+    //       }))
+    //   })
   })
 
   .then(({ video, client }) => (

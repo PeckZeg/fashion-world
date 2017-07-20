@@ -27,7 +27,7 @@ module.exports = filepath => Promise.resolve(filepath)
 
   // move & rename file
   .then(({ filepath, sha1, metadata }) => (
-    syncUtils.file.copy(
+    syncUtils.file.move(
       filepath,
       path.join('/tmp', sha1, path.basename(filepath))
     )
@@ -49,9 +49,8 @@ module.exports = filepath => Promise.resolve(filepath)
   }))
 
   // generate video screenshots
-  .then(({ filepath, sha1, metadata, definitions }) => {
-    debug(`正在生成视频截图 ${filepath}`);
-    return syncUtils.video.screenshots(
+  .then(({ filepath, sha1, metadata, definitions }) => (
+    syncUtils.video.screenshots(
       definitions.filter(({ definition }) => (
         definition == DEFINITION_VIDEO_SCREENSHOT
       ))[0].filepath
@@ -61,21 +60,20 @@ module.exports = filepath => Promise.resolve(filepath)
       metadata,
       definitions,
       screenshots
-    }));
-  })
+    }))
+  ))
 
   // upload screenshots
-  .then(({ filepath, sha1, metadata, definitions, screenshots }) => {
-    debug(`正在上传视频截图`);
-    return uploadVideoScreenshots(screenshots)
+  .then(({ filepath, sha1, metadata, definitions, screenshots }) => (
+    uploadVideoScreenshots(screenshots)
       .then(screenshots => ({
         filepath,
         sha1,
         metadata,
         definitions,
         screenshots
-      }));
-  })
+      }))
+  ))
 
   // upload definitions
   .then(({ filepath, sha1, metadata, definitions, screenshots }) => (

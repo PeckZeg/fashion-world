@@ -1,5 +1,6 @@
 const mapLimit = require('async/mapLimit');
-const debug = require('debug')('async');
+const debug = require('debug')('sync');
+const path = require('path');
 
 const syncUtils = require('./utils');
 
@@ -21,8 +22,10 @@ module.exports = screenshots => Promise.resolve(screenshots)
 
   // upload each screenshot
   .then(({ ftpClient, screenshots }) => new Promise((resolve, reject) => {
+    debug(`准备上传截图，共 ${screenshots.length} 张`);
+
     mapLimit(screenshots, 1, (screenshot, cb) => {
-      debug(`正在上传截图 ${screenshot}`);
+      debug(`正在上传截图 ${path.basename(screenshot)}`);
       syncUtils.ftp.put(ftpClient, screenshot, UPLOAD_FOLDERS.images)
         .then(pathname => {
           const { basePathname } = config.ftpToHttp.resource;

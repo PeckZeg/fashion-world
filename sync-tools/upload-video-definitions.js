@@ -1,4 +1,6 @@
 const mapLimit = require('async/mapLimit');
+const debug = require('debug')('sync');
+const path = require('path');
 
 const syncUtils = require('./utils');
 
@@ -20,8 +22,12 @@ module.exports = definitions => Promise.resolve(definitions)
 
   // upload each definitions
   .then(({ ftpClient, definitions }) => new Promise((resolve, reject) => {
+    debug(`准备上传转换后的视频，共 ${definitions.length} 个`);
+
     mapLimit(definitions, 1, (definition, cb) => {
       const { filepath } = definition;
+
+      debug(`正在上传 ${definition.definition} 的视频`);
 
       syncUtils.ftp.put(ftpClient, filepath, UPLOAD_FOLDERS.videos)
         .then(pathname => {
@@ -33,7 +39,7 @@ module.exports = definitions => Promise.resolve(definitions)
         .catch(cb);
     }, (err, definitions) => {
       if (err) return reject(err);
-      resource({ ftpClient, definitions });
+      resolve({ ftpClient, definitions });
     });
   }))
 

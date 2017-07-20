@@ -10,6 +10,7 @@ const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
 const TRANSFORM_TO_JSON_PROP_BLACK_LIST = [
+  'ftp',
   'filename',
   'filepath',
   'screenshots'
@@ -17,15 +18,16 @@ const TRANSFORM_TO_JSON_PROP_BLACK_LIST = [
 
 const schema = new Schema({
   sha1: { type: String, unique: true, index: true },
+  ftp: { type: String, default: '' },
   filename: { type: String, default: '' },
   filepath: { type: String, default: '' },
   width: { type: Number, default: 0 },
   height: { type: Number, default: 0 },
   size: { type: Number, default: 0 },
   duration: { type: Number, default: 0 },
-  bitRate: Number,
+  bitRate: { type: Number, default: null },
   screenshots: [String],
-  definitions: [ObjectId],
+  // definitions: [ObjectId],
   uploadAt: { type: Date, default: null },
   createAt: { type: Date, default: Date.now },
 }, {
