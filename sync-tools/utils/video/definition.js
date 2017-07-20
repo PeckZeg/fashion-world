@@ -6,6 +6,8 @@ const debug = require('debug')('sync');
 const fileUtils = require('../file');
 const genVideoMetadata = require('./metadata');
 
+const { TMP_FOLDER } = require('../../config');
+
 const genArgs = definition => {
   let videoBitrate = null;
   let size = null;
@@ -35,7 +37,7 @@ const genArgs = definition => {
   return { videoBitrate, size };
 };
 
-module.exports = (filepath, definition = '360p', destFolder = '/tmp') => new Promise((resolve, reject) => {
+module.exports = (filepath, definition = '360p', destFolder = TMP_FOLDER) => new Promise((resolve, reject) => {
   const outputPath = path.join(destFolder, `${uuid()}.mp4`);
   const { videoBitrate, size } = genArgs(definition);
 

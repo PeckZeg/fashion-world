@@ -7,6 +7,7 @@ const syncUtils = require('../utils');
 const SourceVideo = reqlib('./models/SourceVideo');
 const DefinitionVideo = reqlib('./models/DefinitionVideo');
 
+const { TMP_FOLDER } = require('../config');
 const { fashionWorld: CONNECT_OPTS } = config.ftpServer;
 const OPTS = { new: true, upsert: true, setDefaultsOnInsert: true };
 
@@ -24,7 +25,7 @@ module.exports = ftpVideo => Promise.resolve(ftpVideo)
         // download file
         .then(ftpClient => {
           const { name: filename, pathname: filepath } = ftpVideo;
-          const destpath = path.join('/tmp', filename);
+          const destpath = path.join(TMP_FOLDER, filename);
 
           debug(`正在下载视频文件 - ${filename}`);
 

@@ -2,6 +2,8 @@ const ffmpeg = require('fluent-ffmpeg');
 const mkdirp = require('mkdirp');
 const path = require('path');
 
+const { TMP_FOLDER } = require('../config');
+
 exports.ffprobe = filepath => new Promise((resolve, reject) => {
   ffmpeg(filepath).ffprobe((err, metadata) => {
     if (err) return reject(err);
@@ -10,7 +12,7 @@ exports.ffprobe = filepath => new Promise((resolve, reject) => {
 });
 
 exports.createScreenshots = (filepath, sha1) => new Promise((resolve, reject) => {
-  const folder = path.join('/tmp', sha1);
+  const folder = path.join(TMP_FOLDER, sha1);
 
   mkdirp(folder, err => {
     if (err) return reject(err);

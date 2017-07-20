@@ -7,6 +7,7 @@ const syncUtils = require('./utils');
 const uploadVideoScreenshots = require('./upload-video-screenshots');
 const uploadVideoDefinitions = require('./upload-video-definitions');
 
+const { TMP_FOLDER } = require('./config');
 const VIDEO_DEFINITIONS = ['1080p', '720p', '480p', '360p'];
 const DEFINITION_VIDEO_SCREENSHOT = '1080p';
 // const VIDEO_DEFINITIONS = ['360p'];
@@ -29,7 +30,7 @@ module.exports = filepath => Promise.resolve(filepath)
   .then(({ filepath, sha1, metadata }) => (
     syncUtils.file.move(
       filepath,
-      path.join('/tmp', sha1, path.basename(filepath))
+      path.join(TMP_FOLDER, sha1, path.basename(filepath))
     )
       .then(filepath => ({ filepath, sha1, metadata }))
   ))
