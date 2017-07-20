@@ -22,8 +22,8 @@ module.exports = () => Promise.resolve(createClient())
     }
 
     const cond = {
-      publishAt: { $lte: new Date() },
-      removeAt: { $eq: null }
+      publishAt: { $ne: null, $lte: new Date() },
+      removeAt: null
     };
 
     return Channel.find(cond, '_id')
