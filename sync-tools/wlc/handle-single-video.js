@@ -41,13 +41,10 @@ module.exports = ftpVideo => Promise.resolve(ftpVideo)
         ))
 
         // generate definitions & screenshots
-        .then(localpath => (
-          handleSingleVideo(localpath)
-            .then(videoInfo => ({ localpath, videoInfo }))
-        ))
+        .then(localpath => handleSingleVideo(localpath))
 
         // save source video
-        .then(({ localpath, videoInfo }) => {
+        .then((videoInfo) => {
           const ftp = 'wlc';
           const { pathname: filepath, name: filename } = ftpVideo;
           const { sha1, metadata, screenshots } = videoInfo;
@@ -68,11 +65,11 @@ module.exports = ftpVideo => Promise.resolve(ftpVideo)
           debug(`保存源视频 ${filename}`);
 
           return SourceVideo.findOneAndUpdate(query, doc, OPTS)
-            .then(sourceVideo => ({ localpath, videoInfo, sourceVideo }));
+            .then(sourceVideo => ({ videoInfo, sourceVideo }));
         })
 
         // save definitions
-        .then(({ localpath, videoInfo, sourceVideo }) => new Promise((resolve, reject) => {
+        .then(({ videoInfo, sourceVideo }) => new Promise((resolve, reject) => {
           debug(`保存各个清晰度的视频`);
           mapLimit(videoInfo.definitions, 1, (definitionInfo, cb) => {
             const { _id: sourceId } = sourceVideo;
@@ -96,7 +93,7 @@ module.exports = ftpVideo => Promise.resolve(ftpVideo)
               .catch(cb);
           }, (err, definitions) => {
             if (err) return reject(err);
-            resolve({ localpath, sourceVideo });
+            resolve({ localpath: videoInfo.filepath, sourceVideo });
           });
         }))
 
