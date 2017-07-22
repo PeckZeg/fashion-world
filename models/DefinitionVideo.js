@@ -15,7 +15,7 @@ const TRANSFORM_TO_JSON_PROP_BLACK_LIST = [
 
 const schema = new Schema({
   sourceId: { type: ObjectId, required: true },
-  sha1: { type: String, unique: true, index: true },
+  sha1: { type: String, unique: true, required: true, index: true },
   filename: { type: String, default: '' },
   filepath: { type: String, default: '' },
   width: { type: Number, default: 0 },
@@ -40,11 +40,7 @@ const schema = new Schema({
 });
 
 schema.virtual('url').get(function() {
-  return toUrl(this.filepath)
-  return url.resolve(
-    config.sourceVideo.hostname,
-    path.join(config.sourceVideo.basePathname, this.filepath)
-  );
+  return toUrl(this.filepath);
 });
 
 module.exports = connection.model('DefinitionVideo', schema);

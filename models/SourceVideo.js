@@ -18,7 +18,6 @@ const TRANSFORM_TO_JSON_PROP_BLACK_LIST = [
   'height',
   'size',
   'bitRate'
-  // 'screenshots'
 ];
 
 const transformRet = ret => {

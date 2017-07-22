@@ -35,6 +35,7 @@
 * [Category][category-model]
 * [Video][video-model]
 * [SourceVideo][source-video-model]
+* [DefinitionVideo][definition-video-model]
 
 ## 引用
 
@@ -61,3 +62,4 @@
 [category-model]: ./models/category.md
 [video-model]: ./models/video.md
 [source-video-model]: ./models/source-video.md
+[definition-video-model]: ./models/definition-video.md

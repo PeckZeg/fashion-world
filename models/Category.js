@@ -8,8 +8,7 @@ const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
 const TRANSFORM_TO_JSON_PROP_BLACK_LIST = [
-  'removeAt',
-  'removeBy'
+  'removeAt'
 ];
 
 const schema = new Schema({
@@ -19,7 +18,6 @@ const schema = new Schema({
   publishAt: { type: Date, default: null },
   createAt: { type: Date, default: Date.now },
   removeAt: { type: Date, default: null },
-  // removeBy: { type: ObjectId, default: null }
 }, {
   toJSON: {
     virtuals: true,
