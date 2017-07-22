@@ -1,20 +1,31 @@
 const mongoose = require('mongoose');
-const url = require('url');
+// const url = require('url');
 
 const connection = reqlib('./utils/mongodb-connection');
 const unsetProps = reqlib('./utils/schema/unset-props');
 const transform = reqlib('./utils/schema/transform');
-const toUrl = reqlib('./utils/toUrl');
+const toUrl = reqlib('./utils/toResFtpUrl');
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
 const TRANSFORM_TO_JSON_PROP_BLACK_LIST = [
+  'sha1',
   'ftp',
   'filename',
   'filepath',
-  'screenshots'
+  'width',
+  'height',
+  'size',
+  'bitRate'
+  // 'screenshots'
 ];
+
+const transformRet = ret => {
+  ret.screenshots = ret.screenshots.map(pathname => toUrl(pathname));
+
+  return ret;
+};
 
 const schema = new Schema({
   sha1: { type: String, unique: true, index: true },
@@ -36,23 +47,21 @@ const schema = new Schema({
     transform(doc, ret, options) {
       ret = transform(doc, ret, options);
       ret = unsetProps(ret, TRANSFORM_TO_JSON_PROP_BLACK_LIST);
+      ret = transformRet(ret);
 
       return ret;
     }
   },
 
-  toObject: { virtuals: true, transform }
-});
+  toObject: {
+    virtuals: true,
+    transform(doc, ret, options) {
+      ret = transform(doc, ret, options);
+      ret = transformRet(ret);
 
-schema.virtual('url').get(function() {
-  return url.resolve(
-    config.sourceVideo.hostname,
-    path.join(config.sourceVideo.basePathname, this.filepath)
-  );
-});
-
-schema.virtual('screenshotUrls').get(function() {
-  return this.screenshots.map(screenshot => toUrl(screenshot));
+      return ret;
+    }
+   }
 });
 
 module.exports = connection.model('SourceVideo', schema);

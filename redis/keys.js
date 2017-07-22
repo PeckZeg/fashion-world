@@ -6,17 +6,17 @@ module.exports = flag => {
     case 'client:user:key':
       return key => `client:user:${key}:key`;
 
-    case 'client:favourite-users':
-      return videoId => `client:${videoId}:favourite-users`;
+    case 'client:video:favourite-users':
+      return videoId => `client:video:${videoId}:favourite-users`;
 
-    case 'user:favourite-videos':
-      return userId => `user:${userId}:favourite-videos`;
+    case 'client:user:favourite-videos':
+      return userId => `client:user:${userId}:favourite-videos`;
 
-    case 'video:collected-users':
-      return videoId => `video:${videoId}:collected-users`;
+    case 'client:video:collected-users':
+      return videoId => `client:video:${videoId}:collected-users`;
 
-    case 'user:collected-videos':
-      return userId => `video:${userId}:collected-videos`;
+    case 'client:user:collected-videos':
+      return userId => `client:video:${userId}:collected-videos`;
 
     case 'sms:mobile:max-per-day':
       return mobile => `sms:mobile:${mobile}:sent-per-day`;
@@ -30,8 +30,8 @@ module.exports = flag => {
     case 'cache:available:channels':
       return () => 'cache:available:channels';
 
-      case 'cache:available:categories':
-        return () => 'cache:available:categories';
+    case 'cache:available:categories':
+      return () => 'cache:available:categories';
 
     default:
       return key => key;

@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
-const url = require('url');
 
 const connection = reqlib('./utils/mongodb-connection');
 const unsetProps = reqlib('./utils/schema/unset-props');
 const transform = reqlib('./utils/schema/transform');
-const toUrl = reqlib('./utils/toUrl');
+const toUrl = reqlib('./utils/toResFtpUrl');
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -12,7 +11,6 @@ const { ObjectId } = Schema.Types;
 const TRANSFORM_TO_JSON_PROP_BLACK_LIST = [
   'filename',
   'filepath',
-  'screenshots'
 ];
 
 const schema = new Schema({
@@ -42,14 +40,11 @@ const schema = new Schema({
 });
 
 schema.virtual('url').get(function() {
+  return toUrl(this.filepath)
   return url.resolve(
     config.sourceVideo.hostname,
     path.join(config.sourceVideo.basePathname, this.filepath)
   );
-});
-
-schema.virtual('screenshotUrls').get(function() {
-  return this.screenshots.map(screenshot => toUrl(screenshot));
 });
 
 module.exports = connection.model('DefinitionVideo', schema);

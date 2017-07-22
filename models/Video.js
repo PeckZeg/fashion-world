@@ -16,11 +16,12 @@ const TRANSFORM_TO_JSON_PROP_BLACK_LIST = [
 const schema = new Schema({
   channelId: { type: ObjectId, required: true },
   categoryId: { type: ObjectId, required: true },
+  sourceId: { type: ObjectId, required: true },
   title: { type: String, minlength: 1, maxLength: 65535 },
   subtitle: { type: String, maxLength: 65535 },
   abstract: { type: String, minlength: 1, maxLength: 128 },
   summary: { type: String, minlength: 1, maxLength: 65536 },
-  id: String,
+  // id: String,
   originalTitle: String,
   season: Number,
   episode: Number,

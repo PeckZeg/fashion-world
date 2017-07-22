@@ -4,8 +4,6 @@ const parse = require('csv-parse');
 const path = require('path');
 const fs = require('fs');
 
-const cacheToRedis = require('./cache-to-redis');
-
 module.exports = csvpath => Promise.resolve(csvpath)
 
   // read csv data
@@ -79,7 +77,4 @@ module.exports = csvpath => Promise.resolve(csvpath)
       productionCountry,
       originalLanguage
     };
-  }))
-
-  // cache
-  .then(videos => cacheToRedis(videos));
+  }));
