@@ -25,10 +25,16 @@
 * [`GET` 获取频道详情][channel-get-fetch-channel-profile]
 * [`GET` 获取频道分类列表][channel-get-fetch-channel-category-list]
 
+### Video
+
+* [`GET` 获取频道列表][video-get-fetch-video-list]
+
 ## 模型列表
 
 * [Channel][channel-model]
 * [Category][category-model]
+* [Video][video-model]
+* [SourceVideo][source-video-model]
 
 ## 引用
 
@@ -49,5 +55,9 @@
 [channel-get-fetch-channel-profile]: ./api/channel/get.fetch-channel-profile.md
 [channel-get-fetch-channel-category-list]: ./api/channel/get.fetch-channel-category-list.md
 
+[video-get-fetch-video-list]: ./api/video/get.fetch-video-list.md
+
 [channel-model]: ./models/channel.md
 [category-model]: ./models/category.md
+[video-model]: ./models/video.md
+[source-video-model]: ./models/source-video.md
