@@ -3,7 +3,7 @@
 ## Base
 
 * 方法: `GET`
-* 地址: `/api/user/personal`
+* 地址: `/api/video`
 
 ## Headers
 

@@ -28,6 +28,7 @@
 ### Video
 
 * [`GET` 获取频道列表][video-get-fetch-video-list]
+* [`GET` 获取视频详情][video-get-fetch-video-profile]
 
 ## 模型列表
 
@@ -57,6 +58,7 @@
 [channel-get-fetch-channel-category-list]: ./api/channel/get.fetch-channel-category-list.md
 
 [video-get-fetch-video-list]: ./api/video/get.fetch-video-list.md
+[video-get-fetch-video-profile]: ./api/video/get.fetch-video-profile.md
 
 [channel-model]: ./models/channel.md
 [category-model]: ./models/category.md

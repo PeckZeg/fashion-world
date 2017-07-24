@@ -5,6 +5,7 @@ module.exports = {
     'user.delete.logout': 'user:logout',
 
     'client:video:get:fetch-video-list': 'video:fetch-video-list',
+    'client:video:get:fetch-video-profile': 'video:fetch-video-profile',
 
     'admin:account:get:list': 'admin:account:get-list',
     'admin:account:post:create-account': 'admin:account:create-account',
