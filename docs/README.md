@@ -29,8 +29,13 @@
 
 * [`GET` 获取频道列表][video-get-fetch-video-list]
 * [`GET` 获取视频详情][video-get-fetch-video-profile]
+<<<<<<< HEAD
 * [`PUT` 点赞视频][video-put-favour-video]
 * [`DEL` 取消点赞视频][video-del-destroy-favourite-video]
+=======
+* [`PUT` 点赞视频][video-put-favour-video.md]
+* [`DEL` 取消点赞视频][video-del-destroy-favourite-video.md]
+>>>>>>> 4ee20e7fd1a05a6b77d540e9638991fddccc6891
 
 ## 模型列表
 
