@@ -6,6 +6,8 @@ module.exports = {
 
     'client:video:get:fetch-video-list': 'video:fetch-video-list',
     'client:video:get:fetch-video-profile': 'video:fetch-video-profile',
+    'client:video:put:favour-video': 'video:favour-video',
+    'client:video:del:destroy-favourite-video': 'video:destroy-favourite-video',
 
     'admin:account:get:list': 'admin:account:get-list',
     'admin:account:post:create-account': 'admin:account:create-account',

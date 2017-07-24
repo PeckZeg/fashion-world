@@ -29,6 +29,8 @@
 
 * [`GET` 获取频道列表][video-get-fetch-video-list]
 * [`GET` 获取视频详情][video-get-fetch-video-profile]
+* [`PUT` 点赞视频][video-put-favour-video.md]
+* [`DEL` 取消点赞视频][video-del-destroy-favourite-video.md]
 
 ## 模型列表
 
@@ -59,6 +61,8 @@
 
 [video-get-fetch-video-list]: ./api/video/get.fetch-video-list.md
 [video-get-fetch-video-profile]: ./api/video/get.fetch-video-profile.md
+[video-put-favour-video]: ./api/video/put.favour-video.md
+[video-del-destroy-favourite-video]: ./api/video/del.destroy-favourite-video.md
 
 [channel-model]: ./models/channel.md
 [category-model]: ./models/category.md

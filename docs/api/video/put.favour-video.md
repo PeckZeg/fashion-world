@@ -1,9 +1,9 @@
-# 视频 - 获取视频详情
+# 视频 - 点赞视频
 
 ## Base
 
-* 方法: `GET`
-* 地址: `/api/video/:video-id`
+* 方法: `PUT`
+* 地址: `/api/video/:video-id/favour`
 
 ### Location Params
 
@@ -16,7 +16,7 @@
 键              | 值                    | 必须     | 备注
 :-------------- | :-------------------- | :------: | :---------------------------
 `Content-Type`  | `application/json`    | √        | 指定内容传输类型为 JSON 格式
-`Authorization` | `Caa ${Base64String}` |          | [用户签名][signature-authorization]
+`Authorization` | `Caa ${Base64String}` | √        | [用户签名][signature-authorization]
 
 签名动作参见 [Signature Actions][signature-actions]
 
@@ -27,7 +27,7 @@
 ## Response Body
 
 字段    | 类型     | 示例      | 说明
-:------ | :------- | :-------- | :-------------------------------
+:------ | :------- | :-------- | :------------------
 `video` | `Object` | `{ ... }` | [视频][video-model]
 
 ## 错误状态码
@@ -47,12 +47,12 @@
 **请求**
 
 ```
-GET /api/video/5971cb74c06753548988a925 HTTP/1.1
+PUT /api/video/5971cb74c06753548988a925/favour HTTP/1.1
 Host: localhost:3003
 Content-Type: application/json
 Authorization: Caa {{USER_AUTHORIZATION}}
 Cache-Control: no-cache
-Postman-Token: ddbffa69-3d11-8891-b937-bcbcff35c846
+Postman-Token: b9bde891-94f9-9e95-6a01-66c5cdab2693
 ```
 
 **响应**
@@ -82,9 +82,9 @@ Postman-Token: ddbffa69-3d11-8891-b937-bcbcff35c846
         "subtitle": "",
         "title": "TERRA MAGICA",
         "collections": 0,
-        "favourites": 0,
+        "favourites": 1,
         "isCollected": false,
-        "isFavoured": false,
+        "isFavoured": true,
         "channel": {
             "_id": "596ecd3ff223c686eeb624c2",
             "name": "WLC",
