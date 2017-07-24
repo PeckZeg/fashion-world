@@ -1,39 +1,39 @@
-const Video = reqlib('./models/Video');
-const auth = reqlib('./utils/access-keys/user/auth');
 const validateObjectId = reqlib('./utils/validate-objectid');
-const createClient = reqlib('./redis/create-client');
-const injectVideos = reqlib('./utils/models/inject/videos');
-const cacheKey = reqlib('./utils/cacheKey');
 const handleError = reqlib('./utils/response/handle-error');
+const injectVideos = reqlib('./utils/model-injector/video');
+const transformQuery = reqlib('./utils/transform-query');
+const authToken = reqlib('./utils/keys/user/auth-token');
+const createClient = reqlib('./redis/create-client');
+const keys = reqlib('./redis/keys');
 
-const ACTION = config.apiActions['video:put:add-collection'];
+const Video = reqlib('./models/Video');
 
-const createVideoCollectedUsersCacheKey = cacheKey('video:collected-users');
-const createUserCollectedVideosCacheKey = cacheKey('user:collected-videos');
+const ACTION = config.apiActions['client:video:put:collect-video'];
 
 module.exports = (req, res, next) => {
-  auth(req.header('authorization'), ACTION, false)
+  authToken(ACTION, req.header('authorization'), true)
 
     // validate `videoId`
-    .then(({ userId }) => (
-      validateObjectId(req.params.videoId).then(videoId => ({ userId, videoId }))
+    .then(token => (
+      validateObjectId(req.params.videoId)
+        .then(videoId => ({ token, videoId }))
     ))
 
     // query video doc
-    .then(({ videoId, userId }) => (
-      Video.findById(videoId).then(video => ({ videoId, userId, video }))
+    .then(({ token, videoId }) => (
+      Video.findById(videoId).then(video => ({ token, video }))
     ))
 
-    // check video exists
-    .then(({ video, videoId, userId }) => {
+    // ensure video exists
+    .then(({ token, video }) => {
       if (!video) {
         return Promise.reject(new ResponseError(404, 'video not found'));
       }
 
-      return { video, videoId, userId };
+      return { token, video };
     })
 
-    //  create redis client & multi
+    // create redis client & multi
     .then(args => {
       const client = createClient();
       const multi = client.multi();
@@ -41,41 +41,58 @@ module.exports = (req, res, next) => {
       return { ...args, client, multi };
     })
 
-    // add user to collected videos
+    // add video to collected users
     .then(args => {
-      const { userId, videoId, multi } = args;
-      const cacheKey = createVideoCollectedUsersCacheKey(videoId);
+      const { token, video, multi } = args;
+      const userId = token.userId.toString();
+      const videoId = video._id.toString();
+      const cacheKey = keys('client:video:collected-users')(videoId);
       const collectedAt = +new Date();
 
-      multi.hset(cacheKey, userId.toString(), collectedAt);
+      multi.hset(cacheKey, userId, collectedAt);
 
       return { ...args, collectedAt };
     })
 
     // add video to collected users
     .then(args => {
-      const { userId, videoId, multi, collectedAt } = args;
-      const cacheKey = createUserCollectedVideosCacheKey(userId);
+      const { token, video, collectedAt, multi } = args;
+      const userId = token.userId.toString();
+      const videoId = video._id.toString();
+      const cacheKey = keys('client:user:collected-videos')(userId);
 
-      multi.hset(cacheKey, videoId.toString(), collectedAt);
+      multi.hset(cacheKey, videoId, collectedAt);
 
       return args;
     })
 
-    // exec redis multi
-    .then(({ userId, video, client, multi }) => (
-      multi.execAsync().then(() => ({ userId, video, client }))
+    // exec redis client
+    .then(({ token, video, client, multi }) => (
+      multi.execAsync().then(() => ({ token, video, client }))
     ))
 
     // close redis client
-    .then(({ userId, video, client }) => (
-      client.quitAsync().then(() => ({ userId, video }))
+    .then(({ token, video, client }) => (
+      client.quitAsync().then(() => ({ token, video }))
     ))
 
-    // inject videos
-    .then(({ userId, video }) => (
-      injectVideos(video, userId).then(videos => videos[0])
-    ))
+    // inject props
+    .then(({ token, video }) => injectVideos(token, video))
+
+    // ensure channel & category exists
+    .then(video => {
+      const now = moment();
+
+      if (!video.channel || now.isBefore(video.channel.publishAt)) {
+        return Promise.reject(new ResponseError(404, 'video not found'));
+      }
+
+      if (!video.category || now.isBefore(video.category.publishAt)) {
+        return Promise.reject(new ResponseError(404, 'video not found'));
+      }
+
+      return video;
+    })
 
     .then(video => res.send({ video }))
     .catch(err => handleError(res, err));

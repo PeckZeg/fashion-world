@@ -4,8 +4,10 @@ router.get('/', require('./get.fetch-video-list'));
 router.get('/:videoId', require('./get.fetch-video-profile'));
 
 router.put('/:videoId/favour', require('./put.favour-video'));
+router.put('/:videoId/collect', require('./put.add-collection'));
 
 router.delete('/:videoId/favour', require('./del.destroy-favourite-video'));
+router.delete('/:videoId/collect', require('./del.destroy-collected-video'));
 
 // router.get('/', require('./get.fetch-video-list'));
 // router.get('/recommendations', require('./get.fetch-recommend-video-list'));

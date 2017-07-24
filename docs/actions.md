@@ -4,23 +4,22 @@
 
 ## 用户
 
-Version      | API                                        | Action
-:----------- | :----------------------------------------- | :----------------------
-             | [`GET` 获取用户资料][get.personal-profile] | `user:personal-profile`
-`添加@1.1.0` | [`POST` 刷新验证 keys][post.refresh-keys]  | `user:refresh-keys`
-             | [`DELETE` 用户登出][delete.logout]         | `user:logout`
+API                                        | Action
+:----------------------------------------- | :----------------------
+[`GET` 获取用户资料][get.personal-profile] | `user:personal-profile`
+[`POST` 刷新验证 keys][post.refresh-keys]  | `user:refresh-keys`
+[`DELETE` 用户登出][delete.logout]         | `user:logout`
 
 ## 视频
 
-Version      | API                                                          | Action
-:----------: | :----------------------------------------------------------- | :--------------------------------
-             | [`GET` 获取视频列表][get.get-video-list]                     | `video:fetch-video-list`
-             | [`GET` 随机获取推荐视频列表][get.fetch-recommend-video-list] | `video:fetch-recommend-video-list`
-`添加@1.0.6` | [`GET` 获取视频详情][get.get-video-profile]                  | `video:fetch-video-profile`
-             | [`PUT` 点赞视频][put.favour-video]                           | `video:favour-video`
-`添加@1.0.6` | [`PUT` 收藏视频][put.add-collection]                         | `video:add-collection`
-             | [`DELETE` 取消视频点赞][del.del.destroy-favourite-video]     | `video:destroy-favour-video`
-`添加@1.0.6` | [`DELETE` 取消视频收藏][del.destroy-collected-video]         | `video:destroy-collection`
+API                                                          | Action
+:----------------------------------------------------------- | :------------------------------
+[`GET` 获取视频列表][get.get-video-list]                     | `video:fetch-video-list`
+[`GET` 获取视频详情][get.get-video-profile]                  | `video:fetch-video-profile`
+[`PUT` 点赞视频][put.favour-video]                           | `video:favour-video`
+[`PUT` 收藏视频][put.add-collection]                         | `video:collect-video`
+[`DELETE` 取消视频点赞][del.del.destroy-favourite-video]     | `video:destroy-favourite-video`
+[`DELETE` 取消视频收藏][del.destroy-collected-video]         | `video:destroy-collected-video`
 
 [get.personal-profile]: ./api/user/get.personal-profile.md
 [post.refresh-keys]: ./api/user/post.refresh-keys.md
