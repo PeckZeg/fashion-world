@@ -1,6 +1,7 @@
 const router = module.exports = require('express').Router();
 
 router.get('/', require('./get.fetch-video-list'));
+router.get('/search', require('./get.search-video'));
 router.get('/:videoId', require('./get.fetch-video-profile'));
 
 router.put('/:videoId/favour', require('./put.favour-video'));

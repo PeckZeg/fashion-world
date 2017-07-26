@@ -4,6 +4,13 @@
 
 * [请求返回说明](./response-format.md)
 
+## 服务器地址
+
+环境             | 地址
+:--------------- | :------------------------
+测试环境         | `http://172.16.0.72:3003`
+测试环境（外网） | `http://59.57.240.50:5053`
+
 ## 接口列表
 
 ### User
@@ -29,6 +36,7 @@
 
 * [`GET` 获取频道列表][video-get-fetch-video-list]
 * [`GET` 获取视频详情][video-get-fetch-video-profile]
+* [`GET` 搜索视频][video-get-search-video]
 * [`PUT` 点赞视频][video-put-favour-video]
 * [`PUT` 收藏视频][video-put-add-collection]
 * [`DEL` 取消点赞视频][video-del-destroy-favourite-video]
@@ -63,6 +71,7 @@
 
 [video-get-fetch-video-list]: ./api/video/get.fetch-video-list.md
 [video-get-fetch-video-profile]: ./api/video/get.fetch-video-profile.md
+[video-get-search-video]: ./api/video/get.search-video.md
 [video-put-favour-video]: ./api/video/put.favour-video.md
 [video-put-add-collection]: ./api/video/put.add-collection.md
 [video-del-destroy-favourite-video]: ./api/video/del.destroy-favourite-video.md
