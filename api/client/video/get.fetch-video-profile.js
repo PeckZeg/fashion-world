@@ -22,6 +22,15 @@ module.exports = (req, res, next) => {
       Video.findById(videoId).then(video => ({ token, video }))
     ))
 
+    // ensure video exists
+    .then(({ token, video }) => {
+      if (!video) {
+        return Promise.reject(new ResponseError(404, 'video not found'));
+      }
+
+      return { token, video };
+    })
+
     // inject props
     .then(({ token, video }) => (
       injectVideos(token, video)

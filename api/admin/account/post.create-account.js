@@ -1,22 +1,26 @@
-const auth = reqlib('./utils/access-keys/account/auth');
+const validateParams = reqlib('./validate-models/admin/account/create-account-params');
+const handleError = reqlib('./utils/response/handle-error');
+const authToken = reqlib('./utils/keys/account/auth-token');
+
 const Account = reqlib('./models/Account');
-const validateParams = reqlib('./validate-models/admin/account/create-params');
-const handleError = reqlib('./utils/catchMongooseError');
 
 const ACTION = config.apiActions['admin:account:post:create-account'];
 
 module.exports = (req, res, next) => {
-  auth(req.header('authorization'), ACTION, false)
+  authToken(ACTION, req.header('authorization'))
 
-    //  validate body
-    .then(() => validateParams(req.body))
+    // validate body params
+    .then(token => validateParams(req.body))
 
-    //  generate account model
+    // generate account doc
     .then(body => new Account(body))
 
-    //  save model
+    // save doc
     .then(account => account.save())
 
+    // to object
+    .then(account => account.toObject())
+
     .then(account => res.send({ account }))
-    .catch(err => res.status(err.status || 500).send({ message: err.message }));
+    .catch(err => handleError(res, err));
 };

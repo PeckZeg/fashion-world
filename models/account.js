@@ -1,20 +1,39 @@
 const mongoose = require('mongoose');
+
 const connection = require('../utils/mongodb-connection');
-const toJSON = require('../utils/schema/toJSON');
+const unsetProps = reqlib('./utils/schema/unset-props');
+const transform = reqlib('./utils/schema/transform');
 
 const { Schema, Types } = mongoose;
 
-const transform = toJSON();
+const TRANSFORM_TO_JSON_PROP_BLACK_LIST = [
+  'password',
+  'removeAt'
+];
 
-var schema = new Schema({
+const schema = new Schema({
   name: { type: String, required: true, unique: true, minlength: 3, maxLength: 32 },
-  password: { type: String, required: true, match: [/^[a-f0-9]{32}$/i, 'password `{VALUE}` should be a md5 string'] },
-  avatar: { type: String, default: '' },
-  isActive: { type: Boolean, default: false },
+  password: { type: String, required: true, match: [/^[a-f0-9]{32}$/i, 'invalid password'] },
+  avatar: { type: String, default: null },
+  permissions: [String],
+  activeAt: { type: Date, default: null },
+  removeAt: { type: Date, default: null },
   createAt: { type: Date, default: Date.now },
-  permissions: [String]
-});
+}, {
+  toJSON: {
+    virtuals: true,
+    transform(doc, ret, options) {
+      ret = transform(doc, ret, options);
+      ret = unsetProps(ret, TRANSFORM_TO_JSON_PROP_BLACK_LIST);
 
-schema.options.toJSON = { transform };
+      return ret;
+    }
+  },
+
+  toObject: {
+    virtuals: true,
+    transform
+  }
+});
 
 module.exports = connection.model('Account', schema);
