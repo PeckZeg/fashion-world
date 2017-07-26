@@ -36,6 +36,7 @@
 
 * [`GET` 获取频道列表][video-get-fetch-video-list]
 * [`GET` 获取视频详情][video-get-fetch-video-profile]
+* [`GET` 获取随机视频列表][video-get-fetch-random-video-list]
 * [`GET` 搜索视频][video-get-search-video]
 * [`PUT` 点赞视频][video-put-favour-video]
 * [`PUT` 收藏视频][video-put-add-collection]
@@ -76,6 +77,7 @@
 [video-put-add-collection]: ./api/video/put.add-collection.md
 [video-del-destroy-favourite-video]: ./api/video/del.destroy-favourite-video.md
 [video-del-destroy-collected-video]: ./api/video/del.destroy-collected-video.md
+[video-get-fetch-random-video-list]: ./api/video/get.fetch-random-video-list.md
 
 [channel-model]: ./models/channel.md
 [category-model]: ./models/category.md

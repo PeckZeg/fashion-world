@@ -58,6 +58,10 @@ module.exports = (req, res, next) => {
             ...cond,
             [transKey]: query[key] ? { $ne: null, $lte: new Date() } : null
           };
+          sort = {
+            [transKey]: -1,
+            ...sort
+          };
         }
       });
 

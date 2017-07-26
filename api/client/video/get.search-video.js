@@ -19,12 +19,24 @@ module.exports = (req, res, next) => {
       validateParams(req.query).then(query => ({ token, query }))
     ))
 
+    // fetch available channels
+    .then(args => (
+      fetchAvailableChannels().then(channels => ({ ...args, channels }))
+    ))
+
+    // fetch available categories
+    .then(args => (
+      fetchAvailableCategories().then(categories => ({ ...args, categories }))
+    ))
+
     // generate query params
-    .then(({ token, query }) => {
+    .then(({ token, query, channels, categories }) => {
       const { offset, limit } = query;
       const title = new RegExp(query.title, 'gi');
       const cond = {
         title,
+        channelId: { $in: channels },
+        categoryId: { $in: categories },
         publishAt: { $ne: null, $lte: new Date() },
         removeAt: null
       };

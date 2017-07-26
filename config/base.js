@@ -6,6 +6,7 @@ module.exports = {
 
     'client:video:get:fetch-video-list': 'video:fetch-video-list',
     'client:video:get:fetch-video-profile': 'video:fetch-video-profile',
+    'client:video:get:fetch-random-video-list': 'video:fetch-random-video-list',
     'client:video:get:search-video': 'video:search-video',
     'client:video:put:favour-video': 'video:favour-video',
     'client:video:put:collect-video': 'video:collect-video',
