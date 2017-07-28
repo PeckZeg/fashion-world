@@ -1,0 +1,63 @@
+//
+//  Variables
+//  --------------------------------------------------
+
+@import "utils/variables/color";
+@import "utils/variables/device";
+@import "utils/variables/screen";
+@import "utils/variables/transition";
+@import "utils/variables/typography";
+
+$folder-images:                              '../public/images';
+
+$xs-em:                                      1.00em;
+$sm-em:                                      1.2em;
+$md-em:                                      1.4em;
+$lg-em:                                      1.65em;
+
+$padding-sm:                                 6px;
+$padding-xsm:                                8px;
+$padding-md:                                 12px;
+$padding-lg:                                 24px;
+$padding-xlg:                                32px;
+$padding-xxlg:                               48px;
+
+$font-size-html:                             50;
+
+$layout-tab-height:                          44px;
+
+$decor-title-before:                         '#{$folder-images}/decor-title-before.png';
+$decor-title-before-width:                   34px;
+$decor-title-before-height:                  16px;
+$decor-title-after:                          '#{$folder-images}/decor-title-after.png';
+$decor-title-after-width:                    34px;
+$decor-title-after-height:                   16px;
+
+$video-cover-height:                         400px;
+$video-category-color:                       #ffb400;
+$video-datetime-color:                       #ccc;
+$video-summary-color:                        #ccc;
+$video-sep-decor:                            '#{$folder-images}/video-sep-decor.png';
+$video-sep-decor-width:                      104px;
+$video-sep-decor-height:                     27px;
+
+$carousel-height:                            200px;
+$carousel-dots-size:                         8px;
+html, body {
+  @include size(100%);
+
+//   @media (max-width: 480px) {
+//     font-size: #{$font-size-html * 0.6}PX;
+//   }
+
+//   @media (max-width: 384px) {
+//     font-size: #{$font-size-html * 0.5}PX;
+//   }
+
+//   @media (max-width: 320px) {
+//     font-size: #{$font-size-html * 0.4}PX;
+//   }
+}
+.lifoframe{
+  @include size(100%);
+}

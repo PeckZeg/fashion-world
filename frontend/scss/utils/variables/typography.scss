@@ -1,0 +1,33 @@
+//
+//  Variables: Typography
+//  --------------------------------------------------
+
+//  字体相关
+$font-family-base:              "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+$font-family-code:              Consolas, 'Liberation Mono', Menlo, Courier, monospace, Microsoft Yahei;
+$font-family-number:            $font-family-code;
+// $font-family-number:            Georgia;
+
+$font-size-base:                14px;
+$font-size-large:               ceil(($font-size-base * 1.25)); // ~18px
+$font-size-medium:              ceil(($font-size-base * 1.14)); // ~16px
+$font-size-small:               ceil(($font-size-base * 0.85)); // ~12px
+
+$font-size-h1:                  floor(($font-size-base * 2.6));  // ~36px
+$font-size-h2:                  floor(($font-size-base * 2.15)); // ~30px
+$font-size-h3:                  ceil(($font-size-base * 1.7));   // ~24px
+$font-size-h4:                  ceil(($font-size-base * 1.25));  // ~18px
+$font-size-h5:                  $font-size-base;
+$font-size-h6:                  ceil(($font-size-base * 0.85));  // ~12px
+
+$padding-base-vertical:     6px !default;
+$padding-base-horizontal:   12px !default;
+
+$padding-large-vertical:    10px !default;
+$padding-large-horizontal:  16px !default;
+
+$padding-small-vertical:    5px !default;
+$padding-small-horizontal:  10px !default;
+
+$padding-xs-vertical:       1px !default;
+$padding-xs-horizontal:     5px !default;
