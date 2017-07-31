@@ -1,0 +1,78 @@
+//
+//  Mixins - Box
+//  --------------------------------------------------
+
+@function set-unit($value, $default-value) {
+  @if $value != $default-value {
+    $value: if(unitless($value), $value + px, $value);
+  }
+  @return $value;
+}
+
+@mixin size($size...) {
+  $default: auto;
+  $size: if(length($size) > 0, $size, $default);
+  $width: set-unit(nth($size, 1), $default);
+  $height: set-unit(nth($size, length($size)), $default);
+
+  width: $width;
+  height: $height;
+}
+
+@mixin padding-x($size...) {
+  $default: 0;
+  $size: if(length($size) > 0, $size, $default);
+  $left: set-unit(nth($size, 1), $default);
+  $right: set-unit(nth($size, length($size)), $default);
+
+  padding-left: $left;
+  padding-right: $right;
+}
+
+@mixin padding-y($size...) {
+  $default: 0;
+  $size: if(length($size) > 0, $size, $default);
+  $top: set-unit(nth($size, 1), $default);
+  $btm: set-unit(nth($size, length($size)), $default);
+
+  padding-top: $top;
+  padding-bottom: $btm;
+}
+
+@mixin margin-x($size...) {
+  $default: 0;
+  $size: if(length($size) > 0, $size, $default);
+  $left: set-unit(nth($size, 1), $default);
+  $right: set-unit(nth($size, length($size)), $default);
+
+  margin-left: $left;
+  margin-right: $right;
+}
+
+@mixin margin-y($size...) {
+  $default: 0;
+  $size: if(length($size) > 0, $size, $default);
+  $top: set-unit(nth($size, 1), $default);
+  $btm: set-unit(nth($size, length($size)), $default);
+
+  margin-top: $top;
+  margin-bottom: $btm;
+}
+
+
+
+@mixin clearfix() {
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin overflow-scroll() {
+  -webkit-overflow-scrolling: touch;
+     -moz-overflow-scrolling: touch;
+      -ms-overflow-scrolling: touch;
+       -o-overflow-scrolling: touch;
+          overflow-scrolling: touch;
+}

@@ -1,0 +1,20 @@
+.Detailnav {
+  text-align: center;
+}
+.Detailnav-li{
+    float: left;
+    width: 25%;
+    line-height: 45px;
+    text-align: center;
+    font-size: 16px;
+    color: #999;
+    list-style:none;
+}
+.Detailnav-ul{
+    margin:0px;
+    padding: 0px;
+    width: 100%;
+}
+.active{border-bottom: .4rem solid #f69a2a;}
+
+

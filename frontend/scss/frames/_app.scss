@@ -1,0 +1,9 @@
+//
+//  Frames - App
+//  --------------------------------------------------
+
+#root {
+  position: relative;
+  background-color: white;
+  @include size(100%);
+}

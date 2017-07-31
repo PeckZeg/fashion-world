@@ -1,0 +1,183 @@
+//
+//  Variables - Colors
+//  --------------------------------------------------
+
+$gray-darkest:                          #333;
+$gray-darken:                           #666;
+$gray-lighten:                          #ccc;
+$gray-light:                            #ddd;
+$gray-lightest:                         #f5f5f5;
+
+$wado:                                  #ff6600;
+$wechat:                                #3eb94e;
+
+
+
+//  gender
+$gender-male:                           #01adef;
+$gender-female:                         #ed008c;
+
+
+
+//  pink colors
+$pink:                                  #ffc0cb;
+$light-pink:                            #ffb6c1;
+$hot-pink:                              #ff69b4;
+$deep-pink:                             #ff1493;
+$pale-violet-red:                       #db7093;
+$medium-volet-red:                      #c71585;
+
+//  red colors
+$light-salmon:                          #ffa07a;
+$salmon:                                #fa8072;
+$dark-salmon:                           #e9967a;
+$light-coral:                           #f08080;
+$indian-red:                            #cd5c5c;
+$crimson:                               #dc143c;
+$firebrick:                             #b22222;
+$dark-red:                              #8b0000;
+$red:                                   #ff0000;
+
+//  orange colors
+$orange-red:                            #ff4500;
+$tomato:                                #ff6347;
+$coral:                                 #ff7f50;
+$dark-orange:                           #ff8c00;
+$orange:                                #ffa500;
+
+//  yellow colors
+$yellow:                                #ffff00;
+$light-yellow:                          #ffffe0;
+$lemon-chiffon:                         #fffacd;
+$light-goldenrod-yellow:                #fafad2;
+$papaya-whip:                           #ffefd5;
+$moccasin:                              #ffe4b5;
+$peach-puff:                            #ffdab9;
+$pale-goldenrod:                        #eee8aa;
+$khaki:                                 #f0e68c;
+$dark-khaki:                            #bdb76b;
+$gold:                                  #ffd700;
+
+//  brown colors
+$cornsilk:                              #fff8dc;
+$blanched-almond:                       #ffebcd;
+$bisque:                                #ffe4c4;
+$navajo-white:                          #ffdead;
+$wheat:                                 #f5deb3;
+$burly-wood:                            #deb887;
+$tan:                                   #d2b48c;
+$rosy-brown:                            #bc8f8f;
+$sandy-brown:                           #f4a460;
+$goldenrod:                             #daa520;
+$dark-goldenrod:                        #b8860b;
+$peru:                                  #cd853f;
+$chocolate:                             #d2691e;
+$saddle-brown:                          #8b4513;
+$sienna:                                #a0522d;
+$brown:                                 #a52a2a;
+$maroon:                                #800000;
+
+//  green colors
+$dark-olive-green:                      #556b2f;
+$olive:                                 #808000;
+$olive-drab:                            #6b8e23;
+$yellow-green:                          #9acd32;
+$lime-green:                            #32cd32;
+$lime:                                  #00ff00;
+$lawn-green:                            #7cfc00;
+$chartreuse:                            #7fff00;
+$green-yellow:                          #adff2f;
+$spring-green:                          #00ff7f;
+$medium-spring-green:                   #00fa9a;
+$light-green:                           #90ee90;
+$pale-green:                            #98fb98;
+$dark-sea-green:                        #8fbc8f;
+$medium-sea-green:                      #3cb371;
+$sea-green:                             #2e8b57;
+$forest-green:                          #228b22;
+$green:                                 #008000;
+$dark-green:                            #006400;
+
+//  cyan colors
+$medium-aquamarine:                     #66cdaa;
+$aqua:                                  #00ffff;
+$cyan:                                  #00ffff;
+$light-cyan:                            #e0ffff;
+$pale-turquoise:                        #afeeee;
+$aquamarine:                            #7fffd4;
+$turquoise:                             #40e0d0;
+$medium-turquoise:                      #48d1cc;
+$dark-turquoise:                        #00ced1;
+$light-sea-green:                       #20b2aa;
+$cadet-blue:                            #5f9ea0;
+$dark-cyan:                             #008b8b;
+$teal:                                  #008080;
+
+//  blue colors
+$light-steel-blue:                      #b0c4de;
+$powder-blue:                           #b0e0e6;
+$light-blue:                            #add8e6;
+$sky-blue:                              #87ceeb;
+$light-sky-blue:                        #87cefa;
+$deep-sky-blue:                         #00bfff;
+$dodger-blue:                           #1e90ff;
+$cornflower-blue:                       #6495ed;
+$steel-blue:                            #4682b4;
+$royal-blue:                            #4169e1;
+$blue:                                  #0000ff;
+$medium-blue:                           #0000cd;
+$dark-blue:                             #00008b;
+$navy:                                  #000080;
+$midnight-blue:                         #191970;
+
+//  purple/violet/magenta colors
+$lavender:                              #e6e6fa;
+$thistle:                               #d8bfd8;
+$plum:                                  #dda0dd;
+$violet:                                #ee82ee;
+$orchid:                                #da70d6;
+$fuchsia:                               #ff00ff;
+$magenta:                               #ff00ff;
+$medium-orchid:                         #ba55d3;
+$medium-purple:                         #9370db;
+$blue-violet:                           #8a2be2;
+$dark-violet:                           #9400d3;
+$dark-orchid:                           #9932cc;
+$dark-magenta:                          #8b008b;
+$purple:                                #800080;
+$indigo:                                #4b0082;
+$dark-slate-blue:                       #483d8b;
+$rebecca-purple:                        #663399;
+$slate-blue:                            #6a5acd;
+$medium-slate-blue:                     #7b68ee;
+
+//  white colors
+$white:                                 #ffffff;
+$snow:                                  #fffafa;
+$honeydew:                              #f0fff0;
+$mint-cream:                            #f5fffa;
+$azure:                                 #f0ffff;
+$alice-blue:                            #f0f8ff;
+$ghost-white:                           #f8f8ff;
+$white-smoke:                           #f5f5f5;
+$seashell:                              #fff5ee;
+$beige:                                 #f5f5dc;
+$old-lace:                              #fdf5e6;
+$floral-white:                          #fffaf0;
+$ivory:                                 #fffff0;
+$antique-white:                         #faebd7;
+$linen:                                 #faf0e6;
+$lavender-blush:                        #fff0f5;
+$misty-rose:                            #ffe4e1;
+
+//  gray/black colors
+$gainsboro:                             #dcdcdc;
+$light-grey:                            #d3d3d3;
+$silver:                                #c0c0c0;
+$dark-gray:                             #a9a9a9;
+$gray:                                  #808080;
+$dim-gray:                              #696969;
+$light-slate-gray:                      #778899;
+$slate-gray:                            #708090;
+$dark-slate-gray:                       #2f4f4f;
+$black:                                 #000000;
