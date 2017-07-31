@@ -75,6 +75,17 @@ module.exports = (req, res, next) => {
         .then(videos => injectVideos(token, videos))
     ))
 
+    // inc video's views
+    .then(args => {
+      const { videos } = args;
+      const videoIds = _.map(videos, '_id');
+      const query = { _id: { $in: videoIds } };
+      const doc = { $inc: { views: 1 } };
+      const opts = { multi: true };
+
+      return Video.update(query, doc, opts).then(videos => args);
+    })
+
     .then(videos => res.send({ videos }))
     .catch(err => handleError(res, err));
 };

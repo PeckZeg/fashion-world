@@ -55,6 +55,14 @@ module.exports = (req, res, next) => {
       return video;
     })
 
+    // inc video's views
+    .then(video => {
+      const doc = { $inc: { views: 1 } };
+      const opts = { new: true };
+
+      return Video.findByIdAndUpdate(video._id, doc, opts).then(() => video);
+    })
+
     .then(video => res.send({ video }))
     .catch(err => handleError(res, err));
 };
