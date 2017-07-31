@@ -1,5 +1,6 @@
 const validateParams = reqlib('./validate-models/client/user/fetch-user-list-query-params');
 const handleError = reqlib('./utils/response/handle-error');
+const injectUsers = reqlib('./utils/model-injector/user');
 const authToken = reqlib('./utils/keys/user/auth-token');
 
 const User = reqlib('./models/User');
@@ -31,7 +32,11 @@ module.exports = (req, res, next) => {
     ))
 
     // transform users
-    .then(({ token, users }) => users.map(user => user.toJSON()))
+    .then(({ token, users }) => {
+      users = users.map(user => user.toJSON());
+
+      return injectUsers(token, users);
+    })
 
     .then(users => res.send({ users }))
     .catch(err => handleError(res, err));
