@@ -19,7 +19,7 @@ module.exports = videos => Promise.resolve(videos)
   .then(args => {
     const { videoIds, multi } = args;
 
-    videoIds.forEach(videoId => multi.scard(cacheKey(videoId)));
+    videoIds.forEach(videoId => multi.hlen(cacheKey(videoId)));
 
     return args;
   })

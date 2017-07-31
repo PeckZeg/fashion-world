@@ -48,7 +48,7 @@ module.exports = (req, res, next) => {
       const userId = token.userId.toString();
       const cacheKey = keys('client:video:favourite-users')(videoId);
 
-      multi.srem(cacheKey, userId);
+      multi.hdel(cacheKey, userId);
 
       return args;
     })

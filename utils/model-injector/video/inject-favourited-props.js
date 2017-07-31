@@ -30,7 +30,7 @@ module.exports = (token, videos, handlerName = 'toJSON') => {
       const { videoIds, multi } = args;
 
       videoIds.forEach(videoId => {
-        multi.sismember(cacheKey(videoId), userId);
+        multi.hexists(cacheKey(videoId), userId);
       });
 
       return args;

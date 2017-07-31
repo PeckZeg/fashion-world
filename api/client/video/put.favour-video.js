@@ -46,20 +46,21 @@ module.exports = (req, res, next) => {
       const videoId = video._id;
       const userId = token.userId.toString();
       const cacheKey = keys('client:video:favourite-users')(videoId);
+      const favourAt = +new Date();
 
-      multi.sadd(cacheKey, userId);
+      multi.hset(cacheKey, userId, favourAt);
 
-      return args;
+      return { ...args, favourAt };
     })
 
     // add to favourite videos
     .then(args => {
-      const { token, video, multi } = args;
+      const { token, video, multi, favourAt } = args;
       const videoId = video._id;
       const userId = token.userId.toString();
       const cacheKey = keys('client:user:favourite-videos')(userId);
 
-      multi.sadd(cacheKey, videoId);
+      multi.hset(cacheKey, videoId, favourAt);
 
       return args;
     })

@@ -15,7 +15,7 @@
 
 ### User
 
-* [`GET` 获取用户资料][user-get-personal-profile]
+* [`GET` 获取当前登录用户详情][user-get-personal-profile]
 * [`POST` 登录（手机号、密码）][user-post-login]
 * [`POST` 刷新验证 keys][user-post-refresh-keys]
 * [`POST` 发送验证码][user-post-create-verify-code]
