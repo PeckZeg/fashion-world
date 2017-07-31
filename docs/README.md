@@ -16,6 +16,7 @@
 ### User
 
 * [`GET` 获取当前登录用户详情][user-get-personal-profile]
+* [`GET` 获取用户列表][user-get-fetch-user-list]
 * [`POST` 登录（手机号、密码）][user-post-login]
 * [`POST` 刷新验证 keys][user-post-refresh-keys]
 * [`POST` 发送验证码][user-post-create-verify-code]
@@ -56,6 +57,7 @@
 * [How to Install FFmpeg on CentOS](https://www.vultr.com/docs/how-to-install-ffmpeg-on-centos)
 
 [user-get-personal-profile]: ./api/user/get.personal-profile.md
+[user-get-fetch-user-list]: ./api/user/get.fetch-user-list.md
 [user-post-login]: ./api/user/post.login.md
 [user-post-refresh-keys]: ./api/user/post.refresh-keys.md
 [user-post-create-verify-code]: ./api/user/post.create-verify-code.md

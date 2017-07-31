@@ -4,11 +4,12 @@
 
 ## 用户
 
-API                                        | Action
-:----------------------------------------- | :----------------------
-[`GET` 获取用户资料][get.personal-profile] | `user:personal-profile`
-[`POST` 刷新验证 keys][post.refresh-keys]  | `user:refresh-keys`
-[`DELETE` 用户登出][delete.logout]         | `user:logout`
+API                                             | Action
+:---------------------------------------------- | :----------------------
+[`GET` 获取用户资料][user-get-personal-profile] | `user:personal-profile`
+[`GET` 获取用户列表][user-get-fetch-user-list]  | `user:fetch-user-list`
+[`POST` 刷新验证 keys][user-post-refresh-keys]  | `user:refresh-keys`
+[`DELETE` 用户登出][user-delete-logout]         | `user:logout`
 
 ## 视频
 
@@ -23,9 +24,10 @@ API                                                         | Action
 [`DEL` 取消点赞视频][video-del-destroy-favourite-video]     | `video:destroy-favourite-video`
 [`DEL` 取消收藏视频][video-del-destroy-collected-video]     | `video:destroy-collected-video`
 
-[get.personal-profile]: ./api/user/get.personal-profile.md
-[post.refresh-keys]: ./api/user/post.refresh-keys.md
-[delete.logout]: ./api/user/delete.logout.md
+[user-get-personal-profile]: ./api/user/get.personal-profile.md
+[user-get-fetch-user-list]: ./api/user/get.fetch-user-list.md
+[user-post-refresh-keys]: ./api/user/post.refresh-keys.md
+[user-delete-logout]: ./api/user/delete.logout.md
 
 [video-get-fetch-video-list]: ./api/video/get.fetch-video-list.md
 [video-get-fetch-video-profile]: ./api/video/get.fetch-video-profile.md
