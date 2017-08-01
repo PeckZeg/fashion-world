@@ -59,6 +59,12 @@ module.exports = {
     host: 'localhost:3003'
   },
 
+  model: {
+    user: {
+      defaultAvatar: '/static/images/avatar/default/256x256.png'
+    }
+  },
+
   localStaticPath: '/data/static'
 };
 

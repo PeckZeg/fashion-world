@@ -1,6 +1,9 @@
 module.exports = {
   apiActions: {
     'client:user:get:fetch-user-list': 'user:fetch-user-list',
+    'client:user:get:fetch-user-profile': 'user:fetch-user-profile',
+    'client:user:get:fetch-user-favourite-video-list': 'user:fetch-user-favourite-video-list',
+    'client:user:get:fetch-user-collected-video-list': 'user:fetch-user-collected-video-list',
     'client:user:post:refresh-keys': 'user:refresh-keys',
     'user.get.personal-profile': 'user:personal-profile',
     'user.delete.logout': 'user:logout',

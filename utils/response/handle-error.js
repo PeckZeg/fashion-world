@@ -6,6 +6,10 @@ const catchError = err => {
   let message = (error ? error.message : err.message) || 'Internal Server Error';
   let status = (error ? error.status : err.status) || 500;
 
+  if (message.includes('duplicate key error')) {
+    message = 'duplicate key error';
+  }
+
   return new ResponseError(status, message);
 };
 

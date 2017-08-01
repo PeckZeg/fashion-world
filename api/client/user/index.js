@@ -2,6 +2,8 @@ let router = module.exports = require('express').Router();
 
 router.get('/', require('./get.fetch-user-list'));
 router.get('/personal', require('./get.personal-profile'));
+router.get('/personal/favourite-videos', require('./get.fetchPersonalFavouriteVideoList'));
+router.get('/personal/collected-videos', require('./get.fetch-user-collected-video-list'));
 router.get('/:userId', require('./get.fetch-user-profile'));
 
 router.post('/', require('./post.create-user'));

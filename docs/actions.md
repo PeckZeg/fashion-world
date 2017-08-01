@@ -4,12 +4,13 @@
 
 ## 用户
 
-API                                             | Action
-:---------------------------------------------- | :----------------------
-[`GET` 获取用户资料][user-get-personal-profile] | `user:personal-profile`
-[`GET` 获取用户列表][user-get-fetch-user-list]  | `user:fetch-user-list`
-[`POST` 刷新验证 keys][user-post-refresh-keys]  | `user:refresh-keys`
-[`DELETE` 用户登出][user-delete-logout]         | `user:logout`
+API                                               | Action
+:------------------------------------------------ | :----------------------
+[`GET` 获取用户资料][user-get-personal-profile]   | `user:personal-profile`
+[`GET` 获取用户列表][user-get-fetch-user-list]    | `user:fetch-user-list`
+[`GET` 获取用户详情][user-get-fetch-user-profile] | `user:fetch-user-profile`
+[`POST` 刷新验证 keys][user-post-refresh-keys]    | `user:refresh-keys`
+[`DELETE` 用户登出][user-delete-logout]           | `user:logout`
 
 ## 视频
 
@@ -26,6 +27,7 @@ API                                                         | Action
 
 [user-get-personal-profile]: ./api/user/get.personal-profile.md
 [user-get-fetch-user-list]: ./api/user/get.fetch-user-list.md
+[user-get-fetch-user-profile]: ./api/user/get.fetch-user-profile.md
 [user-post-refresh-keys]: ./api/user/post.refresh-keys.md
 [user-delete-logout]: ./api/user/delete.logout.md
 
