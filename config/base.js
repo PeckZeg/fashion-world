@@ -72,8 +72,8 @@ module.exports = {
 
     fashionWorld: {
       host: '172.16.0.12',
-      user: 'wlctest',
-      password: 'wlctest'
+      user: 'ftpadmin',
+      password: 'xMzc.123'
     },
 
     resource: {

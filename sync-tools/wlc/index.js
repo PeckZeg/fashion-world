@@ -4,7 +4,7 @@ const path = require('path');
 
 const globalMixins = require('../../utils/global-mixins');
 
-const FOLDER = '/WineLife_Channel_1080P/2017_07_17';
+const FOLDER = '/WLC/WineLife_Channel_1080P/2017_07_17';
 const HASH_FILE = 'hash_list.txt';
 
 const loadFtpVideoList = require('./load-ftp-video-list');
