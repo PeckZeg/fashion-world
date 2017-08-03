@@ -28,8 +28,12 @@ module.exports = (folderpath, hashFile) => {
       return ftpVideoList.map(video => {
         const { sha1 } = videosBySha1[video.name] || {};
         return { ...video, sha1 };
+<<<<<<< HEAD
       })
       // .filter(video => video.name.includes('DEEP14'));
+=======
+      }).filter(video => video.name.includes('DEEP14'));
+>>>>>>> f914a1f3c41138b1292bb9821dca0fa94b86b8ae
     })
 
     // handle each ftp video
