@@ -56,8 +56,8 @@ module.exports = filepath => Promise.resolve(filepath)
   // transform data
   .then(({ filepath, sha1VideoList }) => {
     sha1VideoList = sha1VideoList.map(video => {
-      const [sha1, filename] = video;
-      return { sha1, filename };
+      const [sha1, name] = video;
+      return { sha1, name };
     });
 
     return { filepath, sha1VideoList };
