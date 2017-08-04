@@ -23,9 +23,9 @@ module.exports = source => Promise.resolve({
   // sample category
   .then(args => (
     Category.aggregate().match({ channelId: args.channelId }).sample(1)
-      .then(category => ({
+      .then(categories => ({
         ...args,
-        categoryId: category._id
+        categoryId: categories[0]._id
       }))
   ))
 
@@ -37,6 +37,7 @@ module.exports = source => Promise.resolve({
         sourceId,
         channelId,
         categoryId,
+        title: Random.ctitle(4, 32),
         subtitle: Random.ctitle(4, 128),
         abstract: Random.cparagraph(2, 16).split('。').join('。\n'),
         summary: Random.cparagraph(4, 32).split('。').join('。\n'),
