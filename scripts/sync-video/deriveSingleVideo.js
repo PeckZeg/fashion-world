@@ -8,10 +8,10 @@ const uploadDefinitionVideo = require('./uploadDefinitionVideo');
 const uploadImages = require('./uploadImages');
 
 const { TMP_FOLDER } = require('./config');
-// const VIDEO_DEFINITIONS = ['1080p', '720p', '480p', '360p'];
-// const DEFINITION_VIDEO_SCREENSHOT = '1080p';
-const VIDEO_DEFINITIONS = ['360p'];
-const DEFINITION_VIDEO_SCREENSHOT = '360p';
+const VIDEO_DEFINITIONS = ['1080p', '720p', '480p', '360p'];
+const DEFINITION_VIDEO_SCREENSHOT = '1080p';
+// const VIDEO_DEFINITIONS = ['360p'];
+// const DEFINITION_VIDEO_SCREENSHOT = '360p';
 
 module.exports = filepath => Promise.resolve(filepath)
 
