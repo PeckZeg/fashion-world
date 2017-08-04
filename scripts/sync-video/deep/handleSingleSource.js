@@ -16,6 +16,7 @@ const getRandomDate = () => {
 };
 
 module.exports = source => Promise.resolve({
+  source,
   sourceId: source._id,
   channelId: CHANNEL_ID
 })
@@ -30,13 +31,14 @@ module.exports = source => Promise.resolve({
   ))
 
   // gen model params
-  .then(({ sourceId, channelId, categoryId }) => {
+  .then(({ source, sourceId, channelId, categoryId }) => {
     const query = { sourceId };
     const doc = {
       $setOnInsert: {
         sourceId,
         channelId,
         categoryId,
+        cover: _.sample(source.screenshots),
         title: Random.ctitle(4, 32),
         subtitle: Random.ctitle(4, 128),
         abstract: Random.cparagraph(2, 16).split('。').join('。\n'),

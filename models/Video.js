@@ -3,9 +3,15 @@ const mongoose = require('mongoose');
 const connection = require('../utils/mongodb-connection');
 const unsetProps = reqlib('./utils/schema/unset-props');
 const transform = reqlib('./utils/schema/transform');
+const toUrl = reqlib('./utils/toResFtpUrl');
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
+
+const transformRet = ret => {
+  ret.cover = toUrl(ret.cover);
+  return ret;
+};
 
 const TRANSFORM_TO_JSON_PROP_BLACK_LIST = [
   'originalTitle',
@@ -17,6 +23,7 @@ const schema = new Schema({
   channelId: { type: ObjectId, required: true },
   categoryId: { type: ObjectId, required: true },
   sourceId: { type: ObjectId, required: true },
+  cover: { type: String, default: null },
   title: { type: String, minlength: 1, maxLength: 65535, default: null },
   subtitle: { type: String, maxLength: 65535, default: null },
   abstract: { type: String, minlength: 1, maxLength: 65535, default: null },
