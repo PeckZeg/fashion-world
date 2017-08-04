@@ -16,6 +16,7 @@ const transformRet = ret => {
 };
 
 const TRANSFORM_TO_JSON_PROP_BLACK_LIST = [
+  'priority',
   'removeAt'
 ];
 

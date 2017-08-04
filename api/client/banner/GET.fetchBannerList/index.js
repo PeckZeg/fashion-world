@@ -1,3 +1,4 @@
+const injectChannels = reqlib('./utils/model-injector/banner');
 const validateQueryParams = require('./validateQueryParams');
 const handleError = reqlib('./utils/response/handle-error');
 
@@ -17,7 +18,7 @@ module.exports = (req, res, next) => {
         removeAt: null
       };
       const skip = offset * limit;
-      const sort = { publishAt: -1, createAt: -1 };
+      const sort = { priority: -1, publishAt: -1, createAt: -1 };
 
       _.forEach({ type, channelId }, (value, key) => {
         if (value !== void 0) {
@@ -31,8 +32,10 @@ module.exports = (req, res, next) => {
     // query banner docs
     .then(({ query, skip, limit, sort }) => (
       Banner.find(query).skip(skip).limit(limit).sort(sort)
-        .then(banners => banners.map(banner => banner.toJSON()))
     ))
+
+    // inject props
+    .then(banners => injectChannels(banners))
 
     .then(banners => res.send({ banners }))
     .catch(err => handleError(res, err));

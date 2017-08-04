@@ -13,6 +13,16 @@
 
 ## 接口列表
 
+### Banner
+
+* [`GET` 获取横幅列表][BannerGetFetchBannerList]
+
+### Channel
+
+* [`GET` 获取频道列表][channel-get-fetch-channel-list]
+* [`GET` 获取频道详情][channel-get-fetch-channel-profile]
+* [`GET` 获取频道分类列表][channel-get-fetch-channel-category-list]
+
 ### User
 
 * [`GET` 获取当前登录用户详情][user-get-personal-profile]
@@ -28,12 +38,6 @@
 * [`PUT` 重置用户密码][user-put-reset-password]
 * [`DELETE` 用户登出][user-delete-logout]
 
-### Channel
-
-* [`GET` 获取频道列表][channel-get-fetch-channel-list]
-* [`GET` 获取频道详情][channel-get-fetch-channel-profile]
-* [`GET` 获取频道分类列表][channel-get-fetch-channel-category-list]
-
 ### Video
 
 * [`GET` 获取频道列表][video-get-fetch-video-list]
@@ -47,15 +51,18 @@
 
 ## 模型列表
 
+* [Banner][banner-model]
 * [Channel][channel-model]
 * [Category][category-model]
-* [Video][video-model]
-* [SourceVideo][source-video-model]
 * [DefinitionVideo][definition-video-model]
+* [SourceVideo][source-video-model]
+* [Video][video-model]
 
 ## 引用
 
 * [How to Install FFmpeg on CentOS](https://www.vultr.com/docs/how-to-install-ffmpeg-on-centos)
+
+[BannerGetFetchBannerList]: ./api/banner/GET.fetchBannerList.md
 
 [user-get-personal-profile]: ./api/user/get.personal-profile.md
 [user-get-fetch-user-list]: ./api/user/get.fetch-user-list.md
@@ -88,3 +95,4 @@
 [video-model]: ./models/video.md
 [source-video-model]: ./models/source-video.md
 [definition-video-model]: ./models/definition-video.md
+[banner-model]: ./models/banner.md
