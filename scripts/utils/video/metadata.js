@@ -8,7 +8,7 @@ module.exports = filepath => ffmpegUtils.ffprobe(filepath)
   .then(metadata => {
     const streams = metadata.streams.filter(({ codec_type }) => codec_type == 'video')[0];
     const { width, height, bit_rate: bitRate } = streams;
-    const duration = +moment(streams.duration, 's');
+    const duration = +moment.duration(streams.duration, 's');
 
     return { width, height, duration, bitRate };
   });
