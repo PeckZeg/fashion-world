@@ -54,12 +54,19 @@ module.exports = ftpVideo => SourceVideo.findOne({ sha1: ftpVideo.sha1 })
           .then(filepath => ({ filepath, sha1 }))
       ))
 
-      // derive definitions & screenshots
+      // load video metadata
       .then(({ filepath, sha1 }) => (
+        syncUtils.video.metadata(filepath)
+          .then(metadata => ({ filepath, sha1, metadata }))
+      ))
+
+      // derive definitions & screenshots
+      .then(({ filepath, sha1, metadata }) => (
         deriveSingleVideo(filepath)
           .then(({ definitions, screenshots }) => ({
             filepath,
             sha1,
+            metadata,
             definitions,
             screenshots
           }))
