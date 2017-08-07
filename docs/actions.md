@@ -12,6 +12,7 @@ API                                               | Action
 [`GET` 获取当前用户点赞的视频列表][user-GET-fetchPersonalFavouriteVideoList] | `user:fetch-user-favourite-video-list`
 [`GET` 获取当前用户收藏的视频列表][user-GET-fetchPersonalCollectedVideoList] | `user:fetch-user-collected-video-list`
 [`POST` 刷新验证 keys][user-post-refresh-keys]    | `user:refresh-keys`
+[`PUT` 更新当前用户信息][User_PUT_UpdatePersonalProfile] | `user:update-personal-profile`
 [`DELETE` 用户登出][user-delete-logout]           | `user:logout`
 
 ## 视频
@@ -32,6 +33,7 @@ API                                                         | Action
 [user-get-fetch-user-profile]: ./api/user/get.fetch-user-profile.md
 [user-GET-fetchPersonalFavouriteVideoList]: ./api/user/GET.fetchPersonalFavouriteVideoList.md
 [user-GET-fetchPersonalCollectedVideoList]: ./api/user/GET.fetchPersonalCollectedVideoList.md
+[User_PUT_UpdatePersonalProfile]: ./api/user/PUT.updatePersonalProfile.md
 [user-post-refresh-keys]: ./api/user/post.refresh-keys.md
 [user-delete-logout]: ./api/user/delete.logout.md
 

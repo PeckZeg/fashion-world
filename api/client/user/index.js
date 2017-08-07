@@ -15,5 +15,6 @@ router.post('/reset-code', require('./post.create-reset-password-verify-code'));
 router.post('/validate-reset-code', require('./post.validate-reset-password-code'));
 
 router.put('/reset-password', require('./put.reset-password'));
+router.put('/personal', require('./PUT.updatePersonalProfile'));
 
 router.delete('/logout', require('./delete.logout'));
