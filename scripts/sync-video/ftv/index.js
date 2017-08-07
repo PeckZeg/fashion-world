@@ -7,7 +7,7 @@ const handleSingleFolder = require('./handleSingleFolder');
 
 const FOLDERS = [
   '/FTV',
-  // '/FTV/FASHIONWORLD-APP视频筛选002'
+  '/FTV/FASHIONWORLD-APP视频筛选002'
 ];
 const HASH_FILE = 'hash_list.txt';
 
