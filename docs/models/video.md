@@ -8,6 +8,7 @@
 `title`             | `String`   |      |          | √           | √          | 长度: `1` ~ `65535`  | 标题
 `subtitle`          | `String`   |      |          | √           | √          | 长度: `1` ~ `65535`  | 副标题
 `abstract`          | `String`   |      |          | √           | √          | 长度: `1` ~ `65535`  | 摘要
+`cover`             | `String`   |      |          | √           | √          |                      | 封面
 `summary`           | `String`   |      |          | √           | √          | 长度: `1` ~ `65535`  | 简介
 `originalTitle`     | `String`   |      |          |             | √          | 长度: `1` ~ `65535`  | 原始标题
 `season`            | `Number`   |      |          | √           | √          |                      | 第几季
