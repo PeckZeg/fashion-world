@@ -36,7 +36,7 @@ module.exports = imageList => Channel.aggregate().sample(1)
     type: 'url',
     channelId: channel._id,
     title: Random.ctitle(2, 32),
-    value: _.sample(URL_LIST),
+    value: { url: _.sample(URL_LIST) },
     cover: _.sample(imageList),
     priority: Random.integer(0, 128),
     publishAt: genPublishAt()
