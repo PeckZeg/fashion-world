@@ -59,17 +59,17 @@ module.exports = {
   },
 
   ftpServer: {
-    lanConnect: {
+    fashiontv: {
       host: '172.16.0.11',
       user: 'ftpuser',
       password: 'abc.123'
     },
 
-    folder: 'FTV',
-
-    folders: {
-      ftv: 'FTV'
-    },
+    // folder: 'FTV',
+    //
+    // folders: {
+    //   ftv: 'FTV'
+    // },
 
     fashionWorld: {
       host: '172.16.0.12',

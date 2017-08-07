@@ -5,7 +5,10 @@ const syncUtils = require('../utils');
 
 const { fashionWorld: CONNECT_OPTS } = config.ftpServer;
 
-module.exports = folderpath => Promise.resolve(folderpath)
+module.exports = (
+  folderpath,
+  connectOpts = CONNECT_OPTS
+) => Promise.resolve(folderpath)
 
   // create ftp client
   .then(folderpath => {
@@ -16,7 +19,7 @@ module.exports = folderpath => Promise.resolve(folderpath)
 
   // connect ftp client
   .then(({ folderpath, ftpClient }) => (
-    syncUtils.ftp.connect(ftpClient, CONNECT_OPTS)
+    syncUtils.ftp.connect(ftpClient, connectOpts)
       .then(ftpClient => ({ folderpath, ftpClient }))
   ))
 

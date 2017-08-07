@@ -7,14 +7,19 @@ const loadFtpVideoList = require('./loadFtpVideoList');
 const loadFtpVideoHashList = require('./loadFtpVideoHashList');
 const handleSingleVideo = require('./handleSingleVideo');
 
-module.exports = (folderpath, hashFile) => {
+module.exports = (folderpath, hashFile, connectOpts) => {
   debug(`>>> 即将同步视频文件夹 ${folderpath}`);
 
-  return loadFtpVideoList(folderpath)
+  return loadFtpVideoList(folderpath, connectOpts)
+
+    // .then(ftpVideoList => {
+    //   console.log(ftpVideoList);
+    //   return ftpVideoList;
+    // })
 
     // load hash file
     .then(ftpVideoList => (
-      loadFtpVideoHashList(path.join(folderpath, hashFile))
+      loadFtpVideoHashList(path.join(folderpath, hashFile), connectOpts)
         .then(ftpVideoHashList => ({
           ftpVideoList,
           ftpVideoHashList
@@ -30,13 +35,14 @@ module.exports = (folderpath, hashFile) => {
         return { ...video, sha1 };
       })
       // .filter(video => video.name.includes('DEEP14'));
+      // .filter(video => video.name.includes('短片2017-FashionShow-TheBattleoflifebyTelaviver.mp4'))
     })
 
     // handle each ftp video
     .then(ftpVideoList => new Promise((resolve, reject) => {
       debug(`即将同步视频列表，共计 ${ftpVideoList.length} 个视频`);
       mapLimit(ftpVideoList, 1, (ftpVideo, cb) => {
-        handleSingleVideo(ftpVideo)
+        handleSingleVideo(ftpVideo, connectOpts)
           .then(video => cb(null, video))
           .catch(cb);
       }, (err, videos) => {

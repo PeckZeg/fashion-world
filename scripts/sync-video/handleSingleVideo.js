@@ -13,7 +13,10 @@ const { TMP_FOLDER } = require('./config');
 const { fashionWorld: CONNECT_OPTS } = config.ftpServer;
 const OPTS = { new: true, upsert: true, setDefaultsOnInsert: true };
 
-module.exports = ftpVideo => SourceVideo.findOne({ sha1: ftpVideo.sha1 })
+module.exports = (
+  ftpVideo,
+  connectOpts = CONNECT_OPTS
+) => SourceVideo.findOne({ sha1: ftpVideo.sha1 })
 
   .then(sourceVideo => {
     if (sourceVideo) return sourceVideo;
@@ -21,7 +24,7 @@ module.exports = ftpVideo => SourceVideo.findOne({ sha1: ftpVideo.sha1 })
     return syncUtils.ftp.create()
 
       // connect ftp
-      .then(ftpClient => syncUtils.ftp.connect(ftpClient, CONNECT_OPTS))
+      .then(ftpClient => syncUtils.ftp.connect(ftpClient, connectOpts))
 
       // download file
       .then(ftpClient => {
