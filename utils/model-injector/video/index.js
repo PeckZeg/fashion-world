@@ -8,6 +8,7 @@ const injectFavouritedProps = require('./inject-favourited-props');
 
 module.exports = (token, videos, handlerName = 'toJSON') => {
   const isOutputArray = Array.isArray(videos);
+  const isAdminAPI = handlerName == 'toObject';
 
   return Promise.resolve(videos)
 
@@ -26,10 +27,14 @@ module.exports = (token, videos, handlerName = 'toJSON') => {
     .then(injectFavourites)
 
     // inject `isCollected` props
-    .then(videos => injectCollectedProps(token, videos, handlerName))
+    .then(videos => (
+      isAdminAPI ? videos : injectCollectedProps(token, videos, handlerName)
+    ))
 
     // inject `isFavoured` props
-    .then(videos => injectFavouritedProps(token, videos, handlerName))
+    .then(videos => (
+      isAdminAPI ? videos : injectFavouritedProps(token, videos, handlerName)
+    ))
 
     // inject channels
     .then(videos => injectChannels(videos, handlerName))

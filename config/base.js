@@ -25,9 +25,9 @@ module.exports = {
     'admin:account:delete:destroy-account': 'admin:account:destroy-account',
     'admin:account:delete:logout': 'admin:account:logout',
 
-    'admin:video:get:fetch-list': 'admin:video:fetch-list',
-    'admin:video:get:fetch-profile': 'admin:video:fetch-profile',
-    'admin:video:post:upload-cover': 'admin:video:upload-cover',
+    'admin:video:get:fetch-video-list': 'admin:video:fetch-video-list',
+    'admin:video:get:fetch-video-profile': 'admin:video:fetch-video-profile',
+    'admin:video:post:upload-video-cover': 'admin:video:upload-video-cover',
     'admin:video:put:update-video': 'admin:video:update-video',
     'admin:video:delete:destroy-video': 'admin:video:destroy-video',
 

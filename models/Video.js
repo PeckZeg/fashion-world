@@ -7,9 +7,10 @@ const toUrl = reqlib('./utils/toResFtpUrl');
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
+const DEFAULT_COVER = config.model.video.defaultCover;
 
 const transformRet = ret => {
-  ret.cover = toUrl(ret.cover);
+  ret.cover = toUrl(ret.cover || DEFAULT_COVER);
   return ret;
 };
 
@@ -50,12 +51,21 @@ const schema = new Schema({
     transform(doc, ret, options) {
       ret = transform(doc, ret, options);
       ret = unsetProps(ret, TRANSFORM_TO_JSON_PROP_BLACK_LIST);
+      ret = transformRet(ret);
 
       return ret;
     }
   },
 
-  toObject: { virtuals: true, transform }
+  toObject: {
+    virtuals: true,
+    transform(doc, ret, options) {
+      ret = transform(doc, ret, options);
+      ret = transformRet(ret);
+
+      return ret;
+    }
+  }
 });
 
 module.exports = connection.model('Video', schema);
