@@ -32,6 +32,7 @@ module.exports = (req, res, next) => {
     // generate query params
     .then(({ token, query, channels, categories }) => {
       const { offset, limit } = query;
+      const { channelId, categoryId } = query;
       const title = new RegExp(query.title, 'gi');
       const cond = {
         title,
@@ -42,6 +43,14 @@ module.exports = (req, res, next) => {
       };
       const skip = offset * limit;
       const sort = { publishAt: -1, createAt: -1 };
+
+      _.forEach({ channelId, categoryId }, (value, key) => {
+        if (value !== void 0) {
+          Object.assign(cond, { [key]: value });
+        }
+      });
+
+      console.log({ channelId, categoryId });
 
       return { token, cond, limit, skip, sort };
     })

@@ -18,24 +18,36 @@ exports.genSha1 = filepath => new Promise((resolve, reject) => {
   stream.on('error', reject);
 });
 
-exports.rename = (src, dest) => new Promise((resolve, reject) => {
-  exec(`mv ${src} ${dest}`, err => {
-    if (err) return reject(err);
-    resolve(dest);
-  });
-});
-
-exports.move = (src, dest) => new Promise((resolve, reject) => {
+exports.rename = exports.move = (src, dest) => new Promise((resolve, reject) => {
   mkdirp(path.dirname(dest), err => {
     if (err) return reject(err);
     resolve({ src, dest });
   });
 }).then(({ src, dest }) => new Promise((resolve, reject) => {
-  exec(`mv ${src} ${dest}`, err => {
+  fs.rename(src, dest, err => {
     if (err) return reject(err);
     resolve(dest);
   });
 }));
+
+// exports.rename = (src, dest) => new Promise((resolve, reject) => {
+//   exec(`mv ${src} ${dest}`, err => {
+//     if (err) return reject(err);
+//     resolve(dest);
+//   });
+// });
+
+// exports.move = (src, dest) => new Promise((resolve, reject) => {
+//   mkdirp(path.dirname(dest), err => {
+//     if (err) return reject(err);
+//     resolve({ src, dest });
+//   });
+// }).then(({ src, dest }) => new Promise((resolve, reject) => {
+//   exec(`mv $(printf "%q" "${src}") $(printf "%q" "${dest}")`, err => {
+//     if (err) return reject(err);
+//     resolve(dest);
+//   });
+// }));
 
 exports.copy = (src, dest) => new Promise((resolve, reject) => {
   mkdirp(path.dirname(dest), err => {
@@ -43,14 +55,22 @@ exports.copy = (src, dest) => new Promise((resolve, reject) => {
     resolve({ src, dest });
   });
 }).then(({ src, dest }) => new Promise((resolve, reject) => {
-  exec(`cp ${src} ${dest}`, err => {
-    if (err) return reject(err);
-    resolve(dest);
-  });
+  const readStream = fs.createReadStream(src);
+  const writeStream = fs.createWriteStream(dest);
+
+  readStream.pipe(writeStream);
+
+  writeStream.on('error', reject);
+  writeStream.on('close', () => resolve(dest));
+
+  // exec(`cp ${src} ${dest}`, err => {
+  //   if (err) return reject(err);
+  //   resolve(dest);
+  // });
 }));
 
 exports.remove = filepath => new Promise((resolve, reject) => {
-  exec(`rm -rf $(printf "%q" "${filepath}")`, err => {
+  exec(`rm -rf $(printf "%q" "${filepath}")`, (err, a, b, c) => {
     if (err) return reject(err);
     resolve();
   });
