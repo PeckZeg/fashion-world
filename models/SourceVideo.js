@@ -22,7 +22,6 @@ const TRANSFORM_TO_JSON_PROP_BLACK_LIST = [
 
 const transformRet = ret => {
   ret.screenshots = ret.screenshots.map(pathname => toUrl(pathname));
-
   return ret;
 };
 
