@@ -28,8 +28,12 @@ module.exports = {
     'admin:video:get:fetch-video-list': 'admin:video:fetch-video-list',
     'admin:video:get:fetch-video-profile': 'admin:video:fetch-video-profile',
     'admin:video:post:upload-video-cover': 'admin:video:upload-video-cover',
+    'admin:video:post:publish-video': 'admin:video:publish-video',
+    'admin:video:post:recommend-video': 'admin:video:recommend-video',
     'admin:video:put:update-video': 'admin:video:update-video',
     'admin:video:delete:destroy-video': 'admin:video:destroy-video',
+    'admin:video:delete:block-video': 'admin:video:block-video',
+    'admin:video:delete:supplant-video': 'admin:video:supplant-video',
 
     'admin:channel:get:fetch-channel-list': 'admin:channel:fetch-channel-list',
     'admin:channel:get:fetch-channel-profile': 'admin:channel:fetch-channel-profile',
