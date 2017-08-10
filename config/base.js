@@ -18,6 +18,8 @@ module.exports = {
     'client:video:del:destroy-favourite-video': 'video:destroy-favourite-video',
     'client.video:del.destroy-collected-video': 'video:destroy-collected-video',
 
+    'client:loop-video:fetch-loop-video-list': 'loop-video:fetch-loop-video-list',
+
     'admin:account:get:fetch-account-list': 'admin:account:fetch-account-list',
     'admin:account:get:fetch-account-profile': 'admin:account:fetch-account-profile',
     'admin:account:post:create-account': 'admin:account:create-account',

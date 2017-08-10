@@ -33,6 +33,9 @@ module.exports = flag => {
     case 'cache:available:categories':
       return () => 'cache:available:categories';
 
+    case 'cache:available:videos':
+      return () => 'cache:available:videos';
+
     default:
       return key => key;
   }

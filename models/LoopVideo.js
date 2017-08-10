@@ -33,6 +33,7 @@ const schema = new Schema({
     transform(doc, ret, options) {
       ret = transform(doc, ret, options);
       ret = unsetProps(ret, TRANSFORM_TO_JSON_PROP_BLACK_LIST);
+      ret = transformRet(ret);
 
       return ret;
     }

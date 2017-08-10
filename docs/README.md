@@ -51,6 +51,10 @@
 * [`DEL` 取消点赞视频][video-del-destroy-favourite-video]
 * [`DEL` 取消收藏视频][video-del-destroy-collected-video]
 
+### LoopVideo
+
+* [`GET` 获取循环视频列表][LoopVideo_GET_fetchLoopVideoList]
+
 ## 模型列表
 
 * [Banner][banner-model]
@@ -59,6 +63,7 @@
 * [DefinitionVideo][definition-video-model]
 * [SourceVideo][source-video-model]
 * [Video][video-model]
+* [LoopVideo][LoopVideoModel]
 
 ## 引用
 
@@ -94,9 +99,12 @@
 [video-del-destroy-collected-video]: ./api/video/del.destroy-collected-video.md
 [video-get-fetch-random-video-list]: ./api/video/get.fetch-random-video-list.md
 
+[LoopVideo_GET_fetchLoopVideoList]: ./api/loop-video/GET.fetchLoopVideoList.md
+
 [channel-model]: ./models/channel.md
 [category-model]: ./models/category.md
 [video-model]: ./models/video.md
 [source-video-model]: ./models/source-video.md
 [definition-video-model]: ./models/definition-video.md
 [banner-model]: ./models/banner.md
+[LoopVideoModel]: ./models/loop-video.md

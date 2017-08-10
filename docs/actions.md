@@ -2,7 +2,7 @@
 
 算法请参见 [签名验证算法](../../signature-authorization.md)
 
-## 用户
+## User
 
 API                                               | Action
 :------------------------------------------------ | :----------------------
@@ -15,7 +15,7 @@ API                                               | Action
 [`PUT` 更新当前用户信息][User_PUT_UpdatePersonalProfile] | `user:update-personal-profile`
 [`DELETE` 用户登出][user-delete-logout]           | `user:logout`
 
-## 视频
+## Video
 
 API                                                         | Action
 :---------------------------------------------------------- | :------------------------------
@@ -27,6 +27,12 @@ API                                                         | Action
 [`PUT` 收藏视频][video-put-add-collection]                  | `video:collect-video`
 [`DEL` 取消点赞视频][video-del-destroy-favourite-video]     | `video:destroy-favourite-video`
 [`DEL` 取消收藏视频][video-del-destroy-collected-video]     | `video:destroy-collected-video`
+
+## LoopVideo
+
+API                                                        | Action
+:--------------------------------------------------------- | :------------------------------
+[`GET` 获取循环视频列表][LoopVideo_GET_fetchLoopVideoList] | `loop-video:fetch-loop-video-list`
 
 [user-get-personal-profile]: ./api/user/get.personal-profile.md
 [user-get-fetch-user-list]: ./api/user/get.fetch-user-list.md
@@ -45,3 +51,5 @@ API                                                         | Action
 [video-del-destroy-favourite-video]: ./api/video/del.destroy-favourite-video.md
 [video-del-destroy-collected-video]: ./api/video/del.destroy-collected-video.md
 [video-get-fetch-random-video-list]: ./api/video/get.fetch-random-video-list.md
+
+[LoopVideo_GET_fetchLoopVideoList]: ./api/loop-video/GET.fetchLoopVideoList.md
