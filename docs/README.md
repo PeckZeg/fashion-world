@@ -55,6 +55,10 @@
 
 * [`GET` 获取循环视频列表][LoopVideo_GET_fetchLoopVideoList]
 
+## Contact Us
+
+* [`GET` 获取联系方式][ContactUs_GET_fetchContactUs.md]
+
 ## 模型列表
 
 * [Banner][banner-model]
@@ -100,6 +104,8 @@
 [video-get-fetch-random-video-list]: ./api/video/get.fetch-random-video-list.md
 
 [LoopVideo_GET_fetchLoopVideoList]: ./api/loop-video/GET.fetchLoopVideoList.md
+
+[ContactUs_GET_fetchContactUs]: ./api/contact-us/GET.fetchContactUs.md
 
 [channel-model]: ./models/channel.md
 [category-model]: ./models/category.md
