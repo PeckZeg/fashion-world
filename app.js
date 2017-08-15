@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/static', express.static(path.join(__dirname, '/admin-templates/static')));
 
 if (process.env.NODE_ENV == 'development') {
-  app.use(restc.express());
+  app.use('/api',restc.express());
 }
 
 // app.use('/weixin', proxy('http://59.57.240.50:8090/', {
