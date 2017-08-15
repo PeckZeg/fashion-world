@@ -2384,6 +2384,10 @@ resolve@^1.1.6:
   dependencies:
     path-parse "^1.0.5"
 
+restc@^0.2.1:
+  version "0.2.1"
+  resolved "http://registry.npm.taobao.org/restc/download/restc-0.2.1.tgz#bccb5e9b85327a2a58f728f9ac1e2ba39117e5e5"
+
 resumer@~0.0.0:
   version "0.0.0"
   resolved "http://registry.npm.taobao.org/resumer/download/resumer-0.0.0.tgz#f1e8f461e4064ba39e82af3cdc2a8c893d076759"

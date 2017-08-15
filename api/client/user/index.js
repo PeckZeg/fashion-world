@@ -1,4 +1,4 @@
-let router = module.exports = require('express').Router();
+const router = module.exports = require('express').Router();
 
 router.get('/', require('./get.fetch-user-list'));
 router.get('/personal', require('./get.personal-profile'));
@@ -18,3 +18,5 @@ router.put('/reset-password', require('./put.reset-password'));
 router.put('/personal', require('./PUT.updatePersonalProfile'));
 
 router.delete('/logout', require('./delete.logout'));
+router.delete('/personal/collected-videos', require('./DEL.destroyPersonalCollectedVideos'));
+router.delete('/personal/favourite-videos', require('./DEL.destroyPersonalFavouriteVideos'));

@@ -1,13 +1,15 @@
-const express = require('express');
-const path = require('path');
-const favicon = require('serve-favicon');
-const logger = require('morgan');
 const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const cons = require('consolidate');
-const glob = require('glob');
 const proxy = require('express-http-proxy');
+const bodyParser = require('body-parser');
+const favicon = require('serve-favicon');
+const cons = require('consolidate');
+const express = require('express');
+const logger = require('morgan');
+const restc = require('restc');
+const path = require('path');
+const glob = require('glob');
 const url = require('url');
+
 const globalMixins = require('./utils/global-mixins');
 
 var app = express();
@@ -27,6 +29,10 @@ app.use(cookieParser());
 app.use('/static', express.static('/data/static'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/static', express.static(path.join(__dirname, '/admin-templates/static')));
+
+if (process.env.NODE_ENV == 'development') {
+  app.use(restc.express());
+}
 
 // app.use('/weixin', proxy('http://59.57.240.50:8090/', {
 //   proxyReqPathResolver: req => {

@@ -8,6 +8,8 @@ module.exports = {
     'client:user:put:update-personal-profile': 'user:update-personal-profile',
     'user.get.personal-profile': 'user:personal-profile',
     'user.delete.logout': 'user:logout',
+    'client:user:destroy-personal-collected-videos': 'user:destroy-personal-collected-videos',
+    'client:user:destroy-personal-favourite-videos': 'user:destroy-personal-favourite-videos',
 
     'client:video:get:fetch-video-list': 'video:fetch-video-list',
     'client:video:get:fetch-video-profile': 'video:fetch-video-profile',
@@ -30,6 +32,7 @@ module.exports = {
     'admin:video:get:fetch-video-list': 'admin:video:fetch-video-list',
     'admin:video:get:fetch-video-profile': 'admin:video:fetch-video-profile',
     'admin:video:post:upload-video-cover': 'admin:video:upload-video-cover',
+    'admin:video:post:recover-video': 'admin:video:recover-video',
     'admin:video:post:publish-video': 'admin:video:publish-video',
     'admin:video:post:recommend-video': 'admin:video:recommend-video',
     'admin:video:put:update-video': 'admin:video:update-video',

@@ -54,3 +54,7 @@ exports.put = (ftpClient, inputpath, destFolder) => new Promise((resolve, reject
     resolve(destpath);
   });
 });
+
+exports.mkdir = (ftpClient, path, recursive = false) => new Promise((resolve, reject) => {
+  ftpClient.mkdir(path, recursive, err => !err ? resolve(path) : reject(err));
+});

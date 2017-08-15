@@ -38,7 +38,9 @@
 * [`POST` 验证重置密码验证码][user-post-validate-reset-password-code]
 * [`PUT` 重置用户密码][user-put-reset-password]
 * [`PUT` 更新当前用户信息][User_PUT_UpdatePersonalProfile]
-* [`DELETE` 用户登出][user-delete-logout]
+* [`DEL` 用户登出][user-delete-logout]
+* [`DEL` 删除登录用户点赞视频][User_DEL_DestroyPersonalFavouriteVideos]
+* [`DEL` 删除登录用户收藏视频][User_DEL_DestroyPersonalCollectedVideos]
 
 ### Video
 
@@ -89,6 +91,8 @@
 [user-put-reset-password]: ./api/user/put.reset-password.md
 [User_PUT_UpdatePersonalProfile]: ./api/user/PUT.updatePersonalProfile.md
 [user-delete-logout]: ./api/user/delete.logout.md
+[User_DEL_DestroyPersonalFavouriteVideos]: ./api/user/DEL.destroyPersonalFavouriteVideos.md
+[User_DEL_DestroyPersonalCollectedVideos]: ./api/user/DEL.destroyPersonalCollectedVideos.md
 
 [channel-get-fetch-channel-list]: ./api/channel/get.fetch-channel-list.md
 [channel-get-fetch-channel-profile]: ./api/channel/get.fetch-channel-profile.md
