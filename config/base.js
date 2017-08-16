@@ -5,6 +5,7 @@ module.exports = {
     'client:user:get:fetch-user-favourite-video-list': 'user:fetch-user-favourite-video-list',
     'client:user:get:fetch-user-collected-video-list': 'user:fetch-user-collected-video-list',
     'client:user:post:refresh-keys': 'user:refresh-keys',
+    'client:user:post:upload-personal-avatar': 'user:upload-personal-avatar',
     'client:user:put:update-personal-profile': 'user:update-personal-profile',
     'user.get.personal-profile': 'user:personal-profile',
     'user.delete.logout': 'user:logout',

@@ -13,6 +13,7 @@ router.post('/code', require('./post.create-verify-code'));
 router.post('/validate-code', require('./post.validate-code'));
 router.post('/reset-code', require('./post.create-reset-password-verify-code'));
 router.post('/validate-reset-code', require('./post.validate-reset-password-code'));
+router.post('/personal/avatar', require('./POST/uploadPersonalAvatar'));
 
 router.put('/reset-password', require('./put.reset-password'));
 router.put('/personal', require('./PUT.updatePersonalProfile'));

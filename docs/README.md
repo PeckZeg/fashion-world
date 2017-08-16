@@ -36,6 +36,7 @@
 * [`POST` 验证短信验证码][user-post-validate-code]
 * [`POST` 发送重置密码验证码][user-post-create-reset-password-verify-code]
 * [`POST` 验证重置密码验证码][user-post-validate-reset-password-code]
+* [`POST` 上传登录用户头像][User_POST_UploadPersonalAvatar]
 * [`PUT` 重置用户密码][user-put-reset-password]
 * [`PUT` 更新当前用户信息][User_PUT_UpdatePersonalProfile]
 * [`DEL` 用户登出][user-delete-logout]
@@ -88,6 +89,7 @@
 [user-post-validate-code]: ./api/user/post.validate-code.md
 [user-post-create-reset-password-verify-code]: ./api/user/post.create-reset-password-verify-code.md
 [user-post-validate-reset-password-code]: ./api/user/post.validate-reset-password-code.md
+[User_POST_UploadPersonalAvatar]: ./api/user/POST/uploadPersonalAvatar.md
 [user-put-reset-password]: ./api/user/put.reset-password.md
 [User_PUT_UpdatePersonalProfile]: ./api/user/PUT.updatePersonalProfile.md
 [user-delete-logout]: ./api/user/delete.logout.md
