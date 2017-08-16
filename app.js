@@ -3,13 +3,15 @@ const proxy = require('express-http-proxy');
 const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
 const debug = require('debug')('api');
+const colors = require('colors/safe');
 const cons = require('consolidate');
 const express = require('express');
 const logger = require('morgan');
 const restc = require('restc');
-const path = require('path');
 const glob = require('glob');
+const path = require('path');
 const url = require('url');
+
 
 const globalMixins = require('./utils/global-mixins');
 
@@ -33,24 +35,13 @@ app.use('/static', express.static(path.join(__dirname, '/admin-templates/static'
 
 if (process.env.NODE_ENV == 'development') {
   app.use('/api', (req, res, next) => {
-    const { method, originalUrl, query, body } = req;
-    debug(`${method} ${originalUrl}`);
+    const { method, query, body } = req;
+    debug(`${colors.blue(method)}`, path.join(req.baseUrl, req.path));
     debug({ query, body });
-    // debug({ method, originalUrl, query, body });
     next();
   });
   app.use('/api',restc.express());
 }
-
-// app.use('/weixin', proxy('http://59.57.240.50:8090/', {
-//   proxyReqPathResolver: req => {
-//     return `/weixin/${url.parse(req.url).path}`;
-//   },
-// }));
-//
-// app.get('/', (req, res) => {
-//   res.render('../public/index');
-// });
 
 app.get('/admin', (req, res) => {
   res.render('../admin-templates/index');

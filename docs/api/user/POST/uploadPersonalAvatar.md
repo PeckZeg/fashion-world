@@ -14,6 +14,10 @@
 
 签名动作参见 [Signature Actions][SignatureActions]
 
+## Request Form Data Field
+
+当使用 `multipart/form-data` 时，域需要指定为 `avatar`
+
 ## Response Body
 
 字段     | 类型       | 示例        | 说明
