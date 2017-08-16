@@ -16,6 +16,7 @@ router.post('/', (req, res, next) => {
       resolve({
         apiKey, secretKey, action, timestamp,
         signature: {
+          utf8: `?action=${action}&apiKey=${apiKey}&secretKey=${secretKey}&timestamp=${timestamp}`,
           hex: Buffer.from(signature, 'base64').toString('hex'),
           base64: Buffer.from(signature, 'base64').toString('base64'),
         },
