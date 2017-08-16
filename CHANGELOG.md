@@ -4,9 +4,11 @@
 
 * 自动化脚本
   - 添加视频截图作为视频封面的处理脚本
-* 客户端接口
-  - 现在拥有请求 Body 的请求默认均当做 Header 添加了 `Content-Type: application/json`
-  - 添加 `POST 上传登录用户头像` 接口
+* 接口
+  - 新增调试模式
+  - 客户端接口
+    + 现在拥有请求 Body 的请求默认均当做 Header 添加了 `Content-Type: application/json`
+    + 添加 `POST 上传登录用户头像` 接口
 
 ## `1.2.0`
 

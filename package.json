@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "forever start -c \"babel-node\" ./bin/www",
-    "dev": "nodemon ./bin/www --exec babel-node"
+    "dev": "nodemon ./bin/www --exec babel-node",
+    "debug-api": "DEBUG=api nodemon ./bin/www --exec babel-node"
   },
   "dependencies": {
     "app-root-path": "^2.0.1",

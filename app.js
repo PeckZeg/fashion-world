@@ -2,6 +2,7 @@ const cookieParser = require('cookie-parser');
 const proxy = require('express-http-proxy');
 const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
+const debug = require('debug')('api');
 const cons = require('consolidate');
 const express = require('express');
 const logger = require('morgan');
@@ -31,6 +32,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/static', express.static(path.join(__dirname, '/admin-templates/static')));
 
 if (process.env.NODE_ENV == 'development') {
+  app.use('/api', (req, res, next) => {
+    const { method, originalUrl, query, body } = req;
+    debug(`${method} ${originalUrl}`);
+    debug({ query, body });
+    // debug({ method, originalUrl, query, body });
+    next();
+  });
   app.use('/api',restc.express());
 }
 
