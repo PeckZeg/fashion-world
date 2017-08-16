@@ -9,6 +9,8 @@
   - 客户端接口
     + 现在拥有请求 Body 的请求默认均当做 Header 添加了 `Content-Type: application/json`
     + 添加 `POST 上传登录用户头像` 接口
+  - 后台接口
+    + 修正了 `GET 获取视频列表` 接口无法搜索标题的问题
 
 ## `1.2.0`
 

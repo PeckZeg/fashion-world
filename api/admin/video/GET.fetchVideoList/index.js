@@ -15,7 +15,7 @@ const QUERY_TO_COND_PARAMS = {
   isRemoved: 'removeAt'
 };
 const SORT_PROPS = ['priority', 'publishAt', 'createAt', 'removeAt'];
-const SEARCH_PROPS = ['name'];
+const SEARCH_PROPS = ['title'];
 
 module.exports = (req, res, next) => {
   authToken(ACTION, req.header('authorization'))
@@ -45,6 +45,8 @@ module.exports = (req, res, next) => {
 
       sort = setSort(query, sort, SORT_PROPS);
       cond = setSearchCond(query, cond, SEARCH_PROPS);
+
+      console.log(cond);
 
       return { cond, skip, limit, sort };
     })

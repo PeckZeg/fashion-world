@@ -6,7 +6,8 @@ const globalMixins = require('../../../utils/global-mixins');
 const handleSingleFolder = require('./handleSingleFolder');
 
 const FOLDERS = [
-  '/DEEP/1080p/2017-07-12'
+  '/DEEP/1080p/2017-07-12',
+  '/DEEP/1080p/2017-08-15'
 ];
 const HASH_FILE = 'hash_list.txt';
 
