@@ -60,7 +60,7 @@
 
 ## Contact Us
 
-* [`GET` 获取联系方式][ContactUs_GET_fetchContactUs.md]
+* [`GET` 获取联系方式][ContactUs_GET_fetchContactUs]
 
 ## 模型列表
 

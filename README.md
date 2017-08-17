@@ -25,3 +25,10 @@ mongo fwdb_dev -u fwadmin -p xmzc.123
 # 备份数据库
 mongodump -d fwdb_dev -u fwadmin -p xmzc.123 -o /tmp/fwdb
 ```
+
+## Command
+
+```bash
+# 处理封面为空的视频
+npm run handle-empty-cover-video
+```

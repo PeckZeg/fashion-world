@@ -5,7 +5,8 @@
   "scripts": {
     "start": "forever start -c \"babel-node\" ./bin/www",
     "dev": "nodemon ./bin/www --exec babel-node",
-    "debug-api": "DEBUG=api nodemon ./bin/www --exec babel-node"
+    "debug-api": "DEBUG=api nodemon ./bin/www --exec babel-node",
+    "handle-empty-cover-video": "DEBUG=data babel-node scripts/data/handleEmptyCoverVideo/index.js"
   },
   "dependencies": {
     "app-root-path": "^2.0.1",

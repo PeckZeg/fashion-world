@@ -34,6 +34,15 @@ module.exports = (req, res, next) => {
       let cond = {};
       let sort = { createAt: -1 };
 
+      _.forEach({ channelId, categoryId }, (value, key) => {
+        if (value !== void 0) {
+          cond = {
+            ...cond,
+            [key]: value
+          };
+        }
+      });
+
       _.forEach(QUERY_TO_COND_PARAMS, (transKey, key) => {
         if (query[key] !== void 0) {
           cond = {
@@ -46,7 +55,7 @@ module.exports = (req, res, next) => {
       sort = setSort(query, sort, SORT_PROPS);
       cond = setSearchCond(query, cond, SEARCH_PROPS);
 
-      console.log(cond);
+      console.log({cond});
 
       return { cond, skip, limit, sort };
     })
