@@ -14,7 +14,7 @@
 
 签名动作参见 [Signature Actions][signature-actions]
 
-## Query Params
+## Body Params
 
 字段     | 类型     | 必须     | 默认值 | 验证 | 说明
 :------- | :------- | :------: | :----- | :--- | :------------------

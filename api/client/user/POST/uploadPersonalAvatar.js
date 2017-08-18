@@ -29,7 +29,7 @@ module.exports = (req, res, next) => {
 
     // update user
     .then(({ userId, avatar }) => (
-      Video.findByIdAndUpdate(userId, { $set: { avatar } }, OPTS)
+      User.findByIdAndUpdate(userId, { $set: { avatar } }, OPTS)
     ))
 
     // transform

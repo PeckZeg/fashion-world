@@ -2,7 +2,7 @@ const fs = require('fs');
 
 const handleError = reqlib('./utils/response/handle-error');
 
-const JSON_PATHNAME = appRootPath.resolve('./data/contact-us.json');
+const JSON_PATHNAME = appRootPath.resolve(config.dataPath.contact);
 const OPTS = { encoding: 'utf8' };
 
 module.exports = (req, res, next) => {

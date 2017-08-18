@@ -52,9 +52,12 @@ module.exports = {
     'admin:category:put:update-category': 'admin:category:update-category',
     'admin:category:del:destroy-category': 'admin:category:destroy-category',
 
-    'admin:video-channel:get:fetch-list': 'admin:video-channel:fetch-list',
+    'admin:contact:get:fetch-contact-list': 'admin:contact:fetch-contact-list',
+    'admin:contact:post:update-contact': 'admin:contact:update-contact'
+  },
 
-    'admin:video-category:get:fetch-list': 'admin:video-category:fetch-list'
+  dataPath: {
+    contact: './data/contact.json'
   },
 
   // keys sha256 秘钥
