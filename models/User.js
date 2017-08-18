@@ -10,7 +10,6 @@ const DEFAULT_AVATAR = config.model.user.defaultAvatar;
 
 const TRANSFORM_TO_JSON_PROP_BLACK_LIST = [
   'mobile',
-  'avatar',
   'password'
 ];
 
