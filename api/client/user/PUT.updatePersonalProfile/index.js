@@ -28,7 +28,7 @@ module.exports = (req, res, next) => {
     })
 
     // update user
-    .then(({ userId, doc, opts }) => User.findOneAndUpdate(userId, doc, opts))
+    .then(({ userId, doc, opts }) => User.findByIdAndUpdate(userId, doc, opts))
 
     // check user exists
     .then(user => {
