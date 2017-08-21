@@ -90,6 +90,12 @@ module.exports = {
       password: 'xMzc.123'
     },
 
+    fashionOne: {
+      host: '172.16.0.12',
+      user: 'resources',
+      password: 'xmzc.123'
+    },
+
     resource: {
       host: '172.16.0.80',
       user: 'ftpadmin',

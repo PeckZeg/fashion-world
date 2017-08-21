@@ -7,7 +7,7 @@ const loadFtpVideoList = require('./loadFtpVideoList');
 const loadFtpVideoHashList = require('./loadFtpVideoHashList');
 const handleSingleVideo = require('./handleSingleVideo');
 
-module.exports = (folderpath, hashFile, connectOpts) => {
+module.exports = (folderpath, hashFile, connectOpts, opts = {}) => {
   debug(`>>> 即将同步视频文件夹 ${folderpath}`);
 
   return loadFtpVideoList(folderpath, connectOpts)
@@ -30,12 +30,16 @@ module.exports = (folderpath, hashFile, connectOpts) => {
     .then(({ ftpVideoList, ftpVideoHashList }) => {
       const videosBySha1 = _.keyBy(ftpVideoHashList, 'name');
 
-      return ftpVideoList.map(video => {
+      ftpVideoList = ftpVideoList.map(video => {
         const { sha1 } = videosBySha1[video.name] || {};
         return { ...video, sha1 };
-      })
-      // .filter(video => video.name.includes('DEEP14'));
-      // .filter(video => video.name.includes('短片2017-FashionShow-TheBattleoflifebyTelaviver.mp4'))
+      });
+
+      if (opts.sha1) {
+        ftpVideoList = ftpVideoList.filter(video => video.sha1);
+      }
+
+      return ftpVideoList;
     })
 
     // handle each ftp video
