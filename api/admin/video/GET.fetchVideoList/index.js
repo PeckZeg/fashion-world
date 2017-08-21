@@ -55,8 +55,6 @@ module.exports = (req, res, next) => {
       sort = setSort(query, sort, SORT_PROPS);
       cond = setSearchCond(query, cond, SEARCH_PROPS);
 
-      console.log({cond});
-
       return { cond, skip, limit, sort };
     })
 

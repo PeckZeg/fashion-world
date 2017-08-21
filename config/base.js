@@ -53,7 +53,13 @@ module.exports = {
     'admin:category:del:destroy-category': 'admin:category:destroy-category',
 
     'admin:contact:get:fetch-contact-list': 'admin:contact:fetch-contact-list',
-    'admin:contact:post:update-contact': 'admin:contact:update-contact'
+    'admin:contact:post:update-contact': 'admin:contact:update-contact',
+
+    'admin:banner:get:fetch-banner-list': 'admin:banner:fetch-banner-list',
+    'admin:banner:post:publish-banner': 'admin:banner:publish-banner',
+    'admin:banner:put:update-banner': 'admin:banner:update-banner',
+    'admin:banner:del:block-banner': 'admin:banner:block-banner',
+    'admin:banner:del:destroy-banner': 'admin:banner:destroy-banner'
   },
 
   dataPath: {
