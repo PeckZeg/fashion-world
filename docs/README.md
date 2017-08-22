@@ -75,6 +75,7 @@
 ## 引用
 
 * [How to Install FFmpeg on CentOS](https://www.vultr.com/docs/how-to-install-ffmpeg-on-centos)
+* [FFmpeg Compilation Guide](https://trac.ffmpeg.org/wiki/CompilationGuide)
 
 [BannerGetFetchBannerList]: ./api/banner/GET.fetchBannerList.md
 

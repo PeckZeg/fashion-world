@@ -42,7 +42,7 @@ module.exports = (filepath, definition = '360p', destFolder = TMP_FOLDER) => new
   const { videoBitrate, size } = genArgs(definition);
 
   ffmpeg(filepath)
-    .audioCodec('libmp3lame')
+    .audioCodec('libfdk_aac')
     .videoCodec('libx264')
     .videoBitrate(videoBitrate)
     .size(size).autopad()
@@ -59,24 +59,30 @@ module.exports = (filepath, definition = '360p', destFolder = TMP_FOLDER) => new
     fileUtils.genSha1(filepath).then(sha1 => ({ filepath, sha1 }))
   ))
 
+  // generate size
+  .then(({ filepath, sha1 }) => (
+    fileUtils.size(filepath).then(size => ({ filepath, sha1, size }))
+  ))
+
   // rename file
-  .then(({ filepath, sha1 }) => {
+  .then(({ filepath, sha1, size }) => {
     const extname = path.extname(filepath);
     const filename = `${sha1}${extname}`;
     const destpath = path.join(destFolder, filename);
 
     return fileUtils.rename(filepath, destpath).then(filepath => ({
-      filepath, filename, sha1
+      filepath, filename, sha1, size
     }));
   })
 
   // generate metadata
-  .then(({ filepath, filename, sha1 }) => (
+  .then(({ filepath, filename, sha1, size }) => (
     genVideoMetadata(filepath).then(metadata => ({
       filepath,
       filename,
       definition,
       sha1,
+      size,
       metadata
     }))
   ));

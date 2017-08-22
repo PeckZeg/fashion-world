@@ -42,7 +42,7 @@ module.exports = (filepath, definition = '360p', destFolder = TMP_FOLDER) => new
   const { videoBitrate, size } = genArgs(definition);
 
   ffmpeg(filepath)
-    .audioCodec('libmp3lame')
+    .audioCodec('libfaac')
     .videoCodec('libx264')
     .videoBitrate(videoBitrate)
     .size(size).autopad()

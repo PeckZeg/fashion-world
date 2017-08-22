@@ -1,4 +1,4 @@
-const FtpClient = require('ftp');
+const FtpClient = require('../../ftp/lib/connection');
 const path = require('path');
 const fs = require('fs');
 
@@ -53,6 +53,12 @@ exports.put = (ftpClient, inputpath, destFolder) => new Promise((resolve, reject
     if (err) return reject(err);
     resolve(destpath);
   });
+});
+
+exports.delete = (ftpClient, filepath) => new Promise((resolve, reject) => {
+  ftpClient.delete(filepath, err => {
+    !err ? resolve(ftpClient) : reject(err);
+  })
 });
 
 exports.mkdir = (ftpClient, path, recursive = false) => new Promise((resolve, reject) => {

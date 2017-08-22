@@ -18,6 +18,12 @@ exports.genSha1 = filepath => new Promise((resolve, reject) => {
   stream.on('error', reject);
 });
 
+exports.size = filepath => new Promise((resolve, reject) => {
+  fs.stat(filepath, (err, stats) => {
+    !err ? resolve(stats.size) : reject(err);
+  });
+});
+
 exports.rename = exports.move = (src, dest) => new Promise((resolve, reject) => {
   mkdirp(path.dirname(dest), err => {
     if (err) return reject(err);

@@ -1,4 +1,4 @@
-const FtpClient = require('ftp');
+const FtpClient = require('../../ftp/lib/connection');
 const path = require('path');
 const fs = require('fs');
 

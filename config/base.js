@@ -57,6 +57,7 @@ module.exports = {
 
     'admin:banner:get:fetch-banner-list': 'admin:banner:fetch-banner-list',
     'admin:banner:post:publish-banner': 'admin:banner:publish-banner',
+    'admin:banner:post:recover-banner': 'admin:banner:recover-banner',
     'admin:banner:put:update-banner': 'admin:banner:update-banner',
     'admin:banner:del:block-banner': 'admin:banner:block-banner',
     'admin:banner:del:destroy-banner': 'admin:banner:destroy-banner'

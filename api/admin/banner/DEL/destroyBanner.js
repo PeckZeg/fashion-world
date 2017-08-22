@@ -4,7 +4,7 @@ const authToken = reqlib('./utils/keys/account/auth-token');
 
 const Banner = reqlib('./models/Banner');
 
-const ACTION = config.apiActions['admin:banner:del:destroy-banner'];
+const ACTION = config.apiActions['admin:banner:del:recover-banner'];
 const OPTS = { new: true };
 
 module.exports = (req, res, next) => {

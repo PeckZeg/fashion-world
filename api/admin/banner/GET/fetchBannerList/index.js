@@ -6,6 +6,7 @@ const setSort = reqlib('./utils/api-model/sort');
 const setSearchCond = reqlib('./utils/api-model/search-cond');
 const setProps = reqlib('./utils/api-model/setProps');
 const setTransProps = reqlib('./utils/api-model/setTransProps');
+const injectProps = reqlib('./utils/model-injector/banner');
 
 const Banner = reqlib('./models/Banner');
 
@@ -37,7 +38,7 @@ module.exports = (req, res, next) => {
       cond = setProps(cond, { channelId });
       cond = setTransProps(cond, query, QUERY_TO_COND_PARAMS);
       cond = setSearchCond(query, cond, SEARCH_PROPS);
-      
+
       sort = setSort(query, sort, SORT_PROPS);
 
       return { cond, skip, limit, sort };
@@ -46,7 +47,7 @@ module.exports = (req, res, next) => {
     // query banner docs
     .then(({ cond, skip, limit, sort }) => (
       Banner.find(cond).skip(skip).limit(limit).sort(sort)
-        .then(banners => banners.map(banner => banner.toObject()))
+        .then(banners => injectProps(banners, 'toObject'))
         .then(banners => ({ cond, banners }))
     ))
 

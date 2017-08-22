@@ -44,7 +44,12 @@ const schema = new Schema({
 
   toObject: {
     virtuals: true,
-    transform
+    transform(doc, ret, options) {
+      ret = transform(doc, ret, options);
+      ret = transformRet(ret);
+
+      return ret;
+    }
   }
 });
 
