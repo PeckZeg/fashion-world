@@ -6,15 +6,15 @@ const handleEachConnect = require('./handleEachConnect');
 
 const opts = { sha1: true };
 const CONNECTIONS = [
-  {
-    id: 'Deep',
-    connect: config.ftpServer.fashionWorld,
-    folders: [
-      '/DEEP/1080p/2017-07-12',
-      '/DEEP/1080p/2017-08-15'
-    ],
-    opts
-  },
+  // {
+  //   id: 'Deep',
+  //   connect: config.ftpServer.fashionWorld,
+  //   folders: [
+  //     '/DEEP/1080p/2017-07-12',
+  //     '/DEEP/1080p/2017-08-15'
+  //   ],
+  //   opts
+  // },
   // {
   //   id: 'WLC',
   //   connect: config.ftpServer.fashionWorld,
