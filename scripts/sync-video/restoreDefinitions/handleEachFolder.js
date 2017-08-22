@@ -22,7 +22,7 @@ module.exports = (folderpath, hashFile, connectOpts, opts = {}) => {
       const videos = ftpVideoList.map(video => {
         const { sha1 } = videosBySha1[video.name] || {};
         return { ...video, sha1 };
-      }).sort((a, b) => a.size - b.size).slice(0, 1)
+      }).sort((a, b) => a.size - b.size);
 
       if (opts.sha1) {
         return videos.filter(video => video.sha1);
