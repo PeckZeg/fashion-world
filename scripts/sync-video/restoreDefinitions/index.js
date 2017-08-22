@@ -23,15 +23,15 @@ const CONNECTIONS = [
   //   ],
   //   opts
   // },
-  // {
-  //   id: 'Fashion TV',
-  //   connect: config.ftpServer.fashiontv,
-  //   folders: [
-  //     '/FTV',
-  //     '/FTV/FASHIONWORLD-APP视频筛选002'
-  //   ],
-  //   opts
-  // },
+  {
+    id: 'Fashion TV',
+    connect: config.ftpServer.fashiontv,
+    folders: [
+      '/FTV',
+      '/FTV/FASHIONWORLD-APP视频筛选002'
+    ],
+    opts
+  },
 ];
 const HASH_FILE = 'hash_list.txt';
 
