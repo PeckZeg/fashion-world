@@ -1,3 +1,4 @@
+const injectCategories = require('./injectCategories');
 const injectChannels = require('./injectChannels');
 
 module.exports = (banners, handler = 'toJSON') => {
@@ -15,6 +16,9 @@ module.exports = (banners, handler = 'toJSON') => {
 
     // inject channels
     .then(injectChannels)
+
+    // inject categories
+    .then(injectCategories)
 
     // check is fetch one from args
     .then(banners => isOutputArray ? banners : banners[0]);

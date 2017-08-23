@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
 
     // gen query & sort options
     .then(queryParams => {
-      const { offset, limit, type, channelId } = queryParams;
+      const { offset, limit, type, channelId, categoryId } = queryParams;
       const query = {
         publishAt: { $ne: null, $lte: new Date() },
         removeAt: null
@@ -20,7 +20,7 @@ module.exports = (req, res, next) => {
       const skip = offset * limit;
       const sort = { priority: -1, publishAt: -1, createAt: -1 };
 
-      _.forEach({ type, channelId }, (value, key) => {
+      _.forEach({ type, channelId, categoryId }, (value, key) => {
         if (value !== void 0) {
           Object.assign(query, { [key]: value });
         }

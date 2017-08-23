@@ -14,10 +14,12 @@
 
 ## 以下额外的属性/模型在接口中将会被注入模型中
 
-键        | 类型     | 示例      | 说明
-:-------- | :------- | :-------- | :------------------------
-`channel` | `Object` | `{ ... }` | [频道][ChannelModel] 模型
+键         | 类型     | 示例      | 说明
+:--------- | :------- | :-------- | :------------------------
+`channel`  | `Object` | `{ ... }` | [频道][ChannelModel] 模型
+`category` | `Object` | `{ ... }` | [分类][CategoryModel] 模型
 
 
 
 [ChannelModel]: ./channel.md
+[CategoryModel]: ./category.md

@@ -22,6 +22,7 @@ const TRANSFORM_TO_JSON_PROP_BLACK_LIST = [
 
 const schema = new Schema({
   channelId: { type: ObjectId, required: true },
+  categoryId: { type: ObjectId, default: null },
   title: { type: String, required: true, minlength: 2, maxlength: 64, default: '' },
   type: { type: String, required: true, minlength: 2, maxlength: 64, default: 'url' },
   value: { type: Mixed, required: true, default: '' },
