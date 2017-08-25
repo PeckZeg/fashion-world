@@ -22,7 +22,7 @@ API                                                                          | A
 
 API                                                         | Action
 :---------------------------------------------------------- | :------------------------------
-[`GET` 获取频道列表][video-get-fetch-video-list]            | `video:fetch-video-list`
+[`GET` 获取视频列表][video-get-fetch-video-list]            | `video:fetch-video-list`
 [`GET` 获取视频详情][video-get-fetch-video-profile]         | `video:fetch-video-profile`
 [`GET` 获取随机视频列表][video-get-fetch-random-video-list] | `video:fetch-random-video-list`
 [`GET` 搜索视频][video-get-search-video]                    | `video:search-video`
