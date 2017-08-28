@@ -2,8 +2,23 @@
 const Video = reqlib('./models/Video');
 const SourceVideo = reqlib('./models/SourceVideo');
 
+const genRegexp = name => {
+  const r = [name];
+  const codes = ['－', '-', '－'];
+
+  for (let i = 0; i < codes.length; i++) {
+    for (let j = 0; j < codes.length; j++) {
+      if (i !== j) {
+        r.push(name.replace(codes[i], codes[j]));
+      }
+    }
+  }
+
+  return new RegExp(r.join('|'), 'i');
+};
+
 module.exports = metadata => SourceVideo.findOne({
-  filename: new RegExp(`${metadata.filename}|${metadata.filename.replace('－', '-')}|${metadata.filename.replace('-', '－')}`, 'i')
+  filename: genRegexp(metadata.filename)
 })
 
   .then(source => {
