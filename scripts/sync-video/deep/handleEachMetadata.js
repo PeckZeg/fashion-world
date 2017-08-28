@@ -4,7 +4,7 @@ const SourceVideo = reqlib('./models/SourceVideo');
 
 const genRegexp = name => {
   const r = [name];
-  const codes = ['－', '-', '－'];
+  const codes = ['－', '-', '－', '—'];
 
   for (let i = 0; i < codes.length; i++) {
     for (let j = 0; j < codes.length; j++) {
