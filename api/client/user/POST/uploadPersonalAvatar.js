@@ -13,7 +13,7 @@ const { basePathname: RESOURCE_BASEPATHNAME } = config.ftpToHttp.resource;
 const OPTS = { new: true };
 
 module.exports = (req, res, next) => {
-  authToken(ACTION, req.header('authorization'))
+  authToken(ACTION, req.header('authorization'), true)
 
     // upload cover
     .then(({ userId }) => (
