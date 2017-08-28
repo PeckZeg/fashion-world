@@ -3,7 +3,7 @@ const Video = reqlib('./models/Video');
 const SourceVideo = reqlib('./models/SourceVideo');
 
 module.exports = metadata => SourceVideo.findOne({
-  filename: new RegExp(metadata.filename, 'i')
+  filename: new RegExp(`${metadata.filename}|${metadata.filename.replace('－', '-')}|${metadata.filename.replace('-', '－')}`, 'i')
 })
 
   .then(source => {
