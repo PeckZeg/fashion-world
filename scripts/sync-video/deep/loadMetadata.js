@@ -43,7 +43,7 @@ new Promise((resolve, reject) => {
         ] = row;
 
         return {
-          tags: (Array.isArray(tags) ? tags: [tags]).map(tag => tag.trim()),
+          tags: (Array.isArray(tags) ? tags: tags.split(/\s+/)).map(tag => tag.trim()),
           ..._.mapValues({
             filename,
             title,
