@@ -6,6 +6,8 @@
   - 客户端接口
     + 修正了上传头像接口未正确传入 `authorization` 信息导致的 `500` 问题
   - 后台接口
+    + 横幅 - 获取横幅列表
+      * 新增查询参数 `categoryId`
     + 横幅 - 修改横幅
       * 现在能够修改 `categoryId` 了
       * 现在会返回 `channel`, `category` 信息

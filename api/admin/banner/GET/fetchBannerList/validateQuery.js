@@ -13,6 +13,7 @@ const schema = new Schema({
   offset: { type: Number, min: 0, default: 0 },
   limit: { type: Number, min: 0, default: 20 },
   channelId: ObjectId,
+  categoryId: ObjectId,
   type: String,
   isPublished: Boolean,
   isRemoved: Boolean,
