@@ -8,6 +8,7 @@
   - 后台接口
     + 横幅 - 获取横幅列表
       * 新增查询参数 `categoryId`
+      * 修正了查询参数 `type` 无效的问题
     + 横幅 - 修改横幅
       * 现在能够修改 `categoryId` 了
       * 现在会返回 `channel`, `category` 信息

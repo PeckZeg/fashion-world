@@ -30,12 +30,12 @@ module.exports = (req, res, next) => {
     // generate query params
     .then(query => {
       const { offset, limit } = query;
-      const { channelId, categoryId } = query;
+      const { type, channelId, categoryId } = query;
       const skip = offset * limit;
       let cond = {};
       let sort = { createAt: -1 };
 
-      cond = setProps(cond, { channelId, categoryId });
+      cond = setProps(cond, { type, channelId, categoryId });
       cond = setTransProps(cond, query, QUERY_TO_COND_PARAMS);
       cond = setSearchCond(query, cond, SEARCH_PROPS);
 
