@@ -1,6 +1,7 @@
 const validateObjectId = reqlib('./utils/validate-objectid');
 const handleError = reqlib('./utils/response/handle-error');
 const authToken = reqlib('./utils/keys/account/auth-token');
+const injectProps = reqlib('./utils/model-injector/banner');
 const validateBody = require('./validateBody');
 
 const Banner = reqlib('./models/Banner');
@@ -25,13 +26,12 @@ module.exports = (req, res, next) => {
     ))
 
     // ensure banner exists
-    .then(banner => {
-      if (!banner) {
-        return Promise.reject(new ResponseError(404, 'banner not found'));
-      }
+    .then(banner => (
+      banner ? banner : Promise.reject(new ResponseError(404, 'banner not found'))
+    ))
 
-      return banner.toObject();
-    })
+    // inject props
+    .then(banner => injectProps(banner, 'toObject'))
 
     .then(banner => res.send({ banner }))
     .catch(err => handleError(res, err));

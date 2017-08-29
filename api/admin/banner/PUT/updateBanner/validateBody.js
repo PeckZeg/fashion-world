@@ -6,6 +6,7 @@ const { ObjectId, Mixed } = Schema.Types;
 
 const schema = new Schema({
   channelId: ObjectId,
+  categoryId: ObjectId,
   title: { type: String, minlength: 2, maxlength: 64 },
   type: { type: String, minlength: 2, maxlength: 64 },
   value: Mixed,
