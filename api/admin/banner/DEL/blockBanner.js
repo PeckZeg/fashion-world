@@ -1,6 +1,7 @@
 const validateObjectId = reqlib('./utils/validate-objectid');
 const handleError = reqlib('./utils/response/handle-error');
 const authToken = reqlib('./utils/keys/account/auth-token');
+const injectProps = reqlib('./utils/model-injector/banner');
 
 const Banner = reqlib('./models/Banner');
 
@@ -35,8 +36,8 @@ module.exports = (req, res, next) => {
       return Banner.findByIdAndUpdate(banner._id, doc, OPTS);
     })
 
-    // transform banner
-    .then(banner => banner.toObject())
+    // inject props
+    .then(banner => injectProps(banner, 'toObject'))
 
     .then(banner => res.send({ banner }))
     .catch(err => handleError(res, err));
