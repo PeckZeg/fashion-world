@@ -27,11 +27,12 @@ const schema = new Schema({
   priority: { type: Number, default: 0 },
   publishAt: { type: Date, default: null },
   createAt: { type: Date, default: Date.now },
+  removeAt: { type: Date, default: null }
 }, {
   toJSON: {
     virtuals: true,
-    transform(doc, ret, options) {
-      ret = transform(doc, ret, options);
+    transform(doc, ret, opts) {
+      ret = transform(doc, ret, opts);
       ret = unsetProps(ret, TRANSFORM_TO_JSON_PROP_BLACK_LIST);
       ret = transformRet(ret);
 
@@ -39,7 +40,15 @@ const schema = new Schema({
     }
   },
 
-  toObject: { virtuals: true, transform }
+  toObject: {
+    virtuals: true,
+    transform(doc, ret, opts) {
+      ret = transform(doc, ret, opts);
+      ret = transformRet(ret);
+
+      return ret;
+    }
+  }
 });
 
 module.exports = connection.model('LoopVideo', schema);

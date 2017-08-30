@@ -56,12 +56,23 @@ module.exports = {
     'admin:contact:post:update-contact': 'admin:contact:update-contact',
 
     'admin:banner:get:fetch-banner-list': 'admin:banner:fetch-banner-list',
+    'admin:banner:post:create-banner': 'admin:banner:create-banner',
     'admin:banner:post:upload-banner-cover': 'admin:banner:upload-banner-cover',
     'admin:banner:post:publish-banner': 'admin:banner:publish-banner',
     'admin:banner:post:recover-banner': 'admin:banner:recover-banner',
     'admin:banner:put:update-banner': 'admin:banner:update-banner',
     'admin:banner:del:block-banner': 'admin:banner:block-banner',
-    'admin:banner:del:destroy-banner': 'admin:banner:destroy-banner'
+    'admin:banner:del:destroy-banner': 'admin:banner:destroy-banner',
+
+    'admin:loop-video:get:fetch-loop-video-list': 'admin:loop-video:fetch-loop-video-list',
+    'admin:loop-video:get:fetch-loop-video-profile': 'admin:loop-video:fetch-loop-video-profile',
+    'admin:loop-video:post:create-loop-video': 'admin:loop-video:create-loop-video',
+    'admin:loop-video:post:upload-loop-video-cover': 'admin:loop-video:upload-loop-video-cover',
+    'admin:loop-video:post:publish-loop-video': 'admin:loop-video:publish-loop-video',
+    'admin:loop-video:post:recover-loop-video': 'admin:loop-video:recover-loop-video',
+    'admin:loop-video:put:update-loop-video': 'admin:loop-video:update-loop-video',
+    'admin:loop-video:del:block-loop-video': 'admin:loop-video:block-loop-video',
+    'admin:loop-video:del:destroy-loop-video': 'admin:loop-video:destroy-loop-video'
   },
 
   dataPath: {
