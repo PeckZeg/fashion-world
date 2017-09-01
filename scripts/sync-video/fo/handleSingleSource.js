@@ -46,3 +46,6 @@ module.exports = source => Promise.resolve({
 
     return { query, doc, opts };
   })
+
+  // update model
+  .then(({ query, doc, opts }) => Video.findOneAndUpdate(query, doc, opts));
