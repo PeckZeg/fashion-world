@@ -16,4 +16,14 @@ new Promise((resolve, reject) => {
       .then(result => cb(null, result))
       .catch(cb);
   }, (err, results) => !err ? resolve(results) : reject(err));
-});
+})
+
+  .then(results => {
+    debug(`所有文件夹处理完毕，共计 ${results.length} 个文件夹`);
+    process.exit(0);
+  })
+
+  .catch(err => {
+    console.error(err);
+    process.exit(1);
+  });
