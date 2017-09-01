@@ -1,11 +1,12 @@
 {
   "name": "caa-mes-mock-server",
-  "version": "1.2.2",
+  "version": "1.2.4",
   "private": true,
   "scripts": {
     "start": "forever start -c \"babel-node\" ./bin/www",
     "dev": "DEBUG=api nodemon ./bin/www --exec babel-node",
-    "handle-empty-cover-video": "DEBUG=data babel-node scripts/data/handleEmptyCoverVideo/index.js"
+    "handle-empty-cover-video": "DEBUG=data babel-node scripts/data/handleEmptyCoverVideo/index.js",
+    "remove-empty-loop-video": "DEBUG=data babel-node scripts/data/removeEmptyLoopVideo.js"
   },
   "dependencies": {
     "app-root-path": "^2.0.1",
