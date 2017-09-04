@@ -11,6 +11,10 @@ module.exports = (query, data, strict = false) => {
             query[key] = value === 'true';
           }
 
+          else if (_.includes(['0', '1'], value)) {
+            query[key] = Boolean(Number(value));
+          }
+
           else {
             delete query[key];
           }
