@@ -4,7 +4,7 @@ router.get('/', require('./GET/fetchAccountList'));
 router.get('/:accountId', require('./GET/fetchAccountProfile'));
 
 router.post('/', require('./POST/createAccount'));
-router.post('/login', require('./post.login'));
+router.post('/login', require('./POST/loginAccount'));
 
 router.put('/:accountId', require('./put.update-account'));
 
