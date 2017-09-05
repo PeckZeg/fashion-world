@@ -1,35 +1,33 @@
-const validateObjectId = reqlib('./utils/validate-objectid');
 const handleResult = reqlib('./utils/response/handleResult');
 const handleError = reqlib('./utils/response/handle-error');
 const authToken = reqlib('./utils/keys/account/auth-token');
 const createLog = reqlib('./utils/createAccountLog');
+const validateBody = require('./validateBody');
 
 const Account = reqlib('./models/Account');
-const ACTION = 'admin:account:get:fetch-account-profile';
 
-module.exports = (req, res, next) => {
+const ACTION = 'admin:account:post:create-account';
+
+module.exports = (req, res) => {
   const log = createLog(req, ACTION);
   const reqAt = +new Date();
 
   authToken(config.apiActions[ACTION], req.header('authorization'))
-  
+
     // add `accountId` to log
     .then(token => log.setAccountId(token))
 
-    // validate `accountId`
-    .then(token => validateObjectId(req.params.accountId))
+    // validate body params
+    .then(token => validateParams(req.body))
 
-    // query account doc
-    .then(accountId => Account.findById(accountId))
+    // generate account doc
+    .then(body => new Account(body))
 
-    // ensure account exists
-    .then(account => {
-      if (!account) {
-        return Promise.reject(new ResponseError(404, 'account not found'));
-      }
+    // save doc
+    .then(account => account.save())
 
-      return account.toObject();
-    })
+    // to object
+    .then(account => account.toObject())
 
     .then(account => handleResult(res, { account }, log, reqAt))
     .catch(err => handleError(res, err));

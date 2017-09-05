@@ -3,7 +3,7 @@ const router = module.exports = require('express').Router();
 router.get('/', require('./GET/fetchAccountList'));
 router.get('/:accountId', require('./GET/fetchAccountProfile'));
 
-router.post('/', require('./post.create-account'));
+router.post('/', require('./POST/createAccount'));
 router.post('/login', require('./post.login'));
 
 router.put('/:accountId', require('./put.update-account'));

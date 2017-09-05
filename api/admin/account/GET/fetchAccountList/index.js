@@ -1,3 +1,4 @@
+const handleResult = reqlib('./utils/response/handleResult');
 const handleError = reqlib('./utils/response/handle-error');
 const authToken = reqlib('./utils/keys/account/auth-token');
 const transformQuery = require('./transformQuery');
@@ -5,18 +6,21 @@ const validateQuery = require('./validateQuery');
 const setSort = reqlib('./utils/api-model/sort');
 const setSearchCond = reqlib('./utils/api-model/search-cond');
 const setTransProps = reqlib('./utils/api-model/setTransProps');
+const createLog = reqlib('./utils/createAccountLog');
 
 const Account = reqlib('./models/Account');
 
-const ACTION = config.apiActions['admin:account:get:fetch-account-list'];
+const ACTION = 'admin:account:get:fetch-account-list';
 const { SEARCH_PROPS, SORT_PROPS, COND_PROPS } = require('./config');
 
 module.exports = (req, res) => {
-  // const { method, baseUrl } = req;
-  //
-  // console.log(req.route.path);
+  const log = createLog(req, ACTION);
+  const reqAt = +new Date();
 
-  authToken(ACTION, req.header('authorization'))
+  authToken(config.apiActions[ACTION], req.header('authorization'))
+
+    // add `accountId` to log
+    .then(token => log.setAccountId(token))
 
     // transform query
     .then(token => transformQuery(req.query))
@@ -51,6 +55,6 @@ module.exports = (req, res) => {
       Account.count(cond).then(total => ({ total, accounts }))
     ))
 
-    .then(result => res.send(result))
+    .then(result => handleResult(res, result, log, reqAt))
     .catch(err => handleError(res, err));
 };

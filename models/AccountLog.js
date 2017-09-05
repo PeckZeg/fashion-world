@@ -1,20 +1,45 @@
 const mongoose = require('mongoose');
 
 const connection = require('../utils/mongodb-connection');
+const transform = reqlib('./utils/schema/transform');
 
-const { Schema, Types } = mongoose;
-const { Mixed, ObjectId } = Types;
+const { Schema } = mongoose;
+const { Mixed, ObjectId } = Schema.Types;
 
 const schema = new Schema({
-  accountId: ObjectId,
-  method: String,
-  action: String,
-  path: String,
-  pathPattern: String,
-  params: Mixed,
-  query: Mixed,
-  body: Mixed,
-  res: Mixed
+  accountId: { type: ObjectId, default: null },
+  action: { type: String, default: null },
+  method: { type: String, default: null },
+  path: { type: String, default: null },
+  route: { type: String, default: null },
+  params: { type: Mixed, default: {} },
+  query: { type: Mixed, default: {} },
+  body: { type: Mixed, default: {} },
+  response: { type: Mixed, default: {} },
+  createAt: { type: Date, default: new Date() },
+  duration: Number
+}, {
+  toJSON: {
+    virtuals: true,
+    minimize: false,
+    transform
+  },
+
+  toObject: {
+    virtuals: true,
+    minimize: false,
+    transform
+  }
 });
+
+schema.methods.setAccountId = function(token) {
+  this.set('accountId', (token || {}).accountId);
+  return token;
+};
+
+schema.methods.setRes = function(res) {
+  this.set('res', res);
+  return this;
+};
 
 module.exports = connection.model('AccountLog', schema);
