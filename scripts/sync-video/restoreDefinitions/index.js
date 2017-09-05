@@ -7,22 +7,29 @@ const handleEachConnect = require('./handleEachConnect');
 const opts = { sha1: true };
 const CONNECTIONS = [
   {
-    id: 'Deep',
+    id: 'Fashion One',
     connect: config.ftpServer.fashionWorld,
     folders: [
-      '/DEEP/1080p/2017-07-12',
-      '/DEEP/1080p/2017-08-15'
-    ],
-    opts
+      '/FashionOne/文件编号001/2016年10月24日收到Fashionone'
+    ]
   },
-  {
-    id: 'WLC',
-    connect: config.ftpServer.fashionWorld,
-    folders: [
-      '/WLC/WineLife_Channel_1080P/2017_07_17'
-    ],
-    opts
-  },
+  // {
+  //   id: 'Deep',
+  //   connect: config.ftpServer.fashionWorld,
+  //   folders: [
+  //     '/DEEP/1080p/2017-07-12',
+  //     '/DEEP/1080p/2017-08-15'
+  //   ],
+  //   opts
+  // },
+  // {
+  //   id: 'WLC',
+  //   connect: config.ftpServer.fashionWorld,
+  //   folders: [
+  //     '/WLC/WineLife_Channel_1080P/2017_07_17'
+  //   ],
+  //   opts
+  // },
   // {
   //   id: 'Fashion TV',
   //   connect: config.ftpServer.fashiontv,

@@ -6,22 +6,17 @@ const genSearchParams = reqlib('./utils/validate-models/search-params');
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-const SORT_PARAMS = ['priority', 'publishAt', 'recommendAt', 'createAt', 'removeAt'];
-const SEARCH_PROPS = ['title'];
+const { SEARCH_PROPS, SORT_PROPS, TRANS_PROPS } = require('./config');
 
 const schema = new Schema({
   offset: { type: Number, min: 0, default: 0 },
   limit: { type: Number, min: 0, default: 20 },
-  videoId: ObjectId,
-  channelId: ObjectId,
-  categoryId: ObjectId,
-  isPublished: Boolean,
-  isRecommended: Boolean,
+  isActive: Boolean,
   isRemoved: Boolean,
-  ...genSortParams(SORT_PARAMS),
+  ...genSortParams(SORT_PROPS),
   ...genSearchParams(SEARCH_PROPS)
 }, { _id: false });
 
 module.exports = validate(
-  mongoose.model('AdminFetchVideoListQueryParams', schema)
+  mongoose.model('AdminFetchAccountListQueryParams', schema)
 );

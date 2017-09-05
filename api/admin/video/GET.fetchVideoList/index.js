@@ -29,12 +29,12 @@ module.exports = (req, res, next) => {
     // generate query params
     .then(query => {
       const { offset, limit } = query;
-      const { channelId, categoryId } = query;
+      const { channelId, categoryId, videoId: _id } = query;
       const skip = offset * limit;
       let cond = {};
       let sort = { createAt: -1 };
 
-      _.forEach({ channelId, categoryId }, (value, key) => {
+      _.forEach({ _id, channelId, categoryId }, (value, key) => {
         if (value !== void 0) {
           cond = {
             ...cond,
