@@ -11,7 +11,8 @@ const CONNECTIONS = [
     connect: config.ftpServer.fashionOne,
     folders: [
       '/FashionOne/文件编号001/2016年10月24日收到Fashionone'
-    ]
+    ],
+    opts
   },
   // {
   //   id: 'Deep',
