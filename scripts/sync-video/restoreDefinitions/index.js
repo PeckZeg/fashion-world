@@ -8,7 +8,7 @@ const opts = { sha1: true };
 const CONNECTIONS = [
   {
     id: 'Fashion One',
-    connect: config.ftpServer.fashionWorld,
+    connect: config.ftpServer.fashionOne,
     folders: [
       '/FashionOne/文件编号001/2016年10月24日收到Fashionone'
     ]
