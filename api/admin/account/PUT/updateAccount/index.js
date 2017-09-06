@@ -7,7 +7,7 @@ const validateBody = require('./validateBody');
 
 const Account = reqlib('./models/Account');
 
-const ACTION = 'admin:account:put:update-account';
+const ACTION = 'ADMIN_ACCOUNT_PUT_UPDATE_ACCOUNT';
 
 module.exports = (req, res, next) => {
   const log = createLog(req, ACTION);

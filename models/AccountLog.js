@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const connection = require('../utils/mongodb-connection');
+const connection = reqlib('./utils/mongodb-connection');
 const transform = reqlib('./utils/schema/transform');
 
 const { Schema } = mongoose;

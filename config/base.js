@@ -1,6 +1,11 @@
 const apiActions = require('./apiActions');
+const patterns = require('./patterns');
 
 module.exports = {
+
+  // 各种正则表达式
+  patterns,
+
   apiActions: {
     'client:user:get:fetch-user-list': 'user:fetch-user-list',
     'client:user:get:fetch-user-profile': 'user:fetch-user-profile',
