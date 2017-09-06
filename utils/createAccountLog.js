@@ -3,7 +3,7 @@ const path = require('path');
 const AccountLog = reqlib('./models/AccountLog');
 
 module.exports = (req, ACTION) => new AccountLog({
-  action: ACTION,
+  action: _.snakeCase(ACTION).toUpperCase(),
   method: req.method,
   params: req.params,
   query: req.query,

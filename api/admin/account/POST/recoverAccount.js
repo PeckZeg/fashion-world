@@ -6,7 +6,7 @@ const createLog = reqlib('./utils/createAccountLog');
 
 const Account = reqlib('./models/Account');
 
-const ACTION = 'admin:account:post:active-account';
+const ACTION = 'admin:account:post:recover-account';
 const OPTS = { new: true };
 
 module.exports = (req, res, next) => {
@@ -22,7 +22,7 @@ module.exports = (req, res, next) => {
     .then(token => validateObjectId(req.params.accountId))
 
     // query account doc
-    .then(accountId => Account.findById(accountId, 'activeAt'))
+    .then(accountId => Account.findById(accountId, 'removeAt'))
 
     // ensure account exists
     .then(account => {
@@ -30,13 +30,12 @@ module.exports = (req, res, next) => {
         return Promise.reject(new ResponseError(404, 'account not found'));
       }
 
-      if (account.activeAt) {
-        return Promise.reject(new ResponseError(403, 'account has been actived'));
+      if (!account.removeAt) {
+        return Promise.reject(new ResponseError(403, 'account has been recovered'));
       }
 
       const doc = {
         $set: {
-          activeAt: new Date(),
           removeAt: null
         }
       };
