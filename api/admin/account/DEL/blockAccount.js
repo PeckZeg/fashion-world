@@ -6,7 +6,7 @@ const createLog = reqlib('./utils/createAccountLog');
 
 const Account = reqlib('./models/Account');
 
-const ACTION = 'admin:account:del:block-account';
+const ACTION = 'ADMIN_ACCOUNT_DEL_BLOCK_ACCOUNT';
 const OPTS = { new: true };
 
 module.exports = (req, res, next) => {

@@ -10,7 +10,7 @@ const createLog = reqlib('./utils/createAccountLog');
 
 const Account = reqlib('./models/Account');
 
-const ACTION = 'admin:account:get:fetch-account-list';
+const ACTION = 'ADMIN_ACCOUNT_GET_FETCH_ACCOUNT_LIST';
 const { SEARCH_PROPS, SORT_PROPS, COND_PROPS } = require('./config');
 
 module.exports = (req, res) => {

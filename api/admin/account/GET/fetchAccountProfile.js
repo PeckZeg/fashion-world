@@ -5,14 +5,14 @@ const authToken = reqlib('./utils/keys/account/auth-token');
 const createLog = reqlib('./utils/createAccountLog');
 
 const Account = reqlib('./models/Account');
-const ACTION = 'admin:account:get:fetch-account-profile';
+const ACTION = 'ADMIN_ACCOUNT_GET_FETCH_ACCOUNT_PROFILE';
 
 module.exports = (req, res, next) => {
   const log = createLog(req, ACTION);
   const reqAt = +new Date();
 
   authToken(config.apiActions[ACTION], req.header('authorization'))
-  
+
     // add `accountId` to log
     .then(token => log.setAccountId(token))
 

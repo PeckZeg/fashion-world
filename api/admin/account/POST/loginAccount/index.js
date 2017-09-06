@@ -6,7 +6,7 @@ const validateBody = require('./validateBody');
 
 const Account = reqlib('./models/Account');
 
-const ACTION = 'admin:account:post:login-account';
+const ACTION = 'ADMIN_ACCOUNT_POST_LOGIN_ACCOUNT';
 
 module.exports = (req, res) => {
   const log = createLog(req, ACTION);

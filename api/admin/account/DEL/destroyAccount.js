@@ -6,13 +6,13 @@ const createLog = reqlib('./utils/createAccountLog');
 
 const Account = reqlib('./models/Account');
 
-const ACTION = 'admin:account:del:destroy-account';
+const ACTION = 'ADMIN_ACCOUNT_DEL_DESTROY_ACCOUNT';
 const OPTS = { new: true };
 
 module.exports = (req, res, next) => {
   const log = createLog(req, ACTION);
   const reqAt = +new Date();
-  
+
   authToken(config.apiActions[ACTION], req.header('authorization'))
 
     // add `accountId` to log

@@ -6,7 +6,7 @@ const createLog = reqlib('./utils/createAccountLog');
 
 const Account = reqlib('./models/Account');
 
-const ACTION = 'admin:account:post:recover-account';
+const ACTION = 'ADMIN_ACCOUNT_POST_RECOVER_ACCOUNT';
 const OPTS = { new: true };
 
 module.exports = (req, res, next) => {

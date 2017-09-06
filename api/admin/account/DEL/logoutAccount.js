@@ -5,7 +5,8 @@ const authToken = reqlib('./utils/keys/account/auth-token');
 const createClient = reqlib('./redis/create-client');
 const createLog = reqlib('./utils/createAccountLog');
 
-const ACTION = 'admin:account:del:logout-account';
+const ACTION = 'ADMIN_ACCOUNT_DEL_LOGOUT_ACCOUNT';
+
 
 module.exports = (req, res, next) => {
   const log = createLog(req, ACTION);

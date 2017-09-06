@@ -1,3 +1,5 @@
+const apiActions = require('./apiActions');
+
 module.exports = {
   apiActions: {
     'client:user:get:fetch-user-list': 'user:fetch-user-list',
@@ -22,16 +24,6 @@ module.exports = {
     'client.video:del.destroy-collected-video': 'video:destroy-collected-video',
 
     'client:loop-video:fetch-loop-video-list': 'loop-video:fetch-loop-video-list',
-
-    'admin:account:get:fetch-account-list': 'admin:account:fetch-account-list',
-    'admin:account:get:fetch-account-profile': 'admin:account:fetch-account-profile',
-    'admin:account:post:create-account': 'admin:account:create-account',
-    'admin:account:post:recover-account': 'admin:account:recover-account',
-    'admin:account:post:active-account': 'admin:account:active-account',
-    'admin:account:put:update-account': 'admin:account:update-account',
-    'admin:account:del:block-account': 'admin:account:block-account',
-    'admin:account:del:destroy-account': 'admin:account:destroy-account',
-    'admin:account:del:logout-account': 'admin:account:logout-account',
 
     'admin:video:get:fetch-video-list': 'admin:video:fetch-video-list',
     'admin:video:get:fetch-video-profile': 'admin:video:fetch-video-profile',
@@ -75,7 +67,9 @@ module.exports = {
     'admin:loop-video:post:recover-loop-video': 'admin:loop-video:recover-loop-video',
     'admin:loop-video:put:update-loop-video': 'admin:loop-video:update-loop-video',
     'admin:loop-video:del:block-loop-video': 'admin:loop-video:block-loop-video',
-    'admin:loop-video:del:destroy-loop-video': 'admin:loop-video:destroy-loop-video'
+    'admin:loop-video:del:destroy-loop-video': 'admin:loop-video:destroy-loop-video',
+
+    ...apiActions
   },
 
   dataPath: {
