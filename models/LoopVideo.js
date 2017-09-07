@@ -7,6 +7,7 @@ const toUrl = reqlib('./utils/toResFtpUrl');
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
+const { defaultCover: DEFAULT_COVER } = config.model.video;
 
 const transformRet = ret => {
   ret.cover = toUrl(ret.cover || DEFAULT_COVER);
