@@ -8,5 +8,6 @@ module.exports = (cond, query, props) => {
     }
   });
 
+
   return cond;
 };

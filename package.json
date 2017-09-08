@@ -1,6 +1,6 @@
 {
   "name": "caa-mes-mock-server",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "private": true,
   "scripts": {
     "start": "forever start -c \"babel-node\" ./bin/www",

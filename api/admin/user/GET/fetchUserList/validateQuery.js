@@ -11,12 +11,12 @@ const { SEARCH_PROPS, SORT_PROPS, VALIDATOR_PROPS } = require('./props');
 const schema = new Schema({
   offset: { type: Number, min: 0, default: 0 },
   limit: { type: Number, min: 0, default: 20 },
-  accountId: ObjectId,
+  userId: ObjectId,
   ...VALIDATOR_PROPS,
   ...genSortParams(SORT_PROPS),
   ...genSearchParams(SEARCH_PROPS)
 }, { _id: false });
 
 module.exports = validate(
-  mongoose.model('AdminFetchAccountListQueryParams', schema)
+  mongoose.model('AdminFetchUserListQueryParams', schema)
 );
