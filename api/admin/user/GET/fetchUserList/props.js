@@ -14,7 +14,9 @@ exports.SEARCH_PROPS = [
 ];
 
 exports.COND_PROPS = [
-  ['userId', '_id']
+  ['userId', '_id'],
+  'gender',
+  'mobile'
 ];
 
 exports.SORT_PROPS = Object.keys(PROPS);
