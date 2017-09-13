@@ -2,9 +2,10 @@
 
 ## Server
 
-Server        | User   | Password
-:------------ | :----- | :---------
-`172.16.0.70` | `root` | `xmzc.123`
+Server         | User   | Password
+:------------- | :----- | :---------
+`172.16.0.70`  | `root` | `xmzc.123`
+`172.16.0.110` | `root` | `xmzc.123`
 
 ## MongoDB
 
