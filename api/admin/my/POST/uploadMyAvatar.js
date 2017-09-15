@@ -4,6 +4,8 @@ const handleResult = reqlib('./utils/response/handleResult');
 const handleError = reqlib('./utils/response/handle-error');
 const authToken = reqlib('./utils/keys/account/auth-token');
 const createLog = reqlib('./utils/createAccountLog');
+const uploadFile = reqlib('./utils/uploadFile');
+const upload = reqlib('./utils/multer/upload');
 
 const Account = reqlib('./models/Account');
 
@@ -40,7 +42,7 @@ module.exports = (req, res, next) => {
         path.join(UPLOAD_FOLDERS.images, 'account', account._id.toString())
       )
         .then(pathname => path.join('/', RESOURCE_BASEPATHNAME, pathname))
-        .then(avatar, ({ account, avatar }))
+        .then(avatar => ({ account, avatar }))
     ))
 
     // upload account
