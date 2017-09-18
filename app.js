@@ -39,6 +39,7 @@ app.use('/static', express.static(path.join(__dirname, '/admin-templates/static'
 if (process.env.NODE_ENV == 'development') {
   app.use('/api', (req, res, next) => {
     const { method, query, body } = req;
+    debug(req.originalUrl);
     debug(`${colors.blue(method)}`, path.join(req.baseUrl, req.path));
     debug({ query, body });
     next();
