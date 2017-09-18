@@ -6,10 +6,20 @@
 
 ## 服务器地址
 
-环境             | 地址
-:--------------- | :------------------------
-测试环境         | `http://172.16.0.72:3003`
-测试环境（外网） | `http://59.57.240.50:5053`
+### 测试环境
+
+* **内网**: `http://172.16.0.72:3003`
+* **外网**: `http://59.57.240.50:5053`
+
+### 正式环境
+
+* `http://api.fashionworldcn.com`
+
+## 入口
+
+* [下载页](http://cms.sdwhcn.com/web/Fashion/fashionworlddownload/index.html)
+* [内容管理系统](http://cms.fashionworldcn.com/)
+
 
 ## 接口列表
 

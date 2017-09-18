@@ -8,6 +8,7 @@
       * `横幅栏 - 获取横幅栏列表`
 * 现在访问 http://cms.fashionworldcn.com/ 会重定向至 http://cms.fashionworldcn.com/admin
 * 添加生产环境配置
+* 短信签名统一为 `正辰科技`
 
 ## `1.2.5`
 

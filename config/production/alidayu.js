@@ -8,13 +8,13 @@ exports.perMsgLiveCycle = 60 * 1000;
 exports.smsNumSend = {
   user: {
     register: {
-      signName: '阿里大于测试专用',
+      signName: '正辰科技',
       templateCode: 'SMS_71260267',
       product: 'Fashion World'
     },
 
     resetPassword: {
-      signName: '阿里大于测试专用',
+      signName: '正辰科技',
       templateCode: 'SMS_71260265',
       product: 'Fashion World'
     }
