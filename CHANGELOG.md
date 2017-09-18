@@ -6,6 +6,7 @@
   - 后台接口
     + 以下接口接入统计功能
       * `横幅栏 - 获取横幅栏列表`
+* 现在访问 http://cms.fashionworldcn.com/ 会重定向至 http://cms.fashionworldcn.com/admin
 * 添加生产环境配置
 
 ## `1.2.5`
