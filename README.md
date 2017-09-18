@@ -22,6 +22,8 @@ systemctl start redis
 # 进入 MongoDB 数据库（测试环境）
 mongo fwdb_dev -u fwadmin -p xmzc.123
 
+# 进入 MongoDB 数据库（正式环境）
+
 # 备份数据库
 mongodump -d fwdb_dev -u fwadmin -p xmzc.123 -o /tmp/fwdb
 ```

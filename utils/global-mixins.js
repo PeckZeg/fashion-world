@@ -14,6 +14,8 @@ mongoose.Promise = global.Promise;
 bluebird.promisifyAll(redis.RedisClient.prototype);
 bluebird.promisifyAll(redis.Multi.prototype);
 
+console.log(JSON.stringify(config, null, 2));
+
 Object.assign(global, module.exports = {
   reqlib: appRootPath.require,
   resolve: appRootPath.resolve,
