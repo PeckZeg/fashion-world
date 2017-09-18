@@ -37,3 +37,11 @@ npm run handle-empty-cover-video
 # 移除所有空的循环视频（即 `videoId` 已阵亡的视频）
 npm run remove-empty-loop-video
 ```
+
+## Bash Profile
+
+```bash
+# 打开配置文件
+
+vim ~/.bash_profile
+```

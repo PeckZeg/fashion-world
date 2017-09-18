@@ -14,9 +14,11 @@ const url = require('url');
 
 const globalMixins = require('./utils/global-mixins');
 const app = express();
-const { NODE_ENV } = process.env;
 
-debug(`应用启动于 ${colors.blue(NODE_ENV)} 环境.`);
+const NODE_ENV = process.env.NODE_ENV || 'development';
+const PORT = process.env.PORT || '3003';
+
+debug(`应用启动于 ${colors.blue(NODE_ENV)} 环境，端口 ${colors.blue(PORT)}.`);
 
 // view engine setup
 app.engine('html', cons.swig);
