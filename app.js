@@ -12,10 +12,11 @@ const glob = require('glob');
 const path = require('path');
 const url = require('url');
 
-
 const globalMixins = require('./utils/global-mixins');
+const app = express();
+const { NODE_ENV } = process.env;
 
-var app = express();
+debug(`应用启动于 ${colors.blue(NODE_ENV)} 环境.`);
 
 // view engine setup
 app.engine('html', cons.swig);
