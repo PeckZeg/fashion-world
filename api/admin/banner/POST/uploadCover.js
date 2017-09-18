@@ -1,21 +1,28 @@
 const path = require('path');
 
-const validateObjectId = reqlib('./utils/validate-objectid');
+const handleResult = reqlib('./utils/response/handleResult');
 const handleError = reqlib('./utils/response/handle-error');
+const validateObjectId = reqlib('./utils/validate-objectid');
 const authToken = reqlib('./utils/keys/account/auth-token');
 const injectProps = reqlib('./utils/model-injector/banner');
+const createLog = reqlib('./utils/createAccountLog');
 const uploadFile = reqlib('./utils/uploadFile');
 const upload = reqlib('./utils/multer/upload');
 
 const Banner = reqlib('./models/Banner');
 
-const ACTION = config.apiActions['admin:banner:post:upload-banner-cover'];
+const ACTION = 'ADMIN_BANNER_POST_UPLOAD_BANNER_COVER';
 const { folders: UPLOAD_FOLDERS } = config.ftpServer.resource;
 const { basePathname: RESOURCE_BASEPATHNAME } = config.ftpToHttp.resource;
-const OPTS = { new: true };
 
 module.exports = (req, res, next) => {
-  authToken(ACTION, req.header('authorization'))
+  const log = createLog(req, ACTION);
+  const reqAt = +new Date();
+
+  authToken(config.apiActions[ACTION], req.header('authorization'))
+
+    // add `accountId` to log
+    .then(token => log.setAccountId(token))
 
     // validate `bannerId`
     .then(token => validateObjectId(req.params.bannerId))
@@ -44,12 +51,12 @@ module.exports = (req, res, next) => {
 
     // update banner
     .then(({ banner, cover }) => (
-      Banner.findByIdAndUpdate(banner._id, { $set: { cover } }, OPTS)
+      Banner.findByIdAndUpdate(banner._id, { $set: { cover } }, { new: true })
     ))
 
     // inject props
     .then(injectProps)
 
-    .then(banner => res.send({ banner }))
+    .then(banner => handleResult(res, { banner }, log, reqAt))
     .catch(err => handleError(res, err));
 };

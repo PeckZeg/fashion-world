@@ -1,16 +1,23 @@
 const validateObjectId = reqlib('./utils/validate-objectid');
+const handleResult = reqlib('./utils/response/handleResult');
 const handleError = reqlib('./utils/response/handle-error');
 const authToken = reqlib('./utils/keys/account/auth-token');
 const injectProps = reqlib('./utils/model-injector/banner');
+const createLog = reqlib('./utils/createAccountLog');
 const validateBody = require('./validateBody');
 
 const Banner = reqlib('./models/Banner');
 
-const ACTION = config.apiActions['admin:banner:put:update-banner'];
-const OPTS = { new: true };
+const ACTION = 'ADMIN_BANNER_PUT_UPDATE_BANNER';
 
 module.exports = (req, res, next) => {
-  authToken(ACTION, req.header('authorization'))
+  const log = createLog(req, ACTION);
+  const reqAt = +new Date();
+
+  authToken(config.apiActions[ACTION], req.header('authorization'))
+
+    // add `accountId` to log
+    .then(token => log.setAccountId(token))
 
     // validate `bannerId`
     .then(token => validateObjectId(req.params.bannerId))
@@ -22,7 +29,7 @@ module.exports = (req, res, next) => {
 
     // update banner doc
     .then(({ bannerId, body }) => (
-      Banner.findByIdAndUpdate(bannerId, { $set: body }, OPTS)
+      Banner.findByIdAndUpdate(bannerId, { $set: body }, { new: true })
     ))
 
     // ensure banner exists
@@ -33,6 +40,6 @@ module.exports = (req, res, next) => {
     // inject props
     .then(banner => injectProps(banner, 'toObject'))
 
-    .then(banner => res.send({ banner }))
+    .then(banner => handleResult(res, { banner }, log, reqAt))
     .catch(err => handleError(res, err));
 };

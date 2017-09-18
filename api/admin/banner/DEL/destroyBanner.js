@@ -1,15 +1,19 @@
 const validateObjectId = reqlib('./utils/validate-objectid');
+const handleResult = reqlib('./utils/response/handleResult');
 const handleError = reqlib('./utils/response/handle-error');
 const authToken = reqlib('./utils/keys/account/auth-token');
 const injectProps = reqlib('./utils/model-injector/banner');
+const createLog = reqlib('./utils/createAccountLog');
 
 const Banner = reqlib('./models/Banner');
 
-const ACTION = config.apiActions['admin:banner:del:destroy-banner'];
-const OPTS = { new: true };
+const ACTION = 'ADMIN_BANNER_DEL_DESTROY_BANNER';
 
 module.exports = (req, res, next) => {
-  authToken(ACTION, req.header('authorization'))
+  const log = createLog(req, ACTION);
+  const reqAt = +new Date();
+
+  authToken(config.apiActions[ACTION], req.header('authorization'))
 
     // validate `bannerId`
     .then(token => validateObjectId(req.params.bannerId))
@@ -34,12 +38,12 @@ module.exports = (req, res, next) => {
         }
       };
 
-      return Banner.findByIdAndUpdate(banner._id, doc, OPTS);
+      return Banner.findByIdAndUpdate(banner._id, doc, { new: true });
     })
 
     // inject props
     .then(banner => injectProps(banner, 'toObject'))
 
-    .then(banner => res.send({ banner }))
+    .then(banner => handleResult(res, { banner }, log, reqAt))
     .catch(err => handleError(res, err));
 };

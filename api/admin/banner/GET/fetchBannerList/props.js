@@ -36,6 +36,11 @@ exports.SORT_PROPS = [
   'removeAt'
 ];
 
+// 查询字符串参数
 exports.QUERY_PROPS = reduceQueryProps(PROPS);
+
+// 查询字符串转换参数
 exports.TRANS_PROPS = reduceTransProps(PROPS);
+
+// 验证器参数
 exports.VALIDATOR_PROPS = reduceValidatorProps(PROPS);
