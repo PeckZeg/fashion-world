@@ -1,25 +1,24 @@
+const handleResult = reqlib('./utils/response/handleResult');
 const handleError = reqlib('./utils/response/handle-error');
 const authToken = reqlib('./utils/keys/account/auth-token');
+const injectProps = reqlib('./utils/model-injector/banner');
 const transformQuery = require('./transformQuery');
 const validateQuery = require('./validateQuery');
-const setSort = reqlib('./utils/api-model/sort');
-const setSearchCond = reqlib('./utils/api-model/search-cond');
-const setProps = reqlib('./utils/api-model/setProps');
-const setTransProps = reqlib('./utils/api-model/setTransProps');
-const injectProps = reqlib('./utils/model-injector/banner');
+const createLog = reqlib('./utils/createAccountLog');
+const { mergeQueryCond, setSort } = reqlib('./utils/api-model')(require('./props'));
 
 const Banner = reqlib('./models/Banner');
 
-const ACTION = config.apiActions['admin:banner:get:fetch-banner-list'];
-const SEARCH_PROPS = require('./SEARCH_PROPS.json');
-const SORT_PROPS = require('./SORT_PROPS.json');
-const QUERY_TO_COND_PARAMS = {
-  isPublished: 'publishAt',
-  isRemoved: 'removeAt'
-};
+const ACTION = 'ADMIN_BANNER_GET_FETCH_BANNER_LIST';
 
 module.exports = (req, res, next) => {
-  authToken(ACTION, req.header('authorization'))
+  const log = createLog(req, ACTION);
+  const reqAt = +new Date();
+
+  authToken(config.apiActions[ACTION], req.header('authorization'))
+
+    // add `accountId` to log
+    .then(token => log.setAccountId(token))
 
     // transform query params
     .then(token => transformQuery(req.query))
@@ -35,11 +34,8 @@ module.exports = (req, res, next) => {
       let cond = {};
       let sort = { createAt: -1 };
 
-      cond = setProps(cond, { type, channelId, categoryId });
-      cond = setTransProps(cond, query, QUERY_TO_COND_PARAMS);
-      cond = setSearchCond(query, cond, SEARCH_PROPS);
-
-      sort = setSort(query, sort, SORT_PROPS);
+      cond = mergeQueryCond(cond, query);
+      sort = setSort(sort, query);
 
       return { cond, skip, limit, sort };
     })
@@ -56,6 +52,6 @@ module.exports = (req, res, next) => {
       Banner.count(cond).then(total => ({ total, banners }))
     ))
 
-    .then(result => res.send(result))
+    .then(result => handleResult(res, result, log, reqAt))
     .catch(err => handleError(res, err));
 };

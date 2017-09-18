@@ -6,8 +6,7 @@ const genSearchParams = reqlib('./utils/validate-models/search-params');
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-const SORT_PROPS = require('./SORT_PROPS.json');
-const SEARCH_PROPS = require('./SEARCH_PROPS.json');
+const { SEARCH_PROPS, SORT_PROPS, VALIDATOR_PROPS } = require('./props');
 
 const schema = new Schema({
   offset: { type: Number, min: 0, default: 0 },
@@ -15,8 +14,7 @@ const schema = new Schema({
   channelId: ObjectId,
   categoryId: ObjectId,
   type: String,
-  isPublished: Boolean,
-  isRemoved: Boolean,
+  ...VALIDATOR_PROPS,
   ...genSortParams(SORT_PROPS),
   ...genSearchParams(SEARCH_PROPS)
 }, { _id: false });
