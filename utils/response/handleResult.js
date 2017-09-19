@@ -1,13 +1,9 @@
-module.exports = (res, result, log, startAt) => {
+module.exports = (res, result, log) => {
   res.send(result);
 
   if (log) {
     log.set('response', result);
-
-    if (startAt) {
-      const duration = +new Date() - startAt;
-      log.set('duration', duration);
-    }
+    log.set('duration', +new Date() - log.createAt);
 
     try {
       log.save();

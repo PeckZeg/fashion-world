@@ -23,8 +23,8 @@ module.exports = (req, res, next) => {
   debug(method, colors.grey(pathname));
 
   // params
-  colorTitle('params', params);
-  iterObject(params);
+  // colorTitle('params', params);
+  // iterObject(params);
 
   // query
   colorTitle('query', query);

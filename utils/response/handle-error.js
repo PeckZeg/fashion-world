@@ -1,3 +1,6 @@
+const debug = require('debug')('api');
+const colors = require('colors/safe');
+
 const catchError = err => {
   if (!err) return null;
 
@@ -16,7 +19,17 @@ const catchError = err => {
 module.exports = (res, err) => {
   const { status, message } = catchError(err);
 
-  console.error(err);
+  if (err instanceof ResponseError) {
+    debug(
+      colors.bgRed.white(' ERROR '),
+      colors.bgYellow.grey(` ${err.status} `),
+      err.message
+    );
+  }
+
+  else {
+    console.error(err);
+  }
 
   res.status(status || 500).send({ message });
 };
