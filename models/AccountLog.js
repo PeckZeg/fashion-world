@@ -32,6 +32,7 @@ const schema = new Schema({
   }
 });
 
+// 弃
 schema.methods.setAccountId = function(token) {
   this.set('accountId', (token || {}).accountId);
   return token;

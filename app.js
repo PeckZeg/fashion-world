@@ -43,12 +43,7 @@ app.get('/', (req, res, next) => {
   }
 });
 
-app.use('/api', (req, res, next) => {
-  const { method, query, body } = req;
-  debug(`${colors.blue(method)}`, path.join(req.baseUrl, req.path));
-  debug({ query, body });
-  next();
-});
+app.use('/api', require('./utils/debug-api'));
 
 if (NODE_ENV == 'development') {
   app.use('/api',restc.express());

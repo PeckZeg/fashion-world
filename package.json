@@ -5,7 +5,7 @@
   "scripts": {
     "start": "forever start -c \"babel-node\" ./bin/www",
     "dev": "DEBUG=api nodemon ./bin/www --exec babel-node",
-    "dev-auth": "DEBUG=auth nodemon ./bin/www --exec babel-node",
+    "dev-auth": "DEBUG=api,auth nodemon ./bin/www --exec babel-node",
     "handle-empty-cover-video": "DEBUG=data babel-node scripts/data/handleEmptyCoverVideo/index.js",
     "remove-empty-loop-video": "DEBUG=data babel-node scripts/data/removeEmptyLoopVideo.js"
   },
