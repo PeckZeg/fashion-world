@@ -1,11 +1,14 @@
 const router = module.exports = require('express').Router();
 
-router.get('/', require('./get.fetch-category-list'));
-router.get('/:categoryId', require('./get.fetch-channel-profile'));
+router.get('/', require('./GET/fetchCategoryList'));
+router.get('/:categoryId', require('./GET/fetchCategoryProfile'));
 
-router.post('/', require('./post.create-category'));
-router.post('/:categoryId', require('./post.enable-category'));
+router.post('/', require('./POST/createCategory'));
+router.post('/:categoryId', require('./POST/publishCategory')); // deprecated
+router.post('/:categoryId/publish', require('./POST/publishCategory'));
+router.post('/:categoryId/recover', require('./POST/recoverCategory'));
 
-router.put('/:categoryId', require('./put.update-category'));
+router.put('/:categoryId', require('./PUT/updateCategory'));
 
-router.delete('/:categoryId', require('./del.destroy-category'));
+router.delete('/:categoryId', require('./DEL/destroyCategory'));
+router.delete('/:categoryId/block', require('./DEL/blockCategory'));

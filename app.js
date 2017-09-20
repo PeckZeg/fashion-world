@@ -76,6 +76,15 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
+  if (!(err instanceof ResponseError)) {
+    debug(
+      colors.bgRed.white(' ERROR '),
+      colors.bgYellow.grey(` ${err.status || 500} `),
+      err.message
+    );
+    console.error(err.stack);
+  }
+
   // render the error page
   res.status(err.status || 500);
   res.render('error');

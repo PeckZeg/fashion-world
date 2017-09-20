@@ -8,7 +8,7 @@ exports.ADMIN_CATEGORY_GET_FETCH_CATEGORY_PROFILE = 'admin:category:fetch-catego
 exports.ADMIN_CATEGORY_POST_CREATE_CATEGORY = 'admin:category:create-category';
 
 // 上传分类封面
-exports.ADMIN_CATEGORY_POST_UPLOAD_CATEGORY_COVER = 'admin:category:upload-category-cover';
+// exports.ADMIN_CATEGORY_POST_UPLOAD_CATEGORY_COVER = 'admin:category:upload-category-cover';
 
 // 发布分类
 exports.ADMIN_CATEGORY_POST_PUBLISH_CATEGORY = 'admin:category:publish-category';

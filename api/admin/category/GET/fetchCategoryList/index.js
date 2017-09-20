@@ -3,24 +3,24 @@ const handleError = reqlib('./utils/response/handle-error');
 const authToken = reqlib('./utils/token/auth/account');
 const createLog = reqlib('./utils/createAccountLog');
 
-const injectProps = reqlib('./utils/model-injector/banner');
+const injectProps = reqlib('./utils/model-injector/category');
 const transformQuery = require('./transformQuery');
 const validateQuery = require('./validateQuery');
+
+const Category = reqlib('./models/Category');
+
+const ACTION = 'ADMIN_CATEGORY_GET_FETCH_CATEGORY_LIST';
 const { mergeQueryCond, setSort } = reqlib('./utils/api-model')(require('./props'));
 
-const Banner = reqlib('./models/Banner');
-
-const action = 'ADMIN_BANNER_GET_FETCH_BANNER_LIST';
-
 module.exports = (req, res, next) => {
-  const log = createLog(req, action);
+  const log = createLog(req, ACTION);
 
-  authToken(req, action, { log })
+  authToken(req, ACTION, { log })
 
-    // transform query params
+    // transform query
     .then(token => transformQuery(req.query))
 
-    // validate query params
+    // validate query
     .then(validateQuery)
 
     // generate query params
@@ -36,16 +36,16 @@ module.exports = (req, res, next) => {
       return { cond, skip, limit, sort };
     })
 
-    // query banner docs
+    // query category docs
     .then(({ cond, skip, limit, sort }) => (
-      Banner.find(cond).skip(skip).limit(limit).sort(sort)
-        .then(banners => injectProps(banners, 'toObject'))
-        .then(banners => ({ cond, banners }))
+      Category.find(cond).skip(skip).limit(limit).sort(sort)
+        .then(categories => injectProps(categories, 'toObject'))
+        .then(categories => ({ cond, categories }))
     ))
 
-    // count banner docs
-    .then(({ cond, banners }) => (
-      Banner.count(cond).then(total => ({ total, banners }))
+    // count category docs
+    .then(({ cond, categories }) => (
+      Category.count(cond).then(total => ({ total, categories }))
     ))
 
     .then(result => handleResult(res, result, log))
