@@ -1,22 +1,19 @@
 const handleResult = reqlib('./utils/response/handleResult');
 const handleError = reqlib('./utils/response/handle-error');
-const authToken = reqlib('./utils/keys/account/auth-token');
+const authToken = reqlib('./utils/token/auth/account');
+const createLog = reqlib('./utils/createAccountLog');
+
 const validateObjectId = reqlib('./utils/validate-objectid');
 const injectProps = reqlib('./utils/model-injector/banner');
-const createLog = reqlib('./utils/createAccountLog');
 
 const Banner = reqlib('./models/Banner');
 
-const ACTION = 'ADMIN_BANNER_POST_PUBLISH_BANNER';
+const action = 'ADMIN_BANNER_POST_PUBLISH_BANNER';
 
 module.exports = (req, res, next) => {
-  const log = createLog(req, ACTION);
-  const reqAt = +new Date();
+  const log = createLog(req, action);
 
-  authToken(config.apiActions[ACTION], req.header('authorization'))
-
-    // add `accountId` to log
-    .then(token => log.setAccountId(token))
+  authToken(req, action, { log })
 
     // validate `bannerId`
     .then(token => validateObjectId(req.params.bannerId))
@@ -51,6 +48,6 @@ module.exports = (req, res, next) => {
     // inject props
     .then(banner => injectProps(banner, 'toObject'))
 
-    .then(banner => handleResult(res, { banner }, log, reqAt))
+    .then(banner => handleResult(res, { banner }, log))
     .catch(err => handleError(res, err));
 };

@@ -1,9 +1,10 @@
-const validateObjectId = reqlib('./utils/validate-objectid');
 const handleResult = reqlib('./utils/response/handleResult');
 const handleError = reqlib('./utils/response/handle-error');
-const authToken = reqlib('./utils/keys/account/auth-token');
-const injectProps = reqlib('./utils/model-injector/banner');
+const authToken = reqlib('./utils/token/auth/account');
 const createLog = reqlib('./utils/createAccountLog');
+
+const validateObjectId = reqlib('./utils/validate-objectid');
+const injectProps = reqlib('./utils/model-injector/banner');
 const validateBody = require('./validateBody');
 
 const Banner = reqlib('./models/Banner');
@@ -12,12 +13,8 @@ const ACTION = 'ADMIN_BANNER_PUT_UPDATE_BANNER';
 
 module.exports = (req, res, next) => {
   const log = createLog(req, ACTION);
-  const reqAt = +new Date();
 
-  authToken(config.apiActions[ACTION], req.header('authorization'))
-
-    // add `accountId` to log
-    .then(token => log.setAccountId(token))
+  authToken(req, ACTION, { log })
 
     // validate `bannerId`
     .then(token => validateObjectId(req.params.bannerId))
@@ -40,6 +37,6 @@ module.exports = (req, res, next) => {
     // inject props
     .then(banner => injectProps(banner, 'toObject'))
 
-    .then(banner => handleResult(res, { banner }, log, reqAt))
+    .then(banner => handleResult(res, { banner }, log))
     .catch(err => handleError(res, err));
 };

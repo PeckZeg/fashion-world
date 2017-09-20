@@ -2,27 +2,24 @@ const path = require('path');
 
 const handleResult = reqlib('./utils/response/handleResult');
 const handleError = reqlib('./utils/response/handle-error');
-const validateObjectId = reqlib('./utils/validate-objectid');
-const authToken = reqlib('./utils/keys/account/auth-token');
-const injectProps = reqlib('./utils/model-injector/banner');
+const authToken = reqlib('./utils/token/auth/account');
 const createLog = reqlib('./utils/createAccountLog');
+
+const validateObjectId = reqlib('./utils/validate-objectid');
+const injectProps = reqlib('./utils/model-injector/banner');
 const uploadFile = reqlib('./utils/uploadFile');
 const upload = reqlib('./utils/multer/upload');
 
 const Banner = reqlib('./models/Banner');
 
-const ACTION = 'ADMIN_BANNER_POST_UPLOAD_BANNER_COVER';
+const action = 'ADMIN_BANNER_POST_UPLOAD_BANNER_COVER';
 const { folders: UPLOAD_FOLDERS } = config.ftpServer.resource;
 const { basePathname: RESOURCE_BASEPATHNAME } = config.ftpToHttp.resource;
 
 module.exports = (req, res, next) => {
-  const log = createLog(req, ACTION);
-  const reqAt = +new Date();
+  const log = createLog(req, action);
 
-  authToken(config.apiActions[ACTION], req.header('authorization'))
-
-    // add `accountId` to log
-    .then(token => log.setAccountId(token))
+  authToken(req, action, { log })
 
     // validate `bannerId`
     .then(token => validateObjectId(req.params.bannerId))
@@ -57,6 +54,6 @@ module.exports = (req, res, next) => {
     // inject props
     .then(injectProps)
 
-    .then(banner => handleResult(res, { banner }, log, reqAt))
+    .then(banner => handleResult(res, { banner }, log))
     .catch(err => handleError(res, err));
 };
