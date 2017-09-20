@@ -85,9 +85,9 @@ module.exports = (req, res, next) => {
       const { mobile } = args;
 
       return User.count({ mobile }).then(count => {
-        if (process.env.NODE_ENV == 'production' && count) {
+        if (process.env.NODE_ENV == 'production' && !count) {
           return Promise.reject(
-            new ResponseError(403, `mobile ${mobile} is exists`)
+            new ResponseError(403, `mobile ${mobile} is not exists`)
           );
         }
 
