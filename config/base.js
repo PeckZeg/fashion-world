@@ -41,9 +41,9 @@ module.exports = {
     'admin:video:delete:block-video': 'admin:video:block-video',
     'admin:video:delete:supplant-video': 'admin:video:supplant-video',
 
-    'admin:channel:get:fetch-channel-list': 'admin:channel:fetch-channel-list',
-    'admin:channel:get:fetch-channel-profile': 'admin:channel:fetch-channel-profile',
-    'admin:channel:put:update-channel': 'admin:channel:update-channel',
+    // 'admin:channel:get:fetch-channel-list': 'admin:channel:fetch-channel-list',
+    // 'admin:channel:get:fetch-channel-profile': 'admin:channel:fetch-channel-profile',
+    // 'admin:channel:put:update-channel': 'admin:channel:update-channel',
 
     // 'admin:category:get:fetch-category-list': 'admin:category:fetch-category-list',
     // 'admin:category:get:fetch-category-profile': 'admin:category:fetch-category-profile',
@@ -64,15 +64,15 @@ module.exports = {
     // 'admin:banner:del:block-banner': 'admin:banner:block-banner',
     // 'admin:banner:del:destroy-banner': 'admin:banner:destroy-banner',
 
-    'admin:loop-video:get:fetch-loop-video-list': 'admin:loop-video:fetch-loop-video-list',
-    'admin:loop-video:get:fetch-loop-video-profile': 'admin:loop-video:fetch-loop-video-profile',
-    'admin:loop-video:post:create-loop-video': 'admin:loop-video:create-loop-video',
-    'admin:loop-video:post:upload-loop-video-cover': 'admin:loop-video:upload-loop-video-cover',
-    'admin:loop-video:post:publish-loop-video': 'admin:loop-video:publish-loop-video',
-    'admin:loop-video:post:recover-loop-video': 'admin:loop-video:recover-loop-video',
-    'admin:loop-video:put:update-loop-video': 'admin:loop-video:update-loop-video',
-    'admin:loop-video:del:block-loop-video': 'admin:loop-video:block-loop-video',
-    'admin:loop-video:del:destroy-loop-video': 'admin:loop-video:destroy-loop-video',
+    // 'admin:loop-video:get:fetch-loop-video-list': 'admin:loop-video:fetch-loop-video-list',
+    // 'admin:loop-video:get:fetch-loop-video-profile': 'admin:loop-video:fetch-loop-video-profile',
+    // 'admin:loop-video:post:create-loop-video': 'admin:loop-video:create-loop-video',
+    // 'admin:loop-video:post:upload-loop-video-cover': 'admin:loop-video:upload-loop-video-cover',
+    // 'admin:loop-video:post:publish-loop-video': 'admin:loop-video:publish-loop-video',
+    // 'admin:loop-video:post:recover-loop-video': 'admin:loop-video:recover-loop-video',
+    // 'admin:loop-video:put:update-loop-video': 'admin:loop-video:update-loop-video',
+    // 'admin:loop-video:del:block-loop-video': 'admin:loop-video:block-loop-video',
+    // 'admin:loop-video:del:destroy-loop-video': 'admin:loop-video:destroy-loop-video',
 
     ...apiActions
   },

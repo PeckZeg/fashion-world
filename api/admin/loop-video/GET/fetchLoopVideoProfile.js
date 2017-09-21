@@ -1,14 +1,19 @@
+const handleResult = reqlib('./utils/response/handleResult');
+const handleError = reqlib('./utils/response/handle-error');
+const authToken = reqlib('./utils/token/auth/account');
+const createLog = reqlib('./utils/createAccountLog');
+
 const injectProps = reqlib('./utils/model-injector/loop-video');
 const validateObjectId = reqlib('./utils/validate-objectid');
-const authToken = reqlib('./utils/keys/account/auth-token');
-const handleError = reqlib('./utils/response/handle-error');
 
 const LoopVideo = reqlib('./models/LoopVideo');
 
-const ACTION = config.apiActions['admin:loop-video:get:fetch-loop-video-profile'];
+const ACTION = 'ADMIN_LOOP_VIDEO_GET_FETCH_LOOP_VIDEO_PROFILE';
 
 module.exports = (req, res, next) => {
-  authToken(ACTION, req.header('authorization'))
+  const log = createLog(req, ACTION);
+
+  authToken(req, ACTION, { log })
 
     // validate `loopVideoId`
     .then(token => validateObjectId(req.params.loopVideoId))
@@ -16,9 +21,17 @@ module.exports = (req, res, next) => {
     // query loop video doc
     .then(loopVideoId => LoopVideo.findById(loopVideoId))
 
-    // inject props
-    .then(loopVideo => injectProps(null, loopVideo, 'toObject'))
+    // ensure loop-video doc
+    .then(loopVideo => {
+      if (!loopVideo) {
+        return Promise.reject(
+          new ResponseError(404, 'loop video not found')
+        );
+      }
 
-    .then(loopVideo => res.send({ loopVideo }))
+      return injectProps(null, loopVideo, 'toObject');
+    })
+
+    .then(loopVideo => handleResult(res, { loopVideo }, log))
     .catch(err => handleError(res, err));
 };

@@ -1,14 +1,19 @@
+const handleResult = reqlib('./utils/response/handleResult');
 const handleError = reqlib('./utils/response/handle-error');
-const authToken = reqlib('./utils/keys/account/auth-token');
+const authToken = reqlib('./utils/token/auth/account');
+const createLog = reqlib('./utils/createAccountLog');
+
 const injectProps = reqlib('./utils/model-injector/loop-video');
 const validateBody = require('./validateBody');
 
 const LoopVideo = reqlib('./models/LoopVideo');
 
-const ACTION = config.apiActions['admin:loop-video:post:create-loop-video'];
+const ACTION = 'ADMIN_LOOP_VIDEO_POST_CREATE_LOOP_VIDEO';
 
 module.exports = (req, res, next) => {
-  authToken(ACTION, req.header('authorization'))
+  const log = createLog(req, ACTION);
+
+  authToken(req, ACTION, { log })
 
     // validate body
     .then(token => validateBody(req.body))
@@ -22,6 +27,6 @@ module.exports = (req, res, next) => {
     // inject props
     .then(loopVideo => injectProps(null, loopVideo, 'toObject'))
 
-    .then(loopVideo => res.send({ loopVideo }))
+    .then(loopVideo => handleResult(res, { loopVideo }, log))
     .catch(err => handleError(res, err));
 };

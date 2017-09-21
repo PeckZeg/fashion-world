@@ -6,12 +6,16 @@
 
 * 更新了 `Category` 模型
 * 更新了 `Channel` 模型
+* 更新了 `LoopVideo` 模型
 * 接口
   - 重新设计了控制台输出日志
   - 后台接口
     + 以下接口接入统计功能
       * `账号`
       * `横幅栏`
+      * `频道`
+      * `分类`
+      * `循环视频`
 * 现在访问 http://cms.fashionworldcn.com/ 会重定向至 http://cms.fashionworldcn.com/admin
 * 添加生产环境配置
 * ***正式环境*** 短信签名统一为 `正辰科技`

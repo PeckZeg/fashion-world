@@ -1,26 +1,24 @@
+const handleResult = reqlib('./utils/response/handleResult');
 const handleError = reqlib('./utils/response/handle-error');
-const authToken = reqlib('./utils/keys/account/auth-token');
-const transformQuery = reqlib('./utils/transform-query');
-const validateQuery = require('./validateQuery');
-const setSort = reqlib('./utils/api-model/sort');
-const setProps = reqlib('./utils/api-model/setProps');
-const setTransProps = reqlib('./utils/api-model/setTransProps');
-const setSearchCond = reqlib('./utils/api-model/search-cond');
+const authToken = reqlib('./utils/token/auth/account');
+const createLog = reqlib('./utils/createAccountLog');
+
+const { mergeQueryCond, setSort } = reqlib('./utils/api-model')(require('./props'));
 const injectProps = reqlib('./utils/model-injector/loop-video');
+const transformQuery = require('./transformQuery');
+const validateQuery = require('./validateQuery');
 
 const LoopVideo = reqlib('./models/LoopVideo');
 
-const ACTION = config.apiActions['admin:loop-video:get:fetch-loop-video-list'];
-const TRANSFORM_QUERY_PARAMS = { isPublished: Boolean, isRemoved: Boolean };
-const QUERY_TO_COND_PARAMS = { isPublished: 'publishAt', isRemoved: 'removeAt' };
-const SORT_PROPS = require('./SORT_PROPS.json');
-const SEARCH_PROPS = require('./SEARCH_PROPS.json');
+const ACTION = 'ADMIN_LOOP_VIDEO_GET_FETCH_LOOP_VIDEO_LIST';
 
 module.exports = (req, res, next) => {
-  authToken(ACTION, req.header('authorization'))
+  const log = createLog(req, ACTION);
+
+  authToken(req, ACTION, { log })
 
     // transform query params
-    .then(token => transformQuery(req.query, TRANSFORM_QUERY_PARAMS))
+    .then(token => transformQuery(req.query))
 
     // validate query params
     .then(validateQuery)
@@ -33,11 +31,8 @@ module.exports = (req, res, next) => {
       let cond = {};
       let sort = { createAt: -1 };
 
-      cond = setProps(cond, { videoId });
-      cond = setTransProps(cond, query, QUERY_TO_COND_PARAMS);
-      cond = setSearchCond(query, cond, SEARCH_PROPS);
-
-      sort = setSort(query, sort, SORT_PROPS);
+      cond = mergeQueryCond(cond, query);
+      sort = setSort(sort, query);
 
       return { cond, skip, limit, sort };
     })
@@ -54,6 +49,6 @@ module.exports = (req, res, next) => {
       LoopVideo.count(cond).then(total => ({ total, loopVideos }))
     ))
 
-    .then(result => res.send(result))
+    .then(result => handleResult(res, result, log))
     .catch(err => handleError(res, err));
 };

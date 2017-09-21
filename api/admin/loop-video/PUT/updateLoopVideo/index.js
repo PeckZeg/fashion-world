@@ -1,16 +1,20 @@
-const validateObjectId = reqlib('./utils/validate-objectid');
+const handleResult = reqlib('./utils/response/handleResult');
 const handleError = reqlib('./utils/response/handle-error');
-const authToken = reqlib('./utils/keys/account/auth-token');
+const authToken = reqlib('./utils/token/auth/account');
+const createLog = reqlib('./utils/createAccountLog');
+
 const injectProps = reqlib('./utils/model-injector/loop-video');
+const validateObjectId = reqlib('./utils/validate-objectid');
 const validateBody = require('./validateBody');
 
 const LoopVideo = reqlib('./models/LoopVideo');
 
-const ACTION = config.apiActions['admin:loop-video:put:update-loop-video'];
-const OPTS = { new: true };
+const ACTION = 'ADMIN_LOOP_VIDEO_PUT_UPDATE_LOOP_VIDEO';
 
 module.exports = (req, res, next) => {
-  authToken(ACTION, req.header('authorization'))
+  const log = createLog(req, ACTION);
+
+  authToken(req, ACTION, { log })
 
     // validate `loopVideoId`
     .then(token => validateObjectId(req.params.loopVideoId))
@@ -22,18 +26,20 @@ module.exports = (req, res, next) => {
 
     // update loop video
     .then(({ loopVideoId, body }) => (
-      LoopVideo.findByIdAndUpdate(loopVideoId, { $set: body }, OPTS)
+      LoopVideo.findByIdAndUpdate(loopVideoId, { $set: body }, { new: true })
     ))
 
     // inject props
     .then(loopVideo => {
       if (!loopVideo) {
-        return Promise.reject(new ResponseError(404, 'loop video not found'));
+        return Promise.reject(
+          new ResponseError(404, 'loop video not found')
+        );
       }
 
       return injectProps(null, loopVideo, 'toObject');
     })
 
-    .then(loopVideo => res.send({ loopVideo }))
+    .then(loopVideo => handleResult(res, { loopVideo }, log))
     .catch(err => handleError(res, err));
 };
