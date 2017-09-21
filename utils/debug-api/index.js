@@ -1,7 +1,7 @@
+const onFinished = require('on-finished');
 const colors = require('colors/safe');
 const debug = require('debug')('api');
 const path = require('path');
-const url = require('url');
 
 const colorMethod = require('./colorMethod');
 const iterObject = require('./iterObject');
@@ -15,24 +15,31 @@ const colorTitle = (title, object) => debug(
 );
 
 module.exports = (req, res, next) => {
-  const { params, query, body } = req;
-  const method = colorMethod(req);
-  const { pathname } = url.parse(req.originalUrl);
+  onFinished(req, (err, req) => {
+    const { params, query, body } = req;
+    const { statusCode } = req.res;
+    const method = colorMethod(req);
+    const pathname = req.__route__;
 
-  // method & pathname
-  debug(method, colors.grey(pathname));
+    // method & pathname
+    debug(method, colors.gray(statusCode), colors.grey(pathname));
 
-  // params
-  // colorTitle('params', params);
-  // iterObject(params);
+    // params
+    if (!_.isEmpty(req.__params__)) {
+      colorTitle('params', req.__params__);
+      iterObject(req.__params__);
+    }
 
-  // query
-  colorTitle('query', query);
-  iterObject(query);
+    // query
+    colorTitle('query', query);
+    iterObject(query);
 
-  // body
-  colorTitle('body', body);
-  iterObject(body);
+    // body
+    if (req.method != 'GET') {
+      colorTitle('body', body);
+      iterObject(body);
+    }
+  });
 
   next();
 };

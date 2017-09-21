@@ -1,6 +1,7 @@
 const debug = require('debug')('auth');
 const colors = require('colors/safe');
 const crypto = require('crypto');
+const path = require('path');
 
 const createClient = reqlib('./redis/create-client');
 
@@ -13,6 +14,10 @@ module.exports = (req, actionName, options = {}) => {
   const { required, cacheKey, transform, log, logIdProp } = options;
   const authorization = req.header('authorization');
   const action = config.apiActions[actionName];
+
+  // for api debug
+  req.__params__ = req.params;
+  req.__route__ = path.join(req.baseUrl, req.route.path).replace(/\/$/, '');
 
   if (!required && !authorization) {
     return Promise.resolve(null);
