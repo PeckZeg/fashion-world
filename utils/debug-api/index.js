@@ -2,6 +2,7 @@ const onFinished = require('on-finished');
 const colors = require('colors/safe');
 const debug = require('debug')('api');
 const path = require('path');
+const url = require('url');
 
 const colorMethod = require('./colorMethod');
 const iterObject = require('./iterObject');
@@ -19,7 +20,7 @@ module.exports = (req, res, next) => {
     const { params, query, body } = req;
     const { statusCode } = req.res;
     const method = colorMethod(req);
-    const pathname = req.__route__;
+    const pathname = req.__route__ || url.parse(req.originalUrl).pathname;
 
     // method & pathname
     debug(method, colors.gray(statusCode), colors.grey(pathname));

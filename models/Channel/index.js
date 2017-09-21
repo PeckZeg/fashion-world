@@ -1,15 +1,13 @@
 const mongoose = require('mongoose');
 
-const connection = require('../utils/mongodb-connection');
+const connection = reqlib('./utils/mongodb-connection');
 const unsetProps = reqlib('./utils/schema/unset-props');
 const transform = reqlib('./utils/schema/transform');
+const toObject = require('./toObject');
+const toJSON = require('./toJSON');
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
-
-const TRANSFORM_TO_JSON_PROP_BLACK_LIST = [
-  'removeAt'
-];
 
 const schema = new Schema({
   name: { type: String, required: true, minlength: 1, maxLength: 64 },
@@ -17,21 +15,6 @@ const schema = new Schema({
   publishAt: { type: Date, default: null },
   createAt: { type: Date, default: Date.now },
   removeAt: { type: Date, default: null }
-}, {
-  toJSON: {
-    virtuals: true,
-    transform(doc, ret, options) {
-      ret = transform(doc, ret, options);
-      ret = unsetProps(ret, TRANSFORM_TO_JSON_PROP_BLACK_LIST);
-
-      return ret;
-    }
-  },
-
-  toObject: {
-    virtuals: true,
-    transform
-  }
-});
+}, { toJSON, toObject });
 
 module.exports = connection.model('Channel', schema);

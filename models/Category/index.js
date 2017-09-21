@@ -9,10 +9,6 @@ const toJSON = require('./toJSON');
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-const TRANSFORM_TO_JSON_PROP_BLACK_LIST = [
-  'removeAt'
-];
-
 const schema = new Schema({
   channelId: { type: ObjectId, required: true },
   name: { type: String, required: true, minlength: 1, maxLength: 64 },
