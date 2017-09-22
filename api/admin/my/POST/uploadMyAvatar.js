@@ -2,8 +2,9 @@ const path = require('path');
 
 const handleResult = reqlib('./utils/response/handleResult');
 const handleError = reqlib('./utils/response/handle-error');
-const authToken = reqlib('./utils/keys/account/auth-token');
+const authToken = reqlib('./utils/token/auth/account');
 const createLog = reqlib('./utils/createAccountLog');
+
 const uploadFile = reqlib('./utils/uploadFile');
 const upload = reqlib('./utils/multer/upload');
 
@@ -12,16 +13,11 @@ const Account = reqlib('./models/Account');
 const ACTION = 'ADMIN_MY_UPLOAD_MY_AVATAR';
 const { folders: UPLOAD_FOLDERS } = config.ftpServer.resource;
 const { basePathname: RESOURCE_BASEPATHNAME } = config.ftpToHttp.resource;
-const OPTS = { new: true };
 
 module.exports = (req, res, next) => {
   const log = createLog(req, ACTION);
-  const reqAt = +new Date();
 
-  authToken(config.apiActions[ACTION], req.header('authorization'))
-
-    // add `accountId` to log
-    .then(token => log.setAccountId(token))
+  authToken(req, ACTION, { log })
 
     // query account doc
     .then(({ accountId }) => Account.findById(accountId))
@@ -47,12 +43,12 @@ module.exports = (req, res, next) => {
 
     // upload account
     .then(({ account, avatar }) => (
-      Account.findByIdAndUpdate(account._id, { $set: { avatar } }, OPTS)
+      Account.findByIdAndUpdate(account._id, { $set: { avatar } }, { new: true })
     ))
 
     // transform account
     .then(account => account.toObject())
 
-    .then(account => handleResult(res, { account }, log, reqAt))
+    .then(account => handleResult(res, { account }, log))
     .catch(err => handleError(res, err));
 };

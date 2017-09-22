@@ -1,20 +1,18 @@
-const validateObjectId = reqlib('./utils/validate-objectid');
 const handleResult = reqlib('./utils/response/handleResult');
 const handleError = reqlib('./utils/response/handle-error');
-const authToken = reqlib('./utils/keys/account/auth-token');
+const authToken = reqlib('./utils/token/auth/account');
 const createLog = reqlib('./utils/createAccountLog');
 
+const validateObjectId = reqlib('./utils/validate-objectid');
+
 const User = reqlib('./models/User');
+
 const ACTION = 'ADMIN_USER_GET_FETCH_USER_PROFILE';
 
 module.exports = (req, res, next) => {
   const log = createLog(req, ACTION);
-  const reqAt = +new Date();
 
-  authToken(config.apiActions[ACTION], req.header('authorization'))
-
-    // add `accountId` to log
-    .then(token => log.setAccountId(token))
+  authToken(req, ACTION, { log })
 
     // validate `userId`
     .then(token => validateObjectId(req.params.userId))
@@ -31,6 +29,6 @@ module.exports = (req, res, next) => {
       return user.toObject();
     })
 
-    .then(user => handleResult(res, { user }, log, reqAt))
+    .then(user => handleResult(res, { user }, log))
     .catch(err => handleError(res, err));
 };
