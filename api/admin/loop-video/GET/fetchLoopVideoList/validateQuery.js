@@ -20,5 +20,5 @@ const schema = new Schema({
 }, { _id: false });
 
 module.exports = validate(
-  mongoose.model('AdminFetchLoopVideoListQueryParams', schema)
+  mongoose.model('AdminFetchVideoListQueryParams', schema)
 );

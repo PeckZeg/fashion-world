@@ -20,7 +20,7 @@ exports.ADMIN_VIDEO_POST_RECOVER_VIDEO = 'admin:video:recover-video';
 exports.ADMIN_VIDEO_POST_RECOMMEND_VIDEO = 'admin:video:recommend-video';
 
 // 更新视频
-exports.ADMIN_VIDEO_PUT_UPDATE_VIDEO = 'admin:video:recover-video';
+exports.ADMIN_VIDEO_PUT_UPDATE_VIDEO = 'admin:video:update-video';
 
 // 取消推荐视频
 exports.ADMIN_VIDEO_POST_SUPPLANT_VIDEO = 'admin:video:supplant-video';

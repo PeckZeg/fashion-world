@@ -1,29 +1,33 @@
 const path = require('path');
 
-const validateObjectId = reqlib('./utils/validate-objectid');
+const handleResult = reqlib('./utils/response/handleResult');
 const handleError = reqlib('./utils/response/handle-error');
-const authToken = reqlib('./utils/keys/account/auth-token');
+const authToken = reqlib('./utils/token/auth/account');
+const createLog = reqlib('./utils/createAccountLog');
+
+const validateObjectId = reqlib('./utils/validate-objectid');
 const injectVideos = reqlib('./utils/model-injector/video');
 const uploadFile = reqlib('./utils/uploadFile');
 const upload = reqlib('./utils/multer/upload');
 
 const Video = reqlib('./models/Video');
 
-const ACTION = config.apiActions['admin:video:post:upload-video-cover'];
+const ACTION = 'ADMIN_VIDEO_POST_UPLOAD_VIDEO_COVER';
 const { folders: UPLOAD_FOLDERS } = config.ftpServer.resource;
 const { basePathname: RESOURCE_BASEPATHNAME } = config.ftpToHttp.resource;
-const OPTS = { new: true };
 
 module.exports = (req, res, next) => {
-  authToken(ACTION, req.header('authorization'))
+  const log = createLog(req, ACTION);
+
+  authToken(req, ACTION, { log })
 
     // validate `videoId`
     .then(token => validateObjectId(req.params.videoId))
 
-    // query video doc
+    // query doc
     .then(videoId => Video.findById(videoId))
 
-    // ensure video exists
+    // ensure entity exists
     .then(video => (
       video ? video : Promise.reject(
         new ResponseError(404, 'video not found')
@@ -44,12 +48,12 @@ module.exports = (req, res, next) => {
 
     // update video
     .then(({ video, cover }) => (
-      Video.findByIdAndUpdate(video._id, { $set: { cover } }, OPTS)
+      Video.findByIdAndUpdate(video._id, { $set: { cover } }, { new: true })
     ))
 
     // inject props
-    .then(video => injectVideos(null, video, 'toObject'))
+    .then(video => injectProps(null, video, 'toObject'))
 
-    .then(video => res.send({ video }))
+    .then(video => handleResult(res, { video }, log))
     .catch(err => handleError(res, err));
 };
