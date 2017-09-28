@@ -1,7 +1,10 @@
+const accessControlAllowOrigin = require('./accessControlAllowOrigin');
 const apiActions = require('./apiActions');
 const patterns = require('./patterns');
 
 module.exports = {
+  // 跨域白名单
+  accessControlAllowOrigin,
 
   // 各种正则表达式
   patterns,
