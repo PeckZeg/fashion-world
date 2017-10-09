@@ -8,7 +8,7 @@ const validateObjectId = reqlib('./utils/validate-objectid');
 
 const Category = reqlib('./models/Category');
 
-const ACTION = 'ADMIN_CATEGORY_DEL_BLOCK_CATEGORY';
+const ACTION = 'ADMIN_CATEGORY_DEL_DESTROY_CATEGORY';
 
 module.exports = (req, res, next) => {
   const log = createLog(req, ACTION);

@@ -7,7 +7,7 @@ const validateObjectId = reqlib('./utils/validate-objectid');
 
 const Channel = reqlib('./models/Channel');
 
-const ACTION = 'ADMIN_CHANNEL_DEL_BLOCK_CHANNEL';
+const ACTION = 'ADMIN_CHANNEL_DEL_DESTROY_CHANNEL';
 
 module.exports = (req, res, next) => {
   const log = createLog(req, ACTION);
@@ -37,7 +37,7 @@ module.exports = (req, res, next) => {
       const doc = {
         $set: {
           publishAt: null,
-          removeAt: null
+          removeAt: new Date()
         }
       };
 
