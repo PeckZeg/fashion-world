@@ -49,7 +49,7 @@ if (NODE_ENV == 'development') {
   app.use('/api',restc.express());
 }
 
-app.get('/admin', (req, res) => {
+app.get(['/admin', /^\/admin(\/[\w\-]+)+/], (req, res) => {
   res.render('../admin-templates/index');
 });
 

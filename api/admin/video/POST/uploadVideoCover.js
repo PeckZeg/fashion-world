@@ -2,6 +2,7 @@ const path = require('path');
 
 const handleResult = reqlib('./utils/response/handleResult');
 const handleError = reqlib('./utils/response/handle-error');
+const injectProps = reqlib('./utils/model-injector/video');
 const authToken = reqlib('./utils/token/auth/account');
 const createLog = reqlib('./utils/createAccountLog');
 
