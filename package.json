@@ -1,20 +1,17 @@
 {
   "name": "caa-fashion-world",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "private": true,
   "scripts": {
-    "start": "forever start -c \"babel-node\" ./bin/www",
-    "dev": "DEBUG=api nodemon ./bin/www --exec babel-node",
-    "dev-auth": "DEBUG=api,auth nodemon ./bin/www --exec babel-node",
-    "handle-empty-cover-video": "DEBUG=data babel-node scripts/data/handleEmptyCoverVideo/index.js",
-    "remove-empty-loop-video": "DEBUG=data babel-node scripts/data/removeEmptyLoopVideo.js"
+    "start": "DEBUG=api nodemon ./bin/www --exec babel-node",
+    "start-auth": "DEBUG=api,auth nodemon ./bin/www --exec babel-node",
+    "server": "forever start -c \"babel-node\" ./bin/www"
   },
   "dependencies": {
     "app-root-path": "^2.0.1",
     "async": "^2.4.0",
     "axios": "^0.16.2",
     "body-parser": "~1.16.0",
-    "colors": "^1.1.2",
     "consolidate": "^0.14.5",
     "cookie-parser": "~1.4.3",
     "csv": "^1.1.1",

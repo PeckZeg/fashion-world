@@ -2,7 +2,9 @@ const debug = require('debug')('api');
 const colors = require('colors/safe');
 
 /**
- *  @deprecated 使用 `reqlib('./response/handleError');`
+ *  捕获错误对象
+ *  @param {Error} err 错误对象
+ *  @returns {null|Error} 生成的错误对象
  */
 const catchError = err => {
   if (!err) return null;
@@ -19,8 +21,13 @@ const catchError = err => {
   return new ResponseError(status, message);
 };
 
+/**
+ *  处理错误对象
+ *  @param {object} res Router response 对象
+ *  @param {Error} err 错误对象
+ */
 module.exports = (res, err) => {
-  const { status, message } = catchError(err);
+  const { status, message } = catchError(err) || {};
 
   if (err instanceof ResponseError) {
     debug(

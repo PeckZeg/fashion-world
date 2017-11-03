@@ -1,4 +1,2 @@
-module.exports = {
-  database: 0,
-  password: 'xmzc.123'
-};
+exports.database: 0;
+exports.password = 'xmzc.123';

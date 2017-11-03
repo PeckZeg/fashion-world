@@ -1,3 +1,6 @@
+/**
+ *  @deprecated 使用相应的方法
+ */
 module.exports = flag => {
   switch (flag) {
     case 'admin:account:key':

@@ -3,11 +3,14 @@
 ## Start Server
 
 ```bash
-# 在后台启动
-npm start
+# 开启调试模式
+yarn start
 
-# nodemon 启动
-npm run dev
+# 开启接口调试模式
+yarn run start-auth
+
+# 后台启动
+yarn run server
 ```
 
 ## Commands
