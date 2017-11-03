@@ -3,126 +3,90 @@ const colors = require('colors/safe');
 const crypto = require('crypto');
 const path = require('path');
 
-const createClient = reqlib('./redis/create-client');
+const isFunction = require('lodash/isFunction');
 
-const {
-  authorization: AUTHORIZATION_REGEXP,
-  accessKeys: KEYS_REGEXP
-} = config.patterns;
+const createClient = reqlib('./redis/createClient');
+const genSignature = require('../genSignature');
 
-module.exports = (req, actionName, options = {}) => {
-  const { required, cacheKey, transform, log, logIdProp } = options;
+/**
+ *  验证器
+ *  @param {object} req Express Router#req 对象
+ *  @param {string} actionName 动作名称
+ *  @param {object} [opts] 可选项
+ *  @param {boolean} [opts.required = false] 该验证是否是必需的
+ *  @param {Function} [transform] 令牌转换函数
+ *  @param {object} [log] 日志
+ *  @param {string} [logIdProp = 'userId'] 覆盖属性
+ */
+module.exports = async (req, actionName, opts = {}) => {
+  const { required = false, cacheKey, transform, log, logIdProp = 'userId' } = opts;
   const authorization = req.header('authorization');
   const action = config.apiActions[actionName];
 
-  // for api debug
+  // for api debugger
   req.__params__ = req.params;
-  req.__route__ = path.join(req.baseUrl, req.route.path).replace(/\/$/, '');
+  req.__route__ = `${req.baseUrl}${req.route.path}`;
 
   if (!required && !authorization) {
-    return Promise.resolve(null);
+    return null;
   }
 
-  return Promise.resolve(authorization)
+  // validate `authorization` format
+  const auth = config.patterns.authorization.exec(authorization);
 
-    // validate `authorization` format
-    .then(authorization => {
-      const auth = config.patterns.authorization.exec(authorization);
+  if (!auth) {
+    throw new ResponseError(400, 'invalid authorization');
+  }
 
-      if (!auth) {
-        return Promise.reject(new ResponseError(400, 'invalid authorization'));
-      }
-
-      return auth[1];
-    })
-
-    // validate token format
-    .then(token => {
-      token = Buffer.from(token, 'base64').toString();
+  let token = Buffer.from(auth[1], 'base64').toString();
       token = config.patterns.accessKeys.exec(token);
 
-      if (!token) {
-        return Promise.reject('invalid authorization format');
-      }
+  if (!token) {
+    throw new ResponseError(400, 'invalid authorization');
+  }
 
-      const apiKey = token[1];
-      const signature = token[2];
-      const timestamp = +token[3];
+  const apiKey = token[1];
+  const signature = token[2];
+  const timestamp = +token[3];
 
-      debug(colors.bold.magenta('action-name'), actionName);
-      debug(colors.bold.magenta('action'), action);
-      debug(colors.bold.magenta('apiKey'), apiKey);
-      debug(colors.bold.magenta('signature'), signature);
-      debug(
-        colors.bold.magenta('timestamp'),
-        timestamp,
-        colors.italic.gray(`(${moment(timestamp).format()})`)
-      );
+  debug(colors.bold.magenta('action-name'), actionName);
+  debug(colors.bold.magenta('action'), action);
+  debug(colors.bold.magenta('apiKey'), apiKey);
+  debug(colors.bold.magenta('signature'), signature);
+  debug(
+    colors.bold.magenta('timestamp'),
+    timestamp,
+    colors.italic.gray(`(${moment(timestamp).format()})`)
+  );
 
-      return { apiKey, signature, timestamp };
-    })
+  // validate `apiKey`
+  const client = createClient();
 
-    // validate timestamp
-    // .then(args => {
-    //   const { apiKey, signature, timestamp } = args;
-    //   const now = moment();
-    //   const begin = now.clone().add(-10, 'minutes');
-    //   const end = now.clone().add(10, 'minutes');
-    //   const ts = moment(timestamp);
-    //
-    //   if (!moment(timestamp).isBetween(begin, end)) {
-    //     return Promise.reject(new ResponseError(400, 'invalid timestamp'));
-    //   }
-    //
-    //   return args;
-    // })
+  token = await client.getAsync(cacheKey(apiKey));
 
-    // validate `apiKey`
-    .then(({ apiKey, signature, timestamp }) => {
-      const key = cacheKey(apiKey);
-      const client = createClient();
+  if (!token) {
+    throw new ResponseError(404, 'apiKey not found');
+  }
 
-      return client.getAsync(key)
-        .then(token => {
-          if (!token) {
-            return Promise.reject(new ResponseError(404, 'apiKey not found'));
-          }
+  token = JSON.parse(token);
 
-          token = JSON.parse(token);
+  if (isFunction(transform)) token = transform(token);
 
-          if (typeof transform == 'function') {
-            token = transform(token);
-          }
+  await client.quitAsync();
 
-          return { apiKey, signature, timestamp, token };
-        })
-        .then(args => client.quitAsync().then(() => args));
-    })
+  // validate signature
+  const { secretKey } = token;
+  const authSignature = genSignature(action, apiKey, secretKey, timestamp);
 
-    // validate signature
-    .then(({ apiKey, signature, timestamp, token }) => {
-      const { secretKey } = token;
-      const authSignature = crypto.createHash('sha1').update(
-        `?action=${action}&apiKey=${apiKey}&secretKey=${secretKey}&timestamp=${timestamp}`
-      ).digest('base64');
+  debug(colors.bold.magenta('auth signature'), authSignature);
 
-      debug(colors.bold.magenta('auth signature'), authSignature);
+  if (authSignature !== signature) {
+    throw new ResponseError(400, 'invalid signature');
+  }
 
-      if (authSignature != signature) {
-        return Promise.reject(new ResponseError(400, 'invalid signature'));
-      }
+  if (log) {
+    log[logIdProp] = token[logIdProp];
+  }
 
-      return token;
-    })
-
-    // set log
-    .then(token => {
-      if (log) {
-        log[logIdProp] = token[logIdProp];
-
-        // console.log(+new Date() - log.createAt);
-      }
-
-      return token;
-    });
+  return token;
 };
