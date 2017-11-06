@@ -55,12 +55,17 @@ app.get(['/admin', /^\/admin(\/[\w\-]+)+/], (req, res) => {
 
 glob.sync('*/', { cwd: './api' }).forEach(type => {
   type = type.substring(0, type.length - 1);
-  glob.sync('*/', { cwd: `./api/${type}` }).forEach(name => {
-    name = name.substring(0, name.length - 1);
-    let api = type === 'client' ? `/api/${name}` : `/api/${type}/${name}`;
 
-    app.use(api, require(`./api/${type}/${name}`));
-  });
+  if (!type.startsWith('_')) {
+    glob.sync('*/', { cwd: `./api/${type}` }).forEach(name => {
+      name = name.substring(0, name.length - 1);
+
+      if (!name.startsWith('_')) {
+        let api = type === 'client' ? `/api/${name}` : `/api/${type}/${name}`;
+        app.use(api, require(`./api/${type}/${name}`));
+      }
+    });
+  }
 });
 
 // catch 404 and forward to error handler

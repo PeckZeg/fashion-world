@@ -10,6 +10,9 @@ exports.token = require('./token');
 // 缓存
 exports.cache = require('./cache');
 
+// 图片
+exports.images = require('./images');
+
 // 接口动作
 exports.apiActions = {
   'client:user:get:fetch-user-list': 'user:fetch-user-list',

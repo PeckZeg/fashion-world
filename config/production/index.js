@@ -10,5 +10,8 @@ exports.alidayu = require('./alidayu');
 // Model
 exports.model = require('./model');
 
+// 七牛
+exports.qiniu = require('./qiniu');
+
 // 本地静态目录(已废弃)
 exports.localStaticPath = '/data/static';
