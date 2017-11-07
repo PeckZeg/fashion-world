@@ -22,7 +22,8 @@
 
 * **七牛**
   - [`GET` 获取上传令牌][client-qiniu-get-fetch-upload-token]
-
-
+* **用户**
+  - [`POST` 登录][client-user-post-login]
 
 [client-qiniu-get-fetch-upload-token]: ./api/client/qiniu/get/fetchUploadToken.md
+[client-user-post-login]: ./api/client/user/post/login.md
