@@ -21,6 +21,8 @@ module.exports = (router, root) => {
           if (_.isFunction(router[method]) && route && _.isFunction(handler)) {
             const params = _.compact([route, middleware, handler]);
             router[method](...params);
+
+            console.log(method, params);
           }
         }
       });

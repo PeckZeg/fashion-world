@@ -1,9 +1,9 @@
-const handleError = reqlib('./utils/response/handleError');
-const cacheKey = reqlib('./redis/keys/client/user');
-const createClient = reqlib('./redis/createClient');
-const authToken = reqlib('./utils/token/auth/user');
+const handleError = require('utils/response/handleError');
+const cacheKey = require('redis/keys/client/user');
+const createClient = require('redis/createClient');
+const authToken = require('utils/token/auth/user');
 
-const User = reqlib('./models/User');
+const User = require('models/User');
 
 const ACTION = 'CLIENT_MY_DEL_LOGOUT';
 

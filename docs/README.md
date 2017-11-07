@@ -22,8 +22,11 @@
 
 * **七牛**
   - [`GET` 获取上传令牌][client-qiniu-get-fetch-upload-token]
-* **用户**
-  - [`POST` 登录][client-user-post-login]
+* **个人中心**
+  - [`POST` 使用手机/密码登录][client-my-post-login]
+  - [`DELETE` 登出][client-my-delete-logout]
 
 [client-qiniu-get-fetch-upload-token]: ./api/client/qiniu/get/fetchUploadToken.md
-[client-user-post-login]: ./api/client/user/post/login.md
+
+[client-my-post-login]: ./api/client/my/post/login.md
+[client-my-delete-logout]: ./api/client/my/delete/logout.md
