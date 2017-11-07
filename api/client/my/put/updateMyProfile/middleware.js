@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
-const validate = reqlib('./utils/request/validate');
-const { GENDERS } = reqlib('./models/User/genders');
+const genMiddleware = require('utils/router/genMiddleware');
+const validate = require('utils/request/validate');
+const { GENDERS } = require('models/User/genders');
 
 const { Schema } = mongoose;
 
@@ -10,6 +11,8 @@ const schema = new Schema({
   gender: { type: String, enum: GENDERS }
 });
 
-module.exports = validate(
+const validator = validate(
   mongoose.model('UpdateMyProfileBodyParams', schema)
 );
+
+module.exports = genMiddleware(validator, 'body');

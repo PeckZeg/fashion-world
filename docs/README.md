@@ -25,6 +25,7 @@
 * **个人中心**
   - [`GET` 获取我的资料][client-my-get-fetch-my-profile]
   - [`POST` 使用手机/密码登录][client-my-post-login]
+  - [`PUT` 更新我的资料][client-my-put-update-my-profile]
   - [`DELETE` 登出][client-my-delete-logout]
 
 [client-qiniu-get-fetch-upload-token]: ./api/client/qiniu/get/fetchUploadToken.md
@@ -32,3 +33,4 @@
 [client-my-get-fetch-my-profile]: ./api/client/my/get/fetchMyProfile.md
 [client-my-post-login]: ./api/client/my/post/login.md
 [client-my-delete-logout]: ./api/client/my/delete/logout.md
+[client-my-put-update-my-profile]: ./api/client/my/put/updateMyProfile.md

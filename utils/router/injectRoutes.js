@@ -4,10 +4,24 @@ const path = require('path');
 /**
  *  向路由对象 `router` 中注入各种路由处理方法，
  *  每个路由文件需要提供 `route`, `[middleware]`, `handler`
- *  @param {Router} router 路由实例
+ *  @param {Router} [router] 路由实例
  *  @param {string} root 要注入所在的目录
  */
-module.exports = (router, root) => {
+module.exports = (...args) => {
+  let router, root;
+
+  switch (args.length) {
+    case 2:
+      router = args[0];
+      root = args[1];
+      break;
+
+    case 1:
+    default:
+      router = require('express').Router();
+      root = args[0];
+  }
+
   glob.sync('*/', { cwd: root }).forEach(methodDir => {
     if (!methodDir.startsWith('_')) {
       const method = methodDir.toLowerCase().replace(/\/$/, '');
@@ -28,4 +42,6 @@ module.exports = (router, root) => {
       });
     }
   });
+
+  return router;
 };
