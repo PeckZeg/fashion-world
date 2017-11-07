@@ -25,4 +25,4 @@
 
 
 
-[client-qiniu-get-fetch-upload-token]: ./api/client/qiniu/fetchUploadToken.md
+[client-qiniu-get-fetch-upload-token]: ./api/client/qiniu/get/fetchUploadToken.md
