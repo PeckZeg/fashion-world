@@ -9,7 +9,7 @@
 
 Key             | Value                 | Required | Note
 :-------------- | :-------------------- | :------: | :--------------------
-`Authorization` | `Caa ${Base64String}` |          | [用户签名][signature]
+`Authorization` | `Caa ${Base64String}` | √        | [用户签名][signature]
 
 * API Action: `qiniu:get:fetch-upload-token`
 

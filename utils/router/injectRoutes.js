@@ -22,7 +22,7 @@ module.exports = (router, root) => {
             const params = _.compact([route, middleware, handler]);
             router[method](...params);
 
-            console.log(method, params);
+            // console.log(method, params);
           }
         }
       });

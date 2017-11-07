@@ -7,11 +7,9 @@
 
 ## Headers
 
-## Headers
-
 Key             | Value                 | Required | Note
 :-------------- | :-------------------- | :------: | :--------------------
-`Authorization` | `Caa ${Base64String}` |          | [用户签名][signature]
+`Authorization` | `Caa ${Base64String}` | √        | [用户签名][signature]
 
 * API Action: `client:my:logout`
 
