@@ -13,6 +13,9 @@ exports.cache = require('./cache');
 // 图片
 exports.images = require('./images');
 
+// 七牛公共设置
+exports.qiniu = require('./qiniu');
+
 // 接口动作
 exports.apiActions = {
   'client:user:get:fetch-user-list': 'user:fetch-user-list',

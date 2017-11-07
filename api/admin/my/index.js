@@ -1,7 +1,10 @@
+const injectRoutes = require('utils/router/injectRoutes');
 const router = module.exports = require('express').Router();
 
 router.get('/', require('./GET/fetchMyProfile'));
 
-router.post('/avatar', require('./POST/uploadMyAvatar'));
+// router.put('/avatar', require('./put/updateMyAvatar'));
+router.put('/', require('./put/updateMyProfile'));
 
-router.put('/', require('./PUT/updateMyProfile'));
+
+injectRoutes(router, __dirname);

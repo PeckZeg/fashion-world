@@ -1,6 +1,8 @@
 const debug = require('debug')('api');
 const colors = require('colors/safe');
 
+const has = require('lodash/has');
+
 /**
  *  捕获错误对象
  *  @param {Error} err 错误对象
@@ -16,6 +18,11 @@ const catchError = err => {
 
   if (message.includes('duplicate key error')) {
     message = 'duplicate key error';
+  }
+
+  if (err.constructor.name == 'StatusCodeError') {
+    status = err.statusCode;
+    message = err.error[Object.keys(err.error)[0]];
   }
 
   return new ResponseError(status, message);

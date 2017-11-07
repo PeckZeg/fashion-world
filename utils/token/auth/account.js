@@ -1,4 +1,4 @@
-const cacheKey = reqlib('./redis/keys')('admin:account:key');
+const cacheKey = reqlib('./redis/keys/admin/account');
 const auth = require('./index');
 
 module.exports = (req, action, opts = {}) => (

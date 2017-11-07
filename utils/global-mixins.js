@@ -8,11 +8,20 @@ const redis = require('redis');
 const _ = require('lodash');
 const config = require('../config');
 const ResponseError = require('./ResponseError');
+const qiniu = require('qiniu');
+
+require('app-module-path').addPath(process.cwd());
 
 mongoose.Promise = global.Promise;
 
 bluebird.promisifyAll(redis.RedisClient.prototype);
 bluebird.promisifyAll(redis.Multi.prototype);
+
+bluebird.promisifyAll(qiniu.rs.BucketManager.prototype, {
+  filter: name => name === 'stat',
+  multiArgs: true
+});
+bluebird.promisifyAll(qiniu.rs.BucketManager.prototype);
 
 Object.assign(global, module.exports = {
   reqlib: appRootPath.require,
