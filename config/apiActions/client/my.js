@@ -5,7 +5,7 @@ exports.CLIENT_MY_GET_FETCH_MY_PROFILE = 'client:my:fetch-my-profile';
 exports.CLIENT_MY_POST_LOGIN = 'client:my:login';
 
 // 更新我的账号头像
-exports.CLIENT_MY_POST_UPLOAD_MY_AVATAR = 'client:my:upload-my-avatar';
+exports.CLIENT_MY_PUT_UPLOAD_MY_AVATAR = 'client:my:upload-my-avatar';
 
 // 更新我的账号信息
 exports.CLIENT_MY_PUT_UPDATE_MY_PROFILE = 'client:my:update-my-profile';

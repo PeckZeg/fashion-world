@@ -1,6 +1,3 @@
-const request = require('request-promise');
-const util = require('util');
-
 const createBucketManager = require('utils/qiniu/createBucketManager');
 const handleResult = require('utils/response/handleResult');
 const fetchFileSha1 = require('utils/qiniu/fetchFileSha1');
@@ -8,7 +5,6 @@ const handleError = require('utils/response/handleError');
 const authToken = require('utils/token/auth/account');
 const createLog = require('utils/createAccountLog');
 const fetchStat = require('utils/qiniu/fetchStat');
-const toUrl = require('utils/qiniu/toUrl');
 const mimeExt = require('utils/mimeExt');
 
 const Account = require('models/Account');
