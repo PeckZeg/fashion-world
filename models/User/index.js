@@ -15,6 +15,12 @@ const schema = new Schema({
   gender: { type: String, enum: GENDERS, default: 'secret' },
   mobile: { type: String, unique: true, match: matchMobile },
   avatar: { type: String, default: null },
+  thirdParty: {
+    weixin: {
+      openid: { type: String, default: null },
+      unionid: { type: String, default: null }
+    }
+  },
   createAt: { type: Date, default: Date.now },
   registerAt: { type: Date, default: Date.now }
 }, { toJSON, toObject });

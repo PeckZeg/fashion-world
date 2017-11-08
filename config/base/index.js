@@ -16,6 +16,9 @@ exports.images = require('./images');
 // 七牛公共设置
 exports.qiniu = require('./qiniu');
 
+// 微信设置
+exports.weixin = require('./weixin');
+
 // 接口动作
 exports.apiActions = {
   'client:user:get:fetch-user-list': 'user:fetch-user-list',

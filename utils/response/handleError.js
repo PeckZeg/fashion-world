@@ -23,6 +23,8 @@ const catchError = err => {
   if (err.constructor.name == 'StatusCodeError') {
     status = err.statusCode;
     message = err.error[Object.keys(err.error)[0]];
+
+    console.log(err.error);
   }
 
   return new ResponseError(status, message);
