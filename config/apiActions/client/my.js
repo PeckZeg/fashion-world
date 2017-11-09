@@ -4,6 +4,9 @@ exports.CLIENT_MY_GET_FETCH_MY_PROFILE = 'client:my:fetch-my-profile';
 // 登录我的账号
 exports.CLIENT_MY_POST_LOGIN = 'client:my:login';
 
+// 刷新令牌
+exports.CLIENT_MY_POST_REFRESH_TOKEN = 'client:my:refresh-token';
+
 // 绑定微信
 exports.CLIENT_MY_PUT_BIND_WEIXIN = 'client:my:bind-weixin';
 

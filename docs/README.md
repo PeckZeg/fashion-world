@@ -15,6 +15,7 @@
 
 * [签名验证算法](./signature.md)
 * [请求返回说明](./response.md)
+* [上传文件至七牛云](./upload-to-qiniu.md)
 
 ## 接口
 
@@ -26,6 +27,8 @@
   - [`GET` 获取我的资料][client-my-get-fetch-my-profile]
   - [`POST` 使用手机/密码登录][client-my-post-login]
   - [`POST` 使用微信登录][client-my-post-login-by-weixin]
+  - [`POST` 刷新令牌][client-my-post-refresh-token]
+  - [`PUT` 绑定微信][client-my-put-bind-weixin]
   - [`PUT` 更新我的资料][client-my-put-update-my-profile]
   - [`PUT` 更新我的头像][client-my-put-update-my-avatar]
   - [`DELETE` 登出][client-my-delete-logout]
@@ -35,6 +38,8 @@
 [client-my-get-fetch-my-profile]: ./api/client/my/get/fetchMyProfile.md
 [client-my-post-login]: ./api/client/my/post/login.md
 [client-my-post-login-by-weixin]: ./api/client/my/post/loginByWeixin.md
+[client-my-post-refresh-token]: ./api/client/my/post/refreshToken.md
+[client-my-put-bind-weixin]: ./api/client/my/put/bindWeixin.md
 [client-my-put-update-my-profile]: ./api/client/my/put/updateMyProfile.md
 [client-my-put-update-my-avatar]: ./api/client/my/put/updateMyAvatar.md
 [client-my-delete-logout]: ./api/client/my/delete/logout.md

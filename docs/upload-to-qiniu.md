@@ -1,4 +1,4 @@
-# 上传至七牛云
+# 上传文件至七牛云
 
 上传七牛云，需要预先获取一个 `uploadToken`，该值的获取在服务端已经做了封装，可以参看 [`GET` 获取上传令牌][client-qiniu-get-fetch-upload-token]。
 
