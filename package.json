@@ -8,6 +8,7 @@
     "server": "forever start -c \"babel-node\" ./bin/www"
   },
   "dependencies": {
+    "@alicloud/sms-sdk": "^1.0.2",
     "app-module-path": "^2.2.0",
     "app-root-path": "^2.0.1",
     "async": "^2.4.0",
