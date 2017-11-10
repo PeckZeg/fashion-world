@@ -29,6 +29,8 @@
   - [`POST` 使用微信登录][client-my-post-login-by-weixin]
   - [`POST` 刷新令牌][client-my-post-refresh-token]
   - [`POST` 发送注册验证码][client-my-post-send-register-code]
+  - [`POST` 验证注册验证码][client-my-post-validate-register-code]
+  - [`POST` 注册][client-my-post-register]
   - [`PUT` 绑定微信][client-my-put-bind-weixin]
   - [`PUT` 更新我的资料][client-my-put-update-my-profile]
   - [`PUT` 更新我的头像][client-my-put-update-my-avatar]
@@ -41,6 +43,8 @@
 [client-my-post-login-by-weixin]: ./api/client/my/post/loginByWeixin.md
 [client-my-post-refresh-token]: ./api/client/my/post/refreshToken.md
 [client-my-post-send-register-code]: ./api/client/my/post/sendRegisterCode.md
+[client-my-post-validate-register-code]: ./api/client/my/post/validateRegisterCode.md
+[client-my-post-register]: ./api/client/my/post/register.md
 [client-my-put-bind-weixin]: ./api/client/my/put/bindWeixin.md
 [client-my-put-update-my-profile]: ./api/client/my/put/updateMyProfile.md
 [client-my-put-update-my-avatar]: ./api/client/my/put/updateMyAvatar.md

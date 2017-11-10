@@ -24,8 +24,6 @@
 }
 ```
 
-* [`User` 模型][user-model]
-
 ## Error Codes
 
 Status Code | Message                 | Note
