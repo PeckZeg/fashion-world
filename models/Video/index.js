@@ -1,29 +1,17 @@
 const mongoose = require('mongoose');
 
-const connection = require('../utils/mongodb-connection');
-const unsetProps = reqlib('./utils/schema/unset-props');
-const transform = reqlib('./utils/schema/transform');
-const toUrl = reqlib('./utils/toResFtpUrl');
+const connection = require('utils/mongodb-connection');
+const unsetProps = require('utils/schema/unset-props');
+const transform = require('utils/schema/transform');
+const toObject = require('./toObject');
+const toJSON = require('./toJSON');
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
-const DEFAULT_COVER = config.model.video.defaultCover;
-
-const transformRet = ret => {
-  ret.cover = toUrl(ret.cover || DEFAULT_COVER);
-  return ret;
-};
-
-const TRANSFORM_TO_JSON_PROP_BLACK_LIST = [
-  'originalTitle',
-  'originalLanguage',
-  'removeAt'
-];
 
 const schema = new Schema({
   channelId: { type: ObjectId, required: true },
   categoryId: { type: ObjectId, required: true },
-  sourceId: { type: ObjectId, required: true },
   cover: { type: String, default: null },
   title: { type: String, minlength: 1, maxLength: 65535, default: null },
   subtitle: { type: String, maxLength: 65535, default: null },
@@ -44,28 +32,15 @@ const schema = new Schema({
   publishAt: { type: Date, default: null },
   recommendAt: { type: Date, default: null },
   createAt: { type: Date, default: Date.now },
-  removeAt: { type: Date, default: null }
-}, {
-  toJSON: {
-    virtuals: true,
-    transform(doc, ret, options) {
-      ret = transform(doc, ret, options);
-      ret = unsetProps(ret, TRANSFORM_TO_JSON_PROP_BLACK_LIST);
-      ret = transformRet(ret);
+  removeAt: { type: Date, default: null },
+  source: { type: String, default: null },
+  screenshots: [String],
+  filepath: { type: String, default: null },
 
-      return ret;
-    }
-  },
-
-  toObject: {
-    virtuals: true,
-    transform(doc, ret, options) {
-      ret = transform(doc, ret, options);
-      ret = transformRet(ret);
-
-      return ret;
-    }
-  }
-});
+  /**
+   *  @deprecated
+   */
+   sourceId: { type: ObjectId, required: true },
+}, { toJSON, toObject });
 
 module.exports = connection.model('Video', schema);

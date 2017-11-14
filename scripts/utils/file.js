@@ -81,3 +81,9 @@ exports.remove = filepath => new Promise((resolve, reject) => {
     resolve();
   });
 });
+
+exports.unlink = pathname => new Promise((resolve, reject) => {
+  fs.unlink(pathname, err => {
+    err ? reject(err) : resolve();
+  });
+});

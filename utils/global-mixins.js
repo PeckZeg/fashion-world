@@ -23,6 +23,17 @@ bluebird.promisifyAll(qiniu.rs.BucketManager.prototype, {
 });
 bluebird.promisifyAll(qiniu.rs.BucketManager.prototype);
 
+bluebird.promisifyAll(qiniu.form_up.FormUploader.prototype, {
+  filter: name => ['putFile', 'putStream'].includes(name),
+  multiArgs: true
+});
+bluebird.promisifyAll(qiniu.form_up.FormUploader.prototype);
+
+bluebird.promisifyAll(qiniu.fop.OperationManager.prototype, {
+  filter: name => ['pfop'].includes(name),
+  multiArgs: true
+});
+
 Object.assign(global, module.exports = {
   reqlib: appRootPath.require,
   resolve: appRootPath.resolve,
