@@ -36,6 +36,12 @@ const schema = new Schema({
   source: { type: String, default: null },
   screenshots: [String],
   filepath: { type: String, default: null },
+  definitions: [
+    {
+      type: { type: String, default: null },
+      source: { type: String, default: null }
+    }
+  ],
 
   /**
    *  @deprecated
