@@ -8,5 +8,4 @@ const run = async () => {
   console.log(metadata.streams[0].height);
 };
 
-
 run();
