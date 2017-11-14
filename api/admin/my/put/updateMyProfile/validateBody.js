@@ -11,6 +11,8 @@ const schema = new Schema({
   password: { type: String, match: matchPassword },
 }, { _id: false });
 
+const Model = mongoose.model('AdminUpdateMyProfileBodyParams', schema);
+
 module.exports = validate(
-  mongoose.model('AdminUpdateMyProfileBodyParams', schema)
+  Model
 );
