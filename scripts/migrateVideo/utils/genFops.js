@@ -26,7 +26,7 @@ module.exports = async (type, key) => {
   const { width, height } = avinfo.streams[0];
   const bucket = config.qiniu.bucket[type];
 
-  return defs.filter(h => h >= height).map(defHeight => {
+  return defs.filter(h => h <= height).map(defHeight => {
     const defWidth = Math.floor(width / height * defHeight);
     const s = `${defWidth}x${defHeight}`;
     const saveas = encode(`${bucket}:${uuid()}${path.extname(key)}`);

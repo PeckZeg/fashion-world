@@ -26,6 +26,10 @@ systemctl start redis
 mongo fwdb_dev -u fwadmin -p xmzc.123
 
 # 进入 MongoDB 数据库（正式环境）
+mongo fwdb -u fwadmin -p xmzc.123
+
+# 进入 Redis Cli
+redis-cli -a xmzc.123
 
 # 备份数据库
 mongodump -d fwdb_dev -u fwadmin -p xmzc.123 -o /tmp/fwdb
