@@ -10,7 +10,7 @@ const createMac = require('utils/qiniu/createMac');
 
 const { urlsafeBase64Encode: encode } = qiniu.util;
 const { videos: bucket } = config.qiniu.bucket;
-const key = '9a09bbd2e657fc6a7bd3769a61dff836494291fc.mp4';
+const key = '4fdd04cbe032fc1bf08363ac1c7f80fc7ddd687f.mp4';
 
 (async () => {
   const info = await fetchVideoInfo('videos', key);
