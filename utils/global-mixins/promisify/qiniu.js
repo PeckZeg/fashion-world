@@ -19,6 +19,12 @@ const PROMISIFY_PROTOTYPES = [
     ]
   },
   {
+    constructor: qiniu.resume_up.ResumeUploader,
+    multiArgsFuncNames: [
+      'putFile'
+    ]
+  },
+  {
     constructor: qiniu.fop.OperationManager,
     multiArgsFuncNames: [
       'pfop'

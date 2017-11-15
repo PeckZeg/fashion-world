@@ -5,6 +5,7 @@ const fs = require('fs');
 
 const isFunction = require('lodash/isFunction');
 
+const createResumeUploader = require('utils/qiniu/createResumeUploader');
 const createBucketManager = require('utils/qiniu/createBucketManager');
 const createFormUploader = require('utils/qiniu/createFormUploader');
 const createUploadToken = require('utils/qiniu/createUploadToken');
@@ -23,14 +24,23 @@ module.exports = async (src, opts = {}) => {
   const bucket = config.qiniu.bucket[type];
   const extname = path.extname(src);
   const key = `tmp/${uuid()}${extname}`;
+  const resumeUploader = createResumeUploader();
   const formUploader = createFormUploader();
-  const putExtra = new qiniu.form_up.PutExtra();
-  const scope = `${bucket}:${key}`;
-  const uploadToken = createUploadToken({ scope });
-  const readableStream = fs.createReadStream(src);
+  const putExtra = new qiniu.form_up.PutExtra(`tmp/${uuid()}${extname}`, {
+    'x:name': '',
+    'x:age': 27
+  });
+  putExtra.resumeRecordFile = `/tmp/${uuid()}-progress.log`;
 
-  const [respBody, respInfo] = await formUploader.putStreamAsync(uploadToken,
-      key, readableStream, putExtra);
+  const [respBody, respInfo] = await resumeUploader.putFile(uploadToken, null,
+      src, putExtra);
+
+  // const scope = `${bucket}:${key}`;
+  // const uploadToken = createUploadToken({ scope });
+  // const readableStream = fs.createReadStream(src);
+  //
+  // const [respBody, respInfo] = await formUploader.putStreamAsync(uploadToken,
+  //     key, readableStream, putExtra);
 
   if (respInfo.statusCode !== 200) {
     throw new ResponseError(respInfo.statusCode, respBody.error);
