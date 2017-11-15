@@ -37,6 +37,8 @@ module.exports = async (videoId) => {
     let { filepath = '' } = source;
     filepath = filepath.replace(/^\/WineLife_Channel_1080P/, '/WLC');
 
+    console.log({filepath});
+
     debug(`  正在迁移截图`);
     let screenshots = [];
     for (let [idx, screenshot] of source.screenshots.entries()) {
