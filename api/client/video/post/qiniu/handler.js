@@ -16,7 +16,7 @@ module.exports = async (req, res, next) => {
     const bucketManager = createBucketManager();
     let { key } = items[0];
 
-    let video = Video.findOne({ source });
+    let video = await Video.findOne({ source });
 
     if (video) {
       const { mimeType } = await fetchStat(bucketManager, bucket, key);
