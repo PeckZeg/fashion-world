@@ -1,9 +1,10 @@
 const path = require('path');
 
 const createBucketManager = require('utils/qiniu/createBucketManager');
+const fetchVideoInfo = require('utils/qiniu/fetchVideoInfo');
 const fetchFileSha1 = require('utils/qiniu/fetchFileSha1');
 const handleError = require('utils/response/handleError');
-const fetchVideoInfo = require('utils/qiniu/fetchVideoInfo');
+const fetchStat = require('utils/qiniu/fetchStat');
 
 const Video = require('models/Video');
 
