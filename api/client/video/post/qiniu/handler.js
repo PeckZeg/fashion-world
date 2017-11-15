@@ -40,10 +40,7 @@ module.exports = async (req, res, next) => {
       const opts = { new: true };
 
       video = await Video.findByIdAndUpdate(video._id, doc, opts);
-      console.log({video});
       video = video.toJSON();
-
-      res.send({ video });
     }
 
     else {
