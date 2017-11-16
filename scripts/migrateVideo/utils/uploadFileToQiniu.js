@@ -30,7 +30,7 @@ module.exports = async (src, opts = {}) => {
     'x:name': '',
     'x:age': 27
   });
-  putExtra.resumeRecordFile = `/tmp/${uuid()}-progress.log`;
+  // putExtra.resumeRecordFile = `/tmp/${uuid()}-progress.log`;
   const scope = `${bucket}:${key}`;
   const uploadToken = createUploadToken({ scope });
   // const readableStream = fs.createReadStream(src);
