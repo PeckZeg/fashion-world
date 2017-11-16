@@ -47,7 +47,7 @@ module.exports = async (src, opts = {}) => {
   }
 
   const bucketManager = createBucketManager();
-  const sha1 = await fetchFileSha1(type, key);
+  const sha1 = opts.sha1 || await fetchFileSha1(type, key);
   const moveKey = isFunction(rename) ? rename(sha1, extname) : `${sha1}${extname}`;
 
   await bucketManager.moveAsync(bucket, key, bucket, moveKey, { force: true });

@@ -16,7 +16,8 @@ module.exports = async (filepath, rename) => {
   await downloadFtpFile(filepath, localpath, { connect });
 
   // upload file to qiniu
-  const key = await uploadFileToQiniu(localpath, { type: 'videos', rename });
+  const sha1 = await syncUtils.file.genSha1(localpath);
+  const key = await uploadFileToQiniu(localpath, { type: 'videos', rename, sha1 });
 
   await syncUtils.file.unlink(localpath);
 
