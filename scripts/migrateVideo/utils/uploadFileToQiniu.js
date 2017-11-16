@@ -35,7 +35,7 @@ module.exports = async (src, opts = {}) => {
   const uploadToken = createUploadToken({ scope });
   // const readableStream = fs.createReadStream(src);
 
-  const [respBody, respInfo] = await resumeUploader.putFile(uploadToken, null,
+  const [respBody, respInfo] = await resumeUploader.putFileAsync(uploadToken, null,
       src, putExtra);
 
 
