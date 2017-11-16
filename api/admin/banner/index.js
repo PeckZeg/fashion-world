@@ -1,6 +1,7 @@
 const router = module.exports = require('express').Router();
 
 router.get('/', require('./GET/fetchBannerList'));
+router.get('/:bannerId', require('./GET/fetchBannerProfile'));
 
 router.post('/:bannerId', require('./POST/recoverBanner'));
 router.post('/:bannerId/cover', require('./POST/uploadCover'));
