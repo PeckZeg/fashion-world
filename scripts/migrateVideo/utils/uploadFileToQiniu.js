@@ -31,14 +31,14 @@ module.exports = async (src, opts = {}) => {
     'x:age': 27
   });
   putExtra.resumeRecordFile = `/tmp/${uuid()}-progress.log`;
+  const scope = `${bucket}:${key}`;
+  const uploadToken = createUploadToken({ scope });
+  // const readableStream = fs.createReadStream(src);
 
   const [respBody, respInfo] = await resumeUploader.putFile(uploadToken, null,
       src, putExtra);
 
-  // const scope = `${bucket}:${key}`;
-  // const uploadToken = createUploadToken({ scope });
-  // const readableStream = fs.createReadStream(src);
-  //
+
   // const [respBody, respInfo] = await formUploader.putStreamAsync(uploadToken,
   //     key, readableStream, putExtra);
 
