@@ -9,7 +9,7 @@ const injectVideoProps = reqlib('./utils/model-injector/video');
 const Banner = reqlib('./models/Banner');
 const Video  = reqlib('./models/Video');
 
-const action = 'ADMIN_BANNER_GET_FETCH_BANNER_PROFILE';
+const ACTION = 'ADMIN_BANNER_GET_FETCH_BANNER_PROFILE';
 
 module.exports = async (req, res, next) => {
   try {
