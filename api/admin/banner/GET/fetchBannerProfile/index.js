@@ -1,10 +1,11 @@
 const handleResult = reqlib('./utils/response/handleResult');
+const validateObjectId = reqlib('./utils/validate-objectid');
 const handleError = reqlib('./utils/response/handle-error');
 const authToken = reqlib('./utils/token/auth/account');
 const createLog = reqlib('./utils/createAccountLog');
 
-const injectProps = reqlib('./utils/model-injector/banner');
 const injectVideoProps = reqlib('./utils/model-injector/video');
+const injectProps = reqlib('./utils/model-injector/banner');
 
 const Banner = reqlib('./models/Banner');
 const Video  = reqlib('./models/Video');
@@ -15,8 +16,8 @@ module.exports = async (req, res, next) => {
   try {
     const log = createLog(req, ACTION);
     const token = await authToken(req, ACTION, { log });
-    const bannerId = validateObjectId(req.params.bannerId);
-    let banner = await Video.findById(bannerId);
+    const bannerId = await validateObjectId(req.params.bannerId);
+    let banner = await Banner.findById(bannerId);
 
     if (!banner) {
       throw new ResponseError(404, 'banner not found');
