@@ -9,7 +9,6 @@ module.exports = async (req, res, next) => {
     const key = inputKey.toString();
     const value = JSON.stringify(req.body);
     const result = await client.saddAsync(cacheKey, key, value);
-
     res.send({ result });
   }
 
