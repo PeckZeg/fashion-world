@@ -29,7 +29,7 @@ module.exports = async (type, key) => {
   return defs.filter(h => h <= height).map(defHeight => {
     const defWidth = Math.floor(width / height * defHeight);
     const s = `${defWidth}x${defHeight}`;
-    const saveas = encode(`${bucket}:${uuid()}${path.extname(key)}`);
+    const saveas = encode(`${bucket}:tmp/${uuid()}${path.extname(key)}`);
     const { vb } = conf[defHeight];
 
     return `avthumb/mp4/vb/${vb}/vcodec/libx264/acodec/libfdk_aac/s/${s}|saveas/${saveas}`;

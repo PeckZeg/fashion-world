@@ -19,14 +19,14 @@ module.exports = async (req, res, next) => {
     let video = await Video.findOne({ sourceId: source._id });
 
     if (video) {
-      let $each = [];
+      let definitions = [];
 
       for (let item of items) {
         let { key } = item;
 
         const sha1 = await fetchFileSha1('videos', key);
         const extname = path.extname(key);
-        const definition = `tmp/${sha1}${extname}`;
+        const definition = `${sha1}${extname}`;
         const [respBody, respInfo] = await bucketManager.moveAsync(bucket, key,
           bucket, definition, { force: true });
 
@@ -37,10 +37,10 @@ module.exports = async (req, res, next) => {
           const avinfo = await fetchVideoInfo('videos', definition);
           const { height } = avinfo.streams[0];
 
-          $each.push({ type: `${height}p`, source: definition });
+          definitions.push({ type: `${height}p`, source: definition });
       }
 
-      const doc = { $push: { definitions: { $each } } };
+      const doc = { $set: { definitions } };
       const opts = { new: true };
 
       video = await Video.findByIdAndUpdate(video._id, doc, opts);
