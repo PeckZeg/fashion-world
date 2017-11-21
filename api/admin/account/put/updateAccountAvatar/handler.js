@@ -1,22 +1,24 @@
-const createBucketManager = require('utils/qiniu/createBucketManager');
 const handleResult = require('utils/response/handleResult');
-const fetchFileSha1 = require('utils/qiniu/fetchFileSha1');
-const handleError = require('utils/response/handleError');
+const handleError = require('utils/response/handle-error');
 const authToken = require('utils/token/auth/account');
 const createLog = require('utils/createAccountLog');
-const fetchStat = require('utils/qiniu/fetchStat');
 const mimeExt = require('utils/mimeExt');
+
+const createBucketManager = require('utils/qiniu/createBucketManager');
+const fetchFileSha1 = require('utils/qiniu/fetchFileSha1');
+const fetchStat = require('utils/qiniu/fetchStat');
 
 const Account = require('models/Account');
 
-const ACTION = 'ADMIN_MY_UPDATE_MY_AVATAR';
+const action = 'ADMIN_ACCOUNT_PUT_UPDATE_ACCOUNT_AVATAR';
 const { images: bucket } = config.qiniu.bucket;
 
 module.exports = async (req, res, next) => {
   try {
-    const log = createLog(req, ACTION);
+    const log = createLog(req, action);
+    const token = await authToken(req, action, { log });
     const { key } = req.body;
-    const { accountId } = await authToken(req, ACTION, { log });
+    const { accountId } = req.params;
     let account = await Account.findById(accountId);
 
     if (!account) {
@@ -29,10 +31,10 @@ module.exports = async (req, res, next) => {
     const sha1 = await fetchFileSha1(key);
     const avatar = `${sha1}${extname}`;
 
-    // rename bucket key
-    await bucketManager.moveAsync(bucket, key, bucket, avatar, { force: true });
+    await bucketManager.moveAsync(bucket, key, bucket, avatar, {
+      force: true
+    });
 
-    // update account
     const doc = { $set: { avatar } };
     const opts = { new: true };
 
@@ -42,7 +44,7 @@ module.exports = async (req, res, next) => {
     handleResult(res, { account }, log);
   }
 
-  catch (err) {
+  catch(err) {
     handleError(res, err);
   }
 };

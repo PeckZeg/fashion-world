@@ -5,7 +5,7 @@ exports.ADMIN_ACCOUNT_GET_FETCH_ACCOUNT_LIST = 'admin:account:fetch-account-list
 exports.ADMIN_ACCOUNT_GET_FETCH_ACCOUNT_PROFILE = 'admin:account:fetch-account-profile';
 
 // 登录账号
-exports.ADMIN_ACCOUNT_POST_LOGIN_ACCOUNT = 'admin:account:login-account';
+// exports.ADMIN_ACCOUNT_POST_LOGIN_ACCOUNT = 'admin:account:login-account';
 
 // 创建账号
 exports.ADMIN_ACCOUNT_POST_CREATE_ACCOUNT = 'admin:account:create-account';
@@ -19,6 +19,9 @@ exports.ADMIN_ACCOUNT_POST_ACTIVE_ACCOUNT = 'admin:account:active-account';
 // 更新账号
 exports.ADMIN_ACCOUNT_PUT_UPDATE_ACCOUNT = 'admin:account:update-account';
 
+// 更新账号头像
+exports.ADMIN_ACCOUNT_PUT_UPDATE_ACCOUNT_AVATAR = 'admin:account:update-account-avatar';
+
 // 禁用账号
 exports.ADMIN_ACCOUNT_DEL_BLOCK_ACCOUNT = 'admin:account:block-account';
 
@@ -26,4 +29,4 @@ exports.ADMIN_ACCOUNT_DEL_BLOCK_ACCOUNT = 'admin:account:block-account';
 exports.ADMIN_ACCOUNT_DEL_DESTROY_ACCOUNT = 'admin:account:destroy-account';
 
 // 登出账号
-exports.ADMIN_ACCOUNT_DEL_LOGOUT_ACCOUNT = 'admin:account:logout-account';
+// exports.ADMIN_ACCOUNT_DEL_LOGOUT_ACCOUNT = 'admin:account:logout-account';
