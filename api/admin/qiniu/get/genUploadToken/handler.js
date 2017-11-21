@@ -4,9 +4,9 @@ const path = require('path');
 
 const createUploadToken = require('utils/qiniu/createUploadToken');
 const handleError = require('utils/response/handleError');
-const authToken = require('utils/token/auth/user');
+const authToken = require('utils/token/auth/account');
 
-const ACTION = 'ADMIN_QINIU_GET_FETCH_UPLOAD_TOKEN';
+const ACTION = 'ADMIN_QINIU_GET_GENERATE_UPLOAD_TOKEN';
 const { images: bucket } = config.qiniu.bucket;
 const { images: host } = config.qiniu.host;
 
