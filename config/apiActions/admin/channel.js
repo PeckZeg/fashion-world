@@ -5,10 +5,7 @@ exports.ADMIN_CHANNEL_GET_FETCH_CHANNEL_LIST = 'admin:channel:fetch-channel-list
 exports.ADMIN_CHANNEL_GET_FETCH_CHANNEL_PROFILE = 'admin:channel:fetch-channel-profile';
 
 // 创建频道
-// exports.ADMIN_CHANNEL_POST_CREATE_CHANNEL = 'admin:channel:create-channel';
-
-// 上传封面
-// exports.ADMIN_CHANNEL_POST_UPLOAD_CHANNEL_COVER = 'admin:channel:upload-channel-cover';
+exports.ADMIN_CHANNEL_POST_CREATE_CHANNEL = 'admin:channel:create-channel';
 
 // 发布频道
 exports.ADMIN_CHANNEL_POST_PUBLISH_CHANNEL = 'admin:channel:publish-channel';
@@ -18,6 +15,9 @@ exports.ADMIN_CHANNEL_POST_RECOVER_CHANNEL = 'admin:channel:recover-channel';
 
 // 更新频道
 exports.ADMIN_CHANNEL_PUT_UPDATE_CHANNEL = 'admin:channel:update-channel';
+
+// 更新频道封面
+exports.ADMIN_CHANNEL_PUT_UPDATE_CHANNEL_COVER = 'admin:channel:update-channel-cover';
 
 // 禁用频道
 exports.ADMIN_CHANNEL_DEL_BLOCK_CHANNEL = 'admin:channel:block-channel';

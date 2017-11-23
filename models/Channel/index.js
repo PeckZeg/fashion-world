@@ -10,6 +10,7 @@ const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
 const schema = new Schema({
+  cover: { type: String, default: null },
   name: { type: String, required: true, minlength: 1, maxLength: 64 },
   priority: { type: Number, default: 0 },
   publishAt: { type: Date, default: null },

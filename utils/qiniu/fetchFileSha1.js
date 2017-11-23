@@ -1,5 +1,7 @@
 const request = require('request-promise');
 const toUrl = require('./toUrl');
+const { URL } = require('url');
+const { originHost } = config.qiniu;
 
 /**
  *  获取文件的 sha1 信息
@@ -8,7 +10,22 @@ const toUrl = require('./toUrl');
  *  @returns {string} 完整的 URL 路径
  */
 module.exports = async (...args) => {
-  const url = toUrl(...args);
+  let base, input;
+
+  switch (args.length) {
+    case 1:
+      base = 'images';
+      input = args[0];
+      break;
+
+    case 2:
+    default:
+      base = args[0];
+      input = args[1];
+  }
+
+
+  const url = (new URL(input, originHost[base])).toString();
   const { hash } = await request({ url: `${url}?qhash/sha1`, json: true });
 
   return hash;

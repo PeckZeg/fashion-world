@@ -1,3 +1,6 @@
+const isPlainObject = require('lodash/isPlainObject');
+const isUndefined = require('lodash/isUndefined');
+const isFunction = require('lodash/isFunction');
 const camelCase = require('lodash/camelCase');
 const reduce = require('lodash/reduce');
 const has = require('lodash/has');
@@ -9,17 +12,25 @@ const has = require('lodash/has');
  *  @returns {object} 查询条件字典
  */
 module.exports = (body, props) => reduce(props, (props, schema) => {
-  const { prop, shape, transTo, search } = schema;
+  const { prop, shape, transTo, search, cond } = schema;
 
-  if (prop && shape && has(body, prop)) {
+  if (prop && has(body, prop) && shape) {
     props[transTo ? transTo : prop] = body[prop];
   }
 
-  const bodyProp = camelCase(`search-${prop}`);
+  if (prop && has(body, prop) && isPlainObject(cond)) {
+    const value = cond[body[prop]];
 
-  if (search && has(body, bodyProp)) {
+    if (!isUndefined(value)) {
+      props[prop] = isFunction(value) ? value() : value;
+    }
+  }
+
+  const searchProp = camelCase(`search-${prop}`);
+
+  if (search && has(body, searchProp)) {
     props[prop] = {
-      $regex: new RegExp(body[bodyProp], 'i')
+      $regex: new RegExp(body[searchProp], 'i')
     };
   }
 

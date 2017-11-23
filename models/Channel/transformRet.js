@@ -1,7 +1,6 @@
 const toUrl = require('utils/qiniu/toUrl');
-const { avatar: defaultAvatar } = config.images;
 
 module.exports = ret => {
-  ret.avatar = toUrl(ret.avatar);
+  ret.cover = toUrl(ret.cover);
   return ret;
 };

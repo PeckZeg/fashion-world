@@ -22,5 +22,5 @@ module.exports = (...args) => {
       input = args[1];
   }
 
-  return (new URL(input, host[base])).toString();
+  return input ? (new URL(input, host[base])).toString() : null;
 };
