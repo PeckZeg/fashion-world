@@ -8,9 +8,10 @@ const validate = require('utils/request/validate');
 const { ObjectId } = mongoose.Schema.Types;
 
 const schema = new mongoose.Schema({
+  channelId: { type: ObjectId, required: true },
   name: { type: String, required: true, minlength: 1, maxLength: 64 },
   priority: Number,
-  publishAt: Date
+  publishAt: Date,
 }, { _id: false });
 
 const validator = validate(mongoose.model(uniqueId('admin'), schema));

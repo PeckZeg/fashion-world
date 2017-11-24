@@ -1,4 +1,5 @@
 const transform = reqlib('./utils/schema/transform');
+const transformRet = require('./transformRet');
 const unsetProps = require('./unsetProps');
 
 module.exports = {
@@ -6,6 +7,7 @@ module.exports = {
   transform(doc, ret, opts) {
     ret = transform(doc, ret, opts);
     ret = unsetProps(ret);
+    ret = transformRet(ret);
 
     return ret;
   }
