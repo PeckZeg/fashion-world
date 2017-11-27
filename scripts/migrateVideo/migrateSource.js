@@ -27,11 +27,13 @@ module.exports = async src => {
   const sha1 = await syncUtils.file.genSha1(dest);
   dest = await syncUtils.file.rename(dest, path.join('/tmp', `${sha1}${extname}`));
 
+  debug(`${space}正在上传视频`);
   const avinfo = await syncUtils.ffmpeg.ffprobe(dest);
   const { width, height } = avinfo.streams[0];
   const definition = defs.filter(d => d <= height)[0] || 1080;
   const { filepath, filename } = await syncUtils.video.toDefinition(dest, definition);
   const key = await uploadToQiniu(filepath, { type: 'videos', key: filename });
+  debug(`${space}完成上传视频`);
 
   await syncUtils.file.unlink(dest);
   await syncUtils.file.unlink(filepath);

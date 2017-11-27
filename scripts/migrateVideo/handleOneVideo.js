@@ -67,9 +67,7 @@ module.exports = async videoId => {
       }
     };
 
-    console.log({doc});
-
-    // video = await Video.findByIdAndUpdate(videoId, doc, { new: true });
+    video = await Video.findByIdAndUpdate(videoId, doc, { new: true });
   }
 
   catch (err) {
