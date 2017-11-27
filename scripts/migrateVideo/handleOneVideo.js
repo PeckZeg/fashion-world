@@ -4,6 +4,9 @@ const path = require('path');
 
 const repeat = require('lodash/repeat');
 
+const fetchPublicUrl = require('utils/ip/fetchPublicUrl');
+const createConfig = require('utils/qiniu/createConfig');
+const createMac = require('utils/qiniu/createMac');
 const createClient = require('redis/createClient');
 const migrateSource = require('./migrateSource');
 const migrateImage = require('./migrateImage');
