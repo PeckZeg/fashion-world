@@ -14,21 +14,25 @@ const genArgs = definition => {
 
   switch (definition) {
     case '1080p':
+    case 1080:
       videoBitrate = '3072k';
       size = '?x1080';
       break;
 
     case '720p':
+    case 720:
       videoBitrate = '1536k';
       size = '?x720';
       break;
 
     case '480p':
+    case 480:
       videoBitrate = '768k';
       size = '?x480';
       break;
 
     case '360p':
+    case 360:
     default:
       videoBitrate = '386k';
       size = '?x360';
@@ -37,7 +41,7 @@ const genArgs = definition => {
   return { videoBitrate, size };
 };
 
-module.exports = (filepath, definition = '360p', destFolder = TMP_FOLDER) => new Promise((resolve, reject) => {
+module.exports = (filepath, definition = '360p', destFolder = '/tmp') => new Promise((resolve, reject) => {
   const outputPath = path.join(destFolder, `${uuid()}.mp4`);
   const { videoBitrate, size } = genArgs(definition);
 

@@ -1,26 +1,30 @@
+const debug = require('debug')('migrate');
+
 const globalMixins = require('../../utils/global-mixins');
 
-const fetchVideoList = require('./fetchVideoList');
+const createClient = require('redis/createClient');
 const handleOneVideo = require('./handleOneVideo');
+const checkComplete = require('./checkComplete');
+const initSyncList = require('./initSyncList');
+const cacheKey = require('./keys/videoList');
 
-// const searchId = process.env.NODE_ENV == 'test' ?
-//     '598e0b2c97c46c20f17aa234' : '598828920451c8c6f62fd45e';
+(async () => {
+  const client = createClient();
+  let videoId;
 
-const run = async () => {
-  try {
-    const idList = await fetchVideoList();
+  await initSyncList();
 
-    for (let videoId of idList) {
+  while (videoId = await client.spopAsync(cacheKey)) {
+    const isComplete = await checkComplete(videoId);
+
+    if (!isComplete) {
       await handleOneVideo(videoId);
     }
 
-    process.exit(0);
+    else {
+      debug(`忽略视频 ${videoId} (已经转换过)`);
+    }
   }
 
-  catch (err) {
-    console.error(err);
-    process.exit(1);
-  }
-};
-
-run();
+  process.exit(0);
+})().catch(err => console.error(err));
