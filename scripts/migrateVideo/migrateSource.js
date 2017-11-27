@@ -15,9 +15,12 @@ const defs = [1080, 720, 480, 360];
 module.exports = async src => {
   if (!src) return null;
 
+  const space = repeat(' ', 4);
   let dest = path.join('/tmp', path.basename(src));
 
+  debug(`${space}正在下载视频`);
   await downloadFtpFile(src, dest, { connect });
+  debug(`${space}完成下载视频`);
 
   const extname = path.extname(dest);
   const sha1 = await syncUtils.file.genSha1(dest);

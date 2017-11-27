@@ -12,10 +12,9 @@ const { videos: bucket } = config.qiniu.bucket;
 
 module.exports = async (req, res, next) => {
   try {
-    const { inputKey, items } = req.body;
-    const qiniuSha1 = path.basename(inputKey, path.extname(inputKey));
+    const { inputKey: source, items } = req.body;
     const bucketManager = createBucketManager();
-    let video = await Video.findOne({ qiniuSha1 });
+    let video = await Video.findOne({ source });
 
     if (video) {
       const definitions = Promise.all(items.map(({ key }) => async () => {

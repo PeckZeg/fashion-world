@@ -42,7 +42,6 @@ const schema = new Schema({
       source: { type: String, default: null }
     }
   ],
-  qiniuSha1: { type: String, default: null },
 
   /**
    *  @deprecated
