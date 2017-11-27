@@ -1,5 +1,7 @@
 const path = require('path');
 
+const isEmpty = require('lodash/isEmpty');
+
 const createBucketManager = require('utils/qiniu/createBucketManager');
 const fetchVideoInfo = require('utils/qiniu/fetchVideoInfo');
 const fetchFileSha1 = require('utils/qiniu/fetchFileSha1');
@@ -11,7 +13,10 @@ const Video = require('models/Video');
 const { videos: bucket } = config.qiniu.bucket;
 
 module.exports = async (req, res, next) => {
-  console.log(JSON.stringify(req.body));
+  if (isEmpty(req.body)) {
+    return res.send({ video: null });
+  }
+
   try {
     const { inputKey: source, items } = req.body;
     const bucketManager = createBucketManager();
@@ -48,6 +53,7 @@ module.exports = async (req, res, next) => {
   }
 
   catch (err) {
+    console.error({err});
     handleError(err);
   }
 };
