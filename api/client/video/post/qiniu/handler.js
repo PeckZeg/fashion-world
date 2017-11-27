@@ -17,7 +17,7 @@ module.exports = async (req, res, next) => {
     let video = await Video.findOne({ source });
 
     if (video) {
-      const definitions = Promise.all(items.map(({ key }) => async () => {
+      const definitions = await Promise.all(items.map(async ({ key }) => {
         const sha1 = await fetchFileSha1('videos', key);
         const extname = path.extname(key);
         const definition = `${sha1}${extname}`;

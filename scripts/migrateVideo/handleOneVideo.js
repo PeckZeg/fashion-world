@@ -68,6 +68,11 @@ module.exports = async videoId => {
     };
 
     video = await Video.findByIdAndUpdate(videoId, doc, { new: true });
+
+    const cacheKey = require('scripts/migrateVideo/keys/completeList');
+
+    await client.saddAsync(cacheKey, videoId);
+    await client.quitAsync();
   }
 
   catch (err) {
