@@ -11,6 +11,7 @@ const Video = require('models/Video');
 const { videos: bucket } = config.qiniu.bucket;
 
 module.exports = async (req, res, next) => {
+  console.log(JSON.stringify(req.body));
   try {
     const { inputKey: source, items } = req.body;
     const bucketManager = createBucketManager();
