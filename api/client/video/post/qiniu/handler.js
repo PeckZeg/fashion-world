@@ -53,7 +53,6 @@ module.exports = async (req, res, next) => {
   }
 
   catch (err) {
-    console.error({err});
-    handleError(err);
+    handleError(res, err);
   }
 };
