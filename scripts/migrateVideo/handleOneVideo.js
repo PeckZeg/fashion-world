@@ -10,9 +10,12 @@ const createMac = require('utils/qiniu/createMac');
 const createClient = require('redis/createClient');
 const migrateSource = require('./migrateSource');
 const migrateImage = require('./migrateImage');
+const genFops = require('./genFops');
 
 const SourceVideo = require('models/SourceVideo');
 const Video = require('models/Video');
+
+const { videos: bucket } = config.qiniu.bucket;
 
 module.exports = async videoId => {
   try {
