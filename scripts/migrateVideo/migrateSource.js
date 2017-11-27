@@ -3,6 +3,7 @@ const qiniu = require('qiniu');
 const path = require('path');
 
 const replace = require('lodash/replace');
+const repeat = require('lodash/repeat');
 
 const downloadFtpFile = require('./downloadFtpFile');
 const uploadToQiniu = require('./uploadToQiniu');
