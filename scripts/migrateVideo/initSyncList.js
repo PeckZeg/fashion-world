@@ -19,7 +19,7 @@ module.exports = async () => {
   if (!await client.scardAsync(cacheKey)) {
     let idList = await Video.find(null, '_id');
         idList = map(idList, ({ _id }) => _id.toString());
-        idList = idList.filter(id => id == searchId);
+        // idList = idList.filter(id => id == searchId);
 
     await client.saddAsync(cacheKey, ...idList);
   }

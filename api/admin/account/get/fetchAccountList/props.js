@@ -22,10 +22,19 @@ module.exports = [
   },
   {
     prop: 'activeAt',
-    sort: true
+    sort: true,
+    cond: {
+      on: () => ({ $ne: null, $lte: new Date() }),
+      timing: () => ({ $ne: null, $gte: new Date() }),
+      off: () => ({ $eq: null })
+    }
   },
   {
     prop: 'removeAt',
-    sort: true
+    sort: true,
+    cond: {
+      on: () => ({ $ne: null }),
+      off: () => ({ $eq: null })
+    }
   }
 ];
