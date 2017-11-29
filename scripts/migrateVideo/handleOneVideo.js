@@ -58,6 +58,7 @@ module.exports = async videoId => {
     await operManager.pfopAsync(bucket, sourceKey, fops, pipeline, opts);
     debug(`${space}完成生成清晰度转换队列`);
 
+    debug(`${space}正在更新文档`);
     const doc = {
       $set: {
         cover,
@@ -70,8 +71,22 @@ module.exports = async videoId => {
     video = await Video.findByIdAndUpdate(videoId, doc, { new: true });
 
     const cacheKey = require('scripts/migrateVideo/keys/completeList');
+    debug(`${space}完成更新文档`);
 
-    await client.saddAsync(cacheKey, videoId);
+    await client.saddAsync(
+      require('scripts/migrateVideo/keys/completeList'),
+      videoId
+    );
+
+    const completeCount = await client.scardAsync(
+      require('scripts/migrateVideo/keys/completeList')
+    );
+    const pendingCount = await client.scardAsync(
+      require('scripts/migrateVideo/keys/videoList')
+    );
+
+    debug(`🔥${space}已迁移 ${completeCount} 个视频，剩余 ${pendingCount} 个.`);
+
     await client.quitAsync();
   }
 
