@@ -1,0 +1,26 @@
+[
+  {
+    "cmd": "avthumb/mp4/vb/386k/vcodec/libx264/acodec/libfdk_aac/s/640x360|saveas/ZnctYmV0YS12aWRlb3M6dG1wLzIxN2IxYzZkLTNhNTItNGQxNi05NzgyLTI2YzY5YjExNjZlNC5tcDQ=",
+    "code": 0,
+    "desc": "The fop was completed successfully",
+    "hash": "lkC1Z-Lj4MD-2Q07zPoP6voAfHFm",
+    "key": "tmp/217b1c6d-3a52-4d16-9782-26c69b1166e4.mp4",
+    "returnOld": 0
+  },
+  {
+    "cmd": "avthumb/mp4/vb/768k/vcodec/libx264/acodec/libfdk_aac/s/853x480|saveas/ZnctYmV0YS12aWRlb3M6dG1wLzI0YTVlYjM1LWMzN2MtNDg3ZC04ZmE2LTViM2IyMjljNjRlNC5tcDQ=",
+    "code": 0,
+    "desc": "The fop was completed successfully",
+    "hash": "lr_CEZyrH5R1dz_JreJ2TXT0z4qg",
+    "key": "tmp/24a5eb35-c37c-487d-8fa6-5b3b229c64e4.mp4",
+    "returnOld": 0
+  },
+  {
+    "cmd": "avthumb/mp4/vb/1536k/vcodec/libx264/acodec/libfdk_aac/s/1280x720|saveas/ZnctYmV0YS12aWRlb3M6dG1wLzkzMDQyZmI5LTk3NmQtNGM4Yy1hMzI4LWNlODdkYjEyYzg0Zi5tcDQ=",
+    "code": 0,
+    "desc": "The fop was completed successfully",
+    "hash": "lim-lqtgPgLj_Lcl6bKNzmuFklOG",
+    "key": "tmp/93042fb9-976d-4c8c-a328-ce87db12c84f.mp4",
+    "returnOld": 0
+  }
+]
