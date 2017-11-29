@@ -6,6 +6,7 @@ const url = require('url');
 
 const colorMethod = require('./colorMethod');
 const iterObject = require('./iterObject');
+const iterItem = require('./iterItem');
 
 const colorTitle = (title, object) => debug(
   '  ',
@@ -25,20 +26,24 @@ module.exports = (req, res, next) => {
     // method & pathname
     debug(method, colors.gray(statusCode), colors.grey(pathname));
 
+    const space = _.repeat(' ', 4);
+
     // params
     if (!_.isEmpty(req.__params__)) {
       colorTitle('params', req.__params__);
-      iterObject(req.__params__);
+      iterItem(req.__params__, space);
     }
 
     // query
-    colorTitle('query', query);
-    iterObject(query);
+    if (!_.isEmpty(query)) {
+      colorTitle('query', query);
+      iterItem(query, space);
+    }
 
     // body
     if (req.method != 'GET') {
       colorTitle('body', body);
-      iterObject(body);
+      iterItem(body, space);
     }
   });
 
