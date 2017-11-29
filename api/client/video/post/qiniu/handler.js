@@ -18,5 +18,7 @@ module.exports = async (req, res, next) => {
 
   }
 
+  console.log(JSON.stringify(req.body));
+
   res.send({ message: 'ok' });
 };
