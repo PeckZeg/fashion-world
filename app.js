@@ -11,6 +11,7 @@ const restc = require('restc');
 const glob = require('glob');
 const path = require('path');
 const url = require('url');
+const appendAccessControlAllowOrigin = reqlib('./utils/router/appendAccessControlAllowOrigin');
 
 const globalMixins = require('./utils/global-mixins');
 const app = express();
@@ -35,6 +36,7 @@ app.use(cookieParser());
 app.use('/static', express.static('/data/static'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/static', express.static(path.join(__dirname, '/admin-templates/static')));
+app.use('/api', appendAccessControlAllowOrigin);
 
 // redirect for `cms.fashionworldcn.com`
 app.get('/', (req, res, next) => {
