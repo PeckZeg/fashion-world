@@ -17,13 +17,13 @@ module.exports = async (req, res, next) => {
     const sha1 = crypto.createHash('sha1').update(uuid()).digest('hex');
     const key = `tmp/${sha1}${extname}`;
     const scope = `${bucket}:${key}`;
-    const uploadToken = createUploadToken({ scope });
+    const uptoken = createUploadToken({ scope });
 
     res.send({
       host,
       key,
       bucket,
-      uploadToken
+      uptoken
     });
   }
 

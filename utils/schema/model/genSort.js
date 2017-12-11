@@ -8,12 +8,16 @@ const has = require('lodash/has');
  *  @param {object[]} props
  *  @returns {object} 搜索条件字典
  */
-module.exports = (body, props) => reduce(props, (props, { prop, sort }) => {
-  const bodyProp = camelCase(`sort-${prop}`)
+module.exports = (body, props) => {
+  const sort = reduce(props, (props, { prop, sort }) => {
+    const bodyProp = camelCase(`sort-${prop}`);
 
-  if (sort && has(body, bodyProp)) {
-    props[prop] = body[bodyProp];
-  }
+    if (sort && has(body, bodyProp)) {
+      props[prop] = body[bodyProp];
+    }
 
-  return props;
-}, { createAt: -1 });
+    return props;
+  }, {});
+
+  return { ...sort, createAt: -1 };
+};
