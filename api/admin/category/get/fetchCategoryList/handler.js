@@ -22,6 +22,7 @@ module.exports = async (req, res, next) => {
     const { limit, skip } = genPaginaiton(req.query);
     const cond = genCond(req.query, props);
     const sort = genSort(req.query, props);
+    console.log({cond,sort});
     let total = await Category.count(cond);
     let categories = await Category.find(cond).limit(limit).skip(skip).sort(sort);
 

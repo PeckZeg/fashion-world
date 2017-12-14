@@ -42,8 +42,8 @@ module.exports = [
     prop: 'removeAt',
     sort: true,
     cond: {
-      on: () => ({ $eq: null }),
-      off: () => ({ $ne: null })
+      on: () => ({ $ne: null }),
+      off: () => ({ $eq: null })
     }
   }
 ];
