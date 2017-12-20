@@ -1,17 +1,18 @@
 const map = require('lodash/map');
 
+const fetchPublishedCategories = require('./publishedCategories');
 const fetchPublishedChannels = require('./publishedChannels');
 const createClient = require('redis/createClient');
 
-const Category = require('models/Category');
+const Video = require('models/Video');
 
-const CACHE_KEY = require('redis/keys/cache/publishedCategories');
+const CACHE_KEY = require('redis/keys/cache/publishedVideos');
 const CACHE_EXPIRE = moment.duration(5, 'm').asSeconds();
 
 const { ObjectId } = require('mongoose').Types;
 
 /**
- *  获取已发布的分类编号
+ *  获取已发布的视频编号
  *  @returns {Promise}
  */
 module.exports = async () => {
@@ -25,11 +26,16 @@ module.exports = async () => {
 
   else {
     const cond = {
-      channelId: { $in: await fetchPublishedChannels() },
+      channelId: {
+        $in: await fetchPublishedChannels()
+      },
+      categoryId: {
+        $in: await fetchPublishedCategories()
+      },
       publishAt: { $ne: null, $lte: new Date() },
       removeAt: null
     };
-    ids = map(await Category.find(cond), '_id');
+    ids = map(await Video.find(cond), '_id');
     const multi = client.multi();
 
     for (const id of ids) {

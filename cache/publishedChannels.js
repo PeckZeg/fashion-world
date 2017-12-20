@@ -9,6 +9,10 @@ const CACHE_EXPIRE = moment.duration(5, 'm').asSeconds();
 
 const { ObjectId } = require('mongoose').Types;
 
+/**
+ *  获取已发布的频道编号
+ *  @returns {Promise}
+ */
 module.exports = async () => {
   const client = createClient();
 

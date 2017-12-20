@@ -79,7 +79,7 @@ const { PENDING_LIST, COMPLETE_LIST, ERROR_LIST } = require('./keys');
 
       catch (err) {
         await client.saddAsync(ERROR_LIST, videoId.toString());
-        debug(`🤢处理视频 ${videoId} 失败`);
+        debug(`🤢${space}处理视频 ${videoId} 失败`);
         console.error(err);
       }
 
