@@ -4,7 +4,9 @@ const PROPS = [
   'originalTitle',
   'originalLanguage',
   'removeAt',
-  'sourceId'
+  'sourceId',
+  'source',
+  'filepath'
 ];
 
 module.exports = ret => unsetProps(ret, PROPS);

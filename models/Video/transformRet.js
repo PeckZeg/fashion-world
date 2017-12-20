@@ -1,6 +1,17 @@
+const map = require('lodash/map');
+const assign = require('lodash/assign');
+
 const toUrl = reqlib('./utils/qiniu/toUrl');
-const { avatar: defaultAvatar } = config.images;
 
 module.exports = ret => {
+  ret.cover = toUrl(ret.cover);
+
+  ret.definitions = map(ret.definitions, ({ key, definition }) => ({
+    definition,
+    url: toUrl('videos', key)
+  }));
+
+  ret.screenshots = map(ret.screenshots, img => toUrl(img));
+
   return ret;
 };

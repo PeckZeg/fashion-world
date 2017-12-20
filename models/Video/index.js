@@ -33,9 +33,7 @@ const schema = new Schema({
   recommendAt: { type: Date, default: null },
   createAt: { type: Date, default: Date.now },
   removeAt: { type: Date, default: null },
-  source: { type: String, default: null },
   screenshots: [String],
-  filepath: { type: String, default: null },
   definitions: [
     {
       definition: { type: String, default: null },
@@ -46,6 +44,8 @@ const schema = new Schema({
   /**
    *  @deprecated
    */
+   source: { type: String, default: null },
+   filepath: { type: String, default: null },
    sourceId: { type: ObjectId, required: true },
 }, { toJSON, toObject });
 

@@ -13,7 +13,7 @@ const Channel = require('models/Channel');
  *  @param {object[]} categories 分类列表
  *  @param {object} [opts] 配置项
  *  @param {string} [opts.handler = 'toJSON'] 转换器
- *  @returns {object[]} 注入后的分类列表
+ *  @returns {object|object[]} 注入后的分类列表
  */
 module.exports = async (categories, opts = {}) => {
   const { handler = 'toJSON' } = opts;
