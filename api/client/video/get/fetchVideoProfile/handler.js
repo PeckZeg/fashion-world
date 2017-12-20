@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
     const { videoId } = req.params;
     let video = await Video.findById(videoId);
 
-    if (!isPublished(video)) {
+    if (!(await isPublished(video))) {
       throw new ResponseError(404, 'video not found');
     }
 

@@ -1,3 +1,4 @@
+const assign = require('lodash/assign');
 const map = require('lodash/map');
 
 const fetchPublishedCategories = require('./publishedCategories');
@@ -15,7 +16,9 @@ const { ObjectId } = require('mongoose').Types;
  *  获取已发布的视频编号
  *  @returns {Promise}
  */
-module.exports = async () => {
+module.exports = async (opts = {}) => {
+  opts = assign({ string: false }, opts);
+
   const client = createClient();
 
   let ids = await client.smembersAsync(CACHE_KEY);
@@ -44,6 +47,10 @@ module.exports = async () => {
 
     multi.expire(CACHE_KEY, CACHE_EXPIRE);
     await multi.execAsync();
+  }
+
+  if (opts.string) {
+    ids = map(ids, id => id.toString());
   }
 
   await client.quitAsync();
