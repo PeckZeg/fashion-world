@@ -6,7 +6,7 @@ const createClient = require('redis/createClient');
 
 const Video = require('models/Video');
 
-const action = 'CLIENT_VIDEO_PUT_COLLECT_VIDEO';
+const action = 'CLIENT_VIDEO_PUT_FAVOUR_VIDEO';
 
 module.exports = async (req, res, next) => {
   try {
@@ -21,18 +21,18 @@ module.exports = async (req, res, next) => {
 
     const client = createClient();
     const multi = client.multi();
-    const value = JSON.stringify({ collectAt: +new Date() });
+    const value = JSON.stringify({ favourAt: +new Date() });
 
-    // add `userId` to `videoId` collections
+    // add `userId` to `videoId` favourite users
     multi.hsetnx(
-      require('redis/keys/client/video/collectedUsers')(videoId),
+      require('redis/keys/client/video/favouriteUsers')(videoId),
       userId.toString(),
       value
     );
 
-    // add `videoId` to `userId` video collections
+    // add `videoId` to `userId` favourite videos
     multi.hsetnx(
-      require('redis/keys/client/user/collectedVideos')(userId),
+      require('redis/keys/client/user/favouriteVideos')(userId),
       videoId.toString(),
       value
     );

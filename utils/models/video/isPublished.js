@@ -8,11 +8,11 @@ const fetchPublishedVideos = require('cache/publishedVideos');
  *  @returns {Promise}
  */
 module.exports = async video => (
+  video &&
   includes(
     await fetchPublishedVideos({ string: true }),
     video._id.toString()
   ) &&
-  video &&
   video.publishAt &&
   moment().isAfter(video.publishAt) &&
   !video.removeAt
