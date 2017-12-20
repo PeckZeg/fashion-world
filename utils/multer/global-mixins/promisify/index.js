@@ -1,0 +1,2 @@
+require('./redis');
+require('./qiniu');

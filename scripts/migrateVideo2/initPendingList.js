@@ -9,7 +9,7 @@ const Video = require('models/Video');
 
 const { PENDING_LIST } = require('./keys');
 
-const FILENAMES = process.env.NODE_ENV !== 'production' ? [
+const FILENAMES = process.env.NODE_ENV === 'development' ? [
   /巴黎时装周秋冬M17-18-Lucienpellat-finet后台\.mp4/,
   // /短片2017-FashionShow-TheBattleoflifebyTelaviver\.mp4/
 ] : [];
@@ -18,7 +18,9 @@ module.exports = async () => {
   const client = createClient();
 
   if (!await client.scardAsync(PENDING_LIST)) {
-    const sources = await SourceVideo.find({ filename: { $in: FILENAMES } });
+    const sources = await SourceVideo.find({
+      ...FILENAMES ? { filename: { $in: FILENAMES }  } : null
+    });
     const sourceId = map(sources, '_id');
     const cond = sourceId.length ? { sourceId: { $in: sourceId } } : null;
     let ids = map(await Video.find(

@@ -38,8 +38,8 @@ const schema = new Schema({
   filepath: { type: String, default: null },
   definitions: [
     {
-      type: { type: String, default: null },
-      source: { type: String, default: null }
+      definition: { type: String, default: null },
+      key: { type: String, default: null }
     }
   ],
 

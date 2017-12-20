@@ -15,7 +15,8 @@ const syncUtils = require('scripts/utils');
 const { images: bucket } = config.qiniu.bucket;
 
 module.exports = async src => {
-  if (!src || !startsWith(src, '/static')) return null;
+  if (!src) return null;
+  if (!startsWith(src, '/static')) return src;
 
   const client = await syncUtils.ftp.create();
   const extname = path.extname(src);

@@ -31,8 +31,11 @@ mongo fwdb -u fwadmin -p xmzc.123
 # 进入 Redis Cli
 redis-cli -a xmzc.123
 
-# 备份数据库
+# 备份数据库（测试）
 mongodump -d fwdb_dev -u fwadmin -p xmzc.123 -o /tmp/fwdb
+
+# 备份数据库（正式）
+mongodump -d fwdb -u fwadmin -p xmzc.123 -o /tmp/fwdb
 ```
 
 ## Command
