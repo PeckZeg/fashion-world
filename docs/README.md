@@ -41,6 +41,14 @@
 * **分类**
   - [`GET` 获取分类列表][client:category:get:fetchCategoryList]
   - [`GET` 获取分类信息][client:category:getfetchCategoryProfile]
+* **视频**
+  - [`GET` 获取视频列表][client:video:get:fetchVideoList]
+  - [`GET` 获取视频信息][client:video:get:fetchVideoProfile]
+  - [`GET` 随机获取视频][client:video:get:sampleVideoList]
+  - [`PUT` 收藏视频][client:video:put:collectVideo]
+  - [`PUT` 点赞视频][client:video:put:favourVideo]
+  - [`DEL` 取消收藏视频][client:video:del:dissipateVideo]
+  - [`DEL` 取消点赞视频][client:video:del:disfavourVideo]
 
 [client-qiniu-get-fetch-upload-token]: ./api/client/qiniu/get/fetchUploadToken.md
 
@@ -61,3 +69,11 @@
 
 [client:category:get:fetchCategoryList]: ./api/client/category/get/fetchCategoryList.md
 [client:category:getfetchCategoryProfile]: ./api/client/category/get/fetchCategoryProfile.md
+
+[client:video:get:fetchVideoList]: ./api/client/video/get/fetchVideoList.md
+[client:video:get:fetchVideoProfile]: ./api/client/video/get/fetchVideoProfile.md
+[client:video:get:sampleVideoList]: ./api/client/video/get/sampleVideoList.md
+[client:video:put:collectVideo]: ./api/client/video/put/collectVideo.md
+[client:video:put:favourVideo]: ./api/client/video/put/favourVideo.md
+[client:video:del:disfavourVideo]: ./api/client/video/delete/disfavourVideo.md
+[client:video:del:dissipateVideo]: ./api/client/video/delete/dissipateVideo.md
