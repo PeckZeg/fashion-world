@@ -32,9 +32,26 @@ module.exports = async (videos, opts = {}) => {
   videos = await injectChannel(videos, opts);
   videos = await injectCategory(videos, opts);
 
+  const client = createClient();
+
+  videos = await Promise.all(map(videos, async video => {
+    const videoId = video._id.toString();
+
+    return {
+      ...video,
+
+      collections: await client.hlenAsync(
+        require('redis/keys/client/video/collectedUsers')(videoId)
+      ),
+
+      favourites: await client.hlenAsync(
+        require('redis/keys/client/video/favouriteUsers')(videoId)
+      )
+    };
+  }));
+
 
   if (isPlainObject(opts.token) && opts.token.userId) {
-    const client = createClient();
     const userId = opts.token.userId.toString();
 
     videos = await Promise.all(map(videos, async video => {
@@ -43,18 +60,20 @@ module.exports = async (videos, opts = {}) => {
       return {
         ...video,
 
-        collected: !!await client.hexists(
+        collected: !!await client.hexistsAsync(
           require('redis/keys/client/user/collectedVideos')(userId),
           videoId
         ),
 
-        favoured: !!await client.hexists(
+        favoured: !!await client.hexistsAsync(
           require('redis/keys/client/user/favouriteVideos')(userId),
           videoId
         )
       };
     }));
   }
+
+  await client.quitAsync();
 
   return isOutputArray ? videos : videos[0];
 };

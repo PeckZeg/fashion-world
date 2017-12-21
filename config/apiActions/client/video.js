@@ -1,6 +1,9 @@
 // 获取视频列表
 exports.CLIENT_VIDEO_GET_FETCH_VIDEO_LIST = 'video:fetch-video-list';
 
+// 随机获取视频列表
+exports.CLIENT_VIDEO_GET_SAMPLE_VIDEO_LIST = 'video:sample-video-list';
+
 // 获取视频信息
 exports.CLIENT_VIDEO_GET_FETCH_VIDEO_PROFILE = 'video:fetch-video-profile';
 

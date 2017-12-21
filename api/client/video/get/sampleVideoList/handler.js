@@ -1,3 +1,5 @@
+const map = require('lodash/map');
+
 const fetchPublishedCategories = require('cache/publishedCategories');
 const fetchPublishedChannels = require('cache/publishedChannels');
 
@@ -11,37 +13,39 @@ const authToken = require('utils/token/auth/user');
 
 const Video = require('models/Video');
 
-const action = 'CLIENT_VIDEO_GET_FETCH_VIDEO_LIST';
 const props = require('./props');
+
+const action = 'CLIENT_VIDEO_GET_SAMPLE_VIDEO_LIST';
 
 module.exports = async (req, res, next) => {
   try {
     const token = await authToken(req, action, { required: false });
-    const { limit, skip } = genPaginaiton(req.query);
-    const cond = {
+    const { limit } = req.query;
+    const match = {
       ...genCond(req.query, props),
       publishAt: { $ne: null, $lte: new Date() },
       removeAt: null
     };
 
-    if (!cond.channelId) {
-      cond.channelId = { $in: await fetchPublishedChannels() };
+    if (!match.channelId) {
+      match.channelId = { $in: await fetchPublishedChannels() };
     }
 
-    if (!cond.categoryId) {
-      cond.categoryId = { $in: await fetchPublishedCategories() };
+    if (!match.categoryId) {
+      match.categoryId = { $in: await fetchPublishedCategories() };
     }
 
-    const sort = { priority: -1, publishAt: -1, createAt: -1 };
-    const total = await Video.count(cond);
-    const videos = await injectVideo(
-      await Video.find(cond).skip(skip).limit(limit).sort(sort),
+    let videos = await injectVideo(
+      map(
+        await Video.aggregate().match(match).sample(limit),
+        video => new Video(video)
+      ),
       { token }
     );
 
     await incVideoViews(videos);
 
-    res.send({ total, videos });
+    res.send({ videos });
   }
 
   catch (err) {

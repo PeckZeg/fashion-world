@@ -12,6 +12,9 @@ const glob = require('glob');
 const path = require('path');
 const url = require('url');
 
+const indexOf = require('lodash/indexOf');
+const replace = require('lodash/replace');
+
 const globalMixins = require('./utils/global-mixins');
 const app = express();
 
@@ -53,20 +56,30 @@ app.get(['/admin', /^\/admin(\/[\w\-]+)+/], (req, res) => {
   res.render('../admin-templates/index');
 });
 
-glob.sync('*/', { cwd: './api' }).forEach(type => {
-  type = type.substring(0, type.length - 1);
-
-  if (!type.startsWith('_')) {
-    glob.sync('*/', { cwd: `./api/${type}` }).forEach(name => {
-      name = name.substring(0, name.length - 1);
-
-      if (!name.startsWith('_')) {
-        let api = type === 'client' ? `/api/${name}` : `/api/${type}/${name}`;
-        app.use(api, require(`./api/${type}/${name}`));
-      }
-    });
-  }
+const apiFolders = glob.sync('*/', {
+  root: process.cwd(),
+  cwd: 'api',
+  ignore: '_**'
 });
+
+for (let type of apiFolders) {
+  type = replace(type, /\/$/, '');
+
+  const names = glob.sync('*/', {
+    root: process.cwd(),
+    cwd: `api/${type}`,
+    ignore: '_**'
+  });
+
+  for (let name of names) {
+    name = replace(name, /\/$/, '');
+
+    app.use(
+      type === 'client' ? `/api/${name}` : `/api/${type}/${name}`,
+      require(path.join(process.cwd(), 'api', type, name))
+    );
+  }
+}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

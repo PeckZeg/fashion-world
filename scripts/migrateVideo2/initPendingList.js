@@ -37,7 +37,9 @@ module.exports = async () => {
     }
   }
 
-  await client.saddAsync(PENDING_LIST, ...ids);
+  if (ids.length) {
+    await client.saddAsync(PENDING_LIST, ...ids);
+  }
 
   await client.delAsync(ERROR_LIST);
 
