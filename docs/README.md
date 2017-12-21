@@ -35,6 +35,12 @@
   - [`PUT` 更新我的资料][client-my-put-update-my-profile]
   - [`PUT` 更新我的头像][client-my-put-update-my-avatar]
   - [`DELETE` 登出][client-my-delete-logout]
+* **频道**
+  - [`GET` 获取频道列表][client-channel-get-fetch-channel-list]
+  - [`GET` 获取频道信息][client-channel-get-fetch-channel-profile]
+* **分类**
+  - [`GET` 获取分类列表][client:category:get:fetchCategoryList]
+  - [`GET` 获取分类信息][client:category:getfetchCategoryProfile]
 
 [client-qiniu-get-fetch-upload-token]: ./api/client/qiniu/get/fetchUploadToken.md
 
@@ -49,3 +55,9 @@
 [client-my-put-update-my-profile]: ./api/client/my/put/updateMyProfile.md
 [client-my-put-update-my-avatar]: ./api/client/my/put/updateMyAvatar.md
 [client-my-delete-logout]: ./api/client/my/delete/logout.md
+
+[client-channel-get-fetch-channel-list]: ./api/client/channel/get/fetchChannelList.md
+[client-channel-get-fetch-channel-profile]: ./api/client/channel/get/fetchChannelProfile.md
+
+[client:category:get:fetchCategoryList]: ./api/client/category/get/fetchCategoryList.md
+[client:category:getfetchCategoryProfile]: ./api/client/category/get/fetchCategoryProfile.md
