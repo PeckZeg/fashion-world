@@ -2,6 +2,8 @@ const isPlainObject = require('lodash/isPlainObject');
 const isUndefined = require('lodash/isUndefined');
 const isFunction = require('lodash/isFunction');
 const camelCase = require('lodash/camelCase');
+const includes = require('lodash/includes');
+const isArray = require('lodash/isArray');
 const reduce = require('lodash/reduce');
 const has = require('lodash/has');
 
@@ -12,17 +14,26 @@ const has = require('lodash/has');
  *  @returns {object} 查询条件字典
  */
 module.exports = (body, props) => reduce(props, (props, schema) => {
-  const { prop, shape, transTo, search, cond } = schema;
+  const { prop, shape, transTo, search, cond, enums } = schema;
+  const hasProp = prop && has(body, prop);
 
-  if (prop && has(body, prop) && shape) {
+  if (hasProp && shape) {
     props[transTo ? transTo : prop] = body[prop];
   }
 
-  if (prop && has(body, prop) && isPlainObject(cond)) {
+  if (hasProp && isPlainObject(cond)) {
     const value = cond[body[prop]];
 
     if (!isUndefined(value)) {
       props[prop] = isFunction(value) ? value() : value;
+    }
+  }
+
+  if (hasProp && isArray(enums)) {
+    const value = body[prop];
+
+    if (!isUndefined(value) && includes(enums, value)) {
+      props[prop] = value;
     }
   }
 
