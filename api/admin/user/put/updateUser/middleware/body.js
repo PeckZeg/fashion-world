@@ -9,7 +9,7 @@ const { ObjectId } = mongoose.Schema.Types;
 const { GENDERS } = require('models/User/genders');
 
 const schema = new mongoose.Schema({
-  name: { type: String, minlength: 3, maxLength: 16 },
+  name: { type: String, minlength: 3, maxLength: 24 },
   gender: { type: String, enum: GENDERS },
 }, { _id: false });
 
