@@ -38,6 +38,7 @@ app.use(cookieParser());
 app.use('/static', express.static('/data/static'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/static', express.static(path.join(__dirname, '/admin-templates/static')));
+app.use('/api', reqlib('./utils/router/appendAccessControlAllowOrigin'));
 
 // redirect for `cms.fashionworldcn.com`
 app.get('/', (req, res, next) => {
