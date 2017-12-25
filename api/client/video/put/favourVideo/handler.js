@@ -21,20 +21,20 @@ module.exports = async (req, res, next) => {
 
     const client = createClient();
     const multi = client.multi();
-    const value = JSON.stringify({ favourAt: +new Date() });
+    const favourAt = +new Date() + '';
 
     // add `userId` to `videoId` favourite users
-    multi.hsetnx(
+    multi.zadd(
       require('redis/keys/client/video/favouriteUsers')(videoId),
-      userId.toString(),
-      value
+      favourAt,
+      userId.toString()
     );
 
     // add `videoId` to `userId` favourite videos
-    multi.hsetnx(
+    multi.zadd(
       require('redis/keys/client/user/favouriteVideos')(userId),
-      videoId.toString(),
-      value
+      favourAt,
+      videoId.toString()
     );
 
     await multi.execAsync();

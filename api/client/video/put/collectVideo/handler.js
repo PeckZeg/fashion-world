@@ -21,20 +21,20 @@ module.exports = async (req, res, next) => {
 
     const client = createClient();
     const multi = client.multi();
-    const value = JSON.stringify({ collectAt: +new Date() });
+    const collectAt = +new Date() + '';
 
     // add `userId` to `videoId` collections
-    multi.hsetnx(
+    multi.zadd(
       require('redis/keys/client/video/collectedUsers')(videoId),
-      userId.toString(),
-      value
+      collectAt,
+      userId.toString()
     );
 
     // add `videoId` to `userId` video collections
-    multi.hsetnx(
+    multi.zadd(
       require('redis/keys/client/user/collectedVideos')(userId),
-      videoId.toString(),
-      value
+      collectAt,
+      videoId.toString()
     );
 
     await multi.execAsync();

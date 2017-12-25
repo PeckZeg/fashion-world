@@ -12,14 +12,7 @@ module.exports = [
     shape: ObjectId
   },
   {
-    prop: 'title',
+    prop: 'name',
     search: true
   },
-  {
-    prop: 'recommendAt',
-    cond: {
-      on: () => ({ $ne: null, $lte: new Date() }),
-      off: () => ({ $eq: null })
-    }
-  }
 ];

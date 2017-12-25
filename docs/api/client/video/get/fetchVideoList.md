@@ -22,6 +22,7 @@ Key           | Type       | Required | Default | Note
 `channelId`   | `ObjectId` |          |        | 频道编号
 `categoryId`  | `ObjectId` |          |        | 分类编号
 `searchTitle` | `string`   |          |        | 搜索名称
+`recommendAt` : `string`   |          |        | 推荐时间，`on|off`
 
 ## Response Schema
 
@@ -38,8 +39,10 @@ Key           | Type       | Required | Default | Note
             // 分类信息，参见下方 `Category` 模型文档
           },
 
-          collected: Boolean,             //  [仅 `Authorization` 存在时]是否已收藏
-          favoured: Boolean,              //  [仅 `Authorization` 存在时]是否已点赞
+          collectAt: Date,                //  [`Authorization`]收藏时间
+                                          //    `null` - 未收藏
+          favourAt: Date,                 //  [`Authorization`]点赞时间
+                                          //    `null` - 未点赞
 
           // 视频信息，参见下方 `Video` 模型文档
           ...video

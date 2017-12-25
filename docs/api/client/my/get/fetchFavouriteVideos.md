@@ -1,22 +1,23 @@
-# 视频 - 随机获取视频
+# 个人中心 - 获取当前用户喜欢的视频列表
 
 ## Base
 
 * Method: `GET`
-* Path: `/api/video/sample`
+* Path: `/api/my/favourite-videos`
 
 ## Headers
 
 Key             | Value                 | Required | Note
 :-------------- | :-------------------- | :------: | :--------------------
-`Authorization` | `Caa ${Base64String}` |          | [用户签名][signature]
+`Authorization` | `Caa ${Base64String}` | √        | [用户签名][signature]
 
-* API Action: `video:sample-video-list`
+* API Action: `client:my:fetch-favourite-videos`
 
 ## Query Params
 
 Key           | Type       | Required | Default | Note
 :------------ | :--------- | :------: | :------ | :--------
+`offset`      | `Number`   |          | `0`    | 页面位移
 `limit`       | `Number`   |          | `20`   | 每页限制
 `channelId`   | `ObjectId` |          |        | 频道编号
 `categoryId`  | `ObjectId` |          |        | 分类编号
@@ -68,10 +69,9 @@ Status Code | Message                 | Note
 **Request**
 
 ```
-GET /api/video HTTP/1.1
+GET /api/my/favourite-videos HTTP/1.1
 Host: localhost:3003
-Content-Type: application/json
-Authorization: Caa {{USER_AUTHORIZATION}}
+Authorization: Caa RnZVWVR1ZHRVUXBXRTVBaktRMHByNjR0R2NXbGJkUkRzQ0Zvb0ZCaEZ1QT06aTdzaW1WZ3hHeDk2RWZnSGpIWHBYYm1DQTFVPSAxNTE0MTk1NzUwMTI0
 ```
 
 **Response**

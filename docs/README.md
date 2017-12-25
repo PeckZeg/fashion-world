@@ -25,6 +25,8 @@
   - [`GET` 获取上传令牌][client-qiniu-get-fetch-upload-token]
 * **个人中心**
   - [`GET` 获取我的资料][client-my-get-fetch-my-profile]
+  - [`GET` 获取当前用户收藏的视频列表][client:my:get:fetchVideoCollections]
+  - [`GET` 获取当前用户喜欢的视频列表][client:my:get:fetchFavouriteVideos]
   - [`POST` 使用手机/密码登录][client-my-post-login]
   - [`POST` 使用微信登录][client-my-post-login-by-weixin]
   - [`POST` 刷新令牌][client-my-post-refresh-token]
@@ -63,6 +65,8 @@
 [client-my-put-update-my-profile]: ./api/client/my/put/updateMyProfile.md
 [client-my-put-update-my-avatar]: ./api/client/my/put/updateMyAvatar.md
 [client-my-delete-logout]: ./api/client/my/delete/logout.md
+[client:my:get:fetchVideoCollections]: ./api/client/my/get/fetchVideoCollections.md
+[client:my:get:fetchFavouriteVideos]: ./api/client/my/get/fetchFavouriteVideos.md
 
 [client-channel-get-fetch-channel-list]: ./api/client/channel/get/fetchChannelList.md
 [client-channel-get-fetch-channel-profile]: ./api/client/channel/get/fetchChannelProfile.md

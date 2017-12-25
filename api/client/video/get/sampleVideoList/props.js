@@ -14,5 +14,12 @@ module.exports = [
   {
     prop: 'title',
     search: true
+  },
+  {
+    prop: 'recommendAt',
+    cond: {
+      on: () => ({ $ne: null, $lte: new Date() }),
+      off: () => ({ $eq: null })
+    }
   }
 ];

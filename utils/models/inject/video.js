@@ -40,11 +40,11 @@ module.exports = async (videos, opts = {}) => {
     return {
       ...video,
 
-      collections: await client.hlenAsync(
+      collections: await client.zcardAsync(
         require('redis/keys/client/video/collectedUsers')(videoId)
       ),
 
-      favourites: await client.hlenAsync(
+      favourites: await client.zcardAsync(
         require('redis/keys/client/video/favouriteUsers')(videoId)
       )
     };
@@ -56,19 +56,20 @@ module.exports = async (videos, opts = {}) => {
 
     videos = await Promise.all(map(videos, async video => {
       const videoId = video._id.toString();
+      const collectAt = await client.zscoreAsync(
+        require('redis/keys/client/user/collectedVideos')(userId),
+        videoId
+      );
+      const favourAt = await client.zscoreAsync(
+        require('redis/keys/client/user/favouriteVideos')(userId),
+        videoId
+      );
 
       return {
         ...video,
 
-        collected: !!await client.hexistsAsync(
-          require('redis/keys/client/user/collectedVideos')(userId),
-          videoId
-        ),
-
-        favoured: !!await client.hexistsAsync(
-          require('redis/keys/client/user/favouriteVideos')(userId),
-          videoId
-        )
+        collectAt: collectAt ? +collectAt : null,
+        favourAt: favourAt ? +favourAt : null
       };
     }));
   }

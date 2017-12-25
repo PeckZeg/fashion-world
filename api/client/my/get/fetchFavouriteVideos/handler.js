@@ -21,7 +21,7 @@ const authToken = reqlib('./utils/token/auth/user');
 const Video = require('models/Video');
 const User = require('models/User');
 
-const action = 'CLIENT_MY_GET_FETCH_VIDEO_COLLECTIONS';
+const action = 'CLIENT_MY_GET_FETCH_FAVOURITE_VIDEOS';
 const props = require('./props');
 
 module.exports = async (req, res, next) => {
@@ -36,11 +36,9 @@ module.exports = async (req, res, next) => {
 
     const client = createClient();
 
-    const publishedVideos = await fetchPublishedVideos({ string: true });
-
     let videoIds = filter(
       await client.zrevrangeAsync(
-        require('redis/keys/client/user/collectedVideos')(userId),
+        require('redis/keys/client/user/favouriteVideos')(userId),
         0, -1
       ),
       videoId => includes(publishedVideos, videoId)
@@ -65,7 +63,7 @@ module.exports = async (req, res, next) => {
 
     await client.quitAsync();
 
-    res.send({ total, videos })
+    res.send({ total, videos });
   }
 
   catch (err) {

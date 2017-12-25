@@ -1,13 +1,14 @@
 {
   "name": "caa-fashion-world",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "private": true,
   "scripts": {
     "start": "DEBUG=api nodemon ./bin/www --exec babel-node",
     "start-auth": "DEBUG=api,auth nodemon ./bin/www --exec babel-node",
     "server": "forever start -c \"babel-node\" ./bin/www",
-    "migrate-video": "DEBUG=migrate babel-node scripts/migrateVideo2/index.js",
-    "migrate-user": "DEBUG=migrate babel-node scripts/migrateUser/index.js"
+    "migrate:video": "DEBUG=migrate babel-node scripts/migrateVideo2/index.js",
+    "migrate:user": "DEBUG=migrate babel-node scripts/migrateUser/index.js",
+    "video:duration": "DEBUG=video babel-node scripts/videoDuration/index.js"
   },
   "dependencies": {
     "@alicloud/sms-sdk": "^1.0.2",

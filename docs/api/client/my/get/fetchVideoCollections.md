@@ -1,22 +1,23 @@
-# 视频 - 随机获取视频
+# 个人中心 - 获取当前用户收藏的视频列表
 
 ## Base
 
 * Method: `GET`
-* Path: `/api/video/sample`
+* Path: `/api/my/video-collections`
 
 ## Headers
 
 Key             | Value                 | Required | Note
 :-------------- | :-------------------- | :------: | :--------------------
-`Authorization` | `Caa ${Base64String}` |          | [用户签名][signature]
+`Authorization` | `Caa ${Base64String}` | √        | [用户签名][signature]
 
-* API Action: `video:sample-video-list`
+* API Action: `client:my:fetch-video-collections`
 
 ## Query Params
 
 Key           | Type       | Required | Default | Note
 :------------ | :--------- | :------: | :------ | :--------
+`offset`      | `Number`   |          | `0`    | 页面位移
 `limit`       | `Number`   |          | `20`   | 每页限制
 `channelId`   | `ObjectId` |          |        | 频道编号
 `categoryId`  | `ObjectId` |          |        | 分类编号
@@ -68,10 +69,9 @@ Status Code | Message                 | Note
 **Request**
 
 ```
-GET /api/video HTTP/1.1
+GET /api/my/video-collections?limit=1 HTTP/1.1
 Host: localhost:3003
-Content-Type: application/json
-Authorization: Caa {{USER_AUTHORIZATION}}
+Authorization: Caa RnZVWVR1ZHRVUXBXRTVBaktRMHByNjR0R2NXbGJkUkRzQ0Zvb0ZCaEZ1QT06dlJkMGxIVk5mRHhUV1FRUmEwc00wQy95QzE4PSAxNTE0MTk1NTQ3NTM4
 ```
 
 **Response**
