@@ -1,6 +1,12 @@
 // 获取我的信息
 exports.CLIENT_MY_GET_FETCH_MY_PROFILE = 'client:my:fetch-my-profile';
 
+// 获取我的视频收藏
+exports.CLIENT_MY_GET_FETCH_VIDEO_COLLECTIONS = 'client:my:fetch-video-collections';
+
+// 获取我喜欢的视频
+exports.CLIENT_MY_GET_FETCH_FAVOURITE_VIDEOS = 'client:my:fetch-favourite-videos';
+
 // 登录我的账号
 exports.CLIENT_MY_POST_LOGIN = 'client:my:login';
 

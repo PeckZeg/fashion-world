@@ -24,6 +24,10 @@ module.exports = [
     shape: String
   },
   {
+    prop: 'name',
+    search: true
+  },
+  {
     prop: 'gender',
     enums: GENDERS
   },
