@@ -1,6 +1,6 @@
 const toUrl = reqlib('./utils/qiniu/toUrl');
 
 module.exports = ret => {
-  ret.avatar = toUrl(ret.avatar);
+  ret.cover = toUrl(ret.cover);
   return ret;
 };

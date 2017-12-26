@@ -6,6 +6,7 @@
     "start": "DEBUG=api nodemon ./bin/www --exec babel-node",
     "start-auth": "DEBUG=api,auth nodemon ./bin/www --exec babel-node",
     "server": "forever start -c \"babel-node\" ./bin/www",
+    "migrate:banner": "DEBUG=migrate babel-node scripts/migrateBanner/index.js",
     "migrate:video": "DEBUG=migrate babel-node scripts/migrateVideo2/index.js",
     "migrate:user": "DEBUG=migrate babel-node scripts/migrateUser/index.js",
     "video:duration": "DEBUG=video babel-node scripts/videoDuration/index.js"

@@ -37,6 +37,9 @@
   - [`PUT` 更新我的资料][client-my-put-update-my-profile]
   - [`PUT` 更新我的头像][client-my-put-update-my-avatar]
   - [`DELETE` 登出][client-my-delete-logout]
+* **横幅栏**
+  - [`GET` 获取横幅栏列表][client:banner:get:fetchBannerList]
+  - [`GET` 获取横幅栏信息][client:banner:get:fetchBannerProfile]
 * **频道**
   - [`GET` 获取频道列表][client-channel-get-fetch-channel-list]
   - [`GET` 获取频道信息][client-channel-get-fetch-channel-profile]
@@ -81,3 +84,6 @@
 [client:video:put:favourVideo]: ./api/client/video/put/favourVideo.md
 [client:video:del:disfavourVideo]: ./api/client/video/delete/disfavourVideo.md
 [client:video:del:dissipateVideo]: ./api/client/video/delete/dissipateVideo.md
+
+[client:banner:get:fetchBannerList]: ./api/client/banner/get/fetchBannerList.md
+[client:banner:get:fetchBannerProfile]: ./api/client/banner/get/fetchBannerProfile.md
