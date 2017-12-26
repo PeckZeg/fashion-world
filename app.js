@@ -35,9 +35,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json({ strict: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use('/static', express.static('/data/static'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/static', express.static(path.join(__dirname, '/admin-templates/static')));
 app.use('/api', reqlib('./utils/router/appendAccessControlAllowOrigin'));
 
 // redirect for `cms.fashionworldcn.com`
@@ -52,10 +50,6 @@ app.use('/api', require('./utils/debug-api'));
 if (NODE_ENV == 'development') {
   app.use('/api',restc.express());
 }
-
-app.get(['/admin', /^\/admin(\/[\w\-]+)+/], (req, res) => {
-  res.render('../admin-templates/index');
-});
 
 const apiFolders = glob.sync('*/', {
   root: process.cwd(),
