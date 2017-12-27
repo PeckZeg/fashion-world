@@ -33,6 +33,9 @@
   - [`POST` 发送注册验证码][client-my-post-send-register-code]
   - [`POST` 验证注册验证码][client-my-post-validate-register-code]
   - [`POST` 注册][client-my-post-register]
+  - [`POST` 发送重置密码验证码][client:my:post:sendResetPasswordCode]
+  - [`POST` 验证重置密码验证码][client:my:post:validateResetPasswordCode]
+  - [`PUT` 重置用户密码][client:my:put:resetPassword]
   - [`PUT` 绑定微信][client-my-put-bind-weixin]
   - [`PUT` 更新我的资料][client-my-put-update-my-profile]
   - [`PUT` 更新我的头像][client-my-put-update-my-avatar]
@@ -64,9 +67,12 @@
 [client-my-post-send-register-code]: ./api/client/my/post/sendRegisterCode.md
 [client-my-post-validate-register-code]: ./api/client/my/post/validateRegisterCode.md
 [client-my-post-register]: ./api/client/my/post/register.md
+[client:my:post:sendResetPasswordCode]: ./api/client/my/post/sendResetPasswordCode.md
+[client:my:post:validateResetPasswordCode]: ./api/client/my/post/validateResetPasswordCode.md
 [client-my-put-bind-weixin]: ./api/client/my/put/bindWeixin.md
 [client-my-put-update-my-profile]: ./api/client/my/put/updateMyProfile.md
 [client-my-put-update-my-avatar]: ./api/client/my/put/updateMyAvatar.md
+[client:my:put:resetPassword]: ./api/client/my/put/resetPassword.md
 [client-my-delete-logout]: ./api/client/my/delete/logout.md
 [client:my:get:fetchVideoCollections]: ./api/client/my/get/fetchVideoCollections.md
 [client:my:get:fetchFavouriteVideos]: ./api/client/my/get/fetchFavouriteVideos.md
