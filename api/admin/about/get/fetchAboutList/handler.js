@@ -1,4 +1,4 @@
-const map = require('lodash/map');
+const invokeMap = require('lodash/invokeMap');
 
 const genPaginaiton = require('utils/schema/model/genPaginaiton');
 const injectCategory = require('utils/models/inject/category');
@@ -10,24 +10,24 @@ const genSort = require('utils/schema/model/genSort');
 const createLog = require('utils/createAccountLog');
 const props = require('./props');
 
-const Category = require('models/Category');
-const Channel = require('models/Channel');
+const About = require('models/About');
 
-const action = 'ADMIN_CATEGORY_GET_FETCH_CATEGORY_LIST';
+const action = 'ADMIN_ABOUT_GET_FETCH_ABOUT_LIST';
 
-module.exports = async (req, res, next) => {
+module.exports = async function(req, res, next) {
   try {
     const log = createLog(req, action);
     const token = await authToken(req, action, { log });
     const { limit, skip } = genPaginaiton(req.query);
     const cond = genCond(req.query, props);
     const sort = genSort(req.query, props);
-    let total = await Category.count(cond);
-    let categories = await Category.find(cond).limit(limit).skip(skip).sort(sort);
+    const total = await About.count(cond);
+    let abouts = invokeMap(
+      await About.find(cond).limit(limit).skip(skip).sort(sort),
+      'toObject'
+    );
 
-    categories = await injectCategory(categories, { handler: 'toObject' });
-
-    handleResult(res, { total, categories }, log);
+    handleResult(res, { total, abouts }, log);
   }
 
   catch (err) {

@@ -22,7 +22,7 @@ Key           | Type       | Required | Default | Note
 `channelId`   | `ObjectId` |          |        | 频道编号
 `categoryId`  | `ObjectId` |          |        | 分类编号
 `searchTitle` | `string`   |          |        | 搜索名称
-`recommendAt` : `string`   |          |        | 推荐时间，`on|off`
+`recommendAt` | `string`   |          |        | 推荐时间，`on|off`
 
 ## Response Schema
 

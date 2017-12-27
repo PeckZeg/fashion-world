@@ -35,6 +35,7 @@ const schema = new Schema({
   removeAt: { type: Date, default: null },
   screenshots: [String],
   duration: { type: Number, default: 0 },
+  size: { type: Number, default: 0 },
   definitions: [
     {
       definition: { type: String, default: null },
