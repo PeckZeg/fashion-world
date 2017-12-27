@@ -42,7 +42,7 @@ const { PENDING_LIST, COMPLETE_LIST, ERROR_LIST } = require('./keys');
           debug(`${space}正在获取视频大小`);
           const avinfo = await fetchVideoInfo('videos', key);
           const { size } = avinfo.format;
-          debug(`${space}完成获取视频大小 - ${duration}ms`);
+          debug(`${space}完成获取视频大小 - ${size}`);
 
           debug(`${space}正在更新视频文档`);
           const doc = {
