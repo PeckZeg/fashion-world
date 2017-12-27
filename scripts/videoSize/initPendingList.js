@@ -15,11 +15,10 @@ module.exports = async () => {
 
   let ids = map(
     await Video.find({
-      $where: 'this.definitions && this.definitions.length > 1',
       $or: [
-        { duration: 0 },
-        { duration: null },
-        { duration: { $not: { $exists: true } } }
+        { size: 0 },
+        { size: null },
+        { size: { $not: { $exists: true } } }
       ]
     }),
     ({ _id }) => _id.toString()
