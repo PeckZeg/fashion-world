@@ -11,6 +11,7 @@
     "migrate:user": "DEBUG=migrate babel-node scripts/migrateUser/index.js",
     "migrate:loop-video": "DEBUG=migrate babel-node scripts/migrateLoopVideo/index.js",
     "video:duration": "DEBUG=video babel-node scripts/videoDuration/index.js",
+    "video:size": "DEBUG=video babel-node scripts/videoSize/index.js",
     "init:about": "DEBUG=init babel-node scripts/initAbout/index.js"
   },
   "dependencies": {

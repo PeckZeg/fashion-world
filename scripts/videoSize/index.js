@@ -62,6 +62,12 @@ const { PENDING_LIST, COMPLETE_LIST, ERROR_LIST } = require('./keys');
           await client.saddAsync(ERROR_LIST, id);
           debug(`💊${space}处理视频 ${id} 失败`);
         }
+
+        const pendingCount = await client.scardAsync(PENDING_LIST);
+        const completeCount = await client.scardAsync(COMPLETE_LIST);
+        const errorCount = await client.scardAsync(ERROR_LIST);
+
+        debug(`💩${space}已迁移 ${completeCount} 个，失败 ${errorCount} 个，剩余 ${pendingCount} 个`);
       }
     }
 

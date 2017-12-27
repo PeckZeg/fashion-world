@@ -5,25 +5,24 @@ const createLog = require('utils/createAccountLog');
 
 const About = require('models/About');
 
-const action = 'ADMIN_ABOUT_POST_PUBLISH_ABOUT';
+const action = 'ADMIN_ABOUT_DEL_DESTROY_ABOUT';
 
-module.exports = async function(req, res, next) {
+module.exports = async (req, res, next) => {
   try {
     const log = createLog(req, action);
     const token = await authToken(req, action, { log });
     const { aboutId } = req.params;
-    let about = await About.findById(aboutId, 'publishAt');
+    let about = await About.findById(aboutId, 'removeAt');
 
     if (!about) {
       throw new ResponseError(404, 'about not found');
     }
 
-    if (about.publishAt) {
-      throw new ResponseError(403, 'about has been published');
+    if (about.removeAt) {
+      throw new ResponseError(403, 'about has been destroyed');
     }
 
-    const { publishAt = new Date() } = req.body;
-    const doc = { $set: { publishAt, removeAt: null } };
+    const doc = { $set: { publishAt: null, removeAt: new Date() } };
     const opts = { new: true };
 
     about = await About.findByIdAndUpdate(aboutId, doc, opts);

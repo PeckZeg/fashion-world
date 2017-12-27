@@ -5,9 +5,9 @@ const createLog = require('utils/createAccountLog');
 
 const About = require('models/About');
 
-const action = 'ADMIN_ABOUT_POST_PUBLISH_ABOUT';
+const action = 'ADMIN_ABOUT_DEL_BLOCK_ABOUT';
 
-module.exports = async function(req, res, next) {
+module.exports = async (req, res, next) => {
   try {
     const log = createLog(req, action);
     const token = await authToken(req, action, { log });
@@ -18,12 +18,11 @@ module.exports = async function(req, res, next) {
       throw new ResponseError(404, 'about not found');
     }
 
-    if (about.publishAt) {
-      throw new ResponseError(403, 'about has been published');
+    if (!about.publishAt) {
+      throw new ResponseError(403, 'about has been blocked');
     }
 
-    const { publishAt = new Date() } = req.body;
-    const doc = { $set: { publishAt, removeAt: null } };
+    const doc = { $set: { publishAt: null } };
     const opts = { new: true };
 
     about = await About.findByIdAndUpdate(aboutId, doc, opts);
