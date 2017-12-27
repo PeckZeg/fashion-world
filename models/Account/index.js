@@ -8,7 +8,7 @@ const toJSON = require('./toJSON');
 const { Schema, Types } = mongoose;
 
 const schema = new Schema({
-  name: { type: String, required: true, unique: true, minlength: 3, maxLength: 32 },
+  name: { type: String, required: true, unique: true, minlength: 3, maxlength: 32 },
   password: { type: String, required: true, match: matchPassword },
   avatar: { type: String, default: null },
   permissions: [String],

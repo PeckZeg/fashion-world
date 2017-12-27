@@ -9,7 +9,8 @@
     "migrate:banner": "DEBUG=migrate babel-node scripts/migrateBanner/index.js",
     "migrate:video": "DEBUG=migrate babel-node scripts/migrateVideo2/index.js",
     "migrate:user": "DEBUG=migrate babel-node scripts/migrateUser/index.js",
-    "video:duration": "DEBUG=video babel-node scripts/videoDuration/index.js"
+    "video:duration": "DEBUG=video babel-node scripts/videoDuration/index.js",
+    "init:about": "DEBUG=init babel-node scripts/initAbout/index.js"
   },
   "dependencies": {
     "@alicloud/sms-sdk": "^1.0.2",

@@ -57,6 +57,10 @@
   - [`PUT` 点赞视频][client:video:put:favourVideo]
   - [`DEL` 取消收藏视频][client:video:del:dissipateVideo]
   - [`DEL` 取消点赞视频][client:video:del:disfavourVideo]
+* **关于**
+  - [`GET` 获取信息列表][client:about:get:fetchAboutList]
+
+[client:about:get:fetchAboutList]: ./api/client/about/get/fetchAboutList.md
 
 [client-qiniu-get-fetch-upload-token]: ./api/client/qiniu/get/fetchUploadToken.md
 
