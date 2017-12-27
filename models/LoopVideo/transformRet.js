@@ -1,4 +1,4 @@
-const toUrl = reqlib('./utils/toResFtpUrl');
+const toUrl = reqlib('./utils/qiniu/toUrl');
 const { defaultCover } = config.model.video;
 
 module.exports = ret => {

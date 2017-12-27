@@ -38,16 +38,6 @@ mongodump -d fwdb_dev -u fwadmin -p xmzc.123 -o /tmp/fwdb
 mongodump -d fwdb -u fwadmin -p xmzc.123 -o /tmp/fwdb
 ```
 
-## Command
-
-```bash
-# 处理封面为空的视频
-npm run handle-empty-cover-video
-
-# 移除所有空的循环视频（即 `videoId` 已阵亡的视频）
-npm run remove-empty-loop-video
-```
-
 ## Bash Profile
 
 ```bash

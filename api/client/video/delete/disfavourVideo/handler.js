@@ -23,13 +23,13 @@ module.exports = async (req, res, next) => {
     const multi = client.multi();
 
     // remove `userId` from video collections
-    multi.hdel(
+    multi.zrem(
       require('redis/keys/client/video/favouriteUsers')(videoId),
       userId.toString()
     );
 
     // remove `videoId` from user video collections
-    multi.hdel(
+    multi.zrem(
       require('redis/keys/client/user/favouriteVideos')(userId),
       videoId.toString()
     );

@@ -57,8 +57,20 @@
   - [`PUT` 点赞视频][client:video:put:favourVideo]
   - [`DEL` 取消收藏视频][client:video:del:dissipateVideo]
   - [`DEL` 取消点赞视频][client:video:del:disfavourVideo]
+* **循环视频**
+  - [`GET` 获取循环视频列表][client:loopVideo:get:fetchLoopVideoList]
 * **关于**
   - [`GET` 获取信息列表][client:about:get:fetchAboutList]
+
+## 模型
+
+* [`About`](./model/about.md)
+* [`Banner`](./model/banner.md)
+* [`Category`](./model/category.md)
+* [`Channel`](./model/channel.md)
+* [`LoopVideo`](./model/loopVideo.md)
+* [`User`](./model/user.md)
+* [`Video`](./model/video.md)
 
 [client:about:get:fetchAboutList]: ./api/client/about/get/fetchAboutList.md
 
@@ -97,3 +109,5 @@
 
 [client:banner:get:fetchBannerList]: ./api/client/banner/get/fetchBannerList.md
 [client:banner:get:fetchBannerProfile]: ./api/client/banner/get/fetchBannerProfile.md
+
+[client:loopVideo:get:fetchLoopVideoList]: ./api/client/loopVideo/get/fetchLoopVideoList.md

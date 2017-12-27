@@ -12,6 +12,7 @@ const glob = require('glob');
 const path = require('path');
 const url = require('url');
 
+const kebabCase = require('lodash/kebabCase');
 const indexOf = require('lodash/indexOf');
 const replace = require('lodash/replace');
 
@@ -68,9 +69,10 @@ for (let type of apiFolders) {
 
   for (let name of names) {
     name = replace(name, /\/$/, '');
+    const route = kebabCase(name);
 
     app.use(
-      type === 'client' ? `/api/${name}` : `/api/${type}/${name}`,
+      type === 'client' ? `/api/${route}` : `/api/${type}/${route}`,
       require(path.join(process.cwd(), 'api', type, name))
     );
   }
