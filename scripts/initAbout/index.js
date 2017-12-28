@@ -23,6 +23,7 @@ const data = require('./data.json');
 
         $setOnInsert: {
           publishAt: +moment(random(+moment().startOf('year'), +moment())),
+          createAt: new Date(),
           priority: data.length - idx
         }
       };

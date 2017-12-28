@@ -37,14 +37,7 @@ app.use(bodyParser.json({ strict: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/api', reqlib('./utils/router/appendAccessControlAllowOrigin'));
-
-// redirect for `cms.fashionworldcn.com`
-app.get('/', (req, res, next) => {
-  if (req.hostname == 'cms.fashionworldcn.com') {
-    res.redirect('/admin');
-  }
-});
+app.use('/api', require('utils/router/appendAccessControlAllowOrigin'));
 
 app.use('/api', require('./utils/debug-api'));
 

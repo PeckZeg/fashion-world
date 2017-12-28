@@ -12,7 +12,7 @@ Key             | Value                 | Required | Note
 `Content-Type`  | `application/json`    | √        | 指定传输内容格式
 `Authorization` | `Caa ${Base64String}` | √        | [用户签名][signature]
 
-* API Action: `client:my:upload-my-avatar`
+* API Action: `client:my:bind-weixin`
 
 ## Body Params
 

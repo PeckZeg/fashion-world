@@ -1,4 +1,4 @@
-const invokeMap = require('lodash/invokeMap');
+const map = require('lodash/map');
 
 const genPaginaiton = require('utils/schema/model/genPaginaiton');
 const injectCategory = require('utils/models/inject/category');
@@ -22,9 +22,9 @@ module.exports = async function(req, res, next) {
     const cond = genCond(req.query, props);
     const sort = genSort(req.query, props);
     const total = await About.count(cond);
-    let abouts = invokeMap(
+    let abouts = map(
       await About.find(cond).limit(limit).skip(skip).sort(sort),
-      'toObject'
+      about => about.toObject()
     );
 
     handleResult(res, { total, abouts }, log);
