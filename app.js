@@ -1,5 +1,4 @@
 const cookieParser = require('cookie-parser');
-const proxy = require('express-http-proxy');
 const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
 const debug = require('debug')('api');

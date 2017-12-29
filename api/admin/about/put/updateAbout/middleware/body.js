@@ -9,6 +9,7 @@ const { ObjectId } = mongoose.Schema.Types;
 
 const schema = new mongoose.Schema({
   name: { type: String, minlength: 1, maxLength: 64 },
+  value: { type: String, maxlength: 512 },
   priority: Number
 }, { _id: false });
 
