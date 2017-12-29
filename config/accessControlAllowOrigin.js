@@ -1,3 +1,3 @@
 module.exports = [
-  'wx.fashionworldcn.com'
+  'http://wx.fashionworldcn.com'
 ];

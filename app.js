@@ -9,6 +9,7 @@ const logger = require('morgan');
 const restc = require('restc');
 const glob = require('glob');
 const path = require('path');
+const cors = require('cors');
 const url = require('url');
 
 const kebabCase = require('lodash/kebabCase');
@@ -36,7 +37,19 @@ app.use(bodyParser.json({ strict: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/api', require('utils/router/appendAccessControlAllowOrigin'));
+
+app.options('*', cors());
+app.use('/api', cros({
+  origin(origin, cb) {
+    if (config.accessControlAllowOrigin.indexOf(origin) > -1) {
+      cb(null, true);
+    }
+
+    else {
+      cb(new ResponseError(400, 'Not allowed by CORS'));
+    }
+  }
+}));
 
 app.use('/api', require('./utils/debug-api'));
 
