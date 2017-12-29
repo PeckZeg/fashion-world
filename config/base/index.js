@@ -1,5 +1,5 @@
 // 跨域白名单
-exports.accessControlAllowOrigin = require('../accessControlAllowOrigin');
+exports.origins = require('../origins');
 
 // 各种正则表达式
 exports.patterns = require('../patterns');

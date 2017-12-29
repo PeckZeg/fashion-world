@@ -13,6 +13,7 @@ const cors = require('cors');
 const url = require('url');
 
 const kebabCase = require('lodash/kebabCase');
+const includes = require('lodash/includes');
 const indexOf = require('lodash/indexOf');
 const replace = require('lodash/replace');
 
@@ -41,19 +42,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.options('*', cors());
 app.use('/api', cors({
   origin(origin, cb) {
-    if (!origin || config.accessControlAllowOrigin.indexOf(origin) > -1) {
-      cb(null, true);
+    if (!origin || includes(config.origins, origin)) {
+      return cb(null, true);
     }
 
-    else {
-      cb(new ResponseError(400, 'Not allowed by CORS'));
-    }
+    cb(new ResponseError(400, 'Not allowed by CORS'));
   }
 }));
 
-app.use('/api', require('./utils/debug-api'));
 
 if (NODE_ENV !== 'production') {
+  app.use('/api', require('./utils/debug-api'));
   app.use('/api',restc.express());
 }
 

@@ -14,6 +14,10 @@
     "video:size": "DEBUG=video babel-node scripts/videoSize/index.js",
     "init:about": "DEBUG=init babel-node scripts/initAbout/index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PeckZeg/fashion-world"
+  },
   "dependencies": {
     "@alicloud/sms-sdk": "^1.0.3",
     "app-module-path": "^2.2.0",
