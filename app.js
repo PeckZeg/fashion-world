@@ -51,7 +51,7 @@ app.use('/api', cors({
   }
 }));
 
-app.use('/api/client', require('./utils/debug-api'));
+app.use('/api', require('./utils/debug-api'));
 
 if (NODE_ENV !== 'production') {
   app.use('/api',restc.express());
