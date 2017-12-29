@@ -39,7 +39,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.options('*', cors());
-app.use('/api', cros({
+app.use('/api', cors({
   origin(origin, cb) {
     if (config.accessControlAllowOrigin.indexOf(origin) > -1) {
       cb(null, true);
