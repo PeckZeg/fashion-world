@@ -41,7 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.options('*', cors());
 app.use('/api', cors({
   origin(origin, cb) {
-    if (config.accessControlAllowOrigin.indexOf(origin) > -1) {
+    if (!origin || config.accessControlAllowOrigin.indexOf(origin) > -1) {
       cb(null, true);
     }
 
@@ -51,7 +51,7 @@ app.use('/api', cors({
   }
 }));
 
-app.use('/api', require('./utils/debug-api'));
+app.use('/api/client', require('./utils/debug-api'));
 
 if (NODE_ENV !== 'production') {
   app.use('/api',restc.express());
