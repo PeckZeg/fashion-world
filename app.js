@@ -20,8 +20,7 @@ const replace = require('lodash/replace');
 const globalMixins = require('./utils/global-mixins');
 const app = express();
 
-const NODE_ENV = process.env.NODE_ENV || 'development';
-const PORT = process.env.PORT || '3003';
+const { NODE_ENV = 'development', PORT = '3003' } = process.env;
 
 debug(`应用启动于 ${colors.blue(NODE_ENV)} 环境，端口 ${colors.blue(PORT)}.`);
 

@@ -11,8 +11,10 @@ const { Schema } = mongoose;
 
 const schema = new Schema({
   mobile: { type: String, required: true, match: matchMobile },
-  password: { type: String, required: true, match: matchPassword },
-  code: { type: String, required: true, match: matchCode }
+  code: { type: String, required: true, match: matchCode },
+  accessToken: { type: String, required: true },
+  openid: { type: String, required: true },
+  unionid: { type: String, required: true }
 }, { _id: false });
 
 const validator = validate(mongoose.model(uniqueId('client'), schema));
