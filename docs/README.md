@@ -33,6 +33,7 @@
   - [`POST` 发送注册验证码][client-my-post-send-register-code]
   - [`POST` 验证注册验证码][client-my-post-validate-register-code]
   - [`POST` 注册][client-my-post-register]
+  * [`POST` 第三方账号注册][client:my:post:registerByThirdparty]
   - [`POST` 发送重置密码验证码][client:my:post:sendResetPasswordCode]
   - [`POST` 验证重置密码验证码][client:my:post:validateResetPasswordCode]
   - [`PUT` 重置用户密码][client:my:put:resetPassword]
@@ -85,6 +86,7 @@
 [client-my-post-register]: ./api/client/my/post/register.md
 [client:my:post:sendResetPasswordCode]: ./api/client/my/post/sendResetPasswordCode.md
 [client:my:post:validateResetPasswordCode]: ./api/client/my/post/validateResetPasswordCode.md
+[client:my:post:registerByThirdparty]: ./api/client/my/post/registerByThirdparty.md
 [client-my-put-bind-weixin]: ./api/client/my/put/bindWeixin.md
 [client-my-put-update-my-profile]: ./api/client/my/put/updateMyProfile.md
 [client-my-put-update-my-avatar]: ./api/client/my/put/updateMyAvatar.md
