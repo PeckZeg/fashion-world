@@ -42,7 +42,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.options('*', cors());
 app.use('/api', cors({
   origin(origin, cb) {
-    if (!origin || includes(config.origins, origin)) {
+    if (!origin || includes(config.origins, origin) ||
+        includes(origin, 'localhost')) {
       return cb(null, true);
     }
 
