@@ -1,3 +1,5 @@
+const assign = require('lodash/assign');
+
 const uploadFileFromUrl = require('utils/qiniu/uploadFileFromUrl');
 const fetchUserInfo = require('utils/weixin/fetchUserInfo');
 const handleError = require('utils/response/handleError');
@@ -33,33 +35,36 @@ module.exports = async function (req, res, next) {
       ]
     });
 
-    if (process.env.NODE_ENV === 'production' && userCount) {
-      throw ResponseError(400, 'user exists');
-    }
-
     const { openid, unionid, nickname, sex, headimgurl } = await fetchUserInfo(
       accessToken, req.body.openid
     );
-    let avatar = null;
 
-    if (headimgurl) {
-      avatar = await uploadFileFromUrl(headimgurl);
-    }
-
-    // create / update doc
     const cond = { mobile };
-    const doc = {
+    let doc = {
       $set: {
         mobile,
-        name: nickname,
-        gender: toGender(sex),
-        avatar,
         'thirdParty.weixin.openid': openid,
         'thirdParty.weixin.unionid': unionid,
         'thirdParty.weixin.bindAt': new Date()
       }
     };
     const opts = { new: true, upsert: true };
+
+    if (!userCount) {
+      let avatar = null;
+
+      if (headimgurl) {
+        avatar = await uploadFileFromUrl(headimgurl);
+      }
+
+      assign(doc.$set, {
+        name: nickname,
+        gender: toGender(sex),
+        avatar
+      });
+    }
+
+    // create / update doc
     const user = await User.findOneAndUpdate(cond, doc, opts);
 
     await client.delAsync(key);
