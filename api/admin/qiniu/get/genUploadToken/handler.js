@@ -19,12 +19,7 @@ module.exports = async (req, res, next) => {
     const scope = `${bucket}:${key}`;
     const uptoken = createUploadToken({ scope });
 
-    res.send({
-      host,
-      key,
-      bucket,
-      uptoken
-    });
+    res.send({ host, key, bucket, uptoken });
   }
 
   catch(err) {

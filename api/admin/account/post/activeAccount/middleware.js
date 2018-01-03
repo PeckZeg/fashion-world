@@ -1,17 +1,13 @@
 const mongoose = require('mongoose');
 
+const genValidator = require('utils/schema/model/genValidator');
 const genMiddleware = require('utils/router/genMiddleware');
-const genParams = require('utils/schema/genParams');
-const validate = require('utils/request/validate');
 
-const { ObjectId } = mongoose.Schema.Types;
+const { Schema } = mongoose;
+const { ObjectId } = Schema.Types;
 
-const schema = new mongoose.Schema({
+const schema = new Schema({
   accountId: { type: ObjectId, required: true }
 }, { _id: false });
 
-const validator = validate(
-  mongoose.model('AdminActiveAccountParams', schema)
-);
-
-module.exports = genMiddleware(validator, 'params');
+module.exports = genMiddleware(genValidator(schema), 'params');

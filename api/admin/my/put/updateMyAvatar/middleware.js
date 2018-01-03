@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 
-const matchPassword = require('utils/schema/match/password');
+const genValidator = require('utils/schema/model/genValidator');
 const genMiddleware = require('utils/router/genMiddleware');
-const validate = require('validate-models/validate');
 
 const { Schema } = mongoose;
 const { ObjectId, Mixed } = Schema.Types;
@@ -11,8 +10,4 @@ const schema = new Schema({
   key: { type: String, required: true }
 }, { _id: false });
 
-const validator = validate(
-  mongoose.model('AdminUpdateMyAvatarBodyParams', schema)
-);
-
-module.exports = genMiddleware(validator, 'body');
+module.exports = genMiddleware(genValidator(schema), 'body');

@@ -1,10 +1,9 @@
-const uniqueId = require('lodash/uniqueId');
 const mongoose = require('mongoose');
 
+const genValidator = require('utils/schema/model/genValidator');
 const genMiddleware = require('utils/router/genMiddleware');
 const matchMobile = require('utils/schema/match/mobile');
 const matchCode = require('utils/schema/match/code');
-const validate = require('utils/request/validate');
 
 const { Schema } = mongoose;
 
@@ -13,6 +12,4 @@ const schema = new Schema({
   code: { type: String, required: true, match: matchCode }
 }, { _id: false });
 
-const validator = validate(mongoose.model(uniqueId('client'), schema));
-
-module.exports = genMiddleware(validator, 'body');
+module.exports = genMiddleware(genValidator(schema, 'client'), 'body');

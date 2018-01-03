@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
+const genValidator = require('utils/schema/model/genValidator');
 const matchPassword = require('utils/schema/match/password');
 const genMiddleware = require('utils/router/genMiddleware');
-const validate = require('validate-models/validate');
 
 const { Schema } = mongoose;
 const { ObjectId, Mixed } = Schema.Types;
@@ -12,8 +12,4 @@ const schema = new Schema({
   password: { type: String, match: matchPassword },
 }, { _id: false });
 
-const validator = validate(
-  mongoose.model('AdminUpdateMyProfileBodyParams', schema)
-);
-
-module.exports = genMiddleware(validator, 'body');
+module.exports = genMiddleware(genValidator(schema), 'body');

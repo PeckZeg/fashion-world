@@ -1,6 +1,6 @@
-const uniqueId = require('lodash/uniqueId');
 const mongoose = require('mongoose');
 
+const genValidator = require('utils/schema/model/genValidator');
 const genSearchParams = require('utils/schema/genSearchParams');
 const genMiddleware = require('utils/router/genMiddleware');
 const genListParams = require('utils/schema/genListParams');
@@ -9,13 +9,13 @@ const genParams = require('utils/schema/genParams');
 const validate = require('utils/request/validate');
 const props = require('./props');
 
-const schema = new mongoose.Schema({
+const { Schema } = mongoose;
+
+const schema = new Schema({
   ...genListParams(),
   ...genParams(props),
   ...genSortParams(props),
   ...genSearchParams(props),
 }, { _id: false });
 
-const validator = validate(mongoose.model(uniqueId('admin'), schema));
-
-module.exports = genMiddleware(validator);
+module.exports = genMiddleware(genValidator(schema));

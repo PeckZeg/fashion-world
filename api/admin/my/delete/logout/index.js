@@ -1,2 +1,2 @@
-exports.route = '/logout';
 exports.handler = require('./handler');
+exports.route = '/logout';
