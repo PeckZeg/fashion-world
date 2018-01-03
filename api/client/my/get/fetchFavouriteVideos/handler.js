@@ -25,6 +25,8 @@ const action = 'CLIENT_MY_GET_FETCH_FAVOURITE_VIDEOS';
 const props = require('./props');
 
 module.exports = async (req, res, next) => {
+  const client = createClient();
+
   try {
     const token = await authToken(req, action, { required: true });
     const { userId } = token;
@@ -34,7 +36,7 @@ module.exports = async (req, res, next) => {
       throw new ResponseError(404, 'user not found');
     }
 
-    const client = createClient();
+    const publishedVideos = await fetchPublishedVideos({ string: true });
 
     let videoIds = filter(
       await client.zrevrangeAsync(
@@ -61,12 +63,14 @@ module.exports = async (req, res, next) => {
       { token }
     );
 
-    await client.quitAsync();
-
     res.send({ total, videos });
   }
 
   catch (err) {
     handleError(res, err);
+  }
+
+  finally {
+    await client.quitAsync();
   }
 };
