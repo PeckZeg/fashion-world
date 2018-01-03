@@ -26,14 +26,14 @@ const schema = new Schema({
   registerAt: { type: Date, default: Date.now }
 }, { toJSON, toObject });
 
-connection.collection('User').createIndex(
-  { mobile: 1 },
-  {
-    unique: true,
-    partialFilterExpression: {
-      mobile: { $type: 'string' }
-    }
-  }
-);
+// connection.collection('User').createIndex(
+//   { mobile: 1 },
+//   {
+//     unique: true,
+//     partialFilterExpression: {
+//       mobile: { $type: 'string' }
+//     }
+//   }
+// );
 
 module.exports = connection.model('User', schema);
