@@ -9,8 +9,6 @@
 
 ```js
 {
-  mobile: String,                             // [必需] 手机号码
-  code: String,                               // [必需] 验证码
   accessToken: String,                        // [必需] 微信访问令牌
   openid: String,                             // [必需] 微信用户开放编号
   unionid: String                             // [必需] 微信用户联合编号
@@ -33,10 +31,6 @@
 
 Status Code | Message                 | Note
 :---------- | :---------------------- | :----
-`400`       | `user exists`           | 用户已存在
-`403`       | `invalid code`          | 无效的验证码
-`403`       | `user exists`           | 用户已存在
-`404`       | `code is not sent`      | 验证码未发送
 `500`       |                         | 服务端错误
 
 ## Example
@@ -49,8 +43,6 @@ Host: localhost:3003
 Content-Type: application/json
 
 {
-	"mobile": "13055818112",
-	"code": "811136",
 	"accessToken": "5_f2QDEekesLHqy1YvdV0XOhHdl3TQiMGnJTiULlQ8V2X9fMa7ymIAfNdsGxLxF4wnFVXTFjMs317Hs8Ykf6en0Q",
 	"openid": "osRutw7PUvFEstItTsd2Z7nchjPM",
 	"unionid": "okGoa1vFQSIYULTYodGww1iVt1aw"

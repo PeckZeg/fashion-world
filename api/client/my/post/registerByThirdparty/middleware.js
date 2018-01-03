@@ -8,8 +8,6 @@ const matchCode = require('utils/schema/match/code');
 const { Schema } = mongoose;
 
 const schema = new Schema({
-  mobile: { type: String, required: true, match: matchMobile },
-  code: { type: String, required: true, match: matchCode },
   accessToken: { type: String, required: true },
   openid: { type: String, required: true },
   unionid: { type: String, required: true }
