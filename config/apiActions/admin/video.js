@@ -5,10 +5,7 @@ exports.ADMIN_VIDEO_GET_FETCH_VIDEO_LIST = 'admin:video:fetch-video-list';
 exports.ADMIN_VIDEO_GET_FETCH_VIDEO_PROFILE = 'admin:video:fetch-video-profile';
 
 // 创建视频
-// exports.ADMIN_VIDEO_POST_CREATE_VIDEO = 'admin:video:create-video';
-
-// 上传视频封面
-exports.ADMIN_VIDEO_POST_UPLOAD_VIDEO_COVER = 'admin:video:upload-video-cover';
+exports.ADMIN_VIDEO_POST_CREATE_VIDEO = 'admin:video:create-video';
 
 // 发布视频
 exports.ADMIN_VIDEO_POST_PUBLISH_VIDEO = 'admin:video:publish-video';
@@ -21,6 +18,9 @@ exports.ADMIN_VIDEO_POST_RECOMMEND_VIDEO = 'admin:video:recommend-video';
 
 // 更新视频
 exports.ADMIN_VIDEO_PUT_UPDATE_VIDEO = 'admin:video:update-video';
+
+// 更新视频封面
+exports.ADMIN_VIDEO_PUT_UPDATE_VIDEO_COVER = 'admin:video:update-video-cover';
 
 // 取消推荐视频
 exports.ADMIN_VIDEO_POST_SUPPLANT_VIDEO = 'admin:video:supplant-video';
