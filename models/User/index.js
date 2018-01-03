@@ -13,7 +13,7 @@ const schema = new Schema({
   name: { type: String, minlength: 3, maxLength: 24, default: '' },
   password: { type: String, match: matchPassword, default: null },
   gender: { type: String, enum: GENDERS, default: 'secret' },
-  mobile: { type: String, unique: true, sparse: true, match: matchMobile },
+  mobile: { type: String, match: matchMobile },
   avatar: { type: String, default: null },
   thirdParty: {
     weixin: {
