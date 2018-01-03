@@ -19,5 +19,5 @@ module.exports = (body, props) => {
     return props;
   }, {});
 
-  return { ...sort, createAt: -1 };
+  return has(sort, 'createAt') ? sort : { ...sort, createAt: -1 };
 };
