@@ -18,7 +18,7 @@ const download = src => new Promise((resolve, reject) => {
 
   request
     .get(src)
-    .on('response', response => resolve(dest))
+    .on('end', () => resolve(dest))
     .on('error', reject)
     .pipe(fs.createWriteStream(dest));
 });
@@ -30,7 +30,7 @@ module.exports = async function(src) {
 
   const tmppath = await download(src);
   const sha1 = await syncUtils.file.genSha1(tmppath);
-  const ext = fileType(fs.readFileSync(tmppath)).ext;
+  const ext = fileType(readChunk.sync(tmppath, 0, 4100)).ext;
   const key = `${sha1}.${ext}`;
   const dest = await syncUtils.file.rename(tmppath, `/tmp/${key}`);
 
@@ -46,9 +46,7 @@ module.exports = async function(src) {
     throw new ResponseError(respInfo.statusCode, respBody.error);
   }
 
-  console.log({dest});
-
-  // await syncUtils.file.unlink(dest);
+  await syncUtils.file.unlink(dest);
 
   return key;
 };
