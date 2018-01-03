@@ -25,7 +25,9 @@ module.exports = async (req, res, next) => {
     const { openid, unionid } = await fetchUserInfo(accessToken, req.body.openid);
     const doc = {
       $set: {
-        'thirdParty.weixin': { openid, unionid }
+        'thirdParty.weixin.openid': openid,
+        'thirdParty.weixin.unionid': unionid,
+        'thirdParty.weixin.bindAt': new Date()
       }
     };
     const opts = { new: true };

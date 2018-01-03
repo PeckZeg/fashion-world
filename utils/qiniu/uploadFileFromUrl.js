@@ -16,7 +16,8 @@ const download = src => new Promise((resolve, reject) => {
   const dest = `/tmp/${uuid()}`;
   const writeStream = fs.createWriteStream(dest);
 
-  request(src)
+  request
+    .get(src)
     .on('response', response => resolve(dest))
     .on('error', reject)
     .pipe(fs.createWriteStream(dest));

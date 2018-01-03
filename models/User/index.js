@@ -18,7 +18,8 @@ const schema = new Schema({
   thirdParty: {
     weixin: {
       openid: { type: String, default: null },
-      unionid: { type: String, default: null }
+      unionid: { type: String, default: null },
+      bindAt: { type: Date, default: null }
     }
   },
   createAt: { type: Date, default: Date.now },

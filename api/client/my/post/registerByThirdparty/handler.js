@@ -55,7 +55,8 @@ module.exports = async function (req, res, next) {
         gender: toGender(sex),
         avatar,
         'thirdParty.weixin.openid': openid,
-        'thirdParty.weixin.unionid': unionid
+        'thirdParty.weixin.unionid': unionid,
+        'thirdParty.weixin.bindAt': new Date()
       }
     };
     const opts = { new: true, upsert: true };
