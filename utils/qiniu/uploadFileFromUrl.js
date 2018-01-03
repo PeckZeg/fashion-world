@@ -30,7 +30,7 @@ module.exports = async function(src) {
 
   const tmppath = await download(src);
   const sha1 = await syncUtils.file.genSha1(tmppath);
-  const ext = fileType(readChunk.sync(tmppath, 0, 4100)).ext;
+  const ext = fileType(fs.readFileSync(tmppath)).ext;
   const key = `${sha1}.${ext}`;
   const dest = await syncUtils.file.rename(tmppath, `/tmp/${key}`);
 
@@ -46,7 +46,9 @@ module.exports = async function(src) {
     throw new ResponseError(respInfo.statusCode, respBody.error);
   }
 
-  await syncUtils.file.unlink(dest);
+  console.log({dest});
+
+  // await syncUtils.file.unlink(dest);
 
   return key;
 };
