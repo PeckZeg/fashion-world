@@ -9,30 +9,30 @@ module.exports = async function (req, res, next) {
   try {
     const { accessToken, openid, unionid } = req.body;
     const { nickname, sex, headimgurl } = await fetchUserInfo(accessToken, openid);
-    let avatar = null;
 
-    if (headimgurl) {
-      avatar = await uploadFileFromUrl(headimgurl);
-    }
-
-    const cond = {
+    let user = await User.findOne({
       'thirdParty.weixin.openid': openid,
       'thirdParty.weixin.unionid': unionid
-    };
-    const doc = {
-      $setOnInsert: {
+    });
+
+    if (!user) {
+      let avatar = null;
+
+      if (headimgurl) {
+        avatar = await uploadFileFromUrl(headimgurl);
+      }
+
+      user = new User({
         name: nickname,
         gender: toGender(sex),
         avatar,
         'thirdParty.weixin.openid': openid,
         'thirdParty.weixin.unionid': unionid,
         'thirdParty.weixin.bindAt': new Date()
-      }
-    };
-    const opts = { new: true, upsert: true };
+      });
 
-    // create / update doc
-    const user = await User.findOneAndUpdate(cond, doc, opts);
+      user = await user.save();
+    }
 
     res.send({ user: user.toJSON() });
   }
