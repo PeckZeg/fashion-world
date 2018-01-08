@@ -32,7 +32,12 @@ module.exports = async (req, res, next) => {
       cond.categoryId = { $in: await fetchPublishedCategories() };
     }
 
-    const sort = { priority: -1, publishAt: -1, createAt: -1 };
+    let sort = { priority: -1, publishAt: -1, createAt: -1 };
+
+    if (cond.recommendAt) {
+      sort = { recommendAt: -1, ...sort };
+    }
+
     const total = await Video.count(cond);
     const videos = await injectVideo(
       await Video.find(cond).skip(skip).limit(limit).sort(sort),

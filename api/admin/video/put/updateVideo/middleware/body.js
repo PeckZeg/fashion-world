@@ -23,6 +23,7 @@ const schema = new Schema({
   productionCountry: String,
   originalLanguage: String,
   views: Number,
+  priority: Number,
   tags: [String],
   keywords: [String]
 }, { _id: false });
