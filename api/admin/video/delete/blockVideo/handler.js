@@ -23,11 +23,11 @@ module.exports = async function(req, res, next) {
       throw new ResponseError(403, 'channel has been blocked');
     }
 
-    const doc = { $set: { publishAt: null } };
+    const doc = { $set: { publishAt: null, recommendAt: null } };
     const opts = { new: true };
 
     video = await injectVideo(
-      await Video.findByIdAndUpdate(videoId, doc, opts), 
+      await Video.findByIdAndUpdate(videoId, doc, opts),
       { handler: 'toObject' }
     );
 

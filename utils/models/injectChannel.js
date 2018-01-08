@@ -21,15 +21,13 @@ module.exports = async (arr, opts = {}) => {
 
   return map(arr, item => {
     const { channelId } = item;
+    let channel = null;
 
     if (has(channels, channelId)) {
-      let channel = channels[channelId];
-
+      channel = channels[channelId];
       channel = isFunction(channel[handler]) ? channel[handler]() : channel;
-
-      return { ...item, channel };
     }
 
-    return null;
+    return { ...item, channel };
   });
 };

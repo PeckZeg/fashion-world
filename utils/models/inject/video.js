@@ -29,12 +29,14 @@ module.exports = async (videos, opts = {}) => {
     ));
   }
 
+
   videos = await injectChannel(videos, opts);
   videos = await injectCategory(videos, opts);
 
   const client = createClient();
 
   videos = await Promise.all(map(videos, async video => {
+
     const videoId = video._id.toString();
 
     return {

@@ -23,7 +23,7 @@ exports.ADMIN_VIDEO_PUT_UPDATE_VIDEO = 'admin:video:update-video';
 exports.ADMIN_VIDEO_PUT_UPDATE_VIDEO_COVER = 'admin:video:update-video-cover';
 
 // 取消推荐视频
-exports.ADMIN_VIDEO_POST_SUPPLANT_VIDEO = 'admin:video:supplant-video';
+exports.ADMIN_VIDEO_DEL_SUPPLANT_VIDEO = 'admin:video:supplant-video';
 
 // 禁用视频
 exports.ADMIN_VIDEO_DEL_BLOCK_VIDEO = 'admin:video:block-video';

@@ -21,15 +21,13 @@ module.exports = async (arr, opts = {}) => {
 
   return map(arr, item => {
     const { categoryId } = item;
+    let category = null;
 
     if (has(categories, categoryId)) {
-      let category = categories[categoryId];
-
+      category = categories[categoryId];
       category = isFunction(category[handler]) ? category[handler]() : category;
-
-      return { ...item, category };
     }
 
-    return null;
+    return { ...item, category };
   });
 };

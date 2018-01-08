@@ -6,7 +6,7 @@ const createLog = require('utils/createAccountLog');
 
 const Video = require('models/Video');
 
-const action = 'ADMIN_VIDEO_POST_SUPPLANT_VIDEO';
+const action = 'ADMIN_VIDEO_DEL_SUPPLANT_VIDEO';
 
 module.exports = async function(req, res, next) {
   try {
@@ -23,7 +23,7 @@ module.exports = async function(req, res, next) {
       throw new ResponseError(403, 'channel has been supplanted');
     }
 
-    const doc = { $set: { publishAt: null, recommendAt: null } };
+    const doc = { $set: { recommendAt: null } };
     const opts = { new: true };
 
     video = await injectVideo(
