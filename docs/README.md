@@ -52,6 +52,7 @@
   - [`GET` 获取分类信息][client:category:getfetchCategoryProfile]
 * **视频**
   - [`GET` 获取视频列表][client:video:get:fetchVideoList]
+  - [`GET` 获取多重视频列表][client:video:get:fetchMultiVideoList]
   - [`GET` 获取视频信息][client:video:get:fetchVideoProfile]
   - [`GET` 随机获取视频][client:video:get:sampleVideoList]
   - [`PUT` 收藏视频][client:video:put:collectVideo]
@@ -102,6 +103,7 @@
 [client:category:getfetchCategoryProfile]: ./api/client/category/get/fetchCategoryProfile.md
 
 [client:video:get:fetchVideoList]: ./api/client/video/get/fetchVideoList.md
+[client:video:get:fetchMultiVideoList]: ./api/client/video/get/fetchMultiVideoList.md
 [client:video:get:fetchVideoProfile]: ./api/client/video/get/fetchVideoProfile.md
 [client:video:get:sampleVideoList]: ./api/client/video/get/sampleVideoList.md
 [client:video:put:collectVideo]: ./api/client/video/put/collectVideo.md
