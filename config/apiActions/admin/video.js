@@ -22,6 +22,9 @@ exports.ADMIN_VIDEO_PUT_UPDATE_VIDEO = 'admin:video:update-video';
 // 更新视频封面
 exports.ADMIN_VIDEO_PUT_UPDATE_VIDEO_COVER = 'admin:video:update-video-cover';
 
+// 更新视频字幕
+exports.ADMIN_VIDEO_PUT_UPDATE_VIDEO_SUBTITLE_FILES = 'admin:video:update-video-subtitle-files';
+
 // 取消推荐视频
 exports.ADMIN_VIDEO_DEL_SUPPLANT_VIDEO = 'admin:video:supplant-video';
 

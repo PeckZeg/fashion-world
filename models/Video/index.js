@@ -43,6 +43,12 @@ const schema = new Schema({
       key: { type: String, default: null }
     }
   ],
+  subtitleFiles: [
+    {
+      lang: { type: String, default: null },
+      key: { type: String, default: null }
+    }
+  ],
 
   /**
    *  @deprecated
