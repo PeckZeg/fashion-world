@@ -11,7 +11,7 @@ const { ObjectId } = Schema.Types;
 
 const schema = new Schema({
   channelId: { type: ObjectId, required: true },
-  categoryId: { type: ObjectId, required: true },
+  categoryId: { type: ObjectId, default: null },
   cover: { type: String, default: null },
   title: { type: String, minlength: 1, maxLength: 65535, default: null },
   subtitle: { type: String, maxLength: 65535, default: null },
@@ -37,6 +37,7 @@ const schema = new Schema({
   duration: { type: Number, default: 0 },
   size: { type: Number, default: 0 },
   priority: { type: Number, default: 0 },
+  filename: { type: String, default: null },
   definitions: [
     {
       definition: { type: String, default: null },
@@ -55,7 +56,7 @@ const schema = new Schema({
    */
    source: { type: String, default: null },
    filepath: { type: String, default: null },
-   sourceId: { type: ObjectId, required: true },
+   sourceId: { type: ObjectId, default: null },
 }, { toJSON, toObject });
 
 module.exports = connection.model('Video', schema);

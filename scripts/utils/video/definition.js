@@ -1,7 +1,7 @@
 const ffmpeg = require('fluent-ffmpeg');
 const uuid = require('uuid/v4');
 const path = require('path');
-const debug = require('debug')('sync');
+const debug = require('debug')('definition');
 
 const fileUtils = require('../file');
 const genVideoMetadata = require('./metadata');

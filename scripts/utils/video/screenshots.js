@@ -39,7 +39,8 @@ module.exports = filepath => Promise.resolve({
       const basename = path.basename(screenshot, path.extname(screenshot));
       const outpath = path.join(folder, `${basename}.jpg`);
 
-      exec(`convert -resize "800>" ${screenshot} ${outpath}`, err => {
+      exec(`convert -resize "800>" ${screenshot} ${outpath}`, async err => {
+        await fileUtils.unlink(screenshot);
         cb(err, outpath);
       });
     }, (err, screenshots) => {

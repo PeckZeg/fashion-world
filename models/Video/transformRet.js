@@ -14,7 +14,7 @@ module.exports = ret => {
     ...extra
   }));
 
-  ret.subtitleFiles = map(ret.subtitleFiles, ({ _id, key, ...extra }) => ({
+  ret.subtitleFiles = map(ret.subtitleFiles, ({ key, ...extra }) => ({
     url: toUrl(key),
     key,
     ...extra
