@@ -23,8 +23,8 @@ module.exports = async function(ftpFile, opts = {}) {
   let tmpFile = path.join('/tmp', `${uuid()}${extname}`);
 
   debug(`${space}正在下载视频 ${basename}`);
-  // await downloadFtpFile(ftpFile, tmpFile, { connect });
-  await syncUtils.file.rename(ftpFile, tmpFile);
+  await downloadFtpFile(ftpFile, tmpFile, { connect });
+  // await syncUtils.file.rename(ftpFile, tmpFile);
   debug(`${space}完成下载视频 ${basename}`);
 
   const sha1 = await syncUtils.file.genSha1(tmpFile);
