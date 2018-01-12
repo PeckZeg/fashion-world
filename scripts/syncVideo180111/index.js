@@ -54,7 +54,7 @@ const { Random } = Mock;
             channelId: ObjectId('5923d5a2afa4194436827737'),
             title: `[未编辑] ${Random.ctitle(4, 16)}`,
             cover: sample(videoInfo.screenshots),
-            filename: path.basename(ftpFile),
+            filename,
             ...videoInfo
           });
 
@@ -67,9 +67,15 @@ const { Random } = Mock;
 
         catch (err) {
           console.error(err);
-          await client.saddAsync(ERROR_LIST, id);
+          await client.saddAsync(ERROR_LIST, ftpFile);
           debug(`💊${space}同步视频 ${ftpFile} 失败`);
         }
+
+        const pendingCount = await client.scardAsync(PENDING_LIST);
+        const completeCount = await client.scardAsync(COMPLETE_LIST);
+        const errorCount = await client.scardAsync(ERROR_LIST);
+
+        debug(`💩${space}已迁移 ${completeCount} 个，失败 ${errorCount} 个，剩余 ${pendingCount} 个`);
       }
     }
 
