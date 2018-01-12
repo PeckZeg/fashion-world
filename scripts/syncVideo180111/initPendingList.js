@@ -12,6 +12,8 @@ const map = require('lodash/map');
 const createClient = require('redis/createClient');
 const listFtpFiles = require('../utils/ftp/list');
 
+const Video = require('models/Video');
+
 const { PENDING_LIST, COMPLETE_LIST, ERROR_LIST } = require('./keys');
 const { sync: connect } = config.ftpServer;
 const SYNC_FOLDERS = [
@@ -46,6 +48,12 @@ module.exports = async function() {
 
   mp4Files = compact(uniq(mp4Files));
   ssaFiles = compact(uniq(ssaFiles));
+
+  for (const filename of mp4Files) {
+    if (await Video.count({ filename: path.basename(filename) })) {
+      without(mp4Files, filename);
+    }
+  }
 
   for (const filename of await client.smembersAsync(COMPLETE_LIST)) {
     without(mp4Files, filename);
