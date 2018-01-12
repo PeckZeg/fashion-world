@@ -60,7 +60,7 @@ module.exports = async function() {
   }
 
   for (const filename of await client.smembersAsync(ERROR_LIST)) {
-    if (!includes(mp4files, filename)) {
+    if (!includes(mp4Files, filename)) {
       mp4Files.push(filename);
     }
   }
