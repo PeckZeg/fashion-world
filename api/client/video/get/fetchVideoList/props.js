@@ -4,6 +4,11 @@ const { ObjectId } = mongoose.Schema.Types;
 
 module.exports = [
   {
+    prop: 'videoId',
+    shape: ObjectId,
+    transTo: '_id'
+  },
+  {
     prop: 'channelId',
     shape: ObjectId
   },

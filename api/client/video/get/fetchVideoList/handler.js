@@ -22,15 +22,24 @@ module.exports = async (req, res, next) => {
       ...genCond(req.query, props),
       publishAt: { $ne: null, $lte: new Date() },
       removeAt: null
+
+      // $or: [
+      //   {
+      //     removeAt: null
+      //   },
+      //   {
+      //     removeAt: { $exists: false }
+      //   }
+      // ]
     };
 
     if (!cond.channelId) {
       cond.channelId = { $in: await fetchPublishedChannels() };
     }
 
-    if (!cond.categoryId) {
-      cond.categoryId = { $in: await fetchPublishedCategories() };
-    }
+    // if (!cond.categoryId) {
+    //   cond.categoryId = { $in: await fetchPublishedCategories() };
+    // }
 
     let sort = { priority: -1, publishAt: -1, createAt: -1 };
 

@@ -36,7 +36,7 @@ const schema = new Schema({
   screenshots: [String],
   duration: { type: Number, default: 0 },
   size: { type: Number, default: 0 },
-  priority: { type: Number, default: 0 },
+  priority: { type: Number, index: true, default: 0 },
   filename: { type: String, default: null },
   definitions: [
     {
