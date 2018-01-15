@@ -13,7 +13,8 @@
     "video:duration": "DEBUG=video babel-node scripts/videoDuration/index.js",
     "video:size": "DEBUG=video babel-node scripts/videoSize/index.js",
     "init:about": "DEBUG=init babel-node scripts/initAbout/index.js",
-    "sync:video:180111": "DEBUG=sync babel-node scripts/syncVideo180111/index.js"
+    "sync:video:180111": "DEBUG=sync babel-node scripts/syncVideo180111/index.js",
+    "sync:loop-video:cover": "DEBUG=sync babel-node scripts/syncLoopVideoCover"
   },
   "repository": {
     "type": "git",
