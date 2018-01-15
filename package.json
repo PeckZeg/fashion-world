@@ -1,6 +1,6 @@
 {
   "name": "caa-fashion-world",
-  "version": "2.1.4",
+  "version": "2.1.8",
   "private": true,
   "scripts": {
     "start": "DEBUG=api nodemon ./bin/www --exec babel-node",

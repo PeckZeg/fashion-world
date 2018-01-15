@@ -61,6 +61,12 @@ npm run video:size
 
 # 初始化 About
 npm run init:about
+
+# 视频同步 - 180111
+npm run sync:video:180111
+
+# 同步循环视频封面
+npm run sync:loop-video:cover
 ```
 
 ## Bash Profile
