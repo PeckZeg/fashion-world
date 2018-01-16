@@ -20,7 +20,7 @@ module.exports = async function(req, res, next) {
     }
 
     if (video.removeAt) {
-      throw new ResponseError(403, 'channel has been removed');
+      throw new ResponseError(403, 'video has been removed');
     }
 
     const doc = {

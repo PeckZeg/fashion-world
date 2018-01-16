@@ -10,10 +10,10 @@ const { ObjectId } = Schema.Types;
 
 const schema = new Schema({
   videoId: { type: ObjectId, required: true },
-  cover: { type: String, default: '' },
-  title: { type: String, minlength: 1, maxlength: 65535, default: null },
-  subtitle: { type: String, minlength: 1, maxlength: 65535, default: null },
-  abstract: { type: String, minlength: 1, maxlength: 65535, default: null },
+  cover: { type: String, default: null },
+  title: { type: String, minlength: 1, maxlength: 64, default: null },
+  subtitle: { type: String, minlength: 1, maxlength: 128, default: null },
+  abstract: { type: String, minlength: 1, maxlength: 256, default: null },
   summary: { type: String, minlength: 1, maxlength: 65535, default: null },
   priority: { type: Number, default: 0 },
   publishAt: { type: Date, default: null },

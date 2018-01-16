@@ -7,9 +7,6 @@ exports.ADMIN_LOOP_VIDEO_GET_FETCH_LOOP_VIDEO_PROFILE = 'admin:loop-video:fetch-
 // 创建循环视频
 exports.ADMIN_LOOP_VIDEO_POST_CREATE_LOOP_VIDEO = 'admin:loop-video:create-loop-video';
 
-// 上传循环视频封面
-exports.ADMIN_LOOP_VIDEO_POST_UPLOAD_LOOP_VIDEO_COVER = 'admin:loop-video:upload-loop-video-cover';
-
 // 发布循环视频
 exports.ADMIN_LOOP_VIDEO_POST_PUBLISH_LOOP_VIDEO = 'admin:loop-video:publish-loop-video';
 
@@ -18,6 +15,9 @@ exports.ADMIN_LOOP_VIDEO_POST_RECOVER_LOOP_VIDEO = 'admin:loop-video:recover-loo
 
 // 更新循环视频
 exports.ADMIN_LOOP_VIDEO_PUT_UPDATE_LOOP_VIDEO = 'admin:loop-video:update-loop-video';
+
+// 更新循环视频封面
+exports.ADMIN_LOOP_VIDEO_PUT_UPDATE_LOOP_VIDEO_COVER = 'admin:loop-video:update-loop-video-cover';
 
 // 禁用循环视频
 exports.ADMIN_LOOP_VIDEO_DEL_BLOCK_LOOP_VIDEO = 'admin:loop-video:block-loop-video';
