@@ -14,7 +14,8 @@
     "video:size": "DEBUG=video babel-node scripts/videoSize/index.js",
     "init:about": "DEBUG=init babel-node scripts/initAbout/index.js",
     "sync:video:180111": "DEBUG=sync babel-node scripts/syncVideo180111/index.js",
-    "sync:loop-video:cover": "DEBUG=sync babel-node scripts/syncLoopVideoCover"
+    "sync:loop-video:cover": "DEBUG=sync babel-node scripts/syncLoopVideoCover",
+    "fix:user:createAt:null": "DEBUG=fix babel-node scripts/fixUserCreateAtNull"
   },
   "repository": {
     "type": "git",

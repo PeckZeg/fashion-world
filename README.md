@@ -61,6 +61,9 @@ npm run video:size
 
 # 初始化 About
 npm run init:about
+
+# 修复用户创建时间为空
+npm run fix:user:createAt:null
 ```
 
 ## Bash Profile
