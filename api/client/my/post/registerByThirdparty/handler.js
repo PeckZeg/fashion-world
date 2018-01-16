@@ -11,7 +11,7 @@ module.exports = async function (req, res, next) {
     const { nickname, sex, headimgurl } = await fetchUserInfo(accessToken, openid);
 
     let user = await User.findOne({
-      'thirdParty.weixin.openid': openid,
+      // 'thirdParty.weixin.openid': openid,
       'thirdParty.weixin.unionid': unionid
     });
 
