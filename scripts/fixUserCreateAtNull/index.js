@@ -34,7 +34,7 @@ const { PENDING_LIST, COMPLETE_LIST, ERROR_LIST } = require('./keys');
 
           debug(`正在修复用户 ${userId}`);
 
-          const user = await User.findbyId(userId);
+          const user = await User.findById(userId);
           const doc = {
             $set: {
               createAt: get(user, 'thirdParty.weixin.bindAt')
