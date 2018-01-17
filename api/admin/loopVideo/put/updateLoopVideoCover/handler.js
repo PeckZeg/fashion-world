@@ -43,7 +43,7 @@ module.exports = async function(req, res, next) {
     const doc = { $set: { cover } };
     const opts = { new: true };
 
-    loopVideo = LoopVideo.findByIdAndUpdate(loopVideoId, doc, opts);
+    loopVideo = await LoopVideo.findByIdAndUpdate(loopVideoId, doc, opts);
     loopVideo = assign(
       loopVideo.toObject(),
       {
