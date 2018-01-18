@@ -18,6 +18,7 @@ const Video = require('models/Video');
 const { PENDING_LIST, COMPLETE_LIST, ERROR_LIST } = require('./keys');
 const { ObjectId } = mongoose.Types;
 const { Random } = Mock;
+const channels = require('./data.json');
 
 (async function() {
 
@@ -51,7 +52,7 @@ const { Random } = Mock;
           debug(`${space}正在生成视频数据`);
           const videoInfo = await migrateVideo(ftpFile);
           const video = new Video({
-            channelId: ObjectId('5923d5a2afa4194436827737'),
+            channelId: channels[path.dirname(ftpFile)],
             title: `[未编辑] ${Random.ctitle(4, 16)}`,
             cover: sample(videoInfo.screenshots),
             filename,

@@ -27,7 +27,10 @@ module.exports = async function(req, res, next) {
     const total = await Video.count(cond);
     let loopVideos = await LoopVideo.find(cond).limit(limit).skip(skip).sort(sort);
     const videos = keyBy(
-      await injectVideo(await Video.find({ _id: map(loopVideos, 'videoId') })),
+      await injectVideo(
+        await Video.find({ _id: map(loopVideos, 'videoId') }),
+        { handler: 'toObject' }
+      ),
       '_id'
     );
 

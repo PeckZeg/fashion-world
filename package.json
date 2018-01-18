@@ -13,9 +13,11 @@
     "video:duration": "DEBUG=video babel-node scripts/videoDuration/index.js",
     "video:size": "DEBUG=video babel-node scripts/videoSize/index.js",
     "init:about": "DEBUG=init babel-node scripts/initAbout/index.js",
-    "sync:video:180111": "DEBUG=sync babel-node scripts/syncVideo180111/index.js",
+    "sync:video": "DEBUG=sync babel-node scripts/syncVideo180111/index.js",
     "sync:loop-video:cover": "DEBUG=sync babel-node scripts/syncLoopVideoCover",
-    "fix:user:createAt:null": "DEBUG=fix babel-node scripts/fixUserCreateAtNull"
+    "sync:channel": "DEBUG=sync babel-node scripts/syncChannel",
+    "fix:user:createAt:null": "DEBUG=fix babel-node scripts/fixUserCreateAtNull",
+    "fix:loop-video:no-exists-video": "DEBUG=fix babel-node scripts/fixLoopVideoNoExistsVideo"
   },
   "repository": {
     "type": "git",

@@ -16,10 +16,7 @@ const Video = require('models/Video');
 
 const { PENDING_LIST, COMPLETE_LIST, ERROR_LIST } = require('./keys');
 const { sync: connect } = config.ftpServer;
-const SYNC_FOLDERS = [
-  // '/',
-  '/FashionOne_New_30'
-];
+const SYNC_FOLDERS = keys(require('./data.json'));
 
 module.exports = async function() {
   const client = createClient();

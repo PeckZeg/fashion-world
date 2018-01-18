@@ -21,7 +21,10 @@ module.exports = async function(req, res, next) {
     loopVideo = assign(
       loopVideo.toObject(),
       {
-        video: await injectVideo(await Video.findById(loopVideo.videoId))
+        video: await injectVideo(
+          await Video.findById(loopVideo.videoId),
+          { handler: 'toObject' }
+        )
       }
     );
 

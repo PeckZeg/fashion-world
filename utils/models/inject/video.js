@@ -2,6 +2,8 @@ const isPlainObject = require('lodash/isPlainObject');
 const isFunction = require('lodash/isFunction');
 const isString = require('lodash/isString');
 const isArray = require('lodash/isArray');
+const compact = require('lodash/compact');
+const isNil = require('lodash/isNil');
 const has = require('lodash/has');
 const map = require('lodash/map');
 
@@ -21,11 +23,11 @@ module.exports = async (videos, opts = {}) => {
   const { handler = 'toJSON' } = opts;
   const isOutputArray = isArray(videos);
 
-  videos = isArray(videos) ? videos : [videos];
+  videos = compact(isArray(videos) ? videos : [videos]);
 
   if (isString(handler)) {
     videos = map(videos, video => (
-      isFunction(video[handler]) ? video[handler]() : video
+      video && isFunction(video[handler]) ? video[handler]() : video
     ));
   }
 
@@ -36,7 +38,6 @@ module.exports = async (videos, opts = {}) => {
   const client = createClient();
 
   videos = await Promise.all(map(videos, async video => {
-
     const videoId = video._id.toString();
 
     return {
@@ -78,5 +79,5 @@ module.exports = async (videos, opts = {}) => {
 
   await client.quitAsync();
 
-  return isOutputArray ? videos : videos[0];
+  return isOutputArray ? videos : (isNil(videos[0]) ? null : videos[0]);
 };
