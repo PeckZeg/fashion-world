@@ -12,3 +12,13 @@
   "cover": string                           //  封面地址
 }
 ```
+
+## 各个频道
+
+id                         | name
+:------------------------- | :----
+`5923d5a2afa4194436827736` | Fashion TV
+`5923d5a2afa4194436827737` | Fashion One
+`5959b33cb912aab9e9e9eb15` | Deep
+`596ecd3ff223c686eeb624c2` | WLC
+`5a600a2c6e7e5b71816b09a7` | FUEL TV
