@@ -7,6 +7,7 @@ const compact = require('lodash/compact');
 const without = require('lodash/without');
 const filter = require('lodash/filter');
 const uniq = require('lodash/uniq');
+const keys = require('lodash/keys');
 const map = require('lodash/map');
 
 const createClient = require('redis/createClient');
