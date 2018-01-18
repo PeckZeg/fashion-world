@@ -22,3 +22,5 @@ id                         | name
 `5959b33cb912aab9e9e9eb15` | Deep
 `596ecd3ff223c686eeb624c2` | WLC
 `5a600a2c6e7e5b71816b09a7` | FUEL TV
+`5a604249b08dff783b693a21` | CLUBBING TV
+`5a60425cb08dff783b693a22` | #C4K360
