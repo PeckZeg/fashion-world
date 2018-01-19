@@ -30,7 +30,7 @@ module.exports = async function() {
     mp4Files = [
       ...mp4Files,
       ...map(
-        filter(files, name => endsWith(name, '.mp4')),
+        filter(files, name => /\.mp4$|\.mov$|\.ts$/.test(name)),
         name => path.join(folder, name)
       )
     ];
