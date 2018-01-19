@@ -36,6 +36,7 @@ const channels = require('./data.json');
       while (ftpFile = await client.spopAsync(PENDING_LIST)) {
         try {
           if (await client.sismemberAsync(COMPLETE_LIST, ftpFile)) {
+            await client.saddAsync(COMPLETE_LIST, ftpFile);
             debug(`忽略视频 ${ftpFile}（原因：已同步）`);
             continue;
           }
