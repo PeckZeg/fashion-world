@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
     const wxUser = await fetchUserInfo(accessToken, req.body.openid);
     const { openid, unionid } = wxUser;
     const user = await User.findOne({
-      'thirdParty.weixin.openid': openid,
+      // 'thirdParty.weixin.openid': openid,
       'thirdParty.weixin.unionid': unionid
     });
 
