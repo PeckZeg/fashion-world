@@ -10,7 +10,7 @@ const { Schema, Types } = mongoose;
 const { GENDERS } = require('./genders');
 
 const schema = new Schema({
-  name: { type: String, minlength: 3, maxLength: 24, default: '' },
+  name: { type: String, default: '' },
   password: { type: String, match: matchPassword, default: null },
   gender: { type: String, enum: GENDERS, default: 'secret' },
   mobile: {
