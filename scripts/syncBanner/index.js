@@ -39,6 +39,16 @@ const { PENDING_LIST, COMPLETE_LIST, ERROR_LIST } = require('./keys');
           });
 
           if (bannerCount) {
+            await Banner.findOneAndUpdate(
+              {
+                channelId: conf.channelId,
+                categoryId: conf.categoryId,
+                title: conf.title
+              },
+              {
+                publishAt: new Date()
+              }
+            );
             await client.saddAsync(COMPLETE_LIST, confJSON);
             debug(`🧟‍  同步 ${basename} 失败，原因：已存在`);
             continue;
