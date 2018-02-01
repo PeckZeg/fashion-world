@@ -14,7 +14,7 @@ const schema = new Schema({
   channelId: { type: ObjectId, required: true },
   categoryId: { type: ObjectId, default: null },
   title: { type: String, required: true, minlength: 2, maxlength: 64, default: '' },
-  description: { type: String, minlength: 1, maxlength: 2048, default: '' },
+  description: { type: String, maxlength: 2048, default: '' },
   type: { type: String, required: true, enum: TYPES, default: DEFAULT_TYPE },
   value: { type: Mixed, required: true, default: '' },
   cover: { type: String, default: null },

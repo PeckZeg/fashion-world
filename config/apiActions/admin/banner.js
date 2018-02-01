@@ -7,9 +7,6 @@ exports.ADMIN_BANNER_GET_FETCH_BANNER_PROFILE = 'admin:banner:fetch-banner-profi
 // 创建横幅栏
 exports.ADMIN_BANNER_POST_CREATE_BANNER = 'admin:banner:create-banner';
 
-// 上传横幅栏封面
-exports.ADMIN_BANNER_POST_UPLOAD_BANNER_COVER = 'admin:banner:upload-banner-cover';
-
 // 发布横幅栏
 exports.ADMIN_BANNER_POST_PUBLISH_BANNER = 'admin:banner:publish-banner';
 
@@ -18,6 +15,9 @@ exports.ADMIN_BANNER_POST_RECOVER_BANNER = 'admin:banner:recover-banner';
 
 // 更新横幅栏
 exports.ADMIN_BANNER_PUT_UPDATE_BANNER = 'admin:banner:update-banner';
+
+// 更新横幅栏封面
+exports.ADMIN_BANNER_PUT_UPDATE_BANNER_COVER = 'admin:banner:update-banner-cover';
 
 // 禁用横幅栏
 exports.ADMIN_BANNER_DEL_BLOCK_BANNER = 'admin:banner:block-banner';
