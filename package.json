@@ -16,6 +16,7 @@
     "sync:video": "DEBUG=sync babel-node scripts/syncVideo",
     "sync:loop-video:cover": "DEBUG=sync babel-node scripts/syncLoopVideoCover",
     "sync:channel": "DEBUG=sync babel-node scripts/syncChannel",
+    "sync:banner": "DEBUG=sync babel-node scripts/syncBanner",
     "fix:user:createAt:null": "DEBUG=fix babel-node scripts/fixUserCreateAtNull",
     "fix:loop-video:no-exists-video": "DEBUG=fix babel-node scripts/fixLoopVideoNoExistsVideo"
   },
