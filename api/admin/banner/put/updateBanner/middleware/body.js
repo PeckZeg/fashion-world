@@ -11,7 +11,7 @@ const schema = new Schema({
   channelId: ObjectId,
   categoryId: ObjectId,
   title: { type: String, minlength: 2, maxlength: 64 },
-  description: { type: String, minlength: 1, maxlength: 2048 },
+  description: { type: String, maxlength: 2048 },
   type: { type: String, enum: TYPES },
   value: { type: Mixed },
   priority: Number

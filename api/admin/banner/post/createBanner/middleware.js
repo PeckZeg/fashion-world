@@ -15,6 +15,7 @@ const schema = new Schema({
   type: { type: String, required: true, enum: TYPES },
   value: { type: Mixed, required: true, default: '' },
   priority: { type: Number, default: 0 },
+  key: String
 }, { _id: false });
 
 module.exports = genMiddleware(genValidator(schema), 'body');
