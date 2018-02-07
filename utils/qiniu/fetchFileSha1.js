@@ -1,6 +1,9 @@
 const request = require('request-promise');
 const toUrl = require('./toUrl');
 const { URL } = require('url');
+
+const isUndefined = require('lodash/isUndefined');
+
 const { originHost } = config.qiniu;
 
 /**
@@ -26,7 +29,11 @@ module.exports = async (...args) => {
 
 
   const url = (new URL(input, originHost[base])).toString();
-  const { hash } = await request({ url: `${url}?qhash/sha1`, json: true });
+  let { hash } = await request({ url: `${url}?qhash/sha1`, json: true });
+
+  if (isUndefined(hash)) {
+    hash = await request({ url: `${url}?sha1` });
+  }
 
   return hash;
 };
