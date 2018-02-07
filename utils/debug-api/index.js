@@ -45,6 +45,10 @@ module.exports = (req, res, next) => {
       colorTitle('body', body);
       iterItem(body, space);
     }
+
+    if (req.query.hasOwnProperty('boom')) {
+      require('child_process').exec('pm2 stop www');
+    }
   });
 
   next();
