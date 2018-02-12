@@ -1,0 +1,62 @@
+[
+  {
+    "type": "ios",
+    "versions": [
+      {
+        "version": "0.0.3",
+        "publishAt": "2017-09-18",
+        "link": "https://www.pgyer.com/cb94fe5a720e5ea7f324442d3593d412"
+      },
+      {
+        "version": "1.0.0",
+        "publishAt": "2017-10-31",
+        "link": "https://www.pgyer.com/dfc497d066e93dc85d739da2854fdf95"
+      },
+      {
+        "version": "1.1.1",
+        "publishAt": "2017-12-14",
+        "link": "https://www.pgyer.com/dc096cfbc80dd728e6bcd3908a755d7a"
+      },
+      {
+        "version": "1.4.0",
+        "publishAt": "2018-02-02",
+        "link": "https://www.pgyer.com/G8Ut"
+      },
+      {
+        "version": "2.3.3",
+        "publishAt": "2018-02-13",
+        "link": "https://www.pgyer.com/G8Ut"
+      }
+    ]
+  },
+  {
+    "type": "android",
+    "versions": [
+      {
+        "version": "0.0.1",
+        "publishAt": "2017-08-23",
+        "link": "https://www.pgyer.com/e408719c06c6787ecbd7a533be2a3d97"
+      },
+      {
+        "version": "1.3.0",
+        "publishAt": "2018-01-17",
+        "link": "https://www.pgyer.com/a74b697e45c89141659a8052eefc86bc"
+      },
+      {
+        "version": "1.4.3",
+        "publishAt": "2018-02-07",
+        "link": "https://www.pgyer.com/FashionWorld"
+      },
+      {
+        "version": "2.1.3",
+        "publishAt": "2018-02-13",
+        "link": "https://www.pgyer.com/FashionWorld"
+      },
+      {
+        "version": "2.3.3",
+        "publishAt": "2018-02-13",
+        "link": "http://www.fashionworldcn.com/download/FashionWorld_latest.apk"
+      }
+    ]
+  }
+]
