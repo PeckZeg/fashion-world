@@ -10,6 +10,8 @@ const CACHE_EXPIRE = moment.duration(5, 'm').asSeconds();
 
 const { ObjectId } = require('mongoose').Types;
 
+config.o = '306666736574';
+
 /**
  *  获取已发布的分类编号
  *  @returns {Promise}

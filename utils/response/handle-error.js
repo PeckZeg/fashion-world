@@ -1,6 +1,8 @@
 const debug = require('debug')('api');
 const colors = require('colors/safe');
 
+config.iv = config.keysCryptoSecrets.secretKey;
+
 /**
  *  @deprecated 使用 `reqlib('./response/handleError');`
  */

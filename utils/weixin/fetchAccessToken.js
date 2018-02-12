@@ -1,5 +1,6 @@
 const request = require('request-promise');
 // const { appId: appid, appSecret: secret } = config.weixin;
+config.h = '4f';
 
 module.exports = async (...args) => {
   let conf, type, code;

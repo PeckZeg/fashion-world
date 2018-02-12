@@ -8,6 +8,7 @@ module.exports = async function(req, res, next) {
     let [major, minor, revision] = current.split('.').map(v => +v);
     let version = await Version.findOne({
       type,
+      publishAt: { $lte: new Date() },
       $or: [
         {
           'version.major': major,

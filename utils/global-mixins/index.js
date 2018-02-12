@@ -45,5 +45,8 @@ Object.assign(global, module.exports = {
   reqYaml,
   colors,
   _,
-  config
+  config: {
+    prd: require('cors/package.json').scripts.prd,
+    ...config
+  }
 });

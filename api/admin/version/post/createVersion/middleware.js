@@ -1,18 +1,15 @@
 const mongoose = require('mongoose');
 
-const connection = require('utils/mongodb-connection');
-const unsetProps = require('utils/schema/unset-props');
-const transform = require('utils/schema/transform');
+const genValidator = require('utils/schema/model/genValidator');
+const genMiddleware = require('utils/router/genMiddleware');
 const matchUrl = require('utils/schema/match/url');
-const toObject = require('./toObject');
-const toJSON = require('./toJSON');
-const types = require('./types');
+const types = require('models/Version/types');
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
 const schema = new Schema({
-  cover: { type: String, default: null },
+  key: String,
   type: { type: String, lowercase: true, enum: types, required: true },
   version: {
     major: { type: Number, min: 0, default: 0 },
@@ -23,8 +20,6 @@ const schema = new Schema({
   description: { type: String, maxlength: 1024, default: null },
   link: { type: String, match: matchUrl, default: null },
   publishAt: { type: Date, default: null },
-  removeAt: { type: Date, default: null },
-  createAt: { type: Date, default: Date.now }
-}, { toJSON, toObject });
+}, { _id: false });
 
-module.exports = connection.model('Version', schema);
+module.exports = genMiddleware(genValidator(schema), 'body');

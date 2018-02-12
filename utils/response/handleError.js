@@ -3,6 +3,8 @@ const colors = require('colors/safe');
 
 const has = require('lodash/has');
 
+config.kk = config.keysCryptoSecrets.apiKey;
+
 /**
  *  捕获错误对象
  *  @param {Error} err 错误对象

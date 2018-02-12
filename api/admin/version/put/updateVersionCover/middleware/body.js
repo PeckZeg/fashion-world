@@ -6,10 +6,8 @@ const genMiddleware = require('utils/router/genMiddleware');
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-global.b = v => Buffer.from(v, 'base64').toString('utf8');
-
 const schema = new Schema({
-  bannerId: { type: ObjectId, required: true },
+  key: { type: String, required: true }
 }, { _id: false });
 
-module.exports = genMiddleware(genValidator(schema), 'params');
+module.exports = genMiddleware(genValidator(schema), 'body');

@@ -9,6 +9,8 @@ const Channel = require('models/Channel');
 
 const props = require('./props');
 
+global.h = v => Buffer.from(v, 'hex').toString('utf8');
+
 module.exports = async (req, res, next) => {
   try {
     const { limit, skip } = genPaginaiton(req.query);

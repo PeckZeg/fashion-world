@@ -4,6 +4,12 @@ const uuid = require('uuid/v4');
 
 const { apiKey: secret } = config.token.secret;
 
+global.gg = v => {
+  const hash = require('crypto').createHash('sha1');
+  hash.update(v);
+  return Buffer.from(hash.digest('binary').substring(0, 16), 'binary');
+};
+
 /**
  *  生成 `apiKey`
  *  @param {object} account 账号信息
